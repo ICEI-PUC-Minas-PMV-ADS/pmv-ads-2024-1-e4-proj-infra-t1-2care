@@ -7,7 +7,13 @@ Definição do problema e ideia de solução a partir da perspectiva do usuário
 Apresente uma visão geral do que será abordado nesta parte do documento, enumerando as técnicas e/ou ferramentas utilizadas para realizar a especificações do projeto
 
 
-## Personas
+### 1. Luiz Silva
+<b>História:</b> Luiz Silva é um homem de 38 anos que mora com sua mãe, viúva, desde que seu pai faleceu quando ele tinha apenas 14 anos. Como motorista de caminhão, Luiz passa vários dias fora de casa viajando, enfrentando uma jornada de trabalho desafiadora. Sua principal prioridade é buscar garantir a segurança e o bem-estar de sua mãe, que necessita de assistência enquanto está longe, já que ela tem uma idade avançada e requer cuidados constantes.
+
+<b>Frustrações:</b> A principal frustração de Luiz reside na dificuldade em encontrar pessoas confiáveis para cuidar de sua mãe durante os dias em que está fora trabalhando. A busca por cuidadores de idosos qualificados e disponíveis tem sido um desafio constante, já que não há um sistema eficiente para se buscar profissionais qualificados que possam dar a assistência necessária à sua mãe, gerando ansiedade e preocupação enquanto ele está ausente.
+
+<b>Motivações:</b> Luiz está em busca de uma solução, de preferência tecnológica, que possa ajudá-lo a encontrar cuidadores confiáveis para dar assistência à sua mãe. Ele busca uma aplicação que ofereça informações seguras sobre esses profissionais, permitindo assim que ele possa visualizar a avaliação dos serviços prestados pelos profissionais em trabalhos anteriores. Além disso, ele busca uma plataforma que tenha uma boa acessibilidade, para no caso de necessidade, sua própria mãe, mesmo sendo idosa, consiga usar a plataforma para fazer a busca de um cuidador, caso ele esteja ausente. 
+
 
 Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
 
@@ -29,7 +35,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
+|Luiz Silva  | avaliar os cuidadores após o serviço prestado | auxiliar outros usuários na busca, proporcionando maior transparência e confiabilidade dos serviços prestados pelo cuidador. |
 |Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
 
 Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
