@@ -101,25 +101,38 @@ No contexto de desenvolvimento de software, qualidade pode ser entendida como um
 
 A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 31 subcaracterísticas de qualidade para produtos de software. Com base nessas características e subcaracterísticas, é necessário identificar quais delas serão utilizadas pela equipe de desenvolvimento com referência para o projeto de software, desempenhando o papel de balizadores para a verificação da qualidade. A seguir, apresentamos a justificativa, as subcaracterísticas escolhidas pela equipe e as métricas que possibilitarão a avaliação da qualidade do software.
 
-### Justificativa
+## Justificativa
 
 Dentre as 31 subcaracterísticas elencadas pela ISO IEC 25010/2011, optamos por selecionar 11 delas por entendermos que são as essenciais para avaliarmos a qualidade do produto e seu sucesso no momento da entrega para o cliente. 
 
-### Método da Avaliação
+## Método da Avaliação
 
 Serão aplicados questionários qualitativos a 5 Desenvolvedores para avaliarem os quesitos intrínsecos (código e arquitetura) e a 5 Usuários para avaliarem os quesitos extrínsecos (aspectos aparentes do aplicativo).
 
-![Screen Shot 2024-02-27 at 19 15 18](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/0899d53b-a5a6-42cd-afff-f573629136c1)
+![Screenshot 2024-02-27 225725](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/e4269f46-2f5f-4cb2-975d-c9f6085680a8)
 
-![Screen Shot 2024-02-27 at 19 16 58](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/263eb7aa-b005-45b0-aecf-4ba43480c5e3)
+![Screenshot 2024-02-27 225831](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/95561090-14d0-40e4-b57a-97e1174ed07d)
 
-![Screen Shot 2024-02-27 at 19 17 34](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/f5baa07c-5519-4e12-9647-4e4e5f15dea4)
+![Screenshot 2024-02-27 230219](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/471da2c0-e748-456a-8456-4ef5127631fd)
 
-![Screen Shot 2024-02-27 at 19 18 37](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/2965cc0a-8f41-4c4c-9b08-44bc4271a28e)
+![Screenshot 2024-02-27 230029](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/91d1229e-1fa5-4486-9c07-4c7037ade354)
 
+## Critérios e Métricas
 
-> **Links Úteis**:
->
-> - [ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models](https://www.iso.org/standard/35733.html/)
-> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de Software - Engenharia de Software 29](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209/)
+Serão adotadas pontuações para os atributos de qualidade, permitindo assim termos a pontuação por cada Subcaracterísticas. São elas:
+
+![Screenshot 2024-02-27 230531](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/a747de4a-f689-4858-a33f-92c9b791e2e2)
+
+O cálculo dessa pontuação será realizado por meio da planilha abaixo, a qual está configurada para apurar a pontuação final conforme critério definido pela 2Gather, sendo: Ao informarmos a o resultado dos Questionários aplicados, teremos então a pontuação obtida por cada subcaracterística. Na sequência teremos a pontuação da Característica que será a média das suas Subcaracterísticas. Por fim, faremos a média das 7 características, que será a pontuação da "QS" Qualidade do Software. 
+
+![Screenshot 2024-02-27 230653](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/657ad43e-8faa-436e-9663-89f8bee8bc20)
+![Screenshot 2024-02-27 230725](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/10ce7f0e-b284-4a20-9386-2c6e4d23a571)
+
+![Screenshot 2024-02-27 230918](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/6e13c066-9cf5-494e-a524-e14787c14e0b)
+![Screenshot 2024-02-27 230846](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/57705331-b193-4927-96c4-3d97f1fb0c6a)
+
+Após a consolidação da pontuação obtida com os questionários respondidos, verificaremos a pontuação final da "QS" e compararemos com a Tabela "INDICADOR DE QUALIDADE":
+
+![Screenshot 2024-02-27 230554](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/357dab26-0c86-4e5f-ab59-e589346aa92e)
+
+Feito esta análise, teremos o resultado da aferição da Qualidade do Software desenvolvido.
