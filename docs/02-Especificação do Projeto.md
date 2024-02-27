@@ -49,19 +49,48 @@ Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o 
 
 ### Descrição Geral da Proposta
 
-Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias.
+A 2Care é uma plataforma inovadora destinada a simplificar e otimizar o processo de contratação de cuidadores para idosos, oferecendo uma solução integrada que conecta famílias com prestadores de serviço qualificados através de um sistema intuitivo. Focada em processos de negócio como cadastro simplificado, gerenciamento de perfil, busca personalizada, avaliação de serviços e contratação eficiente, a 2Care busca garantir uma experiência segura, transparente e confiável para todos os usuários, promovendo um serviço de cuidado a idosos de alta qualidade e adaptado às necessidades específicas de cada família.
 
-### Processo 1 – NOME DO PROCESSO
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN. 
+### Processo 1 – CADASTRO DE CLIENTE E PRESTADOR DE SERVIÇO
 
-![Processo 1](img/02-bpmn-proc1.png)
+Permite que ambos, famílias em busca de cuidadores e os próprios prestadores de serviço, criem perfis detalhados para usarem na plataforma.
 
-### Processo 2 – NOME DO PROCESSO
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/f3f7fd3a-65bd-413f-828d-74c8c4dc0ce7)
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 2. Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN.
 
-![Processo 2](img/02-bpmn-proc2.png)
+### Processo 2 – LOGIN DE CLIENTE E PRESTADOR DE SERVIÇO
+
+Assegura um acesso seguro e personalizado à plataforma **2Care**, onde usuários podem entrar em suas contas para explorar ou oferecer serviços, mantendo a privacidade e integridade dos dados.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d7448c87-ffe3-4418-bfb4-3a0b9a5b9c17)
+
+
+### Processo 3 – GERENCIAMENTO DE PERFIL DE CLIENTE E PRESTADOR DE SERVIÇO
+
+Oferece uma ferramenta intuitiva para que usuários atualizem suas informações, habilidades, e preferências, promovendo um perfil sempre atual e atrativo para facilitar a busca e a contratação de serviços de cuidado personalizados.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/10870f34-e3fd-45c3-b44c-f0d2096167b0)
+
+
+### Processo 4 – BUSCA POR PRESTADOR DE SERVIÇO
+
+Clientes podem utilizar filtros avançados para encontrar cuidadores que atendam às suas especificidades de necessidades, localização, e qualificações, tornando a **2Care** uma ferramenta eficiente para achar o match ideal de maneira rápida e eficaz.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/dc6371a1-d2fc-4634-aef0-189f92aa7850)
+
+
+### Processo 5 – AVALIAÇÃO DE SERVIÇO
+
+Permite que clientes e prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente aprimorada com base nas avaliações.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d023a082-b540-4d73-a137-7c0454e67be2)
+
+
+### Processo 6 – CONTRATAÇÃO DE SERVIÇO DE CUIDADORES
+
+Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma interação direta para definir termos, horários e pagamentos, sem intervenção da plataforma, destacando a autonomia do usuário e a flexibilidade nas contratações.
+
 
 ## Indicadores de Desempenho
 
