@@ -9,11 +9,11 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 
 ## Diagrama de Fluxo
 
-O diagrama apresenta o estudo do fluxo de interação do usuário com o sistema interativo e  muitas vezes sem a necessidade do desenho do design das telas da interface. Isso permite que o design das interações seja bem planejado e gere impacto na qualidade no design do wireframe interativo que será desenvolvido logo em seguida.
+O diagrama de fluxo é uma representação visual do fluxo sistemático de dados, criado com o propósito de facilitar o planejamento das interações e aprimorar a qualidade do desenho dos wireframes que estão na sequência logo abaixo.
 
-O diagrama de fluxo pode ser desenvolvido com “boxes” que possuem internamente a indicação dos principais elementos de interface - tais como menus e acessos - e funcionalidades, tais como editar, pesquisar, filtrar, configurar - e a conexão entre esses boxes a partir do processo de interação. Você pode ver mais explicações e exemplos https://www.lucidchart.com/blog/how-to-make-a-user-flow-diagram.
+#### Diagrama de Fluxo Mobile
+![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/113949375/184ca647-e0b7-43f2-a295-d6ce2687a234)
 
-![Exemplo de Diagrama de Fluxo](img/diagramafluxo2.jpg)
 
 As referências abaixo irão auxiliá-lo na geração do artefato “Diagramas de Fluxo”.
 
