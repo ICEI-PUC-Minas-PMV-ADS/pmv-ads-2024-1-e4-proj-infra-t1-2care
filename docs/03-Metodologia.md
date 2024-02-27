@@ -74,7 +74,8 @@ Ao receber uma tarefa que estará listada na coluna "To-do", a pessoa estudante 
 
 <br>
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/f9d0114f-a05e-4c3c-a5cd-962ce7302805)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/e1f39d0c-a63b-45d1-a902-9794a2b7bbb5)
+
 
 
 <br>
