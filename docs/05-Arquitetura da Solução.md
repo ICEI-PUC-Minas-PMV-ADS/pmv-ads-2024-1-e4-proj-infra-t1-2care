@@ -95,15 +95,44 @@ Em resumo, optamos por hospedar nossa aplicação em uma VPS com Ubuntu, executa
 
 ## Qualidade de Software
 
-Conceituar qualidade de fato é uma tarefa complexa, mas ela pode ser vista como um método gerencial que através de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
+Conceituar qualidade é uma tarefa complexa, porém pode ser compreendida como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca assegurar a entrega de um produto final que atenda às expectativas dos stakeholders.
 
-No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem satisfeitas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, tal nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
+No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características que devem ser atendidas, garantindo que o produto de software satisfaça as necessidades de seus usuários. No entanto, esse nível de satisfação nem sempre é alcançado espontaneamente, necessitando ser continuamente construído. Dessa forma, a qualidade do produto depende significativamente do respectivo processo de desenvolvimento.
 
-A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software.
-Com base nessas características e nas respectivas sub-características, identifique as sub-características que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software considerando-se alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão a equipe avaliar os objetos de interesse.
+A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 31 subcaracterísticas de qualidade para produtos de software. Com base nessas características e subcaracterísticas, é necessário identificar quais delas serão utilizadas pela equipe de desenvolvimento com referência para o projeto de software, desempenhando o papel de balizadores para a verificação da qualidade. A seguir, apresentamos a justificativa, as subcaracterísticas escolhidas pela equipe e as métricas que possibilitarão a avaliação da qualidade do software.
 
-> **Links Úteis**:
->
-> - [ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models](https://www.iso.org/standard/35733.html/)
-> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de Software - Engenharia de Software 29](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209/)
+## Justificativa
+
+Dentre as 31 subcaracterísticas elencadas pela ISO IEC 25010/2011, optamos por selecionar 11 delas por entendermos que são as essenciais para avaliarmos a qualidade do produto e seu sucesso no momento da entrega para o cliente. 
+
+## Método da Avaliação
+
+Serão aplicados questionários qualitativos a 5 Desenvolvedores para avaliarem os quesitos intrínsecos (código e arquitetura) e a 5 Usuários para avaliarem os quesitos extrínsecos (aspectos aparentes do aplicativo).
+
+![Screenshot 2024-02-27 225725](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/e4269f46-2f5f-4cb2-975d-c9f6085680a8)
+
+![Screenshot 2024-02-27 225831](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/95561090-14d0-40e4-b57a-97e1174ed07d)
+
+![Screenshot 2024-02-27 230219](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/471da2c0-e748-456a-8456-4ef5127631fd)
+
+![Screenshot 2024-02-27 230029](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/91d1229e-1fa5-4486-9c07-4c7037ade354)
+
+## Critérios e Métricas
+
+Serão adotadas pontuações para os atributos de qualidade, permitindo assim termos a pontuação por cada Subcaracterísticas. São elas:
+
+![Screenshot 2024-02-27 230531](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/a747de4a-f689-4858-a33f-92c9b791e2e2)
+
+O cálculo dessa pontuação será realizado por meio da planilha abaixo, a qual está configurada para apurar a pontuação final conforme critério definido pela 2Gather, sendo: Ao informarmos a o resultado dos Questionários aplicados, teremos então a pontuação obtida por cada subcaracterística. Na sequência teremos a pontuação da Característica que será a média das suas Subcaracterísticas. Por fim, faremos a média das 7 características, que será a pontuação da "QS" Qualidade do Software. 
+
+![Screenshot 2024-02-27 230653](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/657ad43e-8faa-436e-9663-89f8bee8bc20)
+![Screenshot 2024-02-27 230725](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/10ce7f0e-b284-4a20-9386-2c6e4d23a571)
+
+![Screenshot 2024-02-27 230918](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/6e13c066-9cf5-494e-a524-e14787c14e0b)
+![Screenshot 2024-02-27 230846](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/57705331-b193-4927-96c4-3d97f1fb0c6a)
+
+Após a consolidação da pontuação obtida com os questionários respondidos, verificaremos a pontuação final da "QS" e compararemos com a Tabela "INDICADOR DE QUALIDADE":
+
+![Screenshot 2024-02-27 230554](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/357dab26-0c86-4e5f-ab59-e589346aa92e)
+
+Feito esta análise, teremos o resultado da aferição da Qualidade do Software desenvolvido.
