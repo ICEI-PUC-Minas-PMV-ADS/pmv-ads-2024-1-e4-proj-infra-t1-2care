@@ -95,12 +95,28 @@ Em resumo, optamos por hospedar nossa aplicação em uma VPS com Ubuntu, executa
 
 ## Qualidade de Software
 
-Conceituar qualidade de fato é uma tarefa complexa, mas ela pode ser vista como um método gerencial que através de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
+Conceituar qualidade é uma tarefa complexa, porém pode ser compreendida como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca assegurar a entrega de um produto final que atenda às expectativas dos stakeholders.
 
-No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem satisfeitas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, tal nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
+No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características que devem ser atendidas, garantindo que o produto de software satisfaça as necessidades de seus usuários. No entanto, esse nível de satisfação nem sempre é alcançado espontaneamente, necessitando ser continuamente construído. Dessa forma, a qualidade do produto depende significativamente do respectivo processo de desenvolvimento.
 
-A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software.
-Com base nessas características e nas respectivas sub-características, identifique as sub-características que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software considerando-se alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão a equipe avaliar os objetos de interesse.
+A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 31 subcaracterísticas de qualidade para produtos de software. Com base nessas características e subcaracterísticas, é necessário identificar quais delas serão utilizadas pela equipe de desenvolvimento com referência para o projeto de software, desempenhando o papel de balizadores para a verificação da qualidade. A seguir, apresentamos a justificativa, as subcaracterísticas escolhidas pela equipe e as métricas que possibilitarão a avaliação da qualidade do software.
+
+### Justificativa
+
+Dentre as 31 subcaracterísticas elencadas pela ISO IEC 25010/2011, optamos por selecionar 11 delas por entendermos que são as essenciais para avaliarmos a qualidade do produto e seu sucesso no momento da entrega para o cliente. 
+
+### Método da Avaliação
+
+Serão aplicados questionários qualitativos a 5 Desenvolvedores para avaliarem os quesitos intrínsecos (código e arquitetura) e a 5 Usuários para avaliarem os quesitos extrínsecos (aspectos aparentes do aplicativo).
+
+![Screen Shot 2024-02-27 at 19 15 18](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/0899d53b-a5a6-42cd-afff-f573629136c1)
+
+![Screen Shot 2024-02-27 at 19 16 58](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/263eb7aa-b005-45b0-aecf-4ba43480c5e3)
+
+![Screen Shot 2024-02-27 at 19 17 34](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/f5baa07c-5519-4e12-9647-4e4e5f15dea4)
+
+![Screen Shot 2024-02-27 at 19 18 37](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/2965cc0a-8f41-4c4c-9b08-44bc4271a28e)
+
 
 > **Links Úteis**:
 >
