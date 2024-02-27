@@ -44,7 +44,9 @@ Quanto à gerência de `commits`, o projeto adota a seguinte convenção para et
  - `Scrum Master`: Ellen Caroline Trindade Gonçalves Cândido;
  - `Product Owner`: Shinji Matsumoto Fernandes;
 
- - `Designer UI/UX`: Amanda de Lima Ventura;
+ - `Designer UI/UX`: 
+    - Amanda de Lima Ventura;
+    - Leonardo Correia de Sá e Silva;
 
  - `Arquiteto de Software`: Elpidio Lomeu Junior;
  - `Analista de Testes (Quality Assurance)`: Odair Cordeiro Marra;
