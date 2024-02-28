@@ -108,15 +108,10 @@ Apresente aqui os principais indicadores de desempenho e algumas metas para o pr
 |-|-------|-------------------------|----|----------|----|-|--|
 |01| Tempo de envio e recebimento de solicitações | Reduzir o tempo de resposta para solicitações entre clientes e cuidadores. | Medir o tempo entre o cliente fazer uma solicitação e o cuidador responder. |Timestamp de resposta do cuidador - Timestamp de envio da solicitação pelo cliente. | Banco de dados da aplicação. | <= 2h | Eficiência do Serviço |
 |02| Taxa de Satisfação de Usuários | Maximizar a satisfação dos usuários com a plataforma | Percentual de usuários que avaliam a experiência como positiva | Número de avaliações positivas / Total de avaliações | Feedback dos usuários | >= 90% | Qualidade do Serviço |
-
 |03| Taxa de Sucesso na Contratação | Garantir que as solicitações resultem em contratações efetivas | Percentual de solicitações que resultam em contratação | Total de contratações efetivas / Total de solicitações  | Banco de dados da aplicação | >= 80% | Efetividade do Serviço |
-
 |04| Engajamento Diário de Usuários | Manter alto nível de engajamento diário na plataforma | Percentual de usuários ativos diariamente | Número de usuários únicos diários / Total de usuários | Logs de acesso da aplicação | >= 60% | Engajamento do Usuário |
-
 |05| Volume de Solicitações de Serviço Diárias | Monitorar o volume diário de solicitações de serviço | Número total de solicitações de serviço por dia | Somatório das solicitações de serviço por dia | Banco de dados da aplicação | Crescimento de >= 5% mensal | Uso do Serviço |
-
 |06| Reclamações sobre solicitações | Reduzir o número de reclamações sobre solicitações | Número total de reclamações relacionadas às solicitações | Somatório das reclamações por mês | Canais de feedback da aplicação | <= 2% das solicitações | Satisfação do Usuário |
-
 |07| Taxa de Retenção de Cuidadores | Manter cuidadores engajados e ativos na plataforma | Percentual de cuidadores que permanecem ativos na plataforma após um mês, medido também pela atividade e satisfação. | Número de cuidadores ativos após um mês / Número de novos cuidadores | Banco de dados da aplicação | >= 60% | Retenção e Satisfação de Cuidadores |
 
 Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
