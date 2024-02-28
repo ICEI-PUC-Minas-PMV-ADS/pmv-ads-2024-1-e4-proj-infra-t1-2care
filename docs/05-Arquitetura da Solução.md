@@ -35,6 +35,45 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
 
 [Modelo Físico](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/tree/main/src/db/banco.sql)
 
+## Documentação da Implementação do Banco de Dados NoSQL
+
+A decisão de integrar um banco de dados NoSQL neste projeto é impulsionada pela sua capacidade de melhorar o desempenho e aliviar a carga em nosso banco de dados relacional e infraestrutura backend. Atualmente, muitas vezes o tempo de resposta das aplicações é prejudicado por consultas mal otimizadas em bancos de dados relacionais e constantes operações de JOIN em várias tabelas. Ao utilizar a velocidade do NoSQL, podemos realizar um cache eficiente e periódico, entregando todos os dados aos nossos clientes e mantendo nosso banco de dados relacional como source of truth.
+
+Aproveitando a velocidade e eficiência da tecnologia NoSQL, podemos tirar proveito do crescente poder computacional de dispositivos modernos, como computadores e smartphones. Isso nos permite transferir certas tarefas de processamento para o usuário final, utilizando frameworks como React, o que aumenta significativamente a escalabilidade de nossa aplicação.
+
+A abordagem visa simplificar boa parte do nosso modelo relacional para um modelo NoSQL desestruturado, permitindo o armazenamento de todas as informações relevantes em uma lista de chave-valor no NoSQL, para ser consumida pelos usuários. Isso permite que o React tenha acesso à maioria das informações dentro de seu contexto, reduzindo drasticamente o número de solicitações feitas à nosso backend e banco de dados. Dessa forma, podemos nos concentrar apenas no que realmente importa, como finalização de processos e alterações de informações.
+
+#### Modelo NoSQL utilizado
+```json
+{
+  "Caregivers": [{
+    "name": "Ringui",
+    "picture": "URL",
+    "latitude": 100.000,
+    "longitude": -70.000,
+    "gender": "Male",
+    "birth_date": "1990-01-01",
+    "qualifications": [],
+    "work_exp": [],
+    "specializations": [],
+    "fixed_unavailable_days": [0, 6],
+    "fixed_unavailable_hours": [0, 1, 2, 3, 4, 5, 6, 7, 22, 23],
+    "custom_unavailable_days": ["20/03/2024"],
+    "hour_price": 20.00,
+    "day_price": 150.00,
+    "max_request_km": 10,
+    "work_exp_years": 0,
+    "additional_info": "",
+    "evaluations": [{
+      "user": "Jorge",
+      "comment": "Great!",
+      "rating": 5
+    }],
+    "care_requests_dates": ["2024-03-10", "2024-03-12"]
+  }]
+}
+```
+
 ## Tecnologias Utilizadas
 
 Nossa solução envolve uma variedade de tecnologias que abrangem o desenvolvimento web e móvel, design de interface, gerenciamento de banco de dados, controle de versão e muito mais. Abaixo, listamos as principais tecnologias que estamos utilizando para implementar nossa solução:
