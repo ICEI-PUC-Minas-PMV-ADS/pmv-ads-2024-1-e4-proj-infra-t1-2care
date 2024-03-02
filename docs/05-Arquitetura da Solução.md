@@ -19,8 +19,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 #
 O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
 
-![Modelo DER V2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/0a875912-a03d-4fe9-b13d-348f7edc5ee5)
-
+![DER - V3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/05dbffa0-2b45-49c6-8645-4dcfd175fc52)
 
 
 ## Esquema Relacional
