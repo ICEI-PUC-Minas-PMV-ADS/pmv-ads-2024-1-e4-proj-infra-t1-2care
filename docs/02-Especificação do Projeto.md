@@ -1,7 +1,5 @@
 # Especificações do Projeto
 
-<span style="color:red">Pré-requisitos: <a href="1-Documentação de Contexto.md"> Documentação de Contexto</a></span>
-
 A abordagem do problema e seus objetivos foram idealizados de modo a beneficiar os usuários com a solução entregue. Para tal, foram categorizadas personas e histórias de usuários que representam pessoas idosas, familiares e cuidadores.
 
 ## Personas
@@ -95,42 +93,43 @@ A 2Care é uma plataforma inovadora destinada a simplificar e otimizar o process
 
 Permite que ambos, famílias em busca de cuidadores e os próprios prestadores de serviço, criem perfis detalhados para usarem na plataforma.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/f3f7fd3a-65bd-413f-828d-74c8c4dc0ce7)
+![Processo 1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/6716eee4-9d76-4605-8fb7-416fe8cf90b5)
 
 
 ### Processo 2 – LOGIN DE CLIENTE E PRESTADOR DE SERVIÇO
 
 Assegura um acesso seguro e personalizado à plataforma **2Care**, onde usuários podem entrar em suas contas para explorar ou oferecer serviços, mantendo a privacidade e integridade dos dados.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d7448c87-ffe3-4418-bfb4-3a0b9a5b9c17)
+![Processo2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/79a2e98f-27e1-4220-9e75-6d7dc1b00735)
 
 
 ### Processo 3 – GERENCIAMENTO DE PERFIL DE CLIENTE E PRESTADOR DE SERVIÇO
 
 Oferece uma ferramenta intuitiva para que usuários atualizem suas informações, habilidades, e preferências, promovendo um perfil sempre atual e atrativo para facilitar a busca e a contratação de serviços de cuidado personalizados.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/10870f34-e3fd-45c3-b44c-f0d2096167b0)
+![Processo 3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/3439ed58-3a25-4244-b31f-d8c89c231410)
 
 
 ### Processo 4 – BUSCA POR PRESTADOR DE SERVIÇO
 
 Clientes podem utilizar filtros avançados para encontrar cuidadores que atendam às suas especificidades de necessidades, localização, e qualificações, tornando a **2Care** uma ferramenta eficiente para achar o match ideal de maneira rápida e eficaz.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/dc6371a1-d2fc-4634-aef0-189f92aa7850)
+![Processo 4](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/27063685-1f45-4a5d-b468-9bd9d419489c)
+
 
 
 ### Processo 5 – AVALIAÇÃO DE SERVIÇO
 
 Permite que clientes de prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente incentivada com base nas avaliações.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bbf799c2-077b-486b-89ec-e9cfaa4b4100)
+![Processo 5](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bbf799c2-077b-486b-89ec-e9cfaa4b4100)
 
 
 ### Processo 6 – CONTRATAÇÃO DE SERVIÇO DE CUIDADORES
 
 Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma interação direta para definir termos, horários e pagamentos, sem intervenção da plataforma, destacando a autonomia do usuário e a flexibilidade nas contratações.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/0314cdc5-1637-4e19-a90c-4d463a229d0e)
+![Processo 6](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/0314cdc5-1637-4e19-a90c-4d463a229d0e)
 
 
 ## Indicadores de Desempenho
