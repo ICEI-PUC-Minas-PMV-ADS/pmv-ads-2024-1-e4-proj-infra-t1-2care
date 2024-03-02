@@ -200,7 +200,8 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 
 # Matriz de Rastreabilidade
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/fef738dc-f937-4464-b33d-0ed809c816d2)
+![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/7480e954-0c7d-4798-8c15-91b6a6a3f1bc)
+
 
 
 # Gerenciamento de Projeto
