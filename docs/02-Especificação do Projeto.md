@@ -117,7 +117,6 @@ Clientes podem utilizar filtros avançados para encontrar cuidadores que atendam
 ![Processo 4](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/27063685-1f45-4a5d-b468-9bd9d419489c)
 
 
-
 ### Processo 5 – AVALIAÇÃO DE SERVIÇO
 
 Permite que clientes de prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente incentivada com base nas avaliações.
@@ -129,7 +128,7 @@ Permite que clientes de prestadores de serviço compartilhem feedbacks sobre as 
 
 Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma interação direta para definir termos, horários e pagamentos, sem intervenção da plataforma, destacando a autonomia do usuário e a flexibilidade nas contratações.
 
-![Processo 6](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/0314cdc5-1637-4e19-a90c-4d463a229d0e)
+![Processo 6](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/2b0db88b-9586-4c85-a6b0-7aecb87ff046)
 
 
 ## Indicadores de Desempenho
@@ -151,11 +150,11 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |------|-----------------------------------------|----|
 |RF-01 | A aplicação deve permitir que os usuários façam seus cadastros e login. | ALTA |
 |RF-02 | A aplicação deve permitir que os usuários adicionem, editem e apaguem suas informações pessoais. | ALTA |
-|RF-03  | A aplicação deve permitir ao usuário cliente possa realizar buscas por profissionais de determinada região. | ALTA | 
-|RF-04| A aplicação deve permitir ao cuidador delimitar sua região de atendimento. | ALTA |
+|RF-03 | A aplicação deve permitir ao usuário cliente realizar buscas por profissionais de determinada região. | ALTA | 
+|RF-04 | A aplicação deve permitir ao cuidador delimitar sua região de atendimento. | ALTA |
 |RF-05 | A aplicação deve oferecer recurso de filtragem de profissionais por formação, especialização e/ou tempo de experiência como cuidadores. | ALTA | 
 |RF-06 | A aplicação deve permitir que o cuidador disponibilize suas datas e horários disponíveis para o atendimento. | MÉDIA |
-|RF-07 |  A aplicação deve permitir que o cliente realize uma avaliação quantitativa e qualitativa dos cuidadores. | ALTA |
+|RF-07 |  A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores. | ALTA |
 |RF-08 | A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores. | ALTA |
 |RF-09 | A aplicação deve permitir que os profissionais insiram seus valores de atendimento.  | MÉDIA |
 |RF-10 | A aplicação deve apresentar o valor dos serviços ao cliente no momento da busca.  | MÉDIA |
@@ -164,15 +163,13 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-01  | A interface da aplicação deve ser intuitiva e fácil de usar para pessoas de todas as idades, incluindo idosos que possam querer participar na escolha do seu cuidador | ALTA 
-|RNF-02  | A aplicação deve ter um desempenho rápido e eficiente | ALTA | 
+|RNF-01  | A interface da aplicação deve ser intuitiva e fácil de usar para pessoas de todas as idades. | ALTA 
+|RNF-02  | A aplicação deve ter um desempenho rápido e eficiente. | ALTA | 
 |RNF-03 | A aplicação deve oferecer suporte para a língua portuguesa, garantindo que os usuários possam navegar e utilizar a plataforma em seu idioma nativo. | ALTA |
-|RNF-04  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | MÉDIA | 
+|RNF-04  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | ALTA | 
 |RNF-05 | A aplicação deve assegurar a privacidade e segurança dos dados dos usuários, incluindo informações pessoais e feedback sobre cuidadores, cumprindo com a legislação local de proteção de dados (como LGPD no Brasil) | ALTA |
 |RNF-06 | A aplicação Web deve ser compatível com os principais navegadores (Google Chrome, Firefox, Edge).  | ALTA |
 |RNF-07 | A aplicação Mobile deve ser compatível com os sistemas operacionais Android e iOS,  garantindo uma experiência consistente para os usuários. | ALTA |
-|RNF-08  | A aplicação deve estar acessível para leitores de aplicações. | BAIXA | 
-|RNF-09  | A aplicação deve estar acessível com integração com libras. | BAIXA | 
 
 ## Restrições
 
@@ -195,13 +192,6 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 
 ![Diagrama de casos de uso](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/ea19a8c1-c081-4268-92cb-e5a4b63ee643)
 
-
-> **Links Úteis**:
-> - [Criando Casos de Uso](https://www.ibm.com/docs/pt-br/elm/6.0?topic=requirements-creating-use-cases)
-> - [Como Criar Diagrama de Caso de Uso: Tutorial Passo a Passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
-> - [Lucidchart](https://www.lucidchart.com/)
-> - [Astah](https://astah.net/)
-> - [Diagrams](https://app.diagrams.net/)
 
 # Matriz de Rastreabilidade
 
