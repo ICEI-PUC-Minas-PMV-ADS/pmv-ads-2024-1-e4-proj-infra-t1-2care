@@ -193,7 +193,7 @@ O diagrama de casos de uso é o próximo passo após a elicitação de requisito
 
 As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Casos de Uso”.
 
-![Diagrama de casos de uso](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/ea19a8c1-c081-4268-92cb-e5a4b63ee643)
+![Diagrama de Casso de Uso V2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/5f80e087-ad6c-47ea-af39-ab203f40c02d)
 
 
 > **Links Úteis**:
