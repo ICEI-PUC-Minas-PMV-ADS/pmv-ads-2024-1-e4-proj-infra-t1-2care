@@ -13,7 +13,7 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 
 
 ## Modelo ER
-#
+
 O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
 
 ![DER - V3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/05dbffa0-2b45-49c6-8645-4dcfd175fc52)
