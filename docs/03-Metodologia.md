@@ -33,8 +33,19 @@ Quanto à gerência de `commits`, o projeto adota a seguinte convenção para et
 
 - `doc`: Melhorias ou adições à documentação;
 - `bug`: Resolução de problemas de uma funcionalidade já existente;
-- `feature`: Novas funcionalidades a serem adicionadas ao projeto;
-- `enhance`: Melhorias em funcionalidades já existentes;
+- `feature`: Para cada nova funcionalidade a ser desenvolvida, uma nova **branch** de `feature` deve ser criada a partir da **branch** `develop`, seguindo o padrão de nomenclatura `feature-numero-do-cartao-numero-do-contribuinte`, onde `numero-do-cartao` representa o código numérico identificador da tarefa no **Trello** e o `numero-do-contribuinte` representa o número que representa o membro da equipe que vai de `1` a `6`.
+
+   - `1` - Amanda de Lima Ventura;
+   - `2` - Ellen Caroline Trindade Gonçalves Cândido;
+   - `3` - Elpidio Lomeu Junior;
+   - `4` - Leonardo Correia de Sá e Silva;
+   - `5` - Odair Cordeiro Marra;
+   - `6` - Shinji Matsumoto Fernandes.
+
+Exemplo:
+`feature-10.1` -> `10` representa o Card `10` no Trello e 1 representa a contribuinte 1 `Amanda`.
+
+<br>
 
 ## Gerenciamento de Projeto
 
