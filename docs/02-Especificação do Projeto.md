@@ -136,9 +136,14 @@ Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma in
 
 Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
 
-Usar o seguinte modelo: 
+|ID |Indicador     |Objetivos  |Descrição |Cálculo |Fonte de Dados | Meta |Perspectiva |
+|-|-------|-------------------------|----|----------|----|-|--|
+|01| Taxa de Resposta dos Cuidadores | Medir a eficiência com que os cuidadores respondem às solicitações de cuidado. | Tempo médio que um cuidador leva para responder a uma solicitação de cuidado. | Média do intervalo de tempo entre CareRequest.date e a aceitação da solicitação (pode ser um novo atributo response_date na classe CareRequest). | Banco de dados da aplicação. | Resposta em menos de 24 horas. | Eficiência do Serviço. |
+|02| Satisfação do Cliente | Avaliar o nível de satisfação do cliente com os cuidadores | Média das avaliações dadas aos cuidadores. | Média dos valores em Rating.rating. | Feedback dos usuários | Média de avaliação superior a 4 em 5. | Qualidade do Serviço |
+|03| Taxa de Ocupação dos Cuidadores | Determinar a proporção do tempo em que os cuidadores estão ativamente empregados. | Percentual do tempo total disponível que os cuidadores estão em serviço. | Total de CareRequest.total_hours dividido pela soma das horas disponíveis dos cuidadores. | Banco de dados da aplicação. | Mais de 75% do tempo disponível ocupado. | Utilização do Serviço. |
+|04| Crescimento de Cuidadores Ativos | Monitorar o crescimento da base de cuidadores ativos. | Aumento percentual no número de cuidadores ativos mês a mês. | (Número de cuidadores ativos no final do mês - Número de cuidadores ativos no início do mês) / Número de cuidadores ativos no início do mês. | Banco de dados da aplicação. | Crescimento de 5% ao mês. | Expansão do Serviço. |
+|05| Taxa de Finalização de Serviços | Garantir que as solicitações de cuidado sejam concluídas com sucesso. | Percentual de solicitações de cuidado que são finalizadas em relação ao total de solicitações iniciadas. | Número de CareRequest com status indicando conclusão dividido pelo número total de CareRequest. | Banco de dados da aplicação. | 90% das solicitações concluídas com sucesso. | Confiabilidade do Serviço. |
 
-![Indicadores de Desempenho](img/02-indic-desemp.png)
 Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
 
 ## Requisitos
