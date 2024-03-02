@@ -12,7 +12,8 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 O diagrama de fluxo é uma representação visual do fluxo sistemático de dados, criado com o propósito de facilitar o planejamento das interações e aprimorar a qualidade do desenho dos wireframes que estão na sequência logo abaixo.
 
 #### Diagrama de Fluxo Mobile
-![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/113949375/184ca647-e0b7-43f2-a295-d6ce2687a234)
+![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/bdf4957b-52cd-43f3-934d-50069e65e81d)
+
 
 ## Wireframes
 
@@ -23,7 +24,7 @@ Wireframes são protótipos utilizados no design de interfaces para indicar a es
  
  ![Home](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/4937a5fd-a4c7-4ac0-8b76-ae652225137a)
 
-### Tela Inicial Usuário Não Autenticado
+### Tela Inicial - Usuário Não Autenticado
  Na Tela Inicial quando o usuário não está autenticado. Neste ponto, o usuário terá a possibilidade de realizar uma busca por texto livre e visualizar perfis de cuidadores independentes, apresentando seus nomes, especializações, distâncias, avaliações em estrelas e fotos. Logo abaixo, há um rodapé com três opções: retornar à Tela Inicial, efetuar o login ou realizar uma busca utilizando filtros específicos.
  
 ![Tela Inicial](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/da3b451b-d95d-4647-962f-8a1379e907a5)
@@ -38,20 +39,20 @@ Wireframes são protótipos utilizados no design de interfaces para indicar a es
 
  ![Tela de Registro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/42d777ab-ff13-4215-9428-363be9a99d39)
 
-### Tela de Cadastro Cuidador
+### Tela de Cadastro - Cuidador
  Se o usuário escolher criar um perfil de cuidador, ele deverá preencher todos os campos necessários e, em seguida, clicar em "Criar Conta".
 
  ![Registro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/af608826-b1f0-4672-827e-009e5cd310a9)
  ![Registro Cuidador2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/a4021bf5-98f2-4c1a-8892-6f2f3569e8b2)
  ![Registro Cuidador3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/de745223-9690-4c3d-b0cb-0b5fe0cac392)
 
-### Tela de Cadastro Cliente
+### Tela de Cadastro - Cliente
 Se o usuário escolher criar um perfil de cliente, ele deverá preencher todos os campos necessários e, em seguida, clicar em "Criar Conta".
 
 ![Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/89b3d666-8341-4cad-bbad-8873198c9158)
 ![Cadastro Cliente2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/1f146d25-03b1-4f20-afaa-f4b71162cfcb)
 
-### Tela Inicial Usuário Autenticado
+### Tela Inicial - Usuário Autenticado
 Na Tela Inicial do Cliente Autenticado, há uma distinção em relação à Tela Inicial do Cliente Não Autenticado. Em vez de exibir a opção de fazer login no rodapé, agora é apresentada a opção de acessar o perfil. E esta tela é igual para Clientes Autenticados e Cuidadores.
 
 ![Tela Inicial Usuário Autenticado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/a3c53407-6e96-4bb5-a322-b7b57aea093c)
@@ -61,28 +62,28 @@ Na tela de Busca por Filtros, a experiência será uniforme para Usuários Não 
 
 ![Tela Busca por Filtro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/210133ea-5652-4f06-ab39-aa8463eaccb9)
 
-### Tela de Busca por Filtro Resultados
+### Tela de Busca por Filtro - Resultados
 A tela de resultados da busca por filtro será uniforme para usuários não autenticados, bem como para usuários autenticados na condição de Cliente e Cuidador. Nessa tela, os filtros aplicados serão exibidos juntamente com os resultados obtidos na busca.
 
 ![Tela de Busca por Filtro Resultados](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/105eeac7-c28c-4b4d-8d8d-7431300ef509)
 
-### Tela de Perfil Cliente
+### Tela de Perfil - Cliente
 Na tela de perfil, o Cliente terá a capacidade de visualizar suas informações, além de ter a opção de clicar no botão de edição ou sair da aplicação.
 
 ![Tela de Perfil Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/46d9fe22-ffcb-404c-80e7-8268448f930f)
 
-### Tela de Editar Perfil Cliente
+### Tela de Editar Perfil - Cliente
 Na tela de edição de perfil, quando o usuário assume a condição de Cliente, ele terá a capacidade de modificar suas informações e salvar as alterações realizadas.
 
 ![Tela de Perfil Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/8bc6fbee-ae10-4009-a40c-4f34c876e708)
 
-### Tela de Perfil Cuidador
+### Tela de Perfil - Cuidador
 Na tela de perfil do cuidador, ele terá acesso à visualização das informações pessoais, a opção de editar esses dados, ou sair. Além disso, poderá verificar sua agenda e optar por visualizar informações básicas ou profissionais, assim como consultar suas avaliações ou sair do perfil.
 
 ![Tela de Perfil Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/02022b31-3d0e-498f-947a-406ce4099da7)
 ![Tela de Perfil Cuidador2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/83bee2f0-a6a6-41ca-a3ba-110c402d8aa1)
 
-### Tela de Editar Perfil do Cuidador
+### Tela de Editar Perfil - Cuidador
 Na tela de edição de perfil, quando o usuário assume a condição de Cuidador, ele terá a capacidade de modificar suas informações e salvar as alterações realizadas.
 
 ![Tela de Editar Perfil do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/61e2952c-d866-44af-8e31-dcce200b3f04)
@@ -104,7 +105,7 @@ Na tela de Avaliações, os usuários não autenticados e os autenticados na con
 
 ![Tela de Avaliações](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/6f173661-0796-4370-bd8a-b22d26d83277)
 
-### Tela de Avaliações Cliente que teve sua proposta aceita pelo Cuidador
+### Tela de Avaliações - Cliente que teve sua proposta aceita pelo Cuidador
 Na tela de Avaliações, os usuários que tiveram suas propostas validadas pelo cuidador terão acesso às avaliações feitas por outros usuários que também contrataram esse cuidador. Além disso, eles encontrarão botões para enviar sua própria avaliação e para enviar uma nova proposta.
 
 ![Tela de Avaliações2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/e42987f6-a570-4be0-9c7e-c3709eca677f)
@@ -119,7 +120,7 @@ Na tela de Envio de Proposta, o usuário autenticado na condição de cliente te
 
 ![Tela Enviar Proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/b5175e45-337b-4d58-b57f-d5cf5ea1540b)
 
-### Tela Suas Avaliações
+### Tela Suas Avaliações - Cuidador
 Nesta tela, o cuidador terá acesso às avaliações realizadas pelos clientes aos quais ele aceitou propostas.
 
 ![Tela Suas Avaliações](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/6d6fa3d2-7452-4f5e-94ae-a83fecc5091d)
@@ -129,12 +130,12 @@ Nesta tela, o cuidador terá uma visão consolidada de sua agenda, incluindo dia
 
 ![Tela Agenda - Visão do Usuário Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/41662f59-f8f9-4ff7-8b84-545a1cd36380)
 
-### Tela Editar Agenda
+### Tela Editar Agenda - Cuidador
 Na tela de Edição de Agenda, o cuidador terá a capacidade de ajustar sua agenda conforme necessário e salvar as alterações realizadas.
 
 ![Tela Editar Agenda](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/6849c219-1abb-466a-834d-5b6f543fbc73)
 
-### Tela Valores
+### Tela Valores - Cuidador
 Na Tela de Valores, o cuidador terá a opção de visualizar, ajustar e salvar suas tarifas.
 
 ![Tela Valores](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/9e631293-c205-41fa-83c6-c1515c4aa831)
@@ -145,7 +146,7 @@ Nesta tela, o cuidador estará explorando os perfis de outros cuidadores, podend
 ![Tela de Perfil Selecionado - Visão do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/ebc952a5-dade-40b3-a417-59a662e8b466)
 ![Tela de Perfil Selecionado - Visão do Cuidador2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/3ef9476e-3309-4206-abd0-4074d522d906)
 
-### Tela Propostas
+### Tela Propostas - Cuidador
 Nesta tela, o cuidador terá a capacidade de examinar as propostas recebidas e decidir entre aceitar ou recusar cada uma delas.
 
 ![Tela Propostas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/27ee234f-35f6-4a5e-b4b1-e0464003897c)
