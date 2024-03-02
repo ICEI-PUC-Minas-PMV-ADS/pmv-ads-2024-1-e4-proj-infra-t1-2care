@@ -81,7 +81,10 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+Atualmente, não há um meio centralizador e comumente utilizado para encontrar um profissional de serviços voltado aos cuidados de uma pessoa idosa. O processo de contratação de um prestador costuma iniciar com uma busca por indicações de conhecidos ou através da internet. Desta maneira, o processo tende a ser mais difuso e demorado. A complexidade aumenta quando a contratação é por prestador com especialidade ou formação em área que atenda à alguma necessidade específica, pois não há uma ferramenta que contribua para a busca mais assertiva, o que faz com que os clientes precisem entrar em contato com inúmeros prestadores até concluir a contratação ideal.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/ed2153be-b2d8-48c3-b97c-23ac703b8e2e)
+
 
 ### Descrição Geral da Proposta
 
@@ -118,14 +121,16 @@ Clientes podem utilizar filtros avançados para encontrar cuidadores que atendam
 
 ### Processo 5 – AVALIAÇÃO DE SERVIÇO
 
-Permite que clientes e prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente aprimorada com base nas avaliações.
+Permite que clientes de prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente incentivada com base nas avaliações.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d023a082-b540-4d73-a137-7c0454e67be2)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bbf799c2-077b-486b-89ec-e9cfaa4b4100)
 
 
 ### Processo 6 – CONTRATAÇÃO DE SERVIÇO DE CUIDADORES
 
 Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma interação direta para definir termos, horários e pagamentos, sem intervenção da plataforma, destacando a autonomia do usuário e a flexibilidade nas contratações.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/0314cdc5-1637-4e19-a90c-4d463a229d0e)
 
 
 ## Indicadores de Desempenho
