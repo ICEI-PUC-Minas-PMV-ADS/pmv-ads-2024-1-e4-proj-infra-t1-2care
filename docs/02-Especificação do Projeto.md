@@ -154,8 +154,8 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-04 | A aplicação deve permitir ao cuidador delimitar sua região de atendimento. | ALTA |
 |RF-05 | A aplicação deve oferecer recurso de filtragem de profissionais por formação, especialização e/ou tempo de experiência como cuidadores. | ALTA | 
 |RF-06 | A aplicação deve permitir que o cuidador disponibilize suas datas e horários disponíveis para o atendimento. | MÉDIA |
-|RF-07 |  A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores. | ALTA |
-|RF-08 | A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores. | ALTA |
+|RF-07 | A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores. | MÉDIA |
+|RF-08 | A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores. | MÉDIA |
 |RF-09 | A aplicação deve permitir que os profissionais insiram seus valores de atendimento.  | MÉDIA |
 |RF-10 | A aplicação deve apresentar o valor dos serviços ao cliente no momento da busca.  | MÉDIA |
 
