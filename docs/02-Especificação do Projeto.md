@@ -157,13 +157,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 
 ![Diagrama de Casso de Uso V2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/5f80e087-ad6c-47ea-af39-ab203f40c02d)
 
-
-> **Links Úteis**:
-> - [Criando Casos de Uso](https://www.ibm.com/docs/pt-br/elm/6.0?topic=requirements-creating-use-cases)
-> - [Como Criar Diagrama de Caso de Uso: Tutorial Passo a Passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
-> - [Lucidchart](https://www.lucidchart.com/)
-> - [Astah](https://astah.net/)
-> - [Diagrams](https://app.diagrams.net/)
+<br>
 
 # Matriz de Rastreabilidade
 
