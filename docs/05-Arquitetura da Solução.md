@@ -27,8 +27,9 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Modelo ER�
 
 O Esquema Relacional corresponde à representação dos dados em tabelas juntamente com as restrições de integridade e chave primária.
  
-[Esquema Relacional PDF](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/tree/main/src/db/EsquemaRelacional-2care-28-02-24.pdf)
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/96087622/40596369-90d2-4c24-b9d0-11dc87131532)
+[Esquema Relacional PDF](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/tree/main/docs/img/EsquemaRelacional-2care-02-03-24.pdf)
+![ Esquema Relacional PNG ](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/fce751e2-6fcc-4f90-859e-4fcf5d29e2dc)
+
 
 
 ## Modelo Físico
