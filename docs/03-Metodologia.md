@@ -43,7 +43,7 @@ Quanto à gerência de `commits`, o projeto adota a seguinte convenção para et
    - `6` - Shinji Matsumoto Fernandes.
 
 Exemplo:
-`feature-10.1` -> `10` representa o Card `10` no Trello e 1 representa a contribuinte 1 `Amanda`.
+`feature-10.1` -> `10` representa o Card `10` no Trello e `1` representa a contribuinte `1` Amanda.
 
 <br>
 
@@ -60,8 +60,6 @@ Exemplo:
 
  - `Arquiteto de Software`: Elpidio Lomeu Junior;
  - `Analista de Testes (Quality Assurance)`: Odair Cordeiro Marra;
-
- - `Produtor Audiovisual`: Leonardo Correia de Sá e Silva;
  
  - `Equipe de Desenvolvimento`: 
    - Amanda de Lima Ventura;
