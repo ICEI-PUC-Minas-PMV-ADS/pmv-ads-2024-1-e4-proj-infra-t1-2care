@@ -33,7 +33,7 @@ Quanto à gerência de `commits`, o projeto adota a seguinte convenção para et
 
 - `doc`: Melhorias ou adições à documentação;
 - `bug`: Resolução de problemas de uma funcionalidade já existente;
-- `feature`: Para cada nova funcionalidade a ser desenvolvida, uma nova **branch** de `feature` deve ser criada a partir da **branch** `develop`, seguindo o padrão de nomenclatura `feature-numero-do-cartao-numero-do-contribuinte`, onde `numero-do-cartao` representa o código numérico identificador da tarefa no **Trello** e o `numero-do-contribuinte` representa o número que representa o membro da equipe que vai de `1` a `6`.
+- `feature`: Para cada nova funcionalidade a ser desenvolvida, uma nova **branch** de `feature` deve ser criada a partir da **branch** `develop`, seguindo o padrão de nomenclatura `feature-numero-do-cartao.numero-do-contribuinte`, onde `numero-do-cartao` representa o código numérico identificador da tarefa no **Trello** e o `numero-do-contribuinte` representa o número que representa o membro da equipe que vai de `1` a `6`.
 
    - `1` - Amanda de Lima Ventura;
    - `2` - Ellen Caroline Trindade Gonçalves Cândido;
