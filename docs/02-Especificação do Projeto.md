@@ -6,6 +6,70 @@ A abordagem do problema e seus objetivos foram idealizados de modo a beneficiar 
 
 As personas levantadas durante o processo de entendimento do problema são apresentadas a seguir:
 
+| **Persona 1** | <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/8b93cc1a-be3f-4a7d-aac0-a6303cddc12d"> |
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Luiz Silva        |
+| **Idade:**                                  | 38 anos        |
+| **Ocupação:**                               | Motorista de caminhão |
+| **História:**                               | Luiz Silva é um homem de 38 anos que mora com sua mãe, viúva, desde que seu pai faleceu quando ele tinha apenas 14 anos. Como motorista de caminhão, Luiz passa vários dias fora de casa viajando, enfrentando uma jornada de trabalho desafiadora. Sua principal prioridade é buscar garantir a segurança e o bem-estar de sua mãe, que necessita de assistência enquanto está longe, já que ela tem uma idade avançada e requer cuidados constantes. |
+| **Frustrações:**                            | A principal frustração de Luiz reside na dificuldade em encontrar pessoas confiáveis para cuidar de sua mãe durante os dias em que está fora trabalhando. A busca por cuidadores de idosos qualificados e disponíveis tem sido um desafio constante, já que não há um sistema eficiente para se buscar profissionais qualificados que possam dar a assistência necessária à sua mãe, gerando ansiedade e preocupação enquanto ele está ausente. |
+| **Motivações:**                             | Luiz está em busca de uma solução, de preferência tecnológica, que possa ajudá-lo a encontrar cuidadores confiáveis para dar assistência à sua mãe. Ele busca uma aplicação que ofereça informações seguras sobre esses profissionais, permitindo assim que ele possa visualizar a avaliação dos serviços prestados pelos profissionais em trabalhos anteriores. Além disso, ele busca uma plataforma que tenha uma boa acessibilidade, para no caso de necessidade, sua própria mãe, mesmo sendo idosa, consiga usar a plataforma para fazer a busca de um cuidador, caso ele esteja ausente.  |
+
+| **Persona 2** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/bd6cdbc8-b321-407a-abb3-ebcc8e2db516) |
+|---------------------------------------------|----------------|
+| **Nome:**                                  | David Williams      |
+| **Idade:**                                  | 62 anos        |
+| **Ocupação:**                               | Aposentado |
+| **História:**                               | David Williams, aos 62 anos e já aposentado, tem sua vida entrelaçada com a dedicação à família e um notável percurso na área da saúde. Residindo na Alemanha após uma carreira ilustre, enfrenta agora o desafio de cuidar de sua mãe, que vive no interior de São Paulo, Brasil. Este cenário realça a necessidade de uma solução que equilibre o desejo de David de manter sua mãe em seu ambiente familiar com a exigência de cuidados especializados. É fundamental para David buscar um profissional especializado para assistir sua mãe, que valoriza profundamente suas raízes e a vida comunitária que construiu no interior de São Paulo. Ele se vê diante da tarefa desafiadora de encontrar um profissional que não apenas possua a qualificação necessária, mas que também compreenda a importância do ambiente social e emocional de sua mãe. |
+| **Frustrações:**                            | A principal frustração de David é a dificuldade de encontrar um cuidador com formação específica em saúde, capaz de oferecer o nível de cuidado e atenção que sua mãe necessita, sem deslocá-la de seu ambiente familiar. A distância física e a limitação de recursos locais amplificam essa preocupação, tornando imperativa a busca por uma solução eficaz. |
+| **Motivações:**                             | David é motivado pela urgência de assegurar que sua mãe receba cuidados de alta qualidade em seu próprio lar, mantendo-a conectada com sua vida social e comunitária. Ele busca uma plataforma que facilite a conexão entre famílias e cuidadores qualificados, categorizados por nível de formação e especialização. Este sistema permitiria a David e outros na mesma situação encontrar profissionais adequados — desde cuidadores leigos até enfermeiros formados, garantindo um cuidado personalizado e respeitoso às necessidades individuais.  |
+
+| **Persona 3** | ![image](URL-da-imagem)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Ringui Evangelista      |
+| **Idade:**                                  | 35 anos        |
+| **Ocupação:**                               | Gerente de Projetos |
+| **História:**                               | Ringui tem 35 anos, é Gerente de Projetos, é um profissional dedicado e orientado para a família. Ele cresceu em uma casa onde o cuidado com os idosos sempre foi uma prioridade, especialmente após seu avô ter enfrentado problemas de saúde. A experiência de cuidar do avô o ensinou a valorizar os cuidados adequados para os idosos e a importância de encontrar os cuidadores certos para ajudar a garantir o bem-estar de seus entes queridos. |
+| **Frustrações:**                            | Ringui muitas vezes se sente sobrecarregado com suas responsabilidades profissionais e pessoais, especialmente quando se trata de cuidar de seu pai idoso. Ele lida com a constante preocupação sobre o bem-estar e segurança de seu pai quando não pode estar presente. Além disso, ele encontra dificuldades em encontrar cuidadores confiáveis e qualificados que possam atender às necessidades específicas de seu pai. |
+| **Motivações:**                             | Ringui está determinado a proporcionar ao seu pai uma vida confortável e digna, mesmo quando não pode estar presente fisicamente. Ele busca encontrar cuidadores que possam não apenas atender às necessidades práticas de seu pai, mas também oferecer companheirismo e apoio emocional. Sua maior motivação é garantir que seu pai receba o melhor cuidado possível e possa desfrutar de uma vida feliz e saudável em sua idade avançada. |
+
+| **Persona 4** | ![image](URL-da-imagem)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | José Silva     |
+| **Idade:**                                  | 54 anos        |
+| **Ocupação:**                               | Gerente de vendas |
+| **História:**                               | José Silva, aos 54 anos, é um gerente de vendas dedicado e filho único, responsável pelo cuidado de sua mãe, Maria José, de 93 anos, que sofre de Alzheimer. Morando em Natal, Rio Grande do Norte, José enfrenta o desafio diário de equilibrar suas exigências profissionais com os cuidados de sua mãe. |
+| **Frustrações:**                            | José se sente frequentemente sobrecarregado pela falta de feedback confiável sobre os cuidadores potenciais, tornando difícil para ele fazer uma escolha informada. A dificuldade em encontrar um profissional especializado em Alzheimer, que possa compreender e atender às necessidades únicas de sua mãe, adiciona uma camada de estresse à sua já agitada vida. |
+| **Motivações:**                             | A principal motivação de José é garantir que sua mãe receba o melhor cuidado possível, mantendo-a em seu ambiente familiar e proporcionando-lhe a qualidade de vida que ela merece. Ele busca uma plataforma que possa facilitar a conexão com cuidadores confiáveis, oferecer avaliações detalhadas e histórico de trabalho, e permitir uma filtragem eficaz por especialização, para encontrar alguém com a experiência necessária para cuidar de idosos com Alzheimer. |
+
+| **Persona 5** | ![persona-jorge-v2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/10b4dda8-60f9-49e0-86e6-506235f9fbbd)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Jorge de Souza |
+| **Idade:**                                  | 30 anos        |
+| **Ocupação:**                               | Fisioterapeuta com residência em Saúde do Idoso |
+| **História:**                               | Jorge de Souza tem 30 anos, é fisioterapeuta com residência em Residência em Saúde do Idoso. Como recém concluiu sua residência em outro estado, agora regressou a seu estado natal e busca oportunidades para atuar em sua área de formação, mas dessa vez pretende atender de maneira autônoma. |
+| **Frustrações:**                            | Jorge reside em uma cidade do interior de seu estado onde não há muitas oportunidades para sua atuação no momento. Tem buscado oportunidades em outras cidades, mas enfrenta dificuldades por estar desempregado no momento e não conseguir se manter financeiramente em outra cidade durante a busca. |
+| **Motivações:**                             | Jorge gostaria que houvesse uma plataforma na qual ele pudesse ofertar suas informações pessoais e agenda de atendimentos para ser encontrado por possíveis clientes em regiões próximas. Além disso, gostaria de encontrar tanto pessoas que precisassem de acompanhamentos pontuais como também assistências contínuas, assim poderia adquirir diversas experiências e desenvolver-se mais em sua área. |
+
+| **Persona 6** | ![image](URL-da-imagem)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Carla Sampaio  |
+| **Idade:**                                  | 41 anos        |
+| **Ocupação:**                               | Engenheira de software especializada em desenvolvimento de aplicativos móveis |
+| **História:**                               | Carla Sampaio tem 41 anos, é uma engenheira de software especializada em desenvolvimento de aplicativos móveis. Além de sua paixão pela tecnologia, seus hobbies incluem leitura, jardinagem e apreciar música, muitas vezes compartilhando esses momentos descontraídos com amigos e desfrutando de um bom vinho. Recentemente, Carla tomou a decisão de mudar de cidade e emprego para ficar mais próxima de sua família. |
+| **Frustrações:**                            | Carla sente-se frustrada ao deparar-se com a sua falta de tempo para cuidar dos seus pais, uma tarefa que ela considera de extrema importância. Encontrar pessoas em quem ela possa confiar para esse trabalho não é uma tarefa fácil, e a busca por profissionais qualificados e confiáveis se torna uma fonte de preocupação constante. |
+| **Motivações:**                             | A principal motivação de Carla é proporcionar aos seus pais uma velhice confortável e com todos os cuidados que eles possam precisar. Carla busca encontrar profissionais de confiança para auxiliá-la nessa tarefa. |
+
+| **Persona 7** | ![image](URL-da-imagem)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Fernanda Mendes |
+| **Idade:**                                  | 35 anos        |
+| **Ocupação:**                               | Enfermeira especializada em geriatria |
+| **História:**                               | Fernanda Mendes tem 35 anos, é uma enfermeira dedicada e apaixonada por cuidados com a saúde das pessoas. Especializada em geriatria, ela tem mais de 10 anos de experiência no cuidado com idosos, proporcionando assistência compassiva e profissional. |
+| **Frustrações:**                            | Fernanda, embora ame sua profissão, frequentemente se depara com a falta de conexão pessoal e atenção individualizada que os idosos merecem. Ela sente que em ambientes hospitalares tradicionais, a correria muitas vezes limita a atenção personalizada que ela gostaria de oferecer. |
+| **Motivações:**                             | Fernanda busca oportunidades que permitam uma agenda mais flexível e que possa oferecer seus serviços de forma personalizada, que atenda as necessidades específicas dos idosos e com isso possa lhes proporcionar o máximo cuidado. |
+
+<!--
 ### 1. Luiz Silva
 <b>História:</b> Luiz Silva é um homem de 38 anos que mora com sua mãe, viúva, desde que seu pai faleceu quando ele tinha apenas 14 anos. Como motorista de caminhão, Luiz passa vários dias fora de casa viajando, enfrentando uma jornada de trabalho desafiadora. Sua principal prioridade é buscar garantir a segurança e o bem-estar de sua mãe, que necessita de assistência enquanto está longe, já que ela tem uma idade avançada e requer cuidados constantes.
 
@@ -55,6 +119,7 @@ As personas levantadas durante o processo de entendimento do problema são apres
 <b>Frustrações:</b> Fernanda, embora ame sua profissão, frequentemente se depara com a falta de conexão pessoal e atenção individualizada que os idosos merecem. Ela sente que em ambientes hospitalares tradicionais, a correria muitas vezes limita a atenção personalizada que ela gostaria de oferecer. Trabalhando em Hospitais ela sente que poderia agregar mais se pudesse oferecer seus serviços para atendimento domiciliares, mas sente falta de uma canal de contratação para esses serviços.
 
 <b>Motivações:</b> Fernanda busca oportunidades que permitam uma agenda mais flexível e que possa oferecer seus serviços de forma personalizada, que atenda as necessidades específicas dos idosos e com isso possa lhes proporcionar o máximo cuidado. Fernanda acredita que possa ser melhor remunerada com essa forma de trabalho, já que seus serviços são de alta qualidade e exclusivos durante o período contratado. Ela espera poder estabelecer de forma prévia os valores dos seus serviços para os clientes.
+-->
 
 ## Histórias de Usuários
 
