@@ -13,7 +13,7 @@ O diagrama de fluxo é uma representação visual do fluxo sistemático de dados
 
 ![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/9ea7abda-b28b-4ab2-8203-6d4c6b0a2632)
 #### Diagrama de fluxo versão Web
-![Diagrama de Fluxo Web](diagramadefluxoweb.png)
+![Diagrama de Fluxo Web](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/4c4b88d1-eee6-4129-abdb-1b7e1e4b2877)
 
 ## Wireframes
 
