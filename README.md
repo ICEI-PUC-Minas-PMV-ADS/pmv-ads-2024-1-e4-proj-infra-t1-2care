@@ -1,23 +1,27 @@
-# TÍTULO DO PROJETO
+# 2Care
 
-`CURSO`
+`ANÁLISE E DESENVOLVIMENTO DE SISTEMAS`
 
-`DISCIPLINA`
+`Projeto: Desenvolvimento de uma Aplicação Distribuída`
 
-`SEMESTRE`
+`2024/1`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Diante da transformação demográfica no Brasil, com um aumento significativo na população idosa, surge a necessidade urgente de inovar no setor de cuidados a idosos. O Censo Brasileiro de 2022 revelou um crescimento de 57,4% no número de pessoas com 65 anos ou mais, acompanhado de um aumento na demanda por profissionais de cuidado. Em resposta a este cenário, nosso projeto visa desenvolver uma aplicação que facilite a conexão entre famílias em busca de cuidadores qualificados e profissionais de home care procurando por oportunidades de trabalho. A plataforma tem como objetivo principal oferecer um meio intuitivo e eficiente para que os cuidadores possam divulgar suas qualificações e experiências, e as famílias possam encontrar o suporte adequado para o bem-estar de seus entes queridos, abordando assim a lacuna existente no processo de encontrar assistência de qualidade para idosos.
+
+Este projeto se justifica pela necessidade premente de soluções adaptadas ao crescente envelhecimento da população brasileira, evidenciado pelo aumento expressivo de profissionais na área de cuidados a idosos e pela dificuldade das famílias em encontrar cuidadores adequados. A criação de uma aplicação dedicada a conectar eficientemente cuidadores e famílias não só atende a uma demanda crescente por serviços especializados de cuidados, mas também promove melhores oportunidades de emprego para profissionais qualificados, contribuindo significativamente para a melhoria da qualidade de vida dos idosos e a eficiência dos cuidados prestados.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Amanda de Lima Ventura
+* Ellen Caroline Trindade Gonçalves Cândido
+* Elpidio Lomeu Junior
+* Leonardo Correia de Sá e Silva
+* Odair Cordeiro Marra
+* Shinji Matsumoto Fernandes
 
 ## Orientador
 
-* Nome completo do professor 1
+* Felipe Augusto Lara Soares
 
 ## Instruções de utilização
 
