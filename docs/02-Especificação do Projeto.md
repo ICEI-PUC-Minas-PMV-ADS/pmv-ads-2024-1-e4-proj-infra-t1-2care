@@ -24,7 +24,7 @@ As personas levantadas durante o processo de entendimento do problema são apres
 | **Frustrações:**                            | A principal frustração de David é a dificuldade de encontrar um cuidador com formação específica em saúde, capaz de oferecer o nível de cuidado e atenção que sua mãe necessita, sem deslocá-la de seu ambiente familiar. A distância física e a limitação de recursos locais amplificam essa preocupação, tornando imperativa a busca por uma solução eficaz. |
 | **Motivações:**                             | David é motivado pela urgência de assegurar que sua mãe receba cuidados de alta qualidade em seu próprio lar, mantendo-a conectada com sua vida social e comunitária. Ele busca uma plataforma que facilite a conexão entre famílias e cuidadores qualificados, categorizados por nível de formação e especialização. Este sistema permitiria a David e outros na mesma situação encontrar profissionais adequados — desde cuidadores leigos até enfermeiros formados, garantindo um cuidado personalizado e respeitoso às necessidades individuais.  |
 
-| **Persona 3** | ![image](URL-da-imagem)|
+| **Persona 3** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/fb2e85c5-dfb5-4cf3-a7cd-80edcda82e1d)|
 |---------------------------------------------|----------------|
 | **Nome:**                                  | Ringui Evangelista      |
 | **Idade:**                                  | 35 anos        |
@@ -33,7 +33,7 @@ As personas levantadas durante o processo de entendimento do problema são apres
 | **Frustrações:**                            | Ringui muitas vezes se sente sobrecarregado com suas responsabilidades profissionais e pessoais, especialmente quando se trata de cuidar de seu pai idoso. Ele lida com a constante preocupação sobre o bem-estar e segurança de seu pai quando não pode estar presente. Além disso, ele encontra dificuldades em encontrar cuidadores confiáveis e qualificados que possam atender às necessidades específicas de seu pai. |
 | **Motivações:**                             | Ringui está determinado a proporcionar ao seu pai uma vida confortável e digna, mesmo quando não pode estar presente fisicamente. Ele busca encontrar cuidadores que possam não apenas atender às necessidades práticas de seu pai, mas também oferecer companheirismo e apoio emocional. Sua maior motivação é garantir que seu pai receba o melhor cuidado possível e possa desfrutar de uma vida feliz e saudável em sua idade avançada. |
 
-| **Persona 4** | ![image](URL-da-imagem)|
+| **Persona 4** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/bac8b6b0-fbc2-4f7d-8e80-53f0fa5f9d5d)|
 |---------------------------------------------|----------------|
 | **Nome:**                                  | José Silva     |
 | **Idade:**                                  | 54 anos        |
@@ -51,16 +51,16 @@ As personas levantadas durante o processo de entendimento do problema são apres
 | **Frustrações:**                            | Jorge reside em uma cidade do interior de seu estado onde não há muitas oportunidades para sua atuação no momento. Tem buscado oportunidades em outras cidades, mas enfrenta dificuldades por estar desempregado no momento e não conseguir se manter financeiramente em outra cidade durante a busca. |
 | **Motivações:**                             | Jorge gostaria que houvesse uma plataforma na qual ele pudesse ofertar suas informações pessoais e agenda de atendimentos para ser encontrado por possíveis clientes em regiões próximas. Além disso, gostaria de encontrar tanto pessoas que precisassem de acompanhamentos pontuais como também assistências contínuas, assim poderia adquirir diversas experiências e desenvolver-se mais em sua área. |
 
-| **Persona 6** | ![image](URL-da-imagem)|
+| **Persona 6** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/671fab33-ed69-4757-8065-a11653cb32b4)|
 |---------------------------------------------|----------------|
 | **Nome:**                                  | Carla Sampaio  |
-| **Idade:**                                  | 41 anos        |
+| **Idade:**                                  | 31 anos        |
 | **Ocupação:**                               | Engenheira de software especializada em desenvolvimento de aplicativos móveis |
-| **História:**                               | Carla Sampaio tem 41 anos, é uma engenheira de software especializada em desenvolvimento de aplicativos móveis. Além de sua paixão pela tecnologia, seus hobbies incluem leitura, jardinagem e apreciar música, muitas vezes compartilhando esses momentos descontraídos com amigos e desfrutando de um bom vinho. Recentemente, Carla tomou a decisão de mudar de cidade e emprego para ficar mais próxima de sua família. |
+| **História:**                               | Carla Sampaio tem 31 anos, é uma engenheira de software especializada em desenvolvimento de aplicativos móveis. Além de sua paixão pela tecnologia, seus hobbies incluem leitura, jardinagem e apreciar música, muitas vezes compartilhando esses momentos descontraídos com amigos e desfrutando de um bom vinho. Recentemente, Carla tomou a decisão de mudar de cidade e emprego para ficar mais próxima de sua família. |
 | **Frustrações:**                            | Carla sente-se frustrada ao deparar-se com a sua falta de tempo para cuidar dos seus pais, uma tarefa que ela considera de extrema importância. Encontrar pessoas em quem ela possa confiar para esse trabalho não é uma tarefa fácil, e a busca por profissionais qualificados e confiáveis se torna uma fonte de preocupação constante. |
 | **Motivações:**                             | A principal motivação de Carla é proporcionar aos seus pais uma velhice confortável e com todos os cuidados que eles possam precisar. Carla busca encontrar profissionais de confiança para auxiliá-la nessa tarefa. |
 
-| **Persona 7** | ![image](URL-da-imagem)|
+| **Persona 7** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/894d9b0d-efda-4f91-93ba-eb0d452ab285)|
 |---------------------------------------------|----------------|
 | **Nome:**                                  | Fernanda Mendes |
 | **Idade:**                                  | 35 anos        |
