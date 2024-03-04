@@ -15,13 +15,7 @@ O diagrama de fluxo é uma representação visual do fluxo sistemático de dados
 ![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/113949375/184ca647-e0b7-43f2-a295-d6ce2687a234)
 
 #### Diagrama de fluxo versão Web
-![Diagrama de Fluxo Web](diagramadefluxoweb.png)
-
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagramas de Fluxo”.
-
-> **Links Úteis**:
-> - [Fluxograma online: seis sites para fazer gráfico sem instalar nada | Produtividade | TechTudo](https://www.techtudo.com.br/listas/2019/03/fluxograma-online-seis-sites-para-fazer-grafico-sem-instalar-nada.ghtml)
+![Diagrama de Fluxo Web](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/4c4b88d1-eee6-4129-abdb-1b7e1e4b2877)
 
 ## Wireframes
 
