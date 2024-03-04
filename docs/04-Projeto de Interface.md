@@ -1,8 +1,6 @@
 
 # Projeto de Interface
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Documentação de Especificação</a></span>
-
 Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
 
  Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados nas <a href="2-Especificação do Projeto.md"> Documentação de Especificação</a>.
@@ -12,7 +10,10 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 O diagrama de fluxo é uma representação visual do fluxo sistemático de dados, criado com o propósito de facilitar o planejamento das interações e aprimorar a qualidade do desenho dos wireframes que estão na sequência logo abaixo.
 
 #### Diagrama de Fluxo Mobile
+
 ![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/9ea7abda-b28b-4ab2-8203-6d4c6b0a2632)
+#### Diagrama de fluxo versão Web
+![Diagrama de Fluxo Web](diagramadefluxoweb.png)
 
 ## Wireframes
 

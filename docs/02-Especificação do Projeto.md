@@ -1,12 +1,75 @@
 # Especificações do Projeto
 
-<span style="color:red">Pré-requisitos: <a href="1-Documentação de Contexto.md"> Documentação de Contexto</a></span>
+A abordagem do problema e seus objetivos foram idealizados de modo a beneficiar os usuários com a solução entregue. Para tal, foram categorizadas personas e histórias de usuários que representam pessoas idosas, familiares e cuidadores.
 
-Definição do problema e ideia de solução a partir da perspectiva do usuário. É composta pela definição do  diagrama de personas, histórias de usuários, requisitos funcionais e não funcionais além das restrições do projeto.
+## Personas
 
-Apresente uma visão geral do que será abordado nesta parte do documento, enumerando as técnicas e/ou ferramentas utilizadas para realizar a especificações do projeto
+As personas levantadas durante o processo de entendimento do problema são apresentadas a seguir:
 
+| **Persona 1** | <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/8b93cc1a-be3f-4a7d-aac0-a6303cddc12d"> |
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Luiz Silva        |
+| **Idade:**                                  | 38 anos        |
+| **Ocupação:**                               | Motorista de caminhão |
+| **História:**                               | Luiz Silva é um homem de 38 anos que mora com sua mãe, viúva, desde que seu pai faleceu quando ele tinha apenas 14 anos. Como motorista de caminhão, Luiz passa vários dias fora de casa viajando, enfrentando uma jornada de trabalho desafiadora. Sua principal prioridade é buscar garantir a segurança e o bem-estar de sua mãe, que necessita de assistência enquanto está longe, já que ela tem uma idade avançada e requer cuidados constantes. |
+| **Frustrações:**                            | A principal frustração de Luiz reside na dificuldade em encontrar pessoas confiáveis para cuidar de sua mãe durante os dias em que está fora trabalhando. A busca por cuidadores de idosos qualificados e disponíveis tem sido um desafio constante, já que não há um sistema eficiente para se buscar profissionais qualificados que possam dar a assistência necessária à sua mãe, gerando ansiedade e preocupação enquanto ele está ausente. |
+| **Motivações:**                             | Luiz está em busca de uma solução, de preferência tecnológica, que possa ajudá-lo a encontrar cuidadores confiáveis para dar assistência à sua mãe. Ele busca uma aplicação que ofereça informações seguras sobre esses profissionais, permitindo assim que ele possa visualizar a avaliação dos serviços prestados pelos profissionais em trabalhos anteriores. Além disso, ele busca uma plataforma que tenha uma boa acessibilidade, para no caso de necessidade, sua própria mãe, mesmo sendo idosa, consiga usar a plataforma para fazer a busca de um cuidador, caso ele esteja ausente.  |
 
+| **Persona 2** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/bd6cdbc8-b321-407a-abb3-ebcc8e2db516) |
+|---------------------------------------------|----------------|
+| **Nome:**                                  | David Williams      |
+| **Idade:**                                  | 62 anos        |
+| **Ocupação:**                               | Aposentado |
+| **História:**                               | David Williams, aos 62 anos e já aposentado, tem sua vida entrelaçada com a dedicação à família e um notável percurso na área da saúde. Residindo na Alemanha após uma carreira ilustre, enfrenta agora o desafio de cuidar de sua mãe, que vive no interior de São Paulo, Brasil. Este cenário realça a necessidade de uma solução que equilibre o desejo de David de manter sua mãe em seu ambiente familiar com a exigência de cuidados especializados. É fundamental para David buscar um profissional especializado para assistir sua mãe, que valoriza profundamente suas raízes e a vida comunitária que construiu no interior de São Paulo. Ele se vê diante da tarefa desafiadora de encontrar um profissional que não apenas possua a qualificação necessária, mas que também compreenda a importância do ambiente social e emocional de sua mãe. |
+| **Frustrações:**                            | A principal frustração de David é a dificuldade de encontrar um cuidador com formação específica em saúde, capaz de oferecer o nível de cuidado e atenção que sua mãe necessita, sem deslocá-la de seu ambiente familiar. A distância física e a limitação de recursos locais amplificam essa preocupação, tornando imperativa a busca por uma solução eficaz. |
+| **Motivações:**                             | David é motivado pela urgência de assegurar que sua mãe receba cuidados de alta qualidade em seu próprio lar, mantendo-a conectada com sua vida social e comunitária. Ele busca uma plataforma que facilite a conexão entre famílias e cuidadores qualificados, categorizados por nível de formação e especialização. Este sistema permitiria a David e outros na mesma situação encontrar profissionais adequados — desde cuidadores leigos até enfermeiros formados, garantindo um cuidado personalizado e respeitoso às necessidades individuais.  |
+
+| **Persona 3** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/fb2e85c5-dfb5-4cf3-a7cd-80edcda82e1d)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Ringui Evangelista      |
+| **Idade:**                                  | 35 anos        |
+| **Ocupação:**                               | Gerente de Projetos |
+| **História:**                               | Ringui tem 35 anos, é Gerente de Projetos, é um profissional dedicado e orientado para a família. Ele cresceu em uma casa onde o cuidado com os idosos sempre foi uma prioridade, especialmente após seu avô ter enfrentado problemas de saúde. A experiência de cuidar do avô o ensinou a valorizar os cuidados adequados para os idosos e a importância de encontrar os cuidadores certos para ajudar a garantir o bem-estar de seus entes queridos. |
+| **Frustrações:**                            | Ringui muitas vezes se sente sobrecarregado com suas responsabilidades profissionais e pessoais, especialmente quando se trata de cuidar de seu pai idoso. Ele lida com a constante preocupação sobre o bem-estar e segurança de seu pai quando não pode estar presente. Além disso, ele encontra dificuldades em encontrar cuidadores confiáveis e qualificados que possam atender às necessidades específicas de seu pai. |
+| **Motivações:**                             | Ringui está determinado a proporcionar ao seu pai uma vida confortável e digna, mesmo quando não pode estar presente fisicamente. Ele busca encontrar cuidadores que possam não apenas atender às necessidades práticas de seu pai, mas também oferecer companheirismo e apoio emocional. Sua maior motivação é garantir que seu pai receba o melhor cuidado possível e possa desfrutar de uma vida feliz e saudável em sua idade avançada. |
+
+| **Persona 4** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/bac8b6b0-fbc2-4f7d-8e80-53f0fa5f9d5d)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | José Silva     |
+| **Idade:**                                  | 54 anos        |
+| **Ocupação:**                               | Gerente de vendas |
+| **História:**                               | José Silva, aos 54 anos, é um gerente de vendas dedicado e filho único, responsável pelo cuidado de sua mãe, Maria José, de 93 anos, que sofre de Alzheimer. Morando em Natal, Rio Grande do Norte, José enfrenta o desafio diário de equilibrar suas exigências profissionais com os cuidados de sua mãe. |
+| **Frustrações:**                            | José se sente frequentemente sobrecarregado pela falta de feedback confiável sobre os cuidadores potenciais, tornando difícil para ele fazer uma escolha informada. A dificuldade em encontrar um profissional especializado em Alzheimer, que possa compreender e atender às necessidades únicas de sua mãe, adiciona uma camada de estresse à sua já agitada vida. |
+| **Motivações:**                             | A principal motivação de José é garantir que sua mãe receba o melhor cuidado possível, mantendo-a em seu ambiente familiar e proporcionando-lhe a qualidade de vida que ela merece. Ele busca uma plataforma que possa facilitar a conexão com cuidadores confiáveis, oferecer avaliações detalhadas e histórico de trabalho, e permitir uma filtragem eficaz por especialização, para encontrar alguém com a experiência necessária para cuidar de idosos com Alzheimer. |
+
+| **Persona 5** | ![persona-jorge-v2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/10b4dda8-60f9-49e0-86e6-506235f9fbbd)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Jorge de Souza |
+| **Idade:**                                  | 30 anos        |
+| **Ocupação:**                               | Fisioterapeuta com residência em Saúde do Idoso |
+| **História:**                               | Jorge de Souza tem 30 anos, é fisioterapeuta com residência em Residência em Saúde do Idoso. Como recém concluiu sua residência em outro estado, agora regressou a seu estado natal e busca oportunidades para atuar em sua área de formação, mas dessa vez pretende atender de maneira autônoma. |
+| **Frustrações:**                            | Jorge reside em uma cidade do interior de seu estado onde não há muitas oportunidades para sua atuação no momento. Tem buscado oportunidades em outras cidades, mas enfrenta dificuldades por estar desempregado no momento e não conseguir se manter financeiramente em outra cidade durante a busca. |
+| **Motivações:**                             | Jorge gostaria que houvesse uma plataforma na qual ele pudesse ofertar suas informações pessoais e agenda de atendimentos para ser encontrado por possíveis clientes em regiões próximas. Além disso, gostaria de encontrar tanto pessoas que precisassem de acompanhamentos pontuais como também assistências contínuas, assim poderia adquirir diversas experiências e desenvolver-se mais em sua área. |
+
+| **Persona 6** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/671fab33-ed69-4757-8065-a11653cb32b4)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Carla Sampaio  |
+| **Idade:**                                  | 31 anos        |
+| **Ocupação:**                               | Engenheira de software especializada em desenvolvimento de aplicativos móveis |
+| **História:**                               | Carla Sampaio tem 31 anos, é uma engenheira de software especializada em desenvolvimento de aplicativos móveis. Além de sua paixão pela tecnologia, seus hobbies incluem leitura, jardinagem e apreciar música, muitas vezes compartilhando esses momentos descontraídos com amigos e desfrutando de um bom vinho. Recentemente, Carla tomou a decisão de mudar de cidade e emprego para ficar mais próxima de sua família. |
+| **Frustrações:**                            | Carla sente-se frustrada ao deparar-se com a sua falta de tempo para cuidar dos seus pais, uma tarefa que ela considera de extrema importância. Encontrar pessoas em quem ela possa confiar para esse trabalho não é uma tarefa fácil, e a busca por profissionais qualificados e confiáveis se torna uma fonte de preocupação constante. |
+| **Motivações:**                             | A principal motivação de Carla é proporcionar aos seus pais uma velhice confortável e com todos os cuidados que eles possam precisar. Carla busca encontrar profissionais de confiança para auxiliá-la nessa tarefa. |
+
+| **Persona 7** | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/894d9b0d-efda-4f91-93ba-eb0d452ab285)|
+|---------------------------------------------|----------------|
+| **Nome:**                                  | Fernanda Mendes |
+| **Idade:**                                  | 35 anos        |
+| **Ocupação:**                               | Enfermeira especializada em geriatria |
+| **História:**                               | Fernanda Mendes tem 35 anos, é uma enfermeira dedicada e apaixonada por cuidados com a saúde das pessoas. Especializada em geriatria, ela tem mais de 10 anos de experiência no cuidado com idosos, proporcionando assistência compassiva e profissional. |
+| **Frustrações:**                            | Fernanda, embora ame sua profissão, frequentemente se depara com a falta de conexão pessoal e atenção individualizada que os idosos merecem. Ela sente que em ambientes hospitalares tradicionais, a correria muitas vezes limita a atenção personalizada que ela gostaria de oferecer. |
+| **Motivações:**                             | Fernanda busca oportunidades que permitam uma agenda mais flexível e que possa oferecer seus serviços de forma personalizada, que atenda as necessidades específicas dos idosos e com isso possa lhes proporcionar o máximo cuidado. |
+
+<!--
 ### 1. Luiz Silva
 <b>História:</b> Luiz Silva é um homem de 38 anos que mora com sua mãe, viúva, desde que seu pai faleceu quando ele tinha apenas 14 anos. Como motorista de caminhão, Luiz passa vários dias fora de casa viajando, enfrentando uma jornada de trabalho desafiadora. Sua principal prioridade é buscar garantir a segurança e o bem-estar de sua mãe, que necessita de assistência enquanto está longe, já que ela tem uma idade avançada e requer cuidados constantes.
 
@@ -14,20 +77,49 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 <b>Motivações:</b> Luiz está em busca de uma solução, de preferência tecnológica, que possa ajudá-lo a encontrar cuidadores confiáveis para dar assistência à sua mãe. Ele busca uma aplicação que ofereça informações seguras sobre esses profissionais, permitindo assim que ele possa visualizar a avaliação dos serviços prestados pelos profissionais em trabalhos anteriores. Além disso, ele busca uma plataforma que tenha uma boa acessibilidade, para no caso de necessidade, sua própria mãe, mesmo sendo idosa, consiga usar a plataforma para fazer a busca de um cuidador, caso ele esteja ausente. 
 
+### 2. David Williams
+<b>História:</b> David Williams, aos 62 anos e já aposentado, tem sua vida entrelaçada com a dedicação à família e um notável percurso na área da saúde. Residindo na Alemanha após uma carreira ilustre, enfrenta agora o desafio de cuidar de sua mãe, que vive no interior de São Paulo, Brasil. Este cenário realça a necessidade de uma solução que equilibre o desejo de David de manter sua mãe em seu ambiente familiar com a exigência de cuidados especializados. É fundamental para David buscar um profissional especializado para assistir sua mãe, que valoriza profundamente suas raízes e a vida comunitária que construiu no interior de São Paulo. Ele se vê diante da tarefa desafiadora de encontrar um profissional que não apenas possua a qualificação necessária, mas que também compreenda a importância do ambiente social e emocional de sua mãe.
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
+<b>Frustrações:</b> A principal frustração de David é a dificuldade de encontrar um cuidador com formação específica em saúde, capaz de oferecer o nível de cuidado e atenção que sua mãe necessita, sem deslocá-la de seu ambiente familiar. A distância física e a limitação de recursos locais amplificam essa preocupação, tornando imperativa a busca por uma solução eficaz.
 
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
+<b>Motivações:</b> David é motivado pela urgência de assegurar que sua mãe receba cuidados de alta qualidade em seu próprio lar, mantendo-a conectada com sua vida social e comunitária. Ele busca uma plataforma que facilite a conexão entre famílias e cuidadores qualificados, categorizados por nível de formação e especialização. Este sistema permitiria a David e outros na mesma situação encontrar profissionais adequados — desde cuidadores leigos até enfermeiros formados, garantindo um cuidado personalizado e respeitoso às necessidades individuais.
 
-> **Links Úteis**:
-> - [Rock Content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x Público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de Empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de Stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
->
-Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+### 3. Ringui Evangelista
+
+<b>História:</b>  Ringui tem 35 anos, é Gerente de Projetos, é um profissional dedicado e orientado para a família. Ele cresceu em uma casa onde o cuidado com os idosos sempre foi uma prioridade, especialmente após seu avô ter enfrentado problemas de saúde. A experiência de cuidar do avô o ensinou a valorizar os cuidados adequados para os idosos e a importância de encontrar os cuidadores certos para ajudar a garantir o bem-estar de seus entes queridos.
+
+<b>Frustrações:</b> Ringui muitas vezes se sente sobrecarregado com suas responsabilidades profissionais e pessoais, especialmente quando se trata de cuidar de seu pai idoso. Ele lida com a constante preocupação sobre o bem-estar e segurança de seu pai quando não pode estar presente. Além disso, ele encontra dificuldades em encontrar cuidadores confiáveis e qualificados que possam atender às necessidades específicas de seu pai.
+
+<b>Motivações:</b> Ringui está determinado a proporcionar ao seu pai uma vida confortável e digna, mesmo quando não pode estar presente fisicamente. Ele busca encontrar cuidadores que possam não apenas atender às necessidades práticas de seu pai, mas também oferecer companheirismo e apoio emocional. Sua maior motivação é garantir que seu pai receba o melhor cuidado possível e possa desfrutar de uma vida feliz e saudável em sua idade avançada.
+
+### 4. José Silva
+<b>História:</b> José Silva, aos 54 anos, é um gerente de vendas dedicado e filho único, responsável pelo cuidado de sua mãe, Maria José, de 93 anos, que sofre de Alzheimer. Morando em Natal, Rio Grande do Norte, José enfrenta o desafio diário de equilibrar suas exigências profissionais com os cuidados de sua mãe. A busca por um cuidador de idosos confiável e experiente se torna ainda mais desafiadora devido à condição específica de sua mãe, levando a procurar uma solução que possa atender às suas necessidades específicas e fornecer a tranquilidade de que sua mãe está em boas mãos, mesmo quando ele não pode estar presente.
+
+<b>Frustrações:</b> José se sente frequentemente sobrecarregado pela falta de feedback confiável sobre os cuidadores potenciais, tornando difícil para ele fazer uma escolha informada. A dificuldade em encontrar um profissional especializado em Alzheimer, que possa compreender e atender às necessidades únicas de sua mãe, adiciona uma camada de estresse à sua já agitada vida.
+
+<b>Motivações:</b> A principal motivação de José é garantir que sua mãe receba o melhor cuidado possível, mantendo-a em seu ambiente familiar e proporcionando-lhe a qualidade de vida que ela merece. Ele busca uma plataforma que possa facilitar a conexão com cuidadores confiáveis, oferecer avaliações detalhadas e histórico de trabalho, e permitir uma filtragem eficaz por especialização, para encontrar alguém com a experiência necessária para cuidar de idosos com Alzheimer.
+
+### 5. Jorge de Souza
+<b>História:</b> Jorge de Souza tem 30 anos, é fisioterapeuta com residência em Residência em Saúde do Idoso. Como recém concluiu sua residência em outro estado, agora regressou a seu estado natal e busca oportunidades para atuar em sua área de formação, mas dessa vez pretende atender de maneira autônoma. 
+
+<b>Frustrações:</b> Jorge reside em uma cidade do interior de seu estado onde não há muitas oportunidades para sua atuação no momento. Tem buscado oportunidades em outras cidades, mas enfrenta dificuldades por estar desempregado no momento e não conseguir se manter financeiramente em outra cidade durante a busca.
+
+<b>Motivações:</b> Jorge gostaria que houvesse uma plataforma na qual ele pudesse ofertar suas informações pessoais e agenda de atendimentos para ser encontrado por possíveis clientes em regiões próximas. Além disso, gostaria de encontrar tanto pessoas que precisassem de acompanhamentos pontuais como também assistências contínuas, assim poderia adquirir diversas experiências e desenvolver-se mais em sua área.
+
+### 6. Carla Sampaio
+<b>História:</b> Carla Sampaio tem 41 anos, é uma engenheira de software especializada em desenvolvimento de aplicativos móveis. Além de sua paixão pela tecnologia, seus hobbies incluem leitura, jardinagem e apreciar música, muitas vezes compartilhando esses momentos descontraídos com amigos e desfrutando de um bom vinho. Recentemente, Carla tomou a decisão de mudar de cidade e emprego para ficar mais próxima de sua família. Com uma carreira consolidada na área de tecnologia, acumulando mais de 15 anos de experiência, ela é reconhecida pela equipe como uma profissional extremamente comprometida com os projetos e objetivos da empresa. Sempre disposta a compartilhar seu conhecimento, ela agora enfrenta o desafio de equilibrar sua carreira com a crescente responsabilidade de cuidar de seus pais idosos.
+
+<b>Frustrações:</b> Carla sente-se frustrada ao deparar-se com a sua falta de tempo para cuidar dos seus pais, uma tarefa que ela considera de extrema importância. Encontrar pessoas em quem ela possa confiar para esse trabalho não é uma tarefa fácil, e a busca por profissionais qualificados e confiáveis se torna uma fonte de preocupação constante.
+
+<b>Motivações:</b> A principal motivação de Carla é proporcionar aos seus pais uma velhice confortável e com todos os cuidados que eles possam precisar. Carla busca encontrar profissionais de confiança para auxiliá-la nessa tarefa. Ela tem dedicado tempo em pesquisas na internet, buscando encontrar cuidadores qualificados que possam atender às necessidades específicas de seus pais e que garantam a ela essa tranquilidade de que eles estão bem assistidos. Ela espera encontrar uma plataforma na qual ela possa buscar esses profissionais de forma descomplicada, porém ela se preocupa muito com a segurança de dados pessoais, dessa forma ela espera que essa aplicação tenha a máxima segurança possível com seu dados, fornecendo um cadastro confiável evitando assim o uso indevido do seu perfil por terceiros.
+
+### 7. Fernanda Mendes
+<b>História:</b> Fernanda Mendes tem 35 anos, é uma enfermeira dedicada e apaixonada por cuidados com a saúde das pessoas. Especializada em geriatria, ela tem mais de 10 anos de experiência no cuidado com idosos, proporcionando assistência compassiva e profissional. Fernanda escolheu essa carreira movida por uma vocação para ajudar os outros e garantir que os idosos desfrutem de uma excelente qualidade de vida. Atualmente, tem repensado a sua escolha por trabalhar em Hospitais e vem avaliando novas possibilidades profissionais.
+
+<b>Frustrações:</b> Fernanda, embora ame sua profissão, frequentemente se depara com a falta de conexão pessoal e atenção individualizada que os idosos merecem. Ela sente que em ambientes hospitalares tradicionais, a correria muitas vezes limita a atenção personalizada que ela gostaria de oferecer. Trabalhando em Hospitais ela sente que poderia agregar mais se pudesse oferecer seus serviços para atendimento domiciliares, mas sente falta de uma canal de contratação para esses serviços.
+
+<b>Motivações:</b> Fernanda busca oportunidades que permitam uma agenda mais flexível e que possa oferecer seus serviços de forma personalizada, que atenda as necessidades específicas dos idosos e com isso possa lhes proporcionar o máximo cuidado. Fernanda acredita que possa ser melhor remunerada com essa forma de trabalho, já que seus serviços são de alta qualidade e exclusivos durante o período contratado. Ela espera poder estabelecer de forma prévia os valores dos seus serviços para os clientes.
+-->
 
 ## Histórias de Usuários
 
@@ -36,22 +128,26 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
 |Luiz Silva  | avaliar os cuidadores após o serviço prestado | auxiliar outros usuários na busca, proporcionando maior transparência e confiabilidade dos serviços prestados pelo cuidador. |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
-
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
-
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
+| David Williams | encontrar cuidadores por formação e especialização | encontrar facilmente um profissional qualificado que atenda às necessidades específicas de saúde de minha mãe. |
+| David Williams  | encontrar cuidadores baseado na localização por região | assegurar que o cuidador escolhido possa oferecer os cuidados necessários no conforto do lar de sua mãe, respeitando seu desejo de permanecer em sua comunidade |
+| Ringui Evangelista | relatar os problemas de saúde passados/existentes do meu pai idoso | para garantir que os cuidadores selecionados estejam cientes das necessidades médicas específicas e possam fornecer o cuidado apropriado e personalizado. |
+| José Silva | acessar avaliações de feedback atribuído aos cuidadores | tomar uma decisão informada ao contratar e garantir a confiabilidade do cuidador. |
+| José Silva | filtrar cuidadores por especialização em Alzheimer | garantir o melhor cuidado possível para minha mãe, atendendo às suas necessidades específicas. |
+| Jorge de Souza | expor minha formação e qualificações | ser facilmente encontrado por potenciais clientes. |
+| Jorge de Souza | delimitar região de atendimento | facilitar meu deslocamento até o cliente. |
+| Jorge de Souza | disponibilizar minha agenda com meus horários livres e ocupados | conseguir combinar assistências contínuas e pontuais nos meus atendimentos. |
+| Carla Sampaio | visualizar o valor dos serviços no momento da busca | garantir a transparência e segurança na contratação. |
+| Carla Sampaio | assegurar que o cadastro de usuário da plataforma seja seguro | para garantir que outras pessoas não se passem pelo meu perfil. |
+| Fernanda Mendes | apresentar o valor dos serviços e a forma de pagamento | agilizar o processo de contratação. |
 
 ## Modelagem do Processo de Negócio 
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+Atualmente, não há um meio centralizador e comumente utilizado para encontrar um profissional de serviços voltado aos cuidados de uma pessoa idosa. O processo de contratação de um prestador costuma iniciar com uma busca por indicações de conhecidos ou através da internet. Desta maneira, o processo tende a ser mais difuso e demorado. A complexidade aumenta quando a contratação é por prestador com especialidade ou formação em área que atenda à alguma necessidade específica, pois não há uma ferramenta que contribua para a busca mais assertiva, o que faz com que os clientes precisem entrar em contato com inúmeros prestadores até concluir a contratação ideal.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/ed2153be-b2d8-48c3-b97c-23ac703b8e2e)
+
 
 ### Descrição Geral da Proposta
 
@@ -62,49 +158,56 @@ A 2Care é uma plataforma inovadora destinada a simplificar e otimizar o process
 
 Permite que ambos, famílias em busca de cuidadores e os próprios prestadores de serviço, criem perfis detalhados para usarem na plataforma.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/f3f7fd3a-65bd-413f-828d-74c8c4dc0ce7)
+![Processo 1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/6716eee4-9d76-4605-8fb7-416fe8cf90b5)
 
 
 ### Processo 2 – LOGIN DE CLIENTE E PRESTADOR DE SERVIÇO
 
 Assegura um acesso seguro e personalizado à plataforma **2Care**, onde usuários podem entrar em suas contas para explorar ou oferecer serviços, mantendo a privacidade e integridade dos dados.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d7448c87-ffe3-4418-bfb4-3a0b9a5b9c17)
+![Processo2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/79a2e98f-27e1-4220-9e75-6d7dc1b00735)
 
 
 ### Processo 3 – GERENCIAMENTO DE PERFIL DE CLIENTE E PRESTADOR DE SERVIÇO
 
 Oferece uma ferramenta intuitiva para que usuários atualizem suas informações, habilidades, e preferências, promovendo um perfil sempre atual e atrativo para facilitar a busca e a contratação de serviços de cuidado personalizados.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/10870f34-e3fd-45c3-b44c-f0d2096167b0)
+![Processo 3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/3439ed58-3a25-4244-b31f-d8c89c231410)
 
 
 ### Processo 4 – BUSCA POR PRESTADOR DE SERVIÇO
 
 Clientes podem utilizar filtros avançados para encontrar cuidadores que atendam às suas especificidades de necessidades, localização, e qualificações, tornando a **2Care** uma ferramenta eficiente para achar o match ideal de maneira rápida e eficaz.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/dc6371a1-d2fc-4634-aef0-189f92aa7850)
+![Processo 4](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/27063685-1f45-4a5d-b468-9bd9d419489c)
 
 
 ### Processo 5 – AVALIAÇÃO DE SERVIÇO
 
-Permite que clientes e prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente aprimorada com base nas avaliações.
+Permite que clientes de prestadores de serviço compartilhem feedbacks sobre as experiências de cuidado, contribuindo para uma comunidade de confiança e transparência na **2Care**, onde a qualidade do serviço é continuamente incentivada com base nas avaliações.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/d023a082-b540-4d73-a137-7c0454e67be2)
+![Processo 5](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bbf799c2-077b-486b-89ec-e9cfaa4b4100)
 
 
 ### Processo 6 – CONTRATAÇÃO DE SERVIÇO DE CUIDADORES
 
 Facilita a negociação e acordos entre clientes e cuidadores, promovendo uma interação direta para definir termos, horários e pagamentos, sem intervenção da plataforma, destacando a autonomia do usuário e a flexibilidade nas contratações.
 
+![Processo 6](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/2b0db88b-9586-4c85-a6b0-7aecb87ff046)
+
 
 ## Indicadores de Desempenho
 
 Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
 
-Usar o seguinte modelo: 
+|ID |Indicador     |Objetivos  |Descrição |Cálculo |Fonte de Dados | Meta |Perspectiva |
+|-|-------|-------------------------|----|----------|----|-|--|
+|01| Taxa de Resposta dos Cuidadores | Medir a eficiência com que os cuidadores respondem às solicitações de cuidado. | Tempo médio que um cuidador leva para responder a uma solicitação de cuidado. | Média do intervalo de tempo entre CareRequest.date e a aceitação da solicitação. | Banco de dados da aplicação. | Resposta em menos de 24 horas. | Eficiência do Serviço. |
+|02| Satisfação do Cliente | Avaliar o nível de satisfação do cliente com os cuidadores | Média das avaliações dadas aos cuidadores. | Média dos valores em Rating.rating. | Feedback dos usuários | Média de avaliação superior a 4 em 5. | Qualidade do Serviço |
+|03| Taxa de Ocupação dos Cuidadores | Determinar a proporção do tempo em que os cuidadores estão ativamente empregados. | Percentual do tempo total disponível que os cuidadores estão em serviço. | Total de CareRequest.total_hours dividido pela soma das horas disponíveis dos cuidadores. | Banco de dados da aplicação. | Mais de 75% do tempo disponível ocupado. | Utilização do Serviço. |
+|04| Crescimento de Cuidadores Ativos | Monitorar o crescimento da base de cuidadores ativos. | Aumento percentual no número de cuidadores ativos mês a mês. | (Número de cuidadores ativos no final do mês - Número de cuidadores ativos no início do mês) / Número de cuidadores ativos no início do mês. | Banco de dados da aplicação. | Crescimento de 5% ao mês. | Expansão do Serviço. |
+|05| Taxa de Finalização de Serviços | Garantir que as solicitações de cuidado sejam concluídas com sucesso. | Percentual de solicitações de cuidado que são finalizadas em relação ao total de solicitações iniciadas. | Número de CareRequest com status indicando conclusão dividido pelo número total de CareRequest. | Banco de dados da aplicação. | 90% das solicitações concluídas com sucesso. | Confiabilidade do Serviço. |
 
-![Indicadores de Desempenho](img/02-indic-desemp.png)
 Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
 
 ## Requisitos
@@ -115,45 +218,41 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-01 | A aplicação deve permitir que os usuários façam seus cadastros e login. | ALTA |
+|RF-02 | A aplicação deve permitir que os usuários adicionem, editem e apaguem suas informações pessoais. | ALTA |
+|RF-03 | A aplicação deve permitir ao usuário cliente realizar buscas por profissionais de determinada região. | ALTA | 
+|RF-04 | A aplicação deve permitir ao cuidador delimitar sua região de atendimento. | ALTA |
+|RF-05 | A aplicação deve oferecer recurso de filtragem de profissionais por formação, especialização e/ou tempo de experiência como cuidadores. | ALTA | 
+|RF-06 | A aplicação deve permitir que o cuidador disponibilize suas datas e horários disponíveis para o atendimento. | MÉDIA |
+|RF-07 | A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores. | MÉDIA |
+|RF-08 | A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores. | MÉDIA |
+|RF-09 | A aplicação deve permitir que os profissionais insiram seus valores de atendimento.  | MÉDIA |
+|RF-10 | A aplicação deve apresentar o valor dos serviços ao cliente no momento da busca.  | MÉDIA |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
-
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
+|RNF-01  | A interface da aplicação deve ser intuitiva e fácil de usar para pessoas de todas as idades. | ALTA 
+|RNF-02  | A aplicação deve ter um desempenho rápido e eficiente. | ALTA | 
+|RNF-03 | A aplicação deve oferecer suporte para a língua portuguesa, garantindo que os usuários possam navegar e utilizar a plataforma em seu idioma nativo. | ALTA |
+|RNF-04  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | ALTA | 
+|RNF-05 | A aplicação deve assegurar a privacidade e segurança dos dados dos usuários, incluindo informações pessoais e feedback sobre cuidadores, cumprindo com a legislação local de proteção de dados (como LGPD no Brasil) | ALTA |
+|RNF-06 | A aplicação Web deve ser compatível com os principais navegadores (Google Chrome, Firefox, Edge).  | ALTA |
+|RNF-07 | A aplicação Mobile deve ser compatível com os sistemas operacionais Android e iOS,  garantindo uma experiência consistente para os usuários. | ALTA |
 
 ## Restrições
 
-O projeto está restrito pelos itens apresentados na tabela a seguir.
+A tabela abaixo apresenta as limitações que afetam a execução deste projeto e que devem ser consideradas como obrigações claras durante o seu desenvolvimento.
 
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
-
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+|01| O projeto deverá ser entregue no final do semestre letivo, não podendo extrapolar a data de 23/06/2024. |
+|02| A aplicação deve fazer uso de conceitos de tecnologias apresentadas até o eixo 4 do curso. |
+|03| Os integrantes devem fazer reuniões semanais para discutirem sobre o andamento do projeto e planejarem as próximas etapas a serem executadas.    |
+|04| O repositório deve ser gerado a partir do repositório template fornecido pelo professor, e só deve ser utilizado no Github Classroom. |
+|05| O Front-end deverá ser desenvolvido com as tecnologias React e React Native.   |
+|06| O Back-end deverá ser desenvolvido utilizando Python com Framework Django.   |
 
 ## Diagrama de Casos de Uso
 
@@ -161,43 +260,24 @@ O diagrama de casos de uso é o próximo passo após a elicitação de requisito
 
 As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Casos de Uso”.
 
-![Diagrama de casos de uso](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/ea19a8c1-c081-4268-92cb-e5a4b63ee643)
+![Diagrama de Casso de Uso V2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/5f80e087-ad6c-47ea-af39-ab203f40c02d)
 
-
-> **Links Úteis**:
-> - [Criando Casos de Uso](https://www.ibm.com/docs/pt-br/elm/6.0?topic=requirements-creating-use-cases)
-> - [Como Criar Diagrama de Caso de Uso: Tutorial Passo a Passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
-> - [Lucidchart](https://www.lucidchart.com/)
-> - [Astah](https://astah.net/)
-> - [Diagrams](https://app.diagrams.net/)
 
 # Matriz de Rastreabilidade
 
-A matriz de rastreabilidade é uma ferramenta usada para facilitar a visualização dos relacionamento entre requisitos e outros artefatos ou objetos, permitindo a rastreabilidade entre os requisitos e os objetivos de negócio. 
+![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/7480e954-0c7d-4798-8c15-91b6a6a3f1bc)
 
-A matriz deve contemplar todos os elementos relevantes que fazem parte do sistema, conforme a figura meramente ilustrativa apresentada a seguir.
-
-![Exemplo de matriz de rastreabilidade](img/02-matriz-rastreabilidade.png)
-
-> **Links Úteis**:
-> - [Artigo Engenharia de Software 13 - Rastreabilidade](https://www.devmedia.com.br/artigo-engenharia-de-software-13-rastreabilidade/12822/)
-> - [Verificação da rastreabilidade de requisitos usando a integração do IBM Rational RequisitePro e do IBM ClearQuest Test Manager](https://developer.ibm.com/br/tutorials/requirementstraceabilityverificationusingrrpandcctm/)
-> - [IBM Engineering Lifecycle Optimization – Publishing](https://www.ibm.com/br-pt/products/engineering-lifecycle-optimization/publishing/)
 
 
 # Gerenciamento de Projeto
 
-De acordo com o PMBoK v6 as dez áreas que constituem os pilares para gerenciar projetos, e que caracterizam a multidisciplinaridade envolvida, são: Integração, Escopo, Cronograma (Tempo), Custos, Qualidade, Recursos, Comunicações, Riscos, Aquisições, Partes Interessadas. Para desenvolver projetos um profissional deve se preocupar em gerenciar todas essas dez áreas. Elas se complementam e se relacionam, de tal forma que não se deve apenas examinar uma área de forma estanque. É preciso considerar, por exemplo, que as áreas de Escopo, Cronograma e Custos estão muito relacionadas. Assim, se eu amplio o escopo de um projeto eu posso afetar seu cronograma e seus custos.
+O gerenciamento do Projeto contou como referências com o escopo definido, os prazos de entrega de incrementos conhecidos, as atividades planejadas e a alocação de recursos. 
 
 ## Gerenciamento de Tempo
 
-Com diagramas bem organizados que permitem gerenciar o tempo nos projetos, o gerente de projetos agenda e coordena tarefas dentro de um projeto para estimar o tempo necessário de conclusão.
+O cronograma foi definido e está explicitado no Diagrama de Gantt a seguir:
 
-![Diagrama de rede simplificado notação francesa (método francês)](img/02-diagrama-rede-simplificado.png)
-
-O gráfico de Gantt ou diagrama de Gantt também é uma ferramenta visual utilizada para controlar e gerenciar o cronograma de atividades de um projeto. Com ele, é possível listar tudo que precisa ser feito para colocar o projeto em prática, dividir em atividades e estimar o tempo necessário para executá-las.
-
-![Gráfico de Gantt](img/02-grafico-gantt.png)
+![Screen Shot 2024-02-28 at 22 10 04](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/114453508/b0dc3af1-3b60-4838-bc51-b61016a4259c)
 
 ## Gerenciamento de Equipe
 
@@ -210,4 +290,5 @@ O gerenciamento da equipe apresenta 6 equipes com atuações em diversas etapas 
 
 O processo de determinar o orçamento do projeto é uma tarefa que depende, além dos produtos (saídas) dos processos anteriores do gerenciamento de custos, também de produtos oferecidos por outros processos de gerenciamento, como o escopo e o tempo.
 
-![Orçamento](img/02-orcamento.png)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/96087622/99dfcd87-e860-447b-9136-dcf43400fe63)
+
