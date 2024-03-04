@@ -32,7 +32,7 @@ Exemplo:
 
 <br>
 
-![image](https://user-images.githubusercontent.com/107289791/230728090-bf0a77e2-cdf7-484d-8337-f5d9fd81ef40.png)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/82446522-a716-4121-beff-96bc418d33b3)
 <p align="center">Figura 02 - Diagrama da representação visual do Controle de Versão.</p>
 
 <br>
@@ -82,7 +82,7 @@ Ao receber uma tarefa que estará listada na coluna "To-do", a pessoa estudante 
 
 <br>
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-t1-2care/assets/107289791/e1f39d0c-a63b-45d1-a902-9794a2b7bbb5)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/0145d926-0666-4305-b2de-e75eb1afb7bb)
 
 
 
