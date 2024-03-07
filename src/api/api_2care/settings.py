@@ -74,17 +74,23 @@ WSGI_APPLICATION = "api_2care.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': '2care_database',
+#         'USER': 'user',
+#         'PASSWORD': 'password',
+#         'HOST': 'db',  # Nome do serviço no docker-compose
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '2care_database',
-        'USER': 'user',
-        'PASSWORD': 'password',
-        'HOST': 'db',  # Nome do serviço no docker-compose
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation

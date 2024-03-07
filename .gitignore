@@ -1,1 +1,4 @@
-__pycache__
+./src/api/api_2care/__pycache__/
+./src/api/core/__pycache__/
+.venv
+*.pyc
