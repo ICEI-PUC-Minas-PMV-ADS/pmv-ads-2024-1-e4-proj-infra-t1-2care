@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt update && apt upgrade -y
 RUN apt install -y python3-pip
 RUN pip3 install pipenv
-RUN python3 -m venv .venv && . .venv/bin/activate
+RUN python3 -m venv .venv && .venv/bin/activate
 
 COPY requirements.txt requirements-dev.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
