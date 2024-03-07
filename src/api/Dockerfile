@@ -7,10 +7,8 @@ WORKDIR /app
 # Copia os arquivos de requisitos e instala as dependências
 RUN apt update && apt upgrade -y
 RUN apt install -y python3-pip
-RUN pip3 install pipenv
-COPY ./Pipfile .
-COPY ./Pipfile.lock .
-RUN pipenv install --system --deploy
+RUN python -m venv venv
+ENV PATH="$APP_HOME/venv/bin:$PATH"
 
 COPY requirements.txt requirements-dev.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
