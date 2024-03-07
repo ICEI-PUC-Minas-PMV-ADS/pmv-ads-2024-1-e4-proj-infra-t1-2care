@@ -1,0 +1,49 @@
+# version: '3.8'
+# services:
+#   django:
+#     build: .
+#     command: python manage.py runserver 0.0.0.0:8000
+#     volumes:
+#       - .:/app
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+#       - mongo
+#     environment:
+#       - "DATABASE_HOST=db"
+#       - "DATABASE_NAME=2care_database"
+#       - "DATABASE_USER=user"
+#       - "DATABASE_PASSWORD=password"
+#       - "DATABASE_PORT=5432"
+
+#   db:
+#     image: postgres:13
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_DB=2care_database
+#       - POSTGRES_USER=user
+#       - POSTGRES_PASSWORD=password
+
+#   mongo:
+#     image: mongo:latest
+#     volumes:
+#       - mongo_data:/data/db
+#     ports:
+#       - "27017:27017"
+
+#   # swagger:
+#   #   image: swaggerapi/swagger-ui
+#   #   environment:
+#   #     - SWAGGER_JSON=/app/swagger.yaml
+#   #   volumes:
+#   #     - ./path/to/your/swagger:/app
+#   #   ports:
+#   #     - "8080:8080"
+#   #   depends_on:
+#   #     - django
+
+# volumes:
+#   postgres_data:
+#   mongo_data:
