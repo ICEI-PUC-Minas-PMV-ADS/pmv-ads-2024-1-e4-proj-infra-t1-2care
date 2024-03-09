@@ -11,7 +11,8 @@ O diagrama de fluxo é uma representação visual do fluxo sistemático de dados
 
 #### Diagrama de Fluxo Mobile
 
-![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/9ea7abda-b28b-4ab2-8203-6d4c6b0a2632)
+![Diagrama de Fluxo Mobile](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/6044bc47-1203-4293-8565-81b59ee0f17f)
+
 #### Diagrama de fluxo versão Web
 ![Diagrama de Fluxo Web](diagramadefluxoweb.png)
 
@@ -25,9 +26,9 @@ Wireframes são protótipos utilizados no design de interfaces para indicar a es
  ![Home](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/4937a5fd-a4c7-4ac0-8b76-ae652225137a)
 
 ### Tela Inicial - Usuário Não Autenticado
- Na Tela Inicial quando o usuário não está autenticado. Neste ponto, o usuário terá a possibilidade de realizar uma busca por texto livre e visualizar perfis de cuidadores independentes, apresentando seus nomes, especializações, distâncias, avaliações em estrelas e fotos. Logo abaixo, há um rodapé com três opções: retornar à Tela Inicial, efetuar o login ou realizar uma busca utilizando filtros específicos.
+ Na Tela Inicial quando o usuário não está autenticado. Neste ponto, o usuário terá a possibilidade de realizar uma busca por texto livre e visualizar perfis de cuidadores independentes, apresentando seus nomes, especializações, distâncias, avaliações em estrelas e fotos. Logo abaixo, há um rodapé com duas opções: efetuar o login ou realizar uma busca utilizando filtros específicos.
  
-![Tela Inicial](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/da3b451b-d95d-4647-962f-8a1379e907a5)
+![Tela Inicial](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/df343f81-318d-443b-b68a-77418ed56a91)
 
 ### Tela de Login
  Na tela de login, o usuário deparará com a logomarca do aplicativo, sendo necessário o preenchimento dos campos de e-mail e senha. Posteriormente, encontrará um botão de "Entrar". Além disso, há um texto adicional que informa que, caso ainda não esteja registrado, basta clicar neste texto para ser redirecionado à página de cadastro.
@@ -35,33 +36,38 @@ Wireframes são protótipos utilizados no design de interfaces para indicar a es
  ![Tela de Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/08cfddf2-8e5d-4e80-9500-a9c79d83edbf)
 
 ### Tela de Registro
- Na tela de registro, o usuário se deparará com uma opção que o orientará a escolher entre criar um perfil de cliente ou de cuidador. Ao clicar na opção desejada, será automaticamente redirecionado para a tela de cadastro correspondente ao tipo de usuário selecionado.
+ Na tela de registro, o usuário se deparará com uma opção que o orientará a escolher entre criar um perfil de cliente ou de cuidador. Clicando em "Cadastre-se", será automaticamente redirecionado para a tela de cadastro.
 
- ![Tela de Registro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/6f318868-8c32-4f86-a828-00213c88ee46)
+ ![Tela de Registro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/4ed3e76d-b654-4f42-a946-17ed389c930d)
 
+
+### Tela de Cadastro - Geral
+Nesta tela, o usuário irá preencher os dados principais, e logo, escolher entre "Cuidador" ou "Cliente".
+
+![Tela de Cadastro - Geral](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/713707be-5369-4e52-b905-3f3b344c8d68)
 
 ### Tela de Cadastro - Cuidador
  Se o usuário escolher criar um perfil de cuidador, ele deverá preencher todos os campos necessários e, em seguida, clicar em "Criar Conta".
 
- ![Registro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/74b02b1e-55f2-42dd-a822-a824b71e366c)
  ![Registro Cuidador2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/a4021bf5-98f2-4c1a-8892-6f2f3569e8b2)
  ![Registro Cuidador3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/de745223-9690-4c3d-b0cb-0b5fe0cac392)
 
 ### Tela de Cadastro - Cliente
 Se o usuário escolher criar um perfil de cliente, ele deverá preencher todos os campos necessários e, em seguida, clicar em "Criar Conta".
 
-![Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/70ea5a8d-6566-485b-8e7b-07232170da17)
-![Cadastro Cliente2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/e3c0f4bb-edc3-42f3-8344-56c1859f0239)
+![Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/f0c02686-7d90-4282-9cc1-809d88c3f82f)
+
 
 ### Tela Inicial - Usuário Autenticado
-Na Tela Inicial do Cliente Autenticado, há uma distinção em relação à Tela Inicial do Cliente Não Autenticado. Em vez de exibir a opção de fazer login no rodapé, agora é apresentada a opção de acessar o perfil. E esta tela é igual para Clientes Autenticados e Cuidadores.
+Na Tela Inicial do Cliente Autenticado, há uma distinção em relação à Tela Inicial do Cliente Não Autenticado. Em vez de exibir a opção de fazer login no rodapé, agora é apresentada a opção de acessar o perfil. Na ocasião de Usuário Cliente, ele poderá também visualizar as propostas enviadas por ele, e no caso de Usuário Cuidador, ele poderá visualizar as propostas recebidas.
 
-![Tela Inicial Usuário Autenticado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/a3c53407-6e96-4bb5-a322-b7b57aea093c)
+![Tela Inicial Usuário Autenticado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/7c0a8f32-2131-488f-9f4e-60e2ec930909)
 
 ### Tela Busca por Filtro
 Na tela de Busca por Filtros, a experiência será uniforme para Usuários Não Autenticados, bem como para Usuários Autenticados, seja na condição de Clientes ou Cuidadores. Nessa interface, serão apresentadas opções de filtros, permitindo que o usuário as preencha conforme suas preferências e, em seguida, clique em "Filtrar".
 
-![Tela Busca por Filtro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/210133ea-5652-4f06-ab39-aa8463eaccb9)
+![Tela Busca por Filtro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/47b83a26-f278-4253-88f2-65d46fe28b56)
+
 
 ### Tela de Busca por Filtro - Resultados
 A tela de resultados da busca por filtro será uniforme para usuários não autenticados, bem como para usuários autenticados na condição de Cliente e Cuidador. Nessa tela, os filtros aplicados serão exibidos juntamente com os resultados obtidos na busca.
