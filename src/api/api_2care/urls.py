@@ -17,9 +17,18 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from core.views import GreetingList
+from core.views import GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('greetings/', GreetingList.as_view(), name='greeting-list'),
+
+    path('caregiver', CaregiverList.as_view(), name='caregiver-list'),
+    path('caregiver/', CaregiverEdit.as_view(), name='caregiver-edit'),
+    path('caregiver/my-calendar', CaregiverSelfCalendarView.as_view(), name='caregiver-self-calendar-view'), 
+
+    path('caregiver/<uuid:pk>', CaregiverDetail.as_view(), name='caregiver-detail'),
+    path('caregiver/<uuid:pk>/calendar', CaregiverCalendarView.as_view(), name='caregiver-calendar-view'),
+    #path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
+
 ]
