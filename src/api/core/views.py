@@ -1,17 +1,16 @@
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .models import Greeting, Caregiver, Specialization
-from .serializers import GreetingSerializer, CaregiverSerializer
+from .models import Greeting, Caregiver, Specialization, Qualification
+from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer
 
 class GreetingList(APIView):
     def get(self, request):
         greetings = Greeting.objects.all()
         serializer = GreetingSerializer(greetings, many=True)
         return Response(serializer.data)
-
 
 class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
     queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
@@ -83,3 +82,76 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
         }
 
         return Response(calendar)
+    
+#Qualification (Odair)
+
+#class QualificationCreate(generics.CreateAPIView):
+#    queryset = Qualification.objects.all()
+#    serializer_class = QualificationSerializer
+#    permission_classes = [IsAuthenticated] #confirmar se precisa de auth
+
+#class QualificationList(generics.ListAPIView):
+#    queryset = Qualification.objects.all()
+#    serializer_class = QualificationSerializer
+#    permission_classes = [IsAuthenticated] #confirmar se precisa de auth
+
+#class QualificationEdit(generics.RetrieveUpdateAPIView):
+#    queryset = Qualification.objects.all()
+#    serializer_class = QualificationSerializer
+#    permission_classes = [IsAuthenticated] #confirmar se precisa de auth 
+
+#class QualificationDelete(generics.DestroyAPIView):
+#    queryset = Qualification.objects.all()
+#    serializer_class = QualificationSerializer
+#    permission_classes = [IsAuthenticated] #confirmar se precisa de auth 
+
+class QualificationListCreate(generics.ListCreateAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+    permission_classes = (AllowAny,) #confirmar se precisa de auth 
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class QualificationUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+    permission_classes = (AllowAny,)
+
+    def get_object(self):
+        # Obtém a qualificação com base no parâmetro da URL (pk)
+        return self.queryset.get(pk=self.kwargs['pk'])
+
+    def post(self, request, *args, **kwargs):
+        serializer = QualificationSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Associar ao usuário
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        qualification = self.get_object()
+        serializer = QualificationSerializer(qualification, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Associar ao usuário
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        qualification = self.get_object()
+        serializer = QualificationSerializer(qualification, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Associar ao usuário
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, *args, **kwargs):
+        qualification = self.get_object()
+        qualification.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
