@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core.views import GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView
-from core.views import QualificationListCreate, QualificationUpdate, QualificationDestroy
+from core.views import QualificationCreate, QualificationRetrieveUpdateDestroy
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,8 +33,8 @@ urlpatterns = [
     #path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
 
     #Qualification (Odair)
-    path('qualification/create/', QualificationListCreate.as_view(), name='qualification-create'),
-    path('qualification/list/', QualificationListCreate.as_view(), name='qualification-list'),
-    path('qualification/<uuid:pk>/update/', QualificationUpdate.as_view(), name='qualification-update'),
-    path('qualification/<uuid:pk>/delete/', QualificationDestroy.as_view(), name='qualification-delete'),
+    path('qualification/', QualificationCreate.as_view(), name='qualification-create'),
+    path('qualification/<uuid:pk>/', QualificationRetrieveUpdateDestroy.as_view(), name='qualification-update-delete'),
+
+
 ]
