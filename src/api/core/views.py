@@ -1,17 +1,17 @@
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .models import Greeting, Caregiver, Specialization
-from .serializers import GreetingSerializer, CaregiverSerializer
+
+from .models import Greeting, Caregiver, Specialization, Qualification
+from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer
 
 class GreetingList(APIView):
     def get(self, request):
         greetings = Greeting.objects.all()
         serializer = GreetingSerializer(greetings, many=True)
         return Response(serializer.data)
-
 
 class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
     queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
@@ -83,3 +83,15 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
         }
 
         return Response(calendar)
+    
+#Qualification (Odair)
+
+class QualificationCreate(generics.CreateAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+    permission_classes = (AllowAny,) #confirmar se precisa de auth 
+
+class QualificationRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+    permission_classes = (AllowAny,)

@@ -76,7 +76,7 @@ class Qualification(models.Model):
     file = models.TextField('Link do comprovante de conclusão', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user} - {self.conclusion_date.strftime('%d/%m/%Y')}"
+        return f"{self.name} - {self.conclusion_date.strftime('%d/%m/%Y')}"
     
     class Meta:
         ordering = ['conclusion_date']
