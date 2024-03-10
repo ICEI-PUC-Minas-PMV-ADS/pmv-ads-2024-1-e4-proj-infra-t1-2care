@@ -111,12 +111,17 @@ class QualificationListCreate(generics.ListCreateAPIView):
     permission_classes = (AllowAny,) #confirmar se precisa de auth 
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user) #aqui não seria qualification???
 
-class QualificationUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+class QualificationUpdate(generics.UpdateAPIView):
     queryset = Qualification.objects.all()
     serializer_class = QualificationSerializer
     permission_classes = (AllowAny,)
+
+class QualificationDestroy(generics.DestroyAPIView):
+    queryset = Qualification.objects.all()
+    serializer_class = QualificationSerializer
+    permission_classes = (AllowAny,) 
 
     def get_object(self):
         # Obtém a qualificação com base no parâmetro da URL (pk)
