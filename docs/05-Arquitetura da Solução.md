@@ -4,6 +4,10 @@ Definição de como o software é estruturado em termos dos componentes que faze
 
 ![Arquitetura da Solucao V1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/f469d8b2-95b7-4a25-ac64-933b20940543)
 
+A arquitetura ilustrada na imagem descreve um sistema de aplicação dividido em camadas de cliente, frontend, backend e banco de dados, cada uma com funções específicas e tecnologias selecionadas para otimizar a performance e a manutenção. Os clientes, que podem ser computadores, smartphones ou laptops, interagem com o frontend construído em JavaScript, usando React para a web e React Native para aplicações móveis, através de uma comunicação estabelecida por TCP/IP. O backend é desenvolvido com o framework Django, hospedado em contêineres Docker sobre o Ubuntu, e expõe uma API RESTful com o Django REST framework.
+
+Para o armazenamento de dados, a arquitetura emprega PostgreSQL como o sistema de banco de dados relacional, com o acesso aos dados sendo mediado por um ORM integrado ao Django, garantindo operações de dados robustas e seguras. Além disso, utiliza o MongoDB, um banco de dados NoSQL orientado a documentos, que se destaca por sua dualidade de acesso: é acessível diretamente pelo frontend para operações de cache e também pelo backend via PyMongo, uma biblioteca Python que oferece ferramentas para trabalhar com o MongoDB. Isso permite um manuseio eficiente de grandes volumes de dados e uma recuperação rápida, servindo como uma camada de cache para melhorar o desempenho das operações de leitura e escrita.
+
 <!-- ![Arquitetura da Solução V2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/73bf3d29-819b-4bd4-87ce-aa5f4fe5923c) -->
 
 
@@ -19,7 +23,8 @@ O diagrama de classes ilustra graficamente como será a estrutura do software, e
 
 O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
 
-![DER - V3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/05dbffa0-2b45-49c6-8645-4dcfd175fc52)
+![DER - V3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/f4c9c46d-5104-448e-8edb-f8bed697e09a)
+
 
 
 ## Esquema Relacional
