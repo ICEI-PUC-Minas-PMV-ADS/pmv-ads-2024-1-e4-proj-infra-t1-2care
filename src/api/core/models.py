@@ -96,9 +96,17 @@ class WorkExperience(models.Model):
         ordering = ['end_date']
         verbose_name_plural = "Work Experiences"
 class Specialization(models.Model):
-    SPECIALIZATION = ( # na verdade foi uma pessima ideia fazer assim, no minimo seria bom um model separado pras choices, que fica mais facil de pessoas sem conhecimento editarem num admin da vida. 
-        (0, 'Fisioterapia Gerontológica'), # mas como já é a gente que vai ter que editar msm, acho que tanto faz.
-        (1, 'Cuidados Geriátricos'), # não tenho a minima ideia de exemplos btw.
+    SPECIALIZATION = (
+        (0, 'Cuidados Básicos de Saúde'),
+        (1, 'Apoio à Mobilidade'),
+        (2, 'Higiene e Cuidados Pessoais'),
+        (3, 'Nutrição e Preparo de Refeições'),
+        (4, 'Estimulação Cognitiva e Emocional'),
+        (5, 'Acompanhamento e Transporte'),
+        (6, 'Gestão de Rotinas e Medicamentos'),
+        (7, 'Cuidados com o Ambiente Doméstico'),
+        (8, 'Suporte em Cuidados Paliativos'),
+        (9, 'Formação em Demência e Alzheimer'),
     )
     
     id = models.UUIDField('id', primary_key=True, default=uuid.uuid4, editable=False)

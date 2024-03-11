@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 from .models import Greeting, Caregiver, Specialization, Qualification
-from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer
+from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer, SpecializationSerializer
 
 class GreetingList(APIView):
     def get(self, request):
@@ -95,3 +95,12 @@ class QualificationRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Qualification.objects.all()
     serializer_class = QualificationSerializer
     permission_classes = (AllowAny,)
+
+##### Specialization - Leo #####
+class SpecializationListCreateView(generics.ListCreateAPIView):
+    queryset = Specialization.objects.all()
+    serializer_class = SpecializationSerializer
+
+class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Specialization.objects.all()
+    serializer_class = SpecializationSerializer

@@ -17,8 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from core.views import GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView
-from core.views import QualificationCreate, QualificationRetrieveUpdateDestroy
+from core.views import GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView, QualificationCreate, QualificationRetrieveUpdateDestroy, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -35,6 +34,10 @@ urlpatterns = [
     #Qualification (Odair)
     path('qualification/', QualificationCreate.as_view(), name='qualification-create'),
     path('qualification/<uuid:pk>/', QualificationRetrieveUpdateDestroy.as_view(), name='qualification-update-delete'),
+
+    ##### Specialization - Leo #####
+    path('specialization/', SpecializationListCreateView.as_view(), name='specialization-list'),
+    path('specialization/<uuid:id>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
 
 
 ]
