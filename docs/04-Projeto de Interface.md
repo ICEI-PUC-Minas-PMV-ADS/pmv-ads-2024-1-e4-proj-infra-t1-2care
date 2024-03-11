@@ -175,7 +175,7 @@ Wireframes são protótipos utilizados no design de interfaces para indicar a es
 
 ## Cadastro
 
-![Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/3b63b99d-308c-4889-9526-04d2e9763b3a)
+![Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/724428c2-db7c-4094-8900-5c5b465febdb)
 
 ## Cadastro Cliente
 
