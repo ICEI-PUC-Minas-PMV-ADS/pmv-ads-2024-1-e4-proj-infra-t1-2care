@@ -16,7 +16,7 @@ O diagrama de fluxo é uma representação visual do fluxo sistemático de dados
 #### Diagrama de fluxo versão Web
 ![Diagrama de Fluxo Web](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/51541c3e-52fe-4eae-8424-4d4efc8c653a)
 
-## Wireframes
+## Wireframes 
 
 Wireframes são protótipos utilizados no design de interfaces para indicar a estrutura de uma aplicação e as conexões entre suas páginas. Eles consistem em representações visuais que se aproximam do layout dos elementos fundamentais da interface. Logo abaixo, apresentamos os wireframes da aplicação móvel 2Care.
  
@@ -164,3 +164,55 @@ Nesta tela, o cuidador estará explorando os perfis de outros cuidadores, podend
 Nesta tela, o cuidador terá a capacidade de examinar as propostas recebidas e decidir entre aceitar ou recusar cada uma delas.
 
 ![Tela Propostas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/27ee234f-35f6-4a5e-b4b1-e0464003897c)
+
+## Wireframes Web
+
+Wireframes são protótipos utilizados no design de interfaces para indicar a estrutura de uma aplicação e as conexões entre suas páginas. Eles consistem em representações visuais que se aproximam do layout dos elementos fundamentais da interface. Logo abaixo, apresentamos os wireframes da aplicação móvel 2Care.
+
+## Login
+
+![login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/3c3d61fe-7bd8-401d-8f33-4afe2f2a8f31)
+
+## Cadastro
+
+![Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/724428c2-db7c-4094-8900-5c5b465febdb)
+
+## Cadastro Cliente
+
+![Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/d7e17900-0453-4a2d-9d5f-b49be0b8e38c)
+
+## Cadastro Cuidador
+
+![Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/3bb50139-0808-4782-ba33-d724d158dbf4)
+
+## Home / Busca 
+
+![Busca comum](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/9d26a669-bfc1-4549-88c4-177492853741)
+
+## Home / Busca por filtro
+
+![Busca por filtro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/15cdc4fc-6ce1-4351-847a-696b177e4658)
+
+## Perfil selecionado
+
+![Perfil selecionado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/bd04aa2f-7c2c-4bc2-851a-d5603c332d69)
+
+## Avaliações
+
+![Avaliações](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/b2c0f932-5d7a-41f4-b8a5-f161ca95b2ef)
+
+## Contato
+
+![Contato](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/7e9cb48c-48ec-4ad9-8409-0bfe6e7bd319)
+
+## Contato / Enviar Proposta
+
+![Contato e Enviar Proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/cbb70b33-e19f-464e-80ba-b27eae1f7d52)
+
+## Editar perfil - Cliente
+
+![Editar perfil - Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/3da7600e-ba11-4679-9a80-f452bd59a25b)
+
+## Editar perfil - Cuidador
+
+![Editar perfil - Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/657cafa4-2ef8-4ae7-8a0d-def7706d126a)
