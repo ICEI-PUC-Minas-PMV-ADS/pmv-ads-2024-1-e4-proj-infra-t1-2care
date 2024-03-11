@@ -37,7 +37,7 @@ urlpatterns = [
 
     ##### Specialization - Leo #####
     path('specialization/', SpecializationListCreateView.as_view(), name='specialization-list'),
-    path('specialization/<uuid:id>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
+    path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
 
 
 ]
