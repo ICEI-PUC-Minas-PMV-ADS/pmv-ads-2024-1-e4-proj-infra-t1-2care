@@ -2,10 +2,21 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
+from django.http import HttpResponse
 
-
-from .models import Greeting, Caregiver, Specialization, Qualification
-from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer, SpecializationSerializer
+from .models import Greeting, Caregiver, Specialization, Qualification, Carereceiver
+from .serializers import (
+    GreetingSerializer,
+    CaregiverSerializer,
+    QualificationSerializer,
+    SpecializationSerializer,
+    CarereceiverSerializer,
+    UserSerializer,
+)
 
 class GreetingList(APIView):
     def get(self, request):
@@ -83,8 +94,8 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
         }
 
         return Response(calendar)
-    
-#Qualification (Odair)
+
+# Qualification (Odair)
 
 class QualificationCreate(generics.CreateAPIView):
     queryset = Qualification.objects.all()
@@ -104,3 +115,52 @@ class SpecializationListCreateView(generics.ListCreateAPIView):
 class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
+
+class CarereceiverDetail(generics.RetrieveAPIView):
+    carereceiver = Carereceiver.objects.all()
+    queryset = Carereceiver.objects.all()
+    serializer_class = CarereceiverSerializer
+
+class CarereceiverEdit(APIView):
+    queryset = Caregiver.objects.all()
+    serializer_class = CarereceiverSerializer
+    permission_classes = (AllowAny,)
+
+    def put(self, request, format=None):
+        carereceiver = self.queryset.first() 
+
+        serializer = CarereceiverSerializer(carereceiver, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserSignup(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(authors=[self.request.user])
+
+class UserLogin(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        else:
+            return Response({'error': 'Usuário ou senha inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UserLogout(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        logout(request)
+        return Response({'message': 'Logout ocorreu com sucesso.'})

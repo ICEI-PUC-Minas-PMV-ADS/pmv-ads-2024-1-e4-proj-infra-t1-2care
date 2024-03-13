@@ -15,9 +15,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path
-from core.views import GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView, QualificationCreate, QualificationRetrieveUpdateDestroy, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView
+from django.contrib import admin, auth
+from django.urls import path, include
+from core.views import (
+    GreetingList,
+    CaregiverList,
+    CaregiverEdit,
+    CaregiverSelfCalendarView,
+    CaregiverDetail,
+    CaregiverCalendarView,
+    QualificationCreate,
+    QualificationRetrieveUpdateDestroy,
+    SpecializationListCreateView,
+    SpecializationRetrieveUpdateDestroyView,
+    CarereceiverDetail,
+    CarereceiverEdit,
+    UserSignup,
+    UserLogin,
+    UserLogout,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -39,5 +55,11 @@ urlpatterns = [
     path('specialization/', SpecializationListCreateView.as_view(), name='specialization-list'),
     path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
 
+    path('carereceiver/<uuid:pk>', CarereceiverDetail.as_view(), name='carereceiver-detail'),
+    path('carereceiver/', CarereceiverEdit.as_view(), name='carereceiver-edit'),
+
+    path('register/', UserSignup.as_view(), name='register'),
+    path('login/', UserLogin.as_view(), name='login'),
+    path('logout/', UserLogout.as_view(), name='logout'),
 
 ]
