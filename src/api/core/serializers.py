@@ -1,5 +1,16 @@
 from rest_framework import serializers
-from .models import Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver
+from .models import (
+    Greeting,
+    Qualification,
+    WorkExperience,
+    Specialization,
+    FixedUnavailableDay,
+    FixedUnavailableHour,
+    CustomUnavailableDay,
+    Caregiver,
+    Carereceiver,
+    User,
+)
 
 class GreetingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,3 +58,17 @@ class CaregiverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Caregiver
         fields = '__all__'
+
+class CarereceiverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Carereceiver
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+    
+    def create(self, data):
+        user = User.objects.create_user(data)
+        return user
