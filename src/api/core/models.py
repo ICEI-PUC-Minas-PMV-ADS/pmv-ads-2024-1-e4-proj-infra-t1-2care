@@ -192,3 +192,41 @@ class Caregiver(models.Model):
     class Meta:
         #ordering = ['user']
         verbose_name_plural = "Caregivers"
+
+
+
+class CareRequest(models.Model):
+    STATUS_CHOICES = [
+        (0, 'Pendente'),
+        (1, 'Recusado'),
+        (2, 'Autorizado'),
+        # (3, 'Finalizado'),
+        #(4, 'Cancelado'),
+    ]
+    id = models.UUIDField(primary_key=True, editable=False)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    total_hours = models.SmallIntegerField()
+    final_price = models.DecimalField(max_digits=6, decimal_places=2)
+    status = models.IntegerField(choices=STATUS_CHOICES)
+    response_date = models.DateTimeField()
+
+    caregiver = models.ForeignKey('Caregiver', on_delete=models.CASCADE)
+    carereceiver = models.ForeignKey('CareReceiver', on_delete=models.CASCADE)
+
+class Rating(models.Model):
+    RATING_CHOICES = [
+        (1, '1 Estrela'),
+        (2, '2 Estrelas'),
+        (3, '3 Estrelas'),
+        (4, '4 Estrelas'),
+        (5, '5 Estrelas'),
+    ]
+    id = models.UUIDField(primary_key=True, editable=False)
+    care_request = models.OneToOneField(CareRequest, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.rating} - {self.description}"

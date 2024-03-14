@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
-from .models import Greeting, Caregiver, Specialization, Qualification
-from .serializers import GreetingSerializer, CaregiverSerializer, QualificationSerializer, SpecializationSerializer
+from .models import CareRequest, Greeting, Caregiver, Rating, Specialization, Qualification
+from .serializers import CareRequestSerializer, GreetingSerializer, CaregiverSerializer, QualificationSerializer, RatingSerializer, SpecializationSerializer
 
 class GreetingList(APIView):
     def get(self, request):
@@ -104,3 +104,34 @@ class SpecializationListCreateView(generics.ListCreateAPIView):
 class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
+
+
+class CareRequestListCreate(generics.ListCreateAPIView):
+    queryset = CareRequest.objects.all()
+    serializer_class = CareRequestSerializer
+
+class CareRequestDetail(generics.RetrieveAPIView):
+    queryset = CareRequest.objects.all()
+    serializer_class = CareRequestSerializer
+
+class CareRequestAccept(APIView):
+    def post(self, request, pk):
+        care_request = CareRequest.objects.get(pk=pk)
+        care_request.status = 2 # Autorizado
+        care_request.save()
+        return Response({'status': 'accepted'}, status=status.HTTP_200_OK)
+
+class CareRequestDecline(APIView):
+    def post(self, request, pk):
+        care_request = CareRequest.objects.get(pk=pk)
+        care_request.status = 1  # Recusado
+        care_request.save()
+        return Response({'status': 'declined'}, status=status.HTTP_200_OK)
+
+class RatingCreate(generics.CreateAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+
+class RatingDetail(generics.RetrieveAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer

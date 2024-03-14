@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver
+from .models import Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver, CareRequest, Rating
 
 class GreetingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,4 +46,14 @@ class CaregiverSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Caregiver
+        fields = '__all__'
+
+class CareRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CareRequest
+        fields = '__all__'
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
         fields = '__all__'
