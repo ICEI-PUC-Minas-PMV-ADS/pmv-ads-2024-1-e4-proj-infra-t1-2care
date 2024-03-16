@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from rest_framework.test import APIClient
+from rest_framework import status
 
 from .models import Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver
 from .serializers import QualificationSerializer, WorkExperienceSerializer, SpecializationSerializer, FixedUnavailableDaySerializer, FixedUnavailableHourSerializer, CustomUnavailableDaySerializer, CaregiverSerializer
@@ -10,7 +11,7 @@ from .serializers import QualificationSerializer, WorkExperienceSerializer, Spec
 from datetime import datetime, date
 from decimal import Decimal
 
-class CarrgiverSerializerTests(TestCase):
+class CaregiverSerializerTests(TestCase):
     def setUp(self):
         self.qualification_data = {
             'name': 'Degree in Nursing',
@@ -79,7 +80,6 @@ class CarrgiverSerializerTests(TestCase):
         work_exp = serializer.save()
         self.assertEqual(work_exp.place, new_work_experience_data['place'])
 
-
     def test_qualification_serializer(self):
         serializer = QualificationSerializer(instance=self.qualification)
         self.assertEqual(serializer.data['name'], self.qualification_data['name'])
@@ -94,6 +94,10 @@ class CarrgiverSerializerTests(TestCase):
         self.assertTrue(serializer.is_valid())
         qualification = serializer.save()
         self.assertEqual(qualification.name, new_qualification_data['name'])
+
+
+
+
 
     def test_specialization_serializer(self):
         serializer = SpecializationSerializer(instance=self.specialization)
@@ -264,3 +268,92 @@ class CaregiverAPITests(TestCase):
     def test_get_caregiver_calendar_as_user_api(self):#fixme da pra dar um up nesse test quando sair os endpoints de calendar
         response = self.client.get(reverse("caregiver-calendar-view", kwargs={'pk': self.caregiver.pk}))
         self.assertEqual(response.status_code, 200)
+
+
+# test Odair
+    def test_create_qualification_API(self):
+        url = reverse('qualification-create')
+        data = {
+            'name': 'Academic Certificate in well-being care',
+            'conclusion_date': '2024-03-15',
+            'file': 'http://example.com/certificate.pdf'
+        }
+                
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Qualification.objects.count(), 1)
+        self.assertEqual(Qualification.objects.get().name, 'Academic Certificate in well-being care')
+
+    def test_update_qualification_API(self):
+        qualification = Qualification.objects.create(
+            name='Previous Qualification',
+            conclusion_date='2023-01-01',
+            file='http://example.com/previous.pdf'
+        )
+        url = reverse('qualification-update-delete', args=[qualification.pk])
+        data = {
+            'name': 'Updated Qualification',
+            'conclusion_date': '2024-03-16',
+            'file': 'http://example.com/updated.pdf'
+        }
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        qualification.refresh_from_db()
+        self.assertEqual(qualification.name, 'Updated Qualification')
+
+    def test_failCreate_qualification_API(self):
+        url = reverse('qualification-create')
+        data = {
+            'name': 'Academic Certificate in well-being care',
+            'conclusion_date': 'tttt.tt.tt',
+            'file': 'http://example.com/certificate.pdf'
+        }
+                
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Qualification.objects.count(), 0)
+
+    def test_failUpdate_qualification_API(self):
+        qualification = Qualification.objects.create(
+            name='Previous Qualification',
+            conclusion_date='2023-01-01',
+            file='http://example.com/previous.pdf'
+        )
+        url = reverse('qualification-update-delete', args=[qualification.pk])
+        data = {
+            'name': '',
+            'conclusion_date': '2024-03-16',
+            'file': 'http://example.com/updated.pdf'
+        }
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_delete_qualification_API(self):
+        qualification = Qualification.objects.create(
+            name='Previous Qualification',
+            conclusion_date='2023-01-01',
+            file='http://example.com/previous.pdf'
+        )
+        url = reverse('qualification-update-delete', args=[qualification.pk])
+       
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_retrieve_qualification_API(self):    
+        qualification = Qualification.objects.create(
+            name='Phonoaudiologist',
+            conclusion_date='2023-01-01',
+            file='http://example.com/previous.pdf'
+        )
+        url = reverse('qualification-update-delete', args=[qualification.pk])
+        data = {
+            'name': 'Phonoaudiologist',
+            'conclusion_date': '2023-01-01',
+            'file': 'http://example.com/certificate.pdf'
+        }
+                
+        response = self.client.get(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Qualification.objects.count(), 1)
+        self.assertEqual(Qualification.objects.get().name, 'Phonoaudiologist')
+        
