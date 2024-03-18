@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver, CareRequest, Rating
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import CareReceiver, Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver, CareRequest, Rating, CustomUser
 
 class GreetingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,6 +49,33 @@ class CaregiverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Caregiver
         fields = '__all__'
+
+class CareReceiverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CareReceiver
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+        extra_kwargs = {'password': {'write_only': True}}  # Isso garante que a senha não seja retornada nas respostas
+
+    def create(self, validated_data):
+        print(validated_data)
+        # Extrai a senha do validated_data e a remove do dicionário
+        password = validated_data.pop('password')
+        
+        # Cria o usuário com os dados validados, exceto a senha
+        user = CustomUser.objects.create(**validated_data)
+        
+        # Define a senha para o usuário (isso irá criptografar a senha adequadamente)
+        user.set_password(password)
+        
+        # Salva o usuário após definir a senha
+        user.save()
+
+        return user
 
 class CareRequestSerializer(serializers.ModelSerializer):
     class Meta:

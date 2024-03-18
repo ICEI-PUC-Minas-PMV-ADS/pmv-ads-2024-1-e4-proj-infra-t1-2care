@@ -17,7 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from core.views import CareRequestAccept, CareRequestComplete, CareRequestDecline, CareRequestDetail, CareRequestListCreate, GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView, QualificationCreate, QualificationRetrieveUpdateDestroy, RatingCreate, RatingDetail, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView
+from core.views import CareRequestAccept, CareRequestDecline, CareRequestDetail, CareRequestListCreate, CarereceiverDetail, CarereceiverEdit, GreetingList, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView,  QualificationCreate, QualificationRetrieveUpdateDestroy, RatingCreate, RatingDetail, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView, UserLogin, UserLogout, UserSignup
+from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,TokenVerifyView)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -39,13 +40,20 @@ urlpatterns = [
     path('specialization/', SpecializationListCreateView.as_view(), name='specialization-list'),
     path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
 
+    path('carereceiver/<uuid:pk>', CarereceiverDetail.as_view(), name='carereceiver-detail'),
+    path('carereceiver/', CarereceiverEdit.as_view(), name='carereceiver-edit'),
+
+    path('register/', UserSignup.as_view(), name='register'),
+
     path('requests/', CareRequestListCreate.as_view(), name='care-request-list-create'),
     path('requests/<uuid:pk>/', CareRequestDetail.as_view(), name='care-request-detail'),
     path('requests/<uuid:pk>/accept/', CareRequestAccept.as_view(), name='care-request-accept'),
     path('requests/<uuid:pk>/decline/', CareRequestDecline.as_view(), name='care-request-decline'),
-    # path('requests/<uuid:pk>/complete/', CareRequestComplete.as_view(), name='care-request-complete'),
-    #path('requests/<uuid:pk>/cancel/', CareRequestComplete.as_view(), name='care-request-cancel'),
 
     path('ratings/', RatingCreate.as_view(), name='rating-create'),
     path('ratings/<uuid:pk>/', RatingDetail.as_view(), name='rating-detail'),
+
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

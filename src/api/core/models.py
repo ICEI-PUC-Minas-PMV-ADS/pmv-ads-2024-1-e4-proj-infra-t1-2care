@@ -1,5 +1,9 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 import uuid
+
+def generate_username():
+    return 'user_' + str(uuid.uuid4())[:8]
 
 class Greeting(models.Model):
     message = models.CharField(max_length=200)
@@ -7,36 +11,36 @@ class Greeting(models.Model):
     def __str__(self):
         return self.message
 
-# class User(models.Model):
-#     GENDER_CHOICES = [
-#         (0, 'Not Specified'),
-#         (1, 'Male'),
-#         (2, 'Female'),
-#         (3, 'Other'),
-#     ]
-#     PREFERRED_CONTACT_CHOICES = [
-#         (0, 'Email'),
-#         (1, 'Phone'),
-#         (2, 'None'),
-#     ]
+class CustomUser(AbstractUser):
+    GENDER_CHOICES = [
+        (0, 'Não especificado'),
+        (1, 'Masculino'),
+        (2, 'Feminino'),
+    ]
+    PREFERRED_CONTACT_CHOICES = [
+        (0, 'Email'),
+        (1, 'Phone'),
+        (2, 'None'),
+    ]
 
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=128)
-#     name = models.CharField(max_length=50)
-#     phone = models.CharField(max_length=64)
-#     picture = models.TextField(blank=True, null=True)
-#     address = models.TextField()
-#     post_code = models.CharField(max_length=15)
-#     latitude = models.DecimalField(max_digits=10, decimal_places=6)
-#     longitude = models.DecimalField(max_digits=10, decimal_places=6)
-#     user_type = models.IntegerField()
-#     gender = models.IntegerField(choices=GENDER_CHOICES)
-#     preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES)
-#     birth_date = models.DateField(null=True, blank=True)
-#     created_date = models.DateTimeField(auto_now_add=True)
-#     updated_date = models.DateTimeField(auto_now=True)
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
+    username = models.CharField(unique=True, max_length=50, null=False, blank=False, default=generate_username)
+    phone = models.CharField(max_length=64)
+    picture = models.TextField(blank=True, null=True)
+    address = models.TextField()
+    post_code = models.CharField(max_length=15)
+    latitude = models.DecimalField(max_digits=10, decimal_places=6)
+    longitude = models.DecimalField(max_digits=10, decimal_places=6)
+    user_type = models.IntegerField()
+    gender = models.IntegerField(choices=GENDER_CHOICES)
+    preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES)
+    birth_date = models.DateField(null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    
+    
 # class SpecialCare(models.Model):
 #     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 #     name = models.CharField(max_length=255)
@@ -171,7 +175,7 @@ class CustomUnavailableDay(models.Model):
 
 class Caregiver(models.Model):
     id = models.UUIDField('id', primary_key=True, default=uuid.uuid4, editable=False)
-    #user = models.ForeignKey('', on_delete=models.PROTECT)
+    user = models.ForeignKey('core.CustomUser', on_delete=models.PROTECT)
 
     qualifications = models.ManyToManyField('core.qualification', verbose_name='Qualificações', related_name='qualifications', blank=True)
     work_exp = models.ManyToManyField('core.workexperience', verbose_name='Experiencia de trabalho', related_name='workexperience', blank=True)
@@ -193,7 +197,12 @@ class Caregiver(models.Model):
         #ordering = ['user']
         verbose_name_plural = "Caregivers"
 
-
+class CareReceiver(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  user = models.OneToOneField(CustomUser, related_name='profile', on_delete=models.CASCADE,)
+  emergency_phone = models.CharField(max_length=13)
+  share_special_care = models.BooleanField()
+  additional_field = models.CharField(max_length=255)
 
 class CareRequest(models.Model):
     STATUS_CHOICES = [
