@@ -92,12 +92,10 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
 class QualificationCreate(generics.CreateAPIView):
     queryset = Qualification.objects.all()
     serializer_class = QualificationSerializer
-    permission_classes = (AllowAny,) #confirmar se precisa de auth 
     authentication_classes =[JWTAuthentication]
 class QualificationRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Qualification.objects.all()
     serializer_class = QualificationSerializer
-    permission_classes = (AllowAny,)
     authentication_classes =[JWTAuthentication]
 ##### Specialization - Leo #####
 class SpecializationListCreateView(generics.ListCreateAPIView):
