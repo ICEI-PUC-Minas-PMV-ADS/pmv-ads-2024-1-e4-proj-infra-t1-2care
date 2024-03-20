@@ -357,3 +357,39 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(Qualification.objects.count(), 1)
         self.assertEqual(Qualification.objects.get().name, 'Phonoaudiologist')
         
+    #leo
+        
+    def test_list_specialization_api(self):
+        url = reverse('specialization-list')
+        data = {
+            'name': 1
+        }
+
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Specialization.objects.count(), 1)
+        self.assertEqual(Specialization.objects.get().name, 1)#'Apoio à Mobilidade')
+
+    def test_failList_specialization_api(self):
+        url = reverse('specialization-list')
+        data = {
+            'name': 10,
+        }
+                
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Specialization.objects.count(), 0)
+
+    def test_retrieve_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name = 1
+        )
+        url = reverse('specialization-list-update-delete', args=[specialization.pk])
+        data = {
+            'name': 1
+        }
+                
+        response = self.client.get(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Specialization.objects.count(), 1)
+        self.assertEqual(Specialization.objects.get().name, 1)
