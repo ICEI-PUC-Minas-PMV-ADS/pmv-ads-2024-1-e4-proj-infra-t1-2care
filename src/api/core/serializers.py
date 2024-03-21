@@ -1,3 +1,5 @@
+import re
+from django.forms import ValidationError
 from rest_framework import serializers
 from .models import (
     Greeting,
@@ -21,6 +23,26 @@ class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Qualification
         fields = '__all__'
+    
+    def validate_file(self, value):
+        if not isinstance(value, str):
+            raise ValidationError("O campo 'file' deve ser uma string.")
+
+        url_regex = re.compile(
+            r'^(?:http|ftp)s?://' 
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+            r'(?::\d+)?'
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+        if not re.match(url_regex, value):
+            raise ValidationError("O campo 'file' deve conter um link válido.")
+
+        return value
+
+
+
+
+
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
