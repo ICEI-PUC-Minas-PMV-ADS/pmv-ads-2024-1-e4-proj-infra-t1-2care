@@ -382,7 +382,7 @@ class CaregiverAPITests(TestCase):
 
     def test_retrieve_specialization_api(self):
         specialization = Specialization.objects.create(
-            name = 1
+            name=1,
         )
         url = reverse('specialization-list-update-delete', args=[specialization.pk])
         data = {
