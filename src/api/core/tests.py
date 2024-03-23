@@ -495,8 +495,42 @@ class CaregiverAPITests(TestCase):
         data = {
             'name': 1
         }
-                
+
         response = self.client.get(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Specialization.objects.count(), 1)
         self.assertEqual(Specialization.objects.get().name, 1)
+
+
+    def test_delete_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=2,
+        )
+        url = reverse("specialization-list-update-delete", args=[specialization.pk])
+
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    
+    def test_update_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=3,
+        )
+        url = reverse("specialization-list-update-delete", args=[specialization.pk])
+        data = {
+            "name": 4
+        }
+        response = self.client.put(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        specialization.refresh_from_db()
+        self.assertEqual(specialization.name, 4)
+
+    def test_failUpdate_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=5,
+        )
+        url = reverse("specialization-list-update-delete", args=[specialization.pk])
+        data = {
+            "name": 15
+        }
+        response = self.client.put(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
