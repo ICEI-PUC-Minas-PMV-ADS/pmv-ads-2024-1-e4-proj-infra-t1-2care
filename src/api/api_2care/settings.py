@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     #external
     "rest_framework",
+    'drf_yasg',
 
 ]
 
