@@ -54,6 +54,12 @@ class SpecializationSerializer(serializers.ModelSerializer):
         model = Specialization
         fields = '__all__'
 
+        def validate_name(self, value):
+            if value not in [choice[0] for choice in Specialization.SPECIALIZATION]:
+                raise serializers.ValidationError("Este não é um valor válido para o campo 'name'.")
+        
+            return value
+
 class FixedUnavailableDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = FixedUnavailableDay

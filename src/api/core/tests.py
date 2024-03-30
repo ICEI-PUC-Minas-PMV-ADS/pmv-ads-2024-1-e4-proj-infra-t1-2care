@@ -184,6 +184,57 @@ class CaregiverSerializerTests(TestCase):
         specialization = serializer.save()
         self.assertEqual(specialization.name, new_specialization_data["name"])
 
+    def test_create_specialization_serializer_invalid_data(self):
+
+        invalid_specialization_data = {
+            "name": 13
+            }
+
+        serializer = SpecializationSerializer(
+            data=invalid_specialization_data
+            )
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('name', serializer.errors)
+
+    def test_update_specialization_serializer(self):
+        updated_specialization_data = {
+            "name": 4
+        }
+        serializer = SpecializationSerializer(
+            instance=self.specialization, data=updated_specialization_data
+        )
+        self.assertTrue(serializer.is_valid())
+        updated_specialization = serializer.save()
+        self.assertEqual(updated_specialization.name, updated_specialization_data["name"])
+
+    def test_update_specialization_with_invalid_data(self):
+        invalid_data = {
+            "name": "14",
+        }
+        serializer = SpecializationSerializer(
+            instance=self.specialization, data=invalid_data
+        )
+        self.assertFalse(serializer.is_valid())
+
+    def test_retrieve_all_specialization(self):
+        specialization = Specialization.objects.all()
+        serializer = SpecializationSerializer(instance=specialization, many=True)
+        self.assertEqual(len(serializer.data), specialization.count())
+
+    def test_retrieve_specialization_by_name(self):
+        self.test_create_specialization_serializer()
+        specialization_name = 1
+        specialization = Specialization.objects.get(name=specialization_name)
+        serializer = SpecializationSerializer(instance=specialization)
+        self.assertEqual(serializer.data["name"], specialization_name)
+
+    def test_delete_specialization_by_id(self):
+        specialization_id = self.specialization.id
+        specialization = Specialization.objects.get(pk=specialization_id)
+        specialization.delete()
+        with self.assertRaises(Specialization.DoesNotExist):
+            Specialization.objects.get(pk=specialization_id)
+
     def test_fixed_unavailable_day_serializer(self):
         serializer = FixedUnavailableDaySerializer(instance=self.fixed_unavailable_day)
         self.assertEqual(serializer.data["day"], self.fixed_unavailable_day_data["day"])
@@ -462,4 +513,90 @@ class CaregiverAPITests(TestCase):
         response = self.client.get(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Qualification.objects.count(), 1)
-        self.assertEqual(Qualification.objects.get().name, "Phonoaudiologist")
+        self.assertEqual(Qualification.objects.get().name, 'Phonoaudiologist')
+        
+    #leo
+        
+    def test_Create_specialization_api(self):
+        url = reverse('specialization-create')
+        data = {
+            'name': 1
+        }
+
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Specialization.objects.count(), 1)
+        self.assertEqual(Specialization.objects.get().name, 1)#'Apoio à Mobilidade')
+
+    def test_failCreate_specialization_api(self):
+        url = reverse('specialization-create')
+        data = {
+            'name': 10,
+        }
+                
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Specialization.objects.count(), 0)
+
+    def test_retrieve_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=1,
+        )
+        url = reverse('specialization-update-delete', args=[specialization.pk])
+        data = {
+            'name': 1
+        }
+
+        response = self.client.get(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Specialization.objects.count(), 1)
+        self.assertEqual(Specialization.objects.get().name, 1)
+
+    def test_delete_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=2,
+        )
+        url = reverse("specialization-update-delete", args=[specialization.pk])
+
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    
+    def test_update_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=3,
+        )
+        url = reverse("specialization-update-delete", args=[specialization.pk])
+        data = {
+            "name": 4
+        }
+        response = self.client.put(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        specialization.refresh_from_db()
+        self.assertEqual(specialization.name, 4)
+
+    def test_failUpdate_specialization_api(self):
+        specialization = Specialization.objects.create(
+            name=5,
+        )
+        url = reverse("specialization-update-delete", args=[specialization.pk])
+        data = {
+            "name": 15
+        }
+        response = self.client.put(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_list_specialization_api(self):
+        Specialization.objects.create(
+            name=0
+            )#Cuidados Básicos de Saúde
+        Specialization.objects.create(
+            name=1
+            )#Apoio à Mobilidade
+
+        url = reverse("specialization-list")
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(response.data) >= 2)
+        names = [spec['name'] for spec in response.data]
+        self.assertIn(0, names)
+        self.assertIn(1, names)

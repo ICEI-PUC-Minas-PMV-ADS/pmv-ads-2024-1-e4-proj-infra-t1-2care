@@ -116,6 +116,10 @@ class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIV
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
 
+class SpecializationListView(generics.ListAPIView):
+    queryset = Specialization.objects.all()
+    serializer_class = SpecializationSerializer
+
 class CarereceiverDetail(generics.RetrieveAPIView):
     carereceiver = Carereceiver.objects.all()
     queryset = Carereceiver.objects.all()

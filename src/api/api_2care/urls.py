@@ -28,6 +28,7 @@ from core.views import (
     QualificationRetrieveUpdateDestroy,
     SpecializationListCreateView,
     SpecializationRetrieveUpdateDestroyView,
+    SpecializationListView,
     CarereceiverDetail,
     CarereceiverEdit,
     UserSignup,
@@ -66,8 +67,9 @@ urlpatterns = [
     path('qualification/<uuid:pk>/', QualificationRetrieveUpdateDestroy.as_view(), name='qualification-update-delete'),
 
     ##### Specialization - Leo #####
-    path('specialization/', SpecializationListCreateView.as_view(), name='specialization-list'),
-    path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
+    path('specialization/', SpecializationListCreateView.as_view(), name='specialization-create'),
+    path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-update-delete'),
+    path('specialization/list/', SpecializationListView.as_view(), name='specialization-list'),
 
     path('carereceiver/<uuid:pk>', CarereceiverDetail.as_view(), name='carereceiver-detail'),
     path('carereceiver/', CarereceiverEdit.as_view(), name='carereceiver-edit'),
