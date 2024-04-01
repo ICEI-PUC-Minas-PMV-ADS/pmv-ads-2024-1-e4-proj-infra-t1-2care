@@ -1,12 +1,9 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import CareReceiver, Greeting, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver, CareRequest, Rating, CustomUser
+from .models import CareReceiver, Qualification, WorkExperience, Specialization, FixedUnavailableDay, FixedUnavailableHour, CustomUnavailableDay, Caregiver, CareRequest, Rating, CustomUser
 
-class GreetingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Greeting
-        fields = '__all__'
+
 
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -76,6 +73,11 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    # Opcionalmente, personalize o TokenObtainPairSerializer
+    pass
+
 
 class CareRequestSerializer(serializers.ModelSerializer):
     class Meta:

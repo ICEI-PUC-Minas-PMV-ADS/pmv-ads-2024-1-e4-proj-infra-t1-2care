@@ -5,15 +5,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import CareRequest, CareReceiver, Greeting, Caregiver, Rating, Specialization, Qualification
-from .serializers import CareRequestSerializer, CareReceiverSerializer, GreetingSerializer, CaregiverSerializer, QualificationSerializer, RatingSerializer, SpecializationSerializer, UserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import CareRequest, CareReceiver, Caregiver, Rating, Specialization, Qualification
+from .serializers import CareRequestSerializer, CareReceiverSerializer, CaregiverSerializer, QualificationSerializer, RatingSerializer, SpecializationSerializer, UserSerializer
 
-class GreetingList(APIView):
-     authentication_classes =[JWTAuthentication]
-     def get(self, request):
-        greetings = Greeting.objects.all()
-        serializer = GreetingSerializer(greetings, many=True)
-        return Response(serializer.data)
 
 class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
     queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
@@ -106,30 +102,85 @@ class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIV
     queryset = Specialization.objects.all()
     serializer_class = SpecializationSerializer
 
-class CarereceiverDetail(generics.RetrieveAPIView):
-    carereceiver = CareReceiver.objects.all()
-    queryset = CareReceiver.objects.all()
+class CareReceiverDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Retrieve, update ou partially update um CareReceiver.
+    """
     serializer_class = CareReceiverSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        """
+        Este view deverá retornar o CareReceiver relacionado ao usuário que fez a requisição
+        """
+        user = self.request.user
+        return CareReceiver.objects.filter(user=user)
 
-class CarereceiverEdit(APIView):
-    queryset = Caregiver.objects.all()
+    def get_object(self):
+        """
+        Retorna o objeto do CareReceiver relacionado ao usuário.
+        Se o CareReceiver não existir, retorna NotFound.
+        """
+        queryset = self.get_queryset()
+        obj = generics.get_object_or_404(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+
+class CareReceiverCreateView(generics.CreateAPIView):
+    """
+    Cria um novo CareReceiver.
+    """
     serializer_class = CareReceiverSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = [IsAuthenticated]
 
-    def put(self, request, format=None):
-        carereceiver = self.queryset.first() 
+    def perform_create(self, serializer):
+        """
+        Cria um novo CareReceiver associado ao usuário que fez a requisição.
+        """
+        serializer.save(user=self.request.user)
 
-        serializer = CareReceiverSerializer(carereceiver, data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# Supondo que você queira ter uma view para listar todos os CareReceivers
+# Esta view deverá ser protegida e restrita a apenas admins ou pessoal autorizado.
+class CareReceiverListView(generics.ListAPIView):
+    """
+    Listar todos os CareReceivers. Deve ser acessível apenas por admins.
+    """
+    serializer_class = CareReceiverSerializer
+    permission_classes = [IsAuthenticated]  # Altere para uma permissão mais específica de admin
+
+    def get_queryset(self):
+        """
+        Este view deverá retornar uma lista de todos os CareReceivers.
+        Pode ser filtrada para retornar apenas CareReceivers específicos.
+        """
+        return CareReceiver.objects.all()
 
 class UserSignup(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
+
+class LoginView(TokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class CareRequestListCreate(generics.ListCreateAPIView):
     authentication_classes =[JWTAuthentication]
@@ -161,6 +212,7 @@ class RatingCreate(generics.CreateAPIView):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     authentication_classes =[JWTAuthentication]
+
 class RatingDetail(generics.RetrieveAPIView):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer

@@ -5,11 +5,6 @@ import uuid
 def generate_username():
     return 'user_' + str(uuid.uuid4())[:8]
 
-class Greeting(models.Model):
-    message = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.message
 
 class CustomUser(AbstractUser):
     GENDER_CHOICES = [
@@ -39,39 +34,6 @@ class CustomUser(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    
-    
-# class SpecialCare(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=255)
-
-# class SpecialCareUser(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     care_type = models.ForeignKey(SpecialCare, on_delete=models.CASCADE)
-#     description = models.TextField()
-
-# class CareReceiver(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     emergency_contact = models.CharField(max_length=64)
-#     share_special_care = models.BooleanField(default=True)
-#     additional_info = models.TextField(blank=True, null=True)
-
-# class Qualification(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=255)
-#     file = models.FileField(upload_to='qualifications/', blank=True, null=True)
-
-# class WorkExperience(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     place = models.CharField(max_length=128)
-#     description = models.TextField(blank=True, null=True)
-#     start_date = models.DateField()
-#     end_date = models.DateField()
-
-# class Specialization(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=255)  # Ajuste o tipo de campo conforme necessário
 
 class Qualification(models.Model):
     id = models.UUIDField('id', primary_key=True, default=uuid.uuid4, editable=False)
@@ -198,19 +160,31 @@ class Caregiver(models.Model):
         verbose_name_plural = "Caregivers"
 
 class CareReceiver(models.Model):
-  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  user = models.OneToOneField(CustomUser, related_name='profile', on_delete=models.CASCADE,)
-  emergency_phone = models.CharField(max_length=13)
-  share_special_care = models.BooleanField()
-  additional_field = models.CharField(max_length=255)
+    # Garanta que a relação com CustomUser seja eliminada se o CareReceiver for excluído
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+    # Utilize um validador para o telefone de emergência, assegurando um formato correto
+    emergency_phone = models.CharField(
+        'Telefone de Emergência', 
+        max_length=13, 
+    )
+
+    share_special_care = models.BooleanField('Compartilhar Cuidados Especiais', default=False)
+    additional_info = models.TextField('Informações Adicionais', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} - Care Receiver"
+
+    class Meta:
+        verbose_name = 'Receptor de Cuidado'
+        verbose_name_plural = 'Receptores de Cuidado'
 
 class CareRequest(models.Model):
     STATUS_CHOICES = [
         (0, 'Pendente'),
         (1, 'Recusado'),
         (2, 'Autorizado'),
-        # (3, 'Finalizado'),
-        #(4, 'Cancelado'),
+
     ]
     id = models.UUIDField(primary_key=True, editable=False)
     date = models.DateField()
