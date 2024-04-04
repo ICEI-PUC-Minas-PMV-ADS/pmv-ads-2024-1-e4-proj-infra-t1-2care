@@ -18,7 +18,7 @@ Discorra sobre os resultados do teste. Ressaltando pontos fortes e fracos identi
 | **ID do Caso de Teste** | **Componente** | **Descrição** | **Entrada Esperada** | **Saída Esperada** | **Estado (Passou/Falhou)** |
 |-------------------------|----------------|---------------|----------------------|--------------------|----------------------------|
 | SM-01 | SpecializationModel | Verificar a criação de um objeto Specialization com dados válidos. | Dados válidos para uma especialização (por exemplo, `name=1`). | Objeto Specialization criado com sucesso. | Passou |
-| SM-02 | SpecializationModel | Testar validações de campos obrigatórios do modelo Specialization. | Dados sem o campo `name`. | Erro de validação dos campos. | Falhou |
+| SM-02 | SpecializationModel | Testar validações de campos obrigatórios do modelo Specialization. | Dados sem o campo `name`. | Erro de validação dos campos. | Passou |
 | SM-03 | SpecializationModel | Verificar a atualização de um objeto Specialization existente. | Objeto Specialization existente e novos dados para atualização (por exemplo, `name=2`). | Objeto Specialization atualizado com sucesso. | Passou |
 | SM-04 | SpecializationModel | Testar exclusão de um objeto Specialization. | Objeto Specialization existente. | Objeto Specialization excluído com sucesso. | Passou |
 
@@ -28,12 +28,12 @@ Discorra sobre os resultados do teste. Ressaltando pontos fortes e fracos identi
 |-------------------------|----------------|---------------|----------------------|--------------------|----------------------------|
 | SP-01 | `SpecializationSerializer` | Verificar a serialização de uma instância de especialização com dados válidos. | Instância de `Specialization` com dados válidos. | Dados da especialização serializados corretamente. | Passou |
 | SP-02 | `SpecializationSerializer` | Testar a criação de uma especialização com dados válidos usando o serializer. | Dados válidos de uma nova especialização. | Nova especialização criada com sucesso.                    | Passou |
-| SP-03 | `SpecializationSerializer` | Testar a criação de uma especialização com dados inválidos usando o serializer. | Dados inválidos para uma nova especialização. | Erro de validação do campo 'nome'. | Falhou |
+| SP-03 | `SpecializationSerializer` | Testar a criação de uma especialização com dados inválidos usando o serializer. | Dados inválidos para uma nova especialização. | Erro de validação do campo 'nome'. | Passou |
 | SP-04 | `SpecializationSerializer` | Verificar a atualização de uma especialização existente com dados válidos usando o serializer. | Dados válidos para atualizar uma especialização existente. | Especialização existente atualizada com sucesso. | Passou |
-| SP-05 | `SpecializationSerializer` | Testar a atualização de uma especialização com dados inválidos usando o serializer. | Dados inválidos para atualizar uma especialização. | Falha na validação dos dados, impedindo a atualização. | Falhou |
+| SP-05 | `SpecializationSerializer` | Testar a atualização de uma especialização com dados inválidos usando o serializer. | Dados inválidos para atualizar uma especialização. | Falha na validação dos dados, impedindo a atualização. | Passou |
 | SP-06 | `SpecializationSerializer` | Verificar a recuperação de todas as especializações cadastradas. | N/A | Lista de todas as especializações cadastradas. | Passou |
 | SP-07 | `SpecializationSerializer` | Testar a recuperação de uma especialização específica pelo nome. | Nome de uma especialização existente. | Especialização específica recuperada com sucesso. | Passou |
-| SP-08 | `Specialization` | Testar a exclusão de uma especialização pelo ID. | ID de uma especialização existente. | Especialização específica excluída com sucesso. | - |
+| SP-08 | `Specialization` | Testar a exclusão de uma especialização pelo ID. | ID de uma especialização existente. | Especialização específica excluída com sucesso. | Passou |
 
 ### Casos de Teste para View
 
