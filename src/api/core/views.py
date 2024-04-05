@@ -89,7 +89,7 @@ class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
 
-class CaregiverEdit(APIView):
+class CaregiverEditView(APIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
@@ -133,7 +133,7 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 
         return Response(calendar)
 
-class CaregiverDetail(generics.RetrieveAPIView):
+class CaregiverDetailView(generics.RetrieveAPIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
