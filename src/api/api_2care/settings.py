@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     #external
     "rest_framework",
-    'drf_yasg',
+    "drf_yasg",
+    "pymongo"
 
 ]
 
