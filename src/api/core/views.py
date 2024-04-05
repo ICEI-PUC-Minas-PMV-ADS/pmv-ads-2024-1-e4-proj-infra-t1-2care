@@ -149,19 +149,19 @@ class CareReceiverCreateView(generics.CreateAPIView):
 
 # Supondo que você queira ter uma view para listar todos os CareReceivers
 # Esta view deverá ser protegida e restrita a apenas admins ou pessoal autorizado.
-class CareReceiverListView(generics.ListAPIView):
-    """
-    Listar todos os CareReceivers. Deve ser acessível apenas por admins.
-    """
-    serializer_class = CareReceiverSerializer
-    permission_classes = [IsAuthenticated]  # Altere para uma permissão mais específica de admin
+# class CareReceiverListView(generics.ListAPIView):
+#     """
+#     Listar todos os CareReceivers. Deve ser acessível apenas por admins.
+#     """
+#     serializer_class = CareReceiverSerializer
+#     permission_classes = [IsAuthenticated]  # Altere para uma permissão mais específica de admin
 
-    def get_queryset(self):
-        """
-        Este view deverá retornar uma lista de todos os CareReceivers.
-        Pode ser filtrada para retornar apenas CareReceivers específicos.
-        """
-        return CareReceiver.objects.all()
+#     def get_queryset(self):
+#         """
+#         Este view deverá retornar uma lista de todos os CareReceivers.
+#         Pode ser filtrada para retornar apenas CareReceivers específicos.
+#         """
+#         return CareReceiver.objects.all()
 
 class UserSignup(generics.CreateAPIView):
     permission_classes = [AllowAny]

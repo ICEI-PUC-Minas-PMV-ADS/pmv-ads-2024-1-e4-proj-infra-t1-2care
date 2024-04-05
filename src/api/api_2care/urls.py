@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from core.views import CareRequestAccept, CareRequestDecline, CareRequestDetail, CareRequestListCreate, CareReceiverDetail, CareReceiverEdit, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView, LogoutView,  QualificationCreate, QualificationRetrieveUpdateDestroy, RatingCreate, RatingDetail, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView, UserSignup
+from core.views import CareReceiverCreateView, CareReceiverDetailView, CareRequestAccept, CareRequestDecline, CareRequestDetail, CareRequestListCreate, CaregiverList, CaregiverEdit, CaregiverSelfCalendarView, CaregiverDetail, CaregiverCalendarView, LogoutView,  QualificationCreate, QualificationRetrieveUpdateDestroy, RatingCreate, RatingDetail, SpecializationListCreateView, SpecializationRetrieveUpdateDestroyView, UserSignup
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,TokenVerifyView)
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -34,7 +34,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # Core -> Rotas de Administrador e Utilitários
+    # Core App -> Rotas de Administrador e Utilitários
     path("admin/", admin.site.urls),
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -65,8 +65,8 @@ urlpatterns = [
     path('specialization/<uuid:pk>/', SpecializationRetrieveUpdateDestroyView.as_view(), name='specialization-list-update-delete'),
 
     # CareReceiver App -> Rotas relacionadas a aqueles que receberão os Cuidados
-    path('carereceiver/<uuid:pk>', CareReceiverDetail.as_view(), name='carereceiver-detail'),
-    path('carereceiver/', CareReceiverEdit.as_view(), name='carereceiver-edit'),
+     path('carereceiver/', CareReceiverCreateView.as_view(), name='carereceiver-create'),
+    path('carereceiver/<uuid:pk>', CareReceiverDetailView.as_view(), name='carereceiver-detail'),
 
     # Services App -> Rotas relacionadas aos serviços e avaliações
     path('requests/', CareRequestListCreate.as_view(), name='care-request-list-create'),

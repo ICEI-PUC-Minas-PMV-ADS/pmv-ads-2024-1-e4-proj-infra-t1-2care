@@ -160,15 +160,8 @@ class Caregiver(models.Model):
         verbose_name_plural = "Caregivers"
 
 class CareReceiver(models.Model):
-    # Garanta que a relação com CustomUser seja eliminada se o CareReceiver for excluído
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-
-    # Utilize um validador para o telefone de emergência, assegurando um formato correto
-    emergency_phone = models.CharField(
-        'Telefone de Emergência', 
-        max_length=13, 
-    )
-
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='care_receiver')
+    emergency_contact = models.CharField('Telefone de Emergência', max_length=15)
     share_special_care = models.BooleanField('Compartilhar Cuidados Especiais', default=False)
     additional_info = models.TextField('Informações Adicionais', blank=True, null=True)
 
@@ -176,8 +169,8 @@ class CareReceiver(models.Model):
         return f"{self.user.username} - Care Receiver"
 
     class Meta:
-        verbose_name = 'Receptor de Cuidado'
-        verbose_name_plural = 'Receptores de Cuidado'
+        verbose_name = 'Care Receiver'
+        verbose_name_plural = 'Care Receivers'
 
 class CareRequest(models.Model):
     STATUS_CHOICES = [

@@ -52,6 +52,16 @@ class CareReceiverSerializer(serializers.ModelSerializer):
         model = CareReceiver
         fields = '__all__'
 
+    def validate_emergency_contact(self, value):
+        """
+        Verifique se o telefone de emergência está no formato desejado.
+        """
+        import re
+        if not re.match(r'^\+?1?\d{9,15}$', value):
+            raise serializers.ValidationError("O telefone deve estar no formato: '+999999999'. Até 15 dígitos são permitidos.")
+        return value
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
