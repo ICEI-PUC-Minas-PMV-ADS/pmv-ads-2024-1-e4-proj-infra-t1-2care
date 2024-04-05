@@ -96,6 +96,43 @@ class CaregiverSerializerTests(TestCase):
         self.assertTrue(serializer.is_valid())
         work_exp = serializer.save()
         self.assertEqual(work_exp.place, new_work_experience_data["place"])
+    
+    def test_fail_create_work_experience_serializer(self):
+        wrong_work_experience_data = {
+            "place": None,
+            "start_date": "invalid",
+            "end_date": "invalid",
+        }
+        new_work_experience_data = {
+            "place": "Hospital",
+            "description": "Provided care",
+            "start_date": timezone.now().date(),
+            "end_date": timezone.now().date() + timezone.timedelta(days=365),
+        }
+        for field, value in wrong_work_experience_data.items():
+
+            altered_work_experience_data = new_work_experience_data.copy()
+            altered_work_experience_data[field] = wrong_work_experience_data.get(field)
+
+            serializer = WorkExperienceSerializer(data=altered_work_experience_data)
+
+            self.assertFalse(serializer.is_valid())
+            self.assertIn(field, serializer.errors)
+
+    def test_update_work_experience_serializer(self):
+        new_work_experience_data = {
+            "place": "Hospital",
+            "description": "Provided care",
+            "start_date": timezone.now().date(),
+            "end_date": timezone.now().date() + timezone.timedelta(days=365),
+        }
+        serializer = WorkExperienceSerializer(instance=self.work_experience, data=new_work_experience_data, partial=True)
+        self.assertTrue(serializer.is_valid())
+        updated_work_exp = serializer.save()
+
+        self.assertEqual(updated_work_exp.id, self.work_experience.id)
+        self.assertEqual(updated_work_exp.place, new_work_experience_data["place"])
+        self.assertEqual(updated_work_exp.description, new_work_experience_data["description"])
 
     def test_qualification_serializer(self):
         serializer = QualificationSerializer(instance=self.qualification)
@@ -160,7 +197,7 @@ class CaregiverSerializerTests(TestCase):
         self.assertEqual(len(serializer.data), qualifications.count())
 
     def test_retrieve_qualification_by_name(self):
-        self.test_create_qualification_serializer(self)
+        self.test_create_qualification_serializer()
         qualification_name = "Certificate in Geriatric Care"
         qualification = Qualification.objects.get(name=qualification_name)
         serializer = QualificationSerializer(instance=qualification)
@@ -296,19 +333,61 @@ class CaregiverSerializerTests(TestCase):
 
     def test_create_caregiver_serializer(self):
         new_caregiver_data = {
-            "hour_price": Decimal("25.00"),
-            "day_price": Decimal("180.00"),
-            "max_request_km": 60,
-            "career_time": 7,
-            "additional_info": "Experienced with dementia care.",
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
         }
-        self.caregiver = Caregiver.objects.create(**self.caregiver_data)
         serializer = CaregiverSerializer(data=new_caregiver_data)
 
         self.assertTrue(serializer.is_valid())
         caregiver = serializer.save()
         for field, value in new_caregiver_data.items():
             self.assertEqual(getattr(caregiver, field), value)
+
+    def test_fail_create_caregiver_serializer(self):
+        wrong_caregiver_data = {
+            "hour_price": "invalid",
+            "day_price": "invalid",
+            "max_request_km": "invalid",
+            "career_time": "invalid",
+        }
+        new_caregiver_data = {
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
+        }
+
+        for field, value in wrong_caregiver_data.items():
+
+            altered_caregiver_data = new_caregiver_data.copy()
+            altered_caregiver_data[field] = wrong_caregiver_data.get(field)
+
+            serializer = CaregiverSerializer(data=altered_caregiver_data)
+
+            self.assertFalse(serializer.is_valid())
+            self.assertIn(field, serializer.errors)
+    
+    def test_update_caregiver_serializer(self):
+        new_caregiver_data = {
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
+        }
+
+        serializer = CaregiverSerializer(instance=self.caregiver, data=new_caregiver_data, partial=True)
+        self.assertTrue(serializer.is_valid())
+        updated_caregiver = serializer.save()
+
+        self.assertEqual(updated_caregiver.id, self.caregiver.id)
+        self.assertEqual(updated_caregiver.hour_price, new_caregiver_data["hour_price"])
+        self.assertEqual(updated_caregiver.career_time, new_caregiver_data["career_time"])
+
 
     def test_add_manytomany_to_caregiver_serializer(self):
         qualification = Qualification.objects.create(
@@ -336,11 +415,11 @@ class CaregiverSerializerTests(TestCase):
             "career_time": 7,
             "additional_info": "Experienced with dementia care.",
         }
-
         serializer = CaregiverSerializer(data=new_caregiver_data)
         self.assertTrue(serializer.is_valid())
         caregiver = serializer.save()
 
+        # esse teste meio que ta errado, se não ta fazendo por um serializer, não faz sentido, parece mais um test de model.
         caregiver.specializations.add(specialization)
         caregiver.work_exp.add(work_exp)
         caregiver.qualifications.add(qualification)

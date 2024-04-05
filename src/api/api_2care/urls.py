@@ -19,10 +19,10 @@ from django.contrib import admin, auth
 from django.urls import path, include
 from core.views import (
     GreetingList,
-    CaregiverList,
-    CaregiverEdit,
+    CaregiverListView,
+    CaregiverEditView,
     CaregiverSelfCalendarView,
-    CaregiverDetail,
+    CaregiverDetailView,
     CaregiverCalendarView,
     QualificationCreate,
     QualificationRetrieveUpdateDestroy,
@@ -54,11 +54,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('greetings/', GreetingList.as_view(), name='greeting-list'),
 
-    path('caregiver', CaregiverList.as_view(), name='caregiver-list'),
-    path('caregiver/', CaregiverEdit.as_view(), name='caregiver-edit'),
+    path('caregiver', CaregiverListView.as_view(), name='caregiver-list'),
+    path('caregiver/', CaregiverEditView.as_view(), name='caregiver-edit'),
     path('caregiver/my-calendar', CaregiverSelfCalendarView.as_view(), name='caregiver-self-calendar-view'), 
 
-    path('caregiver/<uuid:pk>', CaregiverDetail.as_view(), name='caregiver-detail'),
+    path('caregiver/<uuid:pk>', CaregiverDetailView.as_view(), name='caregiver-detail'),
     path('caregiver/<uuid:pk>/calendar', CaregiverCalendarView.as_view(), name='caregiver-calendar-view'),
     #path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
 

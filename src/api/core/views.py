@@ -24,12 +24,12 @@ class GreetingList(APIView):
         serializer = GreetingSerializer(greetings, many=True)
         return Response(serializer.data)
 
-class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
+class CaregiverListView(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
     queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
 
-class CaregiverEdit(APIView):
+class CaregiverEditView(APIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
@@ -73,7 +73,7 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 
         return Response(calendar)
 
-class CaregiverDetail(generics.RetrieveAPIView):
+class CaregiverDetailView(generics.RetrieveAPIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
