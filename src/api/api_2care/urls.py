@@ -34,6 +34,7 @@ from core.views import (
     UserSignup,
     UserLogin,
     UserLogout,
+    MongoUpdate
 )
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -54,6 +55,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('greetings/', GreetingList.as_view(), name='greeting-list'),
 
+    path('mongo/update', MongoUpdate.as_view(), name='mongo-update'),
     path('caregiver', CaregiverList.as_view(), name='caregiver-list'),
     path('caregiver/', CaregiverEdit.as_view(), name='caregiver-edit'),
     path('caregiver/my-calendar', CaregiverSelfCalendarView.as_view(), name='caregiver-self-calendar-view'), 

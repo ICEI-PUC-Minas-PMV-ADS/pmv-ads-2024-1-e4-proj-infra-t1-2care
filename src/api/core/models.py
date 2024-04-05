@@ -188,7 +188,7 @@ class Caregiver(models.Model):
     additional_info =models.TextField('Informações adicionais', null=True, blank=True)
 
     def __str__(self):
-        return f"Caregiver - {self.user}"
+        return f"Caregiver - {self.id}"
     
     class Meta:
         #ordering = ['user']
