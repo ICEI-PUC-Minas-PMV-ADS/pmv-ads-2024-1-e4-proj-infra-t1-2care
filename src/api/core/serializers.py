@@ -1,3 +1,5 @@
+import re
+from django.forms import ValidationError
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -21,6 +23,25 @@ class QualificationSerializer(serializers.ModelSerializer):
         model = Qualification
         fields = "__all__"
 
+        fields = "__all__"
+
+    def validate_file(self, value):
+        if not isinstance(value, str):
+            raise ValidationError("O campo 'file' deve ser uma string.")
+
+        url_regex = re.compile(
+            r"^(?:http|ftp)s?://"
+            r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|"
+            r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"
+            r"(?::\d+)?"
+            r"(?:/?|[/?]\S+)$",
+            re.IGNORECASE,
+        )
+        if not re.match(url_regex, value):
+            raise ValidationError("O campo 'file' deve conter um link válido.")
+
+        return value
+
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +53,14 @@ class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Specialization
         fields = "__all__"
+
+        def validate_name(self, value):
+            if value not in [choice[0] for choice in Specialization.SPECIALIZATION]:
+                raise serializers.ValidationError(
+                    "Este não é um valor válido para o campo 'name'."
+                )
+
+            return value
 
 
 class FixedUnavailableDaySerializer(serializers.ModelSerializer):
@@ -123,3 +152,9 @@ class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = "__all__"
+
+        fields = "__all__"
+
+
+
+
