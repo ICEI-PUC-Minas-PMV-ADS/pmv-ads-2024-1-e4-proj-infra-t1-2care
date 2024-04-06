@@ -12,6 +12,8 @@ from .models import (
     CareReceiver,
     Caregiver,
     Rating,
+    SpecialCare,
+    SpecialCareUser,
     Specialization,
     Qualification,
 )
@@ -21,6 +23,8 @@ from .serializers import (
     CaregiverSerializer,
     QualificationSerializer,
     RatingSerializer,
+    SpecialCareSerializer,
+    SpecialCareUserSerializer,
     SpecializationSerializer,
     UserSerializer,
 )
@@ -40,7 +44,6 @@ class CaregiverList(
 class CaregiverEdit(APIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     authentication_classes = [JWTAuthentication]
 
     # como não temos a token ainda, não consigo direcionar pro usuario certo
@@ -69,7 +72,6 @@ class CaregiverEdit(APIView):
 class CaregiverSelfCalendarView(generics.RetrieveAPIView):
     queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     authentication_classes = [JWTAuthentication]
 
     def retrieve(self, request, *args, **kwargs):
@@ -273,4 +275,22 @@ class RatingCreate(generics.CreateAPIView):
 class RatingDetail(generics.RetrieveAPIView):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+    authentication_classes = [JWTAuthentication]
+
+class SpecialCareList(generics.ListCreateAPIView):
+    queryset = SpecialCare.objects.all()
+    serializer_class = SpecialCareSerializer
+
+class SpecialCareDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SpecialCare.objects.all()
+    serializer_class = SpecialCareSerializer
+    authentication_classes = [JWTAuthentication]
+
+class SpecialCareUserList(generics.ListCreateAPIView):
+    queryset = SpecialCareUser.objects.all()
+    serializer_class = SpecialCareUserSerializer
+
+class SpecialCareUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SpecialCareUser.objects.all()
+    serializer_class = SpecialCareUserSerializer
     authentication_classes = [JWTAuthentication]

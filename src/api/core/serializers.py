@@ -6,6 +6,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import (
     CareReceiver,
     Qualification,
+    SpecialCare,
+    SpecialCareUser,
     WorkExperience,
     Specialization,
     FixedUnavailableDay,
@@ -21,8 +23,6 @@ from .models import (
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Qualification
-        fields = "__all__"
-
         fields = "__all__"
 
     def validate_file(self, value):
@@ -115,25 +115,19 @@ class CareReceiverSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = "__all__"
+        # Inclua todos os campos que você deseja expor via API
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined')
         extra_kwargs = {
-            "password": {"write_only": True}
-        }  # Isso garante que a senha não seja retornada nas respostas
+            'password': {'write_only': True, 'required': False},
+            # Garantir que campos sensíveis não sejam manipuláveis
+            'is_staff': {'read_only': True},
+            'is_superuser': {'read_only': True},
+            'user_permissions': {'read_only': True},
+            'groups': {'read_only': True},
+        }
 
     def create(self, validated_data):
-        print(validated_data)
-        # Extrai a senha do validated_data e a remove do dicionário
-        password = validated_data.pop("password")
-
-        # Cria o usuário com os dados validados, exceto a senha
-        user = CustomUser.objects.create(**validated_data)
-
-        # Define a senha para o usuário (isso irá criptografar a senha adequadamente)
-        user.set_password(password)
-
-        # Salva o usuário após definir a senha
-        user.save()
-
+        user = CustomUser.objects.create_user(**validated_data)
         return user
 
 
@@ -153,8 +147,14 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = "__all__"
 
-        fields = "__all__"
 
+class SpecialCareSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SpecialCare
+        fields = '__all__'
 
+class SpecialCareUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SpecialCareUser
 
 

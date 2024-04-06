@@ -34,6 +34,10 @@ from core.views import (
     QualificationRetrieveUpdateDestroy,
     RatingCreate,
     RatingDetail,
+    SpecialCareDetail,
+    SpecialCareList,
+    SpecialCareUserDetail,
+    SpecialCareUserList,
     SpecializationListCreateView,
     SpecializationRetrieveUpdateDestroyView,
     UserSignup,
@@ -114,6 +118,12 @@ urlpatterns = [
         CareReceiverDetailView.as_view(),
         name="carereceiver-detail",
     ),
+    path('special-care/', SpecialCareList.as_view(), name='special-care-list'),
+    path('special-care/<uuid:pk>/', SpecialCareDetail.as_view(), name='special-care-detail'),
+    
+    path('special-care-user/', SpecialCareUserList.as_view(), name='special-care-user-list'),
+    path('special-care-user/<uuid:pk>/', SpecialCareUserDetail.as_view(), name='special-care-user-detail'),
+
     # Services App -> Rotas relacionadas aos serviços e avaliações
     path("requests/", CareRequestListCreate.as_view(), name="care-request-list-create"),
     path(
@@ -131,4 +141,5 @@ urlpatterns = [
     ),
     path("ratings/", RatingCreate.as_view(), name="rating-create"),
     path("ratings/<uuid:pk>/", RatingDetail.as_view(), name="rating-detail"),
+    
 ]

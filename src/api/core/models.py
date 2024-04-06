@@ -4,10 +4,6 @@ import uuid
 from django.contrib.auth.models import User
 
 
-def generate_username():
-    return "user_" + str(uuid.uuid4())[:8]
-
-
 class CustomUser(AbstractUser):
     GENDER_CHOICES = [
         (0, "Não especificado"),
@@ -20,12 +16,18 @@ class CustomUser(AbstractUser):
         (2, "None"),
     ]
 
+    USER_TYPE_CHOICES = [
+        ('caregiver', 'Cuidador'),
+        ('carereceiver', 'Receptor de Cuidados'),
+    ]
+
+    user_type = models.CharField(max_length=12, choices=USER_TYPE_CHOICES, blank=False, null=False)
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, blank=False, null=False)
     password = models.CharField(max_length=128)
-    username = models.CharField(
-        unique=True, max_length=50, null=False, blank=False, default=generate_username
-    )
+    name = models.CharField(
+        unique=True, max_length=80, null=False, blank=False)
     phone = models.CharField(max_length=64)
     picture = models.TextField(blank=True, null=True)
     address = models.TextField()
@@ -273,3 +275,36 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"{self.rating} - {self.description}"
+
+
+class SpecialCare(models.Model):
+    CARE_TYPES = [
+        (0, "Cuidados com a Saúde"),  # Assistência com medicação, monitoramento de condições de saúde, etc.
+        (1, "Apoio Emocional"),  # Companhia, atividades que estimulam a interação social.
+        (2, "Fisioterapia"),  # Exercícios de reabilitação, massagens, prevenção de quedas.
+        (3, "Acompanhamento Médico"),  # Visitas ao médico, exames, acompanhamento em procedimentos.
+        (4, "Apoio à Mobilidade"),  # Assistência para andar, usar cadeira de rodas, transferências.
+        (5, "Cuidados Pessoais"),  # Higiene pessoal, banho, vestimenta.
+        (6, "Apoio Doméstico"),  # Limpeza, manutenção da casa, lavanderia.
+        (7, "Nutrição"),  # Preparo de refeições, acompanhamento nutricional, ajuda com alimentação.
+        (8, "Atividades Recreativas"),  # Jogos, artesanato, leitura, exercícios leves.
+        (9, "Gestão de Demência/Alzheimer"),  # Estratégias específicas para manejo, suporte cognitivo.
+        (10, "Suporte Noturno"),  # Assistência durante a noite, prevenção de confusão noturna.
+        (11, "Gestão da Dor"),  # Técnicas de alívio da dor, acompanhamento de medicação para dor.
+        (12, "Cuidados Paliativos"),  # Conforto no final da vida, suporte emocional e espiritual.
+    ]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.IntegerField(choices=CARE_TYPES)
+
+    def __str__(self):
+        return self.get_name_display()
+    
+    
+class SpecialCareUser(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    care_type = models.ForeignKey(SpecialCare, on_delete=models.CASCADE, related_name="special_care_users")
+    care_receiver = models.ForeignKey('CareReceiver', on_delete=models.CASCADE, related_name="special_care_users")
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.care_receiver.user.username} - {self.care_type.name}: {self.description[:20]}..."

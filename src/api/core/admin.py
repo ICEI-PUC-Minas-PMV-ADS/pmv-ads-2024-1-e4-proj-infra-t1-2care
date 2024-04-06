@@ -12,6 +12,8 @@ from .models import (
     FixedUnavailableHour,
     CustomUnavailableDay,
     CareReceiver,
+    SpecialCare,
+    SpecialCareUser
 )
 
 
@@ -26,4 +28,6 @@ admin.site.register(WorkExperience)
 admin.site.register(FixedUnavailableDay)
 admin.site.register(FixedUnavailableHour)
 admin.site.register(CustomUnavailableDay)
-admin.site.register(CareReceiver)
+admin.site.register(SpecialCare)
+admin.site.register(SpecialCareUser)
+
