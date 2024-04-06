@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -679,3 +680,55 @@ class CaregiverAPITests(TestCase):
         names = [spec['name'] for spec in response.data]
         self.assertIn(0, names)
         self.assertIn(1, names)
+
+# Test Models Qualification (Odair)
+class QualificationModelTest(TestCase):
+
+    def setUp(self):
+        self.valid_data = {
+            'name': 'Certificate in Geriatric Care',
+            'conclusion_date': timezone.now().date(),
+            'file': "http://example.com/valid_certificate.pdf",
+        }
+
+    def test_create_valid_qualification(self):
+        qualification = Qualification.objects.create(**self.valid_data)
+        self.assertEqual(Qualification.objects.count(), 1)
+        self.assertEqual(qualification.name, self.valid_data['name'])
+        self.assertEqual(qualification.conclusion_date, self.valid_data['conclusion_date'])
+
+    def test_update_qualification(self):
+        qualification = Qualification.objects.create(**self.valid_data)
+        new_name = 'Updated Certificate'
+        new_conclusion_date = timezone.now().date()
+        qualification.name = new_name
+        qualification.conclusion_date = new_conclusion_date
+        qualification.save()
+        self.assertEqual(qualification.name, new_name)
+        self.assertEqual(qualification.conclusion_date, new_conclusion_date)
+
+    def test_invalid_qualification(self):
+        invalid_data = {
+            'name': '',
+            'conclusion_date': timezone.now().date(),
+            'file': "http://example.com/invalid_certificate.pdf",
+        }
+        qualification = Qualification(**self.valid_data)
+        qualification.__dict__.update(invalid_data)
+
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
+
+    def test_retrieve_qualification(self):
+        qualification = Qualification.objects.create(**self.valid_data)
+        retrieved_qualification = Qualification.objects.get(pk=qualification.pk)
+        self.assertEqual(qualification.pk, retrieved_qualification.pk)
+        self.assertEqual(qualification.name, retrieved_qualification.name)
+        self.assertEqual(qualification.conclusion_date, retrieved_qualification.conclusion_date)
+
+    def test_delete_qualification(self):
+        qualification = Qualification.objects.create(**self.valid_data)
+        qualification_id = qualification.pk
+        qualification.delete()
+        with self.assertRaises(Qualification.DoesNotExist):
+            Qualification.objects.get(pk=qualification_id)

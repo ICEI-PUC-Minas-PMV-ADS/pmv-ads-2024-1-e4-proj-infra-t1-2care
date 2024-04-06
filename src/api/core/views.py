@@ -84,7 +84,7 @@ class MongoUpdate(APIView):
 
         return Response(caregiversData, 200)
     
-class CaregiverList(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.#
+class CaregiverListView(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.#
     queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,) #fixme precisa do user pra auth
