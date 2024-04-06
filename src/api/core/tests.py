@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -619,15 +620,17 @@ class QualificationModelTest(TestCase):
         self.assertEqual(qualification.name, new_name)
         self.assertEqual(qualification.conclusion_date, new_conclusion_date)
 
-    def test_update_invalid_qualification(self):
-        qualification = Qualification.objects.create(**self.valid_data)
+    def test_invalid_qualification(self):
         invalid_data = {
             'name': '',
             'conclusion_date': timezone.now().date(),
             'file': "http://example.com/invalid_certificate.pdf",
         }
-        serializer = QualificationSerializer(instance=qualification, data=invalid_data)
-        self.assertFalse(serializer.is_valid())
+        qualification = Qualification(**self.valid_data)
+        qualification.__dict__.update(invalid_data)
+
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
 
     def test_retrieve_qualification(self):
         qualification = Qualification.objects.create(**self.valid_data)
