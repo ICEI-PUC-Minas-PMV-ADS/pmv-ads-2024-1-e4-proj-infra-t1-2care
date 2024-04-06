@@ -1,0 +1,32 @@
+.caregiverCard {
+    background-color: #FFFFFF;
+    width: 30%;
+    height: 25%;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 2%;
+    margin: 1%;
+    margin-bottom: 5%;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.description {
+    display: block;
+    text-align: left;
+    justify-content: center;
+    line-height: 0.5;
+  /* flex-direction: column; */
+}
+
+p {
+    font-size: 16px;
+}
+
+img {
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+}
