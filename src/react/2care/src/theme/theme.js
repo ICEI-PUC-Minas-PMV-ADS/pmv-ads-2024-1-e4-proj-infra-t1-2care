@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({ // Tudo aqui precisa de um update pra seguir a identidade visual do nosso site.
   typography:{
-    fontFamily: "'Thai', sans-serif"
+    fontFamily: "'Catamaran', sans-serif"
   },
   palette: {
     primary: {

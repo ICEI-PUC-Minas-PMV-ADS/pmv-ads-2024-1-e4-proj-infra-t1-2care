@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import './App.css';
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
-import CaregiverList from '../components/CaregiverList/CaregiverList'
+import ProfileCard from '../components/ProfileCard/ProfileCard'
 
 function Home() {
   const theme = useTheme();

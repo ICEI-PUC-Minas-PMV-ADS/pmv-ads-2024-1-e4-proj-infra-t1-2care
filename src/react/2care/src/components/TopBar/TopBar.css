@@ -1,0 +1,13 @@
+.topBar {
+    display: flex;
+    background-color: #FFFFFF;
+    height: 55px;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.topBar .logo {
+    width: 48px;
+    height: 48px;
+}

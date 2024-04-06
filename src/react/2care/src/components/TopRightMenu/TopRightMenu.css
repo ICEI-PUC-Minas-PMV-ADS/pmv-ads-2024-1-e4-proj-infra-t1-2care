@@ -1,0 +1,9 @@
+button, select {
+    border-radius: 20px;
+    width: 65px;
+    height: 30px;
+    border: none;
+    background-color: #486142;
+    color: #FFFFFF;
+
+}
