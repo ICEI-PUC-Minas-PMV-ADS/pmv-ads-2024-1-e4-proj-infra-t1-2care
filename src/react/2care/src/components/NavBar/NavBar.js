@@ -7,9 +7,9 @@ const NavBar = () => {
 
     return (
         <div className='navBar'>
-            <a href="https://www.w3schools.com">Filtros</a>
-            <a href="https://www.w3schools.com">Home</a>
-            {isLogged ? <a href="https://www.w3schools.com">Proposta</a> : <></>}
+            <a href="">Filtros</a>
+            <a href="/home">Home</a>
+            {isLogged ? <a href="">Proposta</a> : <></>}
         </div>
     )
 }

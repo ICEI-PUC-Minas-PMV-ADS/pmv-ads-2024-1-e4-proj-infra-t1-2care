@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
 import ResponsiveAppBar from '../components/layout/ResponsiveAppBar';
 import Home from '../pages/home.jsx'
+import Profile from '../pages/Profile.js'
+import Login from '../pages/Login.js'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme/theme.js';
 
@@ -10,7 +12,9 @@ export default (props) => (
         <BrowserRouter >
             <ResponsiveAppBar />
             <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<Login />} />
+            <Route exact path="home" element={<Home />} />
+            <Route path="profile" element={<Profile />} />
             </Routes>
         </BrowserRouter >
     </ThemeProvider>

@@ -6,30 +6,30 @@ const CaregiverList = () => {
         <div className='caregiverList'>
             <h1>Veja alguns cuidadores cadastrados: </h1>
             <div className='cards'>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
-                <CaregiverCard name='Ellen Gonçalves' especialization='Enfermagem' image='https:\\github.com\ellen-goncalves.png'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
+                <CaregiverCard name='Maria Fontes' especialization='Enfermagem' image='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></CaregiverCard>
                 
             </div>
         </div>

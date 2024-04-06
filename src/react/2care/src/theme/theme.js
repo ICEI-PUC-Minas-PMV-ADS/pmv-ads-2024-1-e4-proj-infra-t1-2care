@@ -1,25 +1,30 @@
 import { createTheme } from '@mui/material/styles';
+import './catamaran.css';
 
-const theme = createTheme({ // Tudo aqui precisa de um update pra seguir a identidade visual do nosso site.
+const theme = createTheme({
   typography:{
-    fontFamily: "'Catamaran', sans-serif"
+    fontFamily: "'Catamaran', sans-serif",
+    fontSize: '1rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.2rem',
+    },
+    fontWeight: 600,
   },
   palette: {
     primary: {
-      main: '#7B1905',
-      light: '#fee8e3',
-      dark: '#300a02',
+      main: '#799275',
+      light: '#D2DAC3',
+      dark: '#486142',
     },
     secondary: {
-      main: '#BEA69F',
-      light: '#2ca1b8',
-      dark: '#0e353c',
+      main: '#B65138',
+      light: '#e5b1a1',
+      dark: '#B65138',
     },
-    text:{
-      light:'#E7E7E7',
-      dark:'black',
-      muted:'#777777',
-      secondary: '#b4b4b4'
+    background: {
+      main: '#F6F6F6',
+      light: '#FFFFFF',
+      dark: '#bebebe',
     },
     error: {
       main: "#e04747",
@@ -30,10 +35,6 @@ const theme = createTheme({ // Tudo aqui precisa de um update pra seguir a ident
       main: "#22bb33",
       light: "#22bb33",
       dark: "#22bb33",
-    },
-    background: {
-      light: '#BEA69F',
-      main: '#f2f6fa !important',
     },
   },
   breakpoints: {

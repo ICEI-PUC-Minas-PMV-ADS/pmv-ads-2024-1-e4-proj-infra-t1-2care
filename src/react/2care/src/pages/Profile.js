@@ -5,6 +5,7 @@ import './App.css';
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
 import ProfileCard from '../components/ProfileCard/ProfileCard'
+import ProfileTab from '../components/ProfileTab/ProfileTab';
 
 function Home() {
   const theme = useTheme();
@@ -17,9 +18,9 @@ function Home() {
       <TopBar></TopBar>
       <NavBar></NavBar>
 
-      <header className="App-header">    
-        {/* <CaregiverList></CaregiverList>     */}
-        <ProfileCard></ProfileCard>
+      <header style={{ display: 'flex', margin: '1em' }}>
+          <ProfileCard></ProfileCard>
+        <ProfileTab caregiver={false}></ProfileTab>
       </header>
     </div>
   );
