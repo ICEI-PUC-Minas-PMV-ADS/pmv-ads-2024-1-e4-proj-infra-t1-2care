@@ -17,6 +17,7 @@ from .models import (
     SpecializationModel,
     QualificationModel,
 )
+
 from .serializers import (
     CareRequestSerializer,
     CareReceiverSerializer,
@@ -102,6 +103,7 @@ class CaregiverListView(
 
 class CaregiverEditView(APIView):
     queryset = CaregiverModel.objects.all()
+
     serializer_class = CaregiverSerializer
     authentication_classes = [JWTAuthentication]
 
@@ -151,7 +153,7 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 
 
 class CaregiverDetailView(generics.RetrieveAPIView):
-    queryset = CaregiverModel.objects.all()
+    queryset = Caregiver.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     # authentication_classes =[JWTAuthentication]

@@ -43,6 +43,8 @@ from core.views import (
     UserLoginView,
     UserLogoutView,
     MongoUpdate,
+    SpecializationListView,
+
 )
 from rest_framework import permissions
 from rest_framework_simplejwt.views import (
@@ -66,6 +68,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     # Core App -> Rotas de Administrador e Utilitários
     path("admin/", admin.site.urls),
+
     path("mongo/update", MongoUpdate.as_view(), name="mongo-update"),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
