@@ -34,22 +34,25 @@ Comente sobre as ferramentas de testes utilizadas.
 | QM-03			          | QualificationModel | Verificar a atualização de um objeto Qualification existente. | Objeto Qualification existente e novos dados para atualização. | Objeto Qualification atualizado com sucesso. | - |
 | QM-04			          | QualificationModel | Testar exclusão de um objeto Qualification. | Objeto Qualification existente. | Objeto Qualification excluído com sucesso. | - |
 | QM-05                   | QualificationModel | Verificar a representação de string do objeto Qualification. | Objeto Qualification com dados válidos. | String formatada corretamente com nome e data de conclusão. | - |
-| CM-01                   | Caregiver          | Verificar a criação de um objeto Caregiver com dados válidos. | Dados válidos de um Caregiver. | Objeto Caregiver criado com sucesso. | - |
-| CM-02                   | Caregiver          | Testar validações de campos obrigatórios do modelo Caregiver. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
-| CM-03                   | Caregiver          | Verificar a atualização de um objeto Caregiver existente. | Objeto Caregiver existente e novos dados para atualização. | Objeto Caregiver atualizado com sucesso. | - |
-| CM-04                   | Caregiver          | Testar exclusão de um objeto Caregiver. | Objeto Caregiver existente. | Objeto Caregiver excluído com sucesso. | - |
-| FDM-01                   | FixedUnavailableDay          | Verificar a criação de um objeto FixedUnavailableDay com dados válidos. | Dados válidos de um FixedUnavailableDay. | Objeto FixedUnavailableDay criado com sucesso. | - |
-| FDM-02                   | FixedUnavailableDay          | Testar validações de campos obrigatórios do modelo FixedUnavailableDay. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
-| FDM-03                   | FixedUnavailableDay          | Verificar a atualização de um objeto FixedUnavailableDay existente. | Objeto FixedUnavailableDay existente e novos dados para atualização. | Objeto FixedUnavailableDay atualizado com sucesso. | - |
-| FDM-04                   | FixedUnavailableDay          | Testar exclusão de um objeto FixedUnavailableDay. | Objeto FixedUnavailableDay existente. | Objeto FixedUnavailableDay excluído com sucesso. | - |
-| FHM-01                   | FixedUnavailableHour          | Verificar a criação de um objeto FixedUnavailableHour com dados válidos. | Dados válidos de um FixedUnavailableHour. | Objeto FixedUnavailableHour criado com sucesso. | - |
-| FHM-02                   | FixedUnavailableHour          | Testar validações de campos obrigatórios do modelo FixedUnavailableHour. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
-| FHM-03                   | FixedUnavailableHour          | Verificar a atualização de um objeto FixedUnavailableHour existente. | Objeto FixedUnavailableHour existente e novos dados para atualização. | Objeto FixedUnavailableHour atualizado com sucesso. | - |
-| FHM-04                   | FixedUnavailableHour          | Testar exclusão de um objeto FixedUnavailableHour. | Objeto FixedUnavailableHour existente. | Objeto FixedUnavailableHour excluído com sucesso. | - |
-| FUM-01                   | CustomUnavailableDay          | Verificar a criação de um objeto CustomUnavailableDay com dados válidos. | Dados válidos de um CustomUnavailableDay. | Objeto CustomUnavailableDay criado com sucesso. | - |
-| FUM-02                   | CustomUnavailableDay          | Testar validações de campos obrigatórios do modelo CustomUnavailableDay. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
-| FUM-03                   | CustomUnavailableDay          | Verificar a atualização de um objeto CustomUnavailableDay existente. | Objeto CustomUnavailableDay existente e novos dados para atualização. | Objeto CustomUnavailableDay atualizado com sucesso. | - |
-| FUM-04                   | CustomUnavailableDay          | Testar exclusão de um objeto CustomUnavailableDay. | Objeto CustomUnavailableDay existente. | Objeto CustomUnavailableDay excluído com sucesso. | - |
+| CM-01                   | CaregiverModel          | Verificar a criação de um objeto Caregiver com dados válidos. | Dados válidos de um Caregiver. | Objeto Caregiver criado com sucesso. | - |
+| CM-02                   | CaregiverModel          | Verificar a criação de um objeto Caregiver com dados invalidos. | Dados invalidos de um Caregiver. | Erro ao criar objeto. | - |
+| CM-03                   | CaregiverModel          | Testar validações de campos obrigatórios do modelo Caregiver. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
+| CM-04                   | CaregiverModel          | Verificar a atualização de um objeto Caregiver existente. | Objeto Caregiver existente e novos dados para atualização. | Objeto Caregiver atualizado com sucesso. | - |
+| CM-05                   | CaregiverModel          | Verificar a atualização de um objeto Caregiver existente com dados invalidos. | Objeto Caregiver existente e novos dados invalidos para atualização. | Erro ao atualizar objeto. | - |
+| CM-06                   | CaregiverModel          | Testar exclusão de um objeto Caregiver. | Objeto Caregiver existente. | Objeto Caregiver excluído com sucesso. | - |
+| CM-07                   | CaregiverModel          | Testar recuperação de um objeto Caregiver. | Objeto Caregiver existente. | Objeto Caregiver recuperado com sucesso. | - |
+| FDM-01                   | FixedUnavailableDayModel          | Verificar a criação de um objeto FixedUnavailableDay com dados válidos. | Dados válidos de um FixedUnavailableDay. | Objeto FixedUnavailableDay criado com sucesso. | - |
+| FDM-02                   | FixedUnavailableDayModel          | Testar validações de campos obrigatórios do modelo FixedUnavailableDay. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
+| FDM-03                   | FixedUnavailableDayModel          | Verificar a atualização de um objeto FixedUnavailableDay existente. | Objeto FixedUnavailableDay existente e novos dados para atualização. | Objeto FixedUnavailableDay atualizado com sucesso. | - |
+| FDM-04                   | FixedUnavailableDayModel          | Testar exclusão de um objeto FixedUnavailableDay. | Objeto FixedUnavailableDay existente. | Objeto FixedUnavailableDay excluído com sucesso. | - |
+| FHM-01                   | FixedUnavailableHourModel          | Verificar a criação de um objeto FixedUnavailableHour com dados válidos. | Dados válidos de um FixedUnavailableHour. | Objeto FixedUnavailableHour criado com sucesso. | - |
+| FHM-02                   | FixedUnavailableHourModel          | Testar validações de campos obrigatórios do modelo FixedUnavailableHour. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
+| FHM-03                   | FixedUnavailableHourModel          | Verificar a atualização de um objeto FixedUnavailableHour existente. | Objeto FixedUnavailableHour existente e novos dados para atualização. | Objeto FixedUnavailableHour atualizado com sucesso. | - |
+| FHM-04                   | FixedUnavailableHourModel          | Testar exclusão de um objeto FixedUnavailableHour. | Objeto FixedUnavailableHour existente. | Objeto FixedUnavailableHour excluído com sucesso. | - |
+| FUM-01                   | CustomUnavailableDayModel          | Verificar a criação de um objeto CustomUnavailableDay com dados válidos. | Dados válidos de um CustomUnavailableDay. | Objeto CustomUnavailableDay criado com sucesso. | - |
+| FUM-02                   | CustomUnavailableDayModel          | Testar validações de campos obrigatórios do modelo CustomUnavailableDay. | Dados incompletos de um usuário. | Erro de validação dos campos. | - |
+| FUM-03                   | CustomUnavailableDayModel          | Verificar a atualização de um objeto CustomUnavailableDay existente. | Objeto CustomUnavailableDay existente e novos dados para atualização. | Objeto CustomUnavailableDay atualizado com sucesso. | - |
+| FUM-04                   | CustomUnavailableDayModel          | Testar exclusão de um objeto CustomUnavailableDay. | Objeto CustomUnavailableDay existente. | Objeto CustomUnavailableDay excluído com sucesso. | - |
 | SM-01 | SpecializationModel | Verificar a criação de um objeto Specialization com dados válidos. | Dados válidos para uma especialização (por exemplo, `name=1`). | Objeto Specialization criado com sucesso. | - |
 | SM-02 | SpecializationModel | Testar validações de campos obrigatórios do modelo Specialization. | Dados sem o campo `name`. | Erro de validação dos campos. | - |
 | SM-03 | SpecializationModel | Verificar a atualização de um objeto Specialization existente. | Objeto Specialization existente e novos dados para atualização (por exemplo, `name=2`). | Objeto Specialization atualizado com sucesso. | - |
@@ -68,28 +71,28 @@ Comente sobre as ferramentas de testes utilizadas.
 | QS-04                   | QualificationSerializer | Testar a validação do campo 'file' com uma string válida. | String válida para o campo 'file'. | Campo 'file' validado com sucesso. | - |
 | QS-05                   | QualificationSerializer | Testar a validação do campo 'file' com um link inválido. | Link inválido para o campo 'file'. | Erro de validação lançado para o campo 'file'. | - |
 | QS-06                   | QualificationSerializer | Testar a validação do campo 'file' com um valor que não é uma string. | Valor que não é uma string para o campo 'file'. | Erro de validação lançado para o campo 'file'. | - |
-| WS-01                   | WorkExperience | Validar a serialização de dados de WorkExperience existente. | Objeto WorkExperience com dados válidos. | Dados serializados corretamente. | - |
-| WS-02                   | WorkExperience | Validar a criação de WorkExperience através do serializer. | Dados válidos para WorkExperience. | Objeto criado corretamente. | - |
-| WS-03                   | WorkExperience | Previnir a criação de WorkExperience através do serializer com dados invalidos. | Dados invalidos para WorkExperience. | Informações sobre o erro e campo relacionado. | - |
-| WS-04                   | WorkExperience | Validar a atualização de WorkExperience através do serializer. | Dados válidos para WorkExperience. | Objeto atualizado corretamente. | - |
-| FS-01                   | FixedUnavailableDay | Validar a serialização de dados de FixedUnavailableDay existente. | Objeto FixedUnavailableDay com dados válidos. | Dados serializados corretamente. | - |
-| FS-02                   | FixedUnavailableDay | Validar a criação de FixedUnavailableDay através do serializer. | Dados válidos para FixedUnavailableDay. | Objeto criado corretamente. | - |
-| FS-01                   | FixedUnavailableHour | Validar a serialização de dados de FixedUnavailableHour existente. | Objeto FixedUnavailableHour com dados válidos. | Dados serializados corretamente. | - |
-| FS-02                   | FixedUnavailableHour | Validar a criação de FixedUnavailableHour através do serializer. | Dados válidos para FixedUnavailableHour. | Objeto criado corretamente. | - |
-| FS-01                   | CustomUnavailableDay | Validar a serialização de dados de CustomUnavailableDay existente. | Objeto CustomUnavailableDay com dados válidos. | Dados serializados corretamente. | - |
-| FS-02                   | CustomUnavailableDay | Validar a criação de CustomUnavailableDay através do serializer. | Dados válidos para CustomUnavailableDay. | Objeto criado corretamente. | - |
-| CS-01                   | Caregiver | Validar a serialização de dados de Caregiver existente. | Objeto Caregiver com dados válidos. | Dados serializados corretamente. | - |
-| CS-02                   | Caregiver | Validar a criação de Caregiver através do serializer. | Dados válidos para Caregiver. | Objeto criado corretamente. | - |
-| CS-03                   | Caregiver | Previnir a criação de Caregiver através do serializer com dados invalidos. | Dados invalidos para Caregiver. | Informações sobre o erro e campo relacionado. | - |
-| CS-03                   | Caregiver | Validar a atualização de Caregiver através do serializer. | Dados válidos para Caregiver. | Objeto atualizado corretamente. | - |
-| SP-01 | `SpecializationSerializer` | Verificar a serialização de uma instância de especialização com dados válidos. | Instância de `Specialization` com dados válidos. | Dados da especialização serializados corretamente. | - |
-| SP-02 | `SpecializationSerializer` | Testar a criação de uma especialização com dados válidos usando o serializer. | Dados válidos de uma nova especialização. | Nova especialização criada com sucesso.                    | - |
-| SP-03 | `SpecializationSerializer` | Testar a criação de uma especialização com dados inválidos usando o serializer. | Dados inválidos para uma nova especialização. | Erro de validação do campo 'nome'. | - |
-| SP-04 | `SpecializationSerializer` | Verificar a atualização de uma especialização existente com dados válidos usando o serializer. | Dados válidos para atualizar uma especialização existente. | Especialização existente atualizada com sucesso. | - |
-| SP-05 | `SpecializationSerializer` | Testar a atualização de uma especialização com dados inválidos usando o serializer. | Dados inválidos para atualizar uma especialização. | Falha na validação dos dados, impedindo a atualização. | - |
-| SP-06 | `SpecializationSerializer` | Verificar a recuperação de todas as especializações cadastradas. | N/A | Lista de todas as especializações cadastradas. | - |
-| SP-07 | `SpecializationSerializer` | Testar a recuperação de uma especialização específica pelo nome. | Nome de uma especialização existente. | Especialização específica recuperada com sucesso. | - |
-| SP-08 | `Specialization` | Testar a exclusão de uma especialização pelo ID. | ID de uma especialização existente. | Especialização específica excluída com sucesso. | - |
+| WS-01                   | WorkExperienceSerializer | Validar a serialização de dados de WorkExperience existente. | Objeto WorkExperience com dados válidos. | Dados serializados corretamente. | - |
+| WS-02                   | WorkExperienceSerializer | Validar a criação de WorkExperience através do serializer. | Dados válidos para WorkExperience. | Objeto criado corretamente. | - |
+| WS-03                   | WorkExperienceSerializer | Previnir a criação de WorkExperience através do serializer com dados invalidos. | Dados invalidos para WorkExperience. | Informações sobre o erro e campo relacionado. | - |
+| WS-04                   | WorkExperienceSerializer | Validar a atualização de WorkExperience através do serializer. | Dados válidos para WorkExperience. | Objeto atualizado corretamente. | - |
+| FS-01                   | FixedUnavailableDaySerializer | Validar a serialização de dados de FixedUnavailableDay existente. | Objeto FixedUnavailableDay com dados válidos. | Dados serializados corretamente. | - |
+| FS-02                   | FixedUnavailableDaySerializer | Validar a criação de FixedUnavailableDay através do serializer. | Dados válidos para FixedUnavailableDay. | Objeto criado corretamente. | - |
+| FS-01                   | FixedUnavailableHourSerializer | Validar a serialização de dados de FixedUnavailableHour existente. | Objeto FixedUnavailableHour com dados válidos. | Dados serializados corretamente. | - |
+| FS-02                   | FixedUnavailableHourSerializer | Validar a criação de FixedUnavailableHour através do serializer. | Dados válidos para FixedUnavailableHour. | Objeto criado corretamente. | - |
+| FS-01                   | CustomUnavailableDaySerializer | Validar a serialização de dados de CustomUnavailableDay existente. | Objeto CustomUnavailableDay com dados válidos. | Dados serializados corretamente. | - |
+| FS-02                   | CustomUnavailableDaySerializer | Validar a criação de CustomUnavailableDay através do serializer. | Dados válidos para CustomUnavailableDay. | Objeto criado corretamente. | - |
+| CS-01                   | CaregiverSerializer | Validar a serialização de dados de Caregiver existente. | Objeto Caregiver com dados válidos. | Dados serializados corretamente. | - |
+| CS-02                   | CaregiverSerializer | Validar a criação de Caregiver através do serializer. | Dados válidos para Caregiver. | Objeto criado corretamente. | - |
+| CS-03                   | CaregiverSerializer | Previnir a criação de Caregiver através do serializer com dados invalidos. | Dados invalidos para Caregiver. | Informações sobre o erro e campo relacionado. | - |
+| CS-03                   | CaregiverSerializer | Validar a atualização de Caregiver através do serializer. | Dados válidos para Caregiver. | Objeto atualizado corretamente. | - |
+| SP-01 | SpecializationSerializer | Verificar a serialização de uma instância de especialização com dados válidos. | Instância de `Specialization` com dados válidos. | Dados da especialização serializados corretamente. | - |
+| SP-02 | SpecializationSerializer | Testar a criação de uma especialização com dados válidos usando o serializer. | Dados válidos de uma nova especialização. | Nova especialização criada com sucesso.                    | - |
+| SP-03 | SpecializationSerializer | Testar a criação de uma especialização com dados inválidos usando o serializer. | Dados inválidos para uma nova especialização. | Erro de validação do campo 'nome'. | - |
+| SP-04 | SpecializationSerializer | Verificar a atualização de uma especialização existente com dados válidos usando o serializer. | Dados válidos para atualizar uma especialização existente. | Especialização existente atualizada com sucesso. | - |
+| SP-05 | SpecializationSerializer | Testar a atualização de uma especialização com dados inválidos usando o serializer. | Dados inválidos para atualizar uma especialização. | Falha na validação dos dados, impedindo a atualização. | - |
+| SP-06 | SpecializationSerializer | Verificar a recuperação de todas as especializações cadastradas. | N/A | Lista de todas as especializações cadastradas. | - |
+| SP-07 | SpecializationSerializer | Testar a recuperação de uma especialização específica pelo nome. | Nome de uma especialização existente. | Especialização específica recuperada com sucesso. | - |
+| SP-08 | Specialization | Testar a exclusão de uma especialização pelo ID. | ID de uma especialização existente. | Especialização específica excluída com sucesso. | - |
 
 ### Casos de Teste para View
 
@@ -112,12 +115,12 @@ Comente sobre as ferramentas de testes utilizadas.
 | CV-04                   | CaregiverEditView  | Testar a atualização de um Caregiver via API com dados inválidos. | PUT request para `/api/caregiver/` com um ID válido e novos dados. | Erro apontando que os dados estão incorretos. | - |
 | CV-05                   | CaregiverSelfCalendarView  | Testar a obtenção do proprio calendar como Caregiver pela API. | GET request para `/api/caregiver/my-calendar` Estando autenticado como caregiver. | Dados do Caregiver correspondente. | - |
 | CV-06                   | CaregiverCalendarView  | Testar a obtenção de um Calendar específico pela API. | GET request para `/api/caregiver/<uuid:pk>/calendar` com um ID válido. | Dados do Caregiver correspondente. | - |
-| SV-01 | `SpecializationListCreateView` | Testar a listagem de todas as especializações. | GET request para `/api/specializations` | Lista de todas as especializações. | - |
-| SV-02 | `SpecializationListCreateView` | Verificar a criação de uma especialização via API. | POST request para `/api/specializations` com dados válidos de uma especialização. | Especialização criada com sucesso. | - |
-| SV-03 | `SpecializationRetrieveUpdateDestroyView` | Testar a obtenção de uma especialização específica pela API. | GET request para `/api/specializations/{id}` com um ID válido. | Dados da especialização correspondente. | - |
-| SV-04 | `SpecializationRetrieveUpdateDestroyView` | Testar a atualização de uma especialização via API. | PUT request para `/api/specializations/{id}` com um ID válido e novos dados. | Especialização atualizada com sucesso. | - |
-| SV-05 | `SpecializationRetrieveUpdateDestroyView` | Verificar a exclusão de uma especialização via API. | DELETE request para `/api/specializations/{id}` com um ID válido. | Confirmação de exclusão da especialização. | - |
-| SV-06 | `SpecializationListView` | Testar a listagem de todas as especializações (alternativa). | GET request para `/api/specializations/list` | Lista de todas as especializações. | - |
+| SV-01 | SpecializationListCreateView | Testar a listagem de todas as especializações. | GET request para `/api/specializations` | Lista de todas as especializações. | - |
+| SV-02 | SpecializationListCreateView | Verificar a criação de uma especialização via API. | POST request para `/api/specializations` com dados válidos de uma especialização. | Especialização criada com sucesso. | - |
+| SV-03 | SpecializationRetrieveUpdateDestroyView | Testar a obtenção de uma especialização específica pela API. | GET request para `/api/specializations/{id}` com um ID válido. | Dados da especialização correspondente. | - |
+| SV-04 | SpecializationRetrieveUpdateDestroyView | Testar a atualização de uma especialização via API. | PUT request para `/api/specializations/{id}` com um ID válido e novos dados. | Especialização atualizada com sucesso. | - |
+| SV-05 | SpecializationRetrieveUpdateDestroyView | Verificar a exclusão de uma especialização via API. | DELETE request para `/api/specializations/{id}` com um ID válido. | Confirmação de exclusão da especialização. | - |
+| SV-06 | SpecializationListView | Testar a listagem de todas as especializações (alternativa). | GET request para `/api/specializations/list` | Lista de todas as especializações. | - |
 
 ### Casos de Teste para Rotas
 
@@ -135,9 +138,9 @@ Comente sobre as ferramentas de testes utilizadas.
 | CU-03                   | /caregiver   | Verificar se a URL para detalhes de um Caregiver específico está correta. | `/caregiver/{id}` | GET | - |
 | CU-04                   | /caregiver   | Verificar se a URL para a para detalhes do Calendar do proprio Caregiver está correta. | `/caregiver/my-calendar` | GET | - |
 | CU-05                   | /caregiver   | Verificar se a URL para detalhes de um Calendar específico está correta. | `/caregiver/<uuid:pk>/calendar` | GET | - |
-| SU-01 | `specialization/` | Verificar se a URL para listagem e criação de Especializações está corretamente configurada. | `/specialization/` | GET, POST | - |
-| SU-02 | `specialization/<uuid:pk>/` | Testar a configuração da URL para detalhes, atualização e exclusão de uma Especialização específica. | `/specialization/<uuid:pk>/` | GET, PUT, DELETE | - |
-| SU-03 | `specialization/list/` | Verificar se a URL para a listagem de Especializações (alternativa) está correta. | `/specialization/list/` | GET | - |
+| SU-01 | specialization/ | Verificar se a URL para listagem e criação de Especializações está corretamente configurada. | `/specialization/` | GET, POST | - |
+| SU-02 | specialization/<uuid:pk>/ | Testar a configuração da URL para detalhes, atualização e exclusão de uma Especialização específica. | `/specialization/<uuid:pk>/` | GET, PUT, DELETE | - |
+| SU-03 | specialization/list/ | Verificar se a URL para a listagem de Especializações (alternativa) está correta. | `/specialization/list/` | GET | - |
 
 
 ## Testes de Integração - API
