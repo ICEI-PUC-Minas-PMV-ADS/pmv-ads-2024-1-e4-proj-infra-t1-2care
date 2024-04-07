@@ -71,9 +71,7 @@ Comente sobre as ferramentas de testes utilizadas.
 | CRM-03                  | CareRequestModel      | Testar exclusão de um CareRequest.                                   | CareRequest existente.                              | CareRequest excluído com sucesso.                  | -                          |
 | RM-01                   | RatingModel           | Verificar a criação de um Rating com dados válidos.                  | Dados válidos para um Rating.                       | Rating criado com sucesso.                         | -                          |
 | RM-02                   | RatingModel           | Testar atualização de um Rating.                                     | Rating existente e novos dados para atualização.    | Rating atualizado com sucesso.                     | -                          |
-| RM-03                   | RatingModel           | Testar exclusão de um Rating.                                        | Rating existente.                                   | Rating excluído com
-
- sucesso.                       | -                          |
+| RM-03                   | RatingModel           | Testar exclusão de um Rating.                                        | Rating existente.                                   | Rating excluído com sucesso. | -                          |
 
 
 ### Casos de Teste para Serializer
