@@ -4,7 +4,7 @@ import uuid
 from django.contrib.auth.models import User
 
 
-class CustomUser(AbstractUser):
+class CustomUserModel(AbstractUser):
     GENDER_CHOICES = [
         (0, "Não especificado"),
         (1, "Masculino"),
@@ -17,17 +17,18 @@ class CustomUser(AbstractUser):
     ]
 
     USER_TYPE_CHOICES = [
-        ('caregiver', 'Cuidador'),
-        ('carereceiver', 'Receptor de Cuidados'),
+        (1, "Caregiver"),
+        (2, "CareReceiver"),
     ]
 
-    user_type = models.CharField(max_length=12, choices=USER_TYPE_CHOICES, blank=False, null=False)
+    user_type = models.CharField(
+        max_length=12, choices=USER_TYPE_CHOICES, blank=False, null=False
+    )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True, blank=False, null=False)
     password = models.CharField(max_length=128)
-    name = models.CharField(
-        unique=True, max_length=80, null=False, blank=False)
+    name = models.CharField(unique=True, max_length=80, null=False, blank=False)
     phone = models.CharField(max_length=64)
     picture = models.TextField(blank=True, null=True)
     address = models.TextField()
@@ -42,7 +43,7 @@ class CustomUser(AbstractUser):
     updated_date = models.DateTimeField(auto_now=True)
 
 
-class Qualification(models.Model):
+class QualificationModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField("Nome", max_length=255)
     conclusion_date = models.DateField("Data de conclusão")
@@ -56,7 +57,7 @@ class Qualification(models.Model):
         verbose_name_plural = "Qualifications"
 
 
-class WorkExperience(models.Model):
+class WorkExperienceModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     place = models.CharField("Local", max_length=128)
     description = models.TextField("Descrição")
@@ -71,7 +72,7 @@ class WorkExperience(models.Model):
         verbose_name_plural = "Work Experiences"
 
 
-class Specialization(models.Model):
+class SpecializationModel(models.Model):
     SPECIALIZATION = (
         (0, "Cuidados Básicos de Saúde"),
         (1, "Apoio à Mobilidade"),
@@ -92,7 +93,7 @@ class Specialization(models.Model):
         return self.get_name_display()
 
 
-class FixedUnavailableDay(models.Model):
+class FixedUnavailableDayModel(models.Model):
     DAYS = (
         (0, "Domingo"),
         (1, "Segunda-feira"),
@@ -114,7 +115,7 @@ class FixedUnavailableDay(models.Model):
         verbose_name_plural = "Unavailable week days"
 
 
-class FixedUnavailableHour(models.Model):
+class FixedUnavailableHourModel(models.Model):
     HOURS = (
         (0, "Meia-noite"),
         (1, "1 hora"),
@@ -152,7 +153,7 @@ class FixedUnavailableHour(models.Model):
         verbose_name_plural = "Unavailable hours"
 
 
-class CustomUnavailableDay(models.Model):
+class CustomUnavailableDayModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     day = models.DateField("Dia indisponivel")
 
@@ -164,42 +165,42 @@ class CustomUnavailableDay(models.Model):
         verbose_name_plural = "Unavailable days"
 
 
-class Caregiver(models.Model):
+class CaregiverModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey("core.CustomUser", on_delete=models.PROTECT)
+    user = models.ForeignKey("core.CustomUserModel", on_delete=models.PROTECT)
 
     qualifications = models.ManyToManyField(
-        "core.qualification",
+        "core.QualificationModel",
         verbose_name="Qualificações",
         related_name="qualifications",
         blank=True,
     )
     work_exp = models.ManyToManyField(
-        "core.workexperience",
+        "core.WorkExperienceModel",
         verbose_name="Experiencia de trabalho",
         related_name="workexperience",
         blank=True,
     )
     specializations = models.ManyToManyField(
-        "core.specialization",
+        "core.SpecializationModel",
         verbose_name="Especializações",
         related_name="specialization",
         blank=True,
     )
     fixed_unavailable_days = models.ManyToManyField(
-        "core.fixedunavailableday",
+        "core.FixedUnavailableDayModel",
         verbose_name="Dias da semana indisponivel",
         related_name="fixedunavailableday",
         blank=True,
     )
     fixed_unavailable_hours = models.ManyToManyField(
-        "core.fixedunavailablehour",
+        "core.FixedUnavailableHourModel",
         verbose_name="Horarios indisponiveis",
         related_name="fixedunavailablehour",
         blank=True,
     )
     custom_unavailable_days = models.ManyToManyField(
-        "core.customunavailableday",
+        "core.CustomUnavailableDayModel",
         verbose_name="Dias indisponiveis",
         related_name="customunavailableday",
         blank=True,
@@ -216,16 +217,16 @@ class Caregiver(models.Model):
     additional_info = models.TextField("Informações adicionais", null=True, blank=True)
 
     def __str__(self):
-        return f"Caregiver - {self.user}"
+        return f"Caregiver - {self.id}"
 
     class Meta:
         # ordering = ['user']
         verbose_name_plural = "Caregivers"
 
 
-class CareReceiver(models.Model):
+class CareReceiverModel(models.Model):
     user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, related_name="care_receiver"
+        CustomUserModel, on_delete=models.CASCADE, related_name="CareReceiverModel"
     )
     emergency_contact = models.CharField("Telefone de Emergência", max_length=15)
     share_special_care = models.BooleanField(
@@ -241,7 +242,7 @@ class CareReceiver(models.Model):
         verbose_name_plural = "Care Receivers"
 
 
-class CareRequest(models.Model):
+class CareRequestModel(models.Model):
     STATUS_CHOICES = [
         (0, "Pendente"),
         (1, "Recusado"),
@@ -256,11 +257,11 @@ class CareRequest(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES)
     response_date = models.DateTimeField()
 
-    caregiver = models.ForeignKey("Caregiver", on_delete=models.CASCADE)
-    carereceiver = models.ForeignKey("CareReceiver", on_delete=models.CASCADE)
+    caregiver = models.ForeignKey("CaregiverModel", on_delete=models.CASCADE)
+    carereceiver = models.ForeignKey("CareReceiverModel", on_delete=models.CASCADE)
 
 
-class Rating(models.Model):
+class RatingModel(models.Model):
     RATING_CHOICES = [
         (1, "1 Estrela"),
         (2, "2 Estrelas"),
@@ -269,7 +270,7 @@ class Rating(models.Model):
         (5, "5 Estrelas"),
     ]
     id = models.UUIDField(primary_key=True, editable=False)
-    care_request = models.OneToOneField(CareRequest, on_delete=models.CASCADE)
+    care_request = models.OneToOneField(CareRequestModel, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_CHOICES)
     description = models.TextField(null=True, blank=True)
 
@@ -277,33 +278,67 @@ class Rating(models.Model):
         return f"{self.rating} - {self.description}"
 
 
-class SpecialCare(models.Model):
+class SpecialCareModel(models.Model):
     CARE_TYPES = [
-        (0, "Cuidados com a Saúde"),  # Assistência com medicação, monitoramento de condições de saúde, etc.
-        (1, "Apoio Emocional"),  # Companhia, atividades que estimulam a interação social.
-        (2, "Fisioterapia"),  # Exercícios de reabilitação, massagens, prevenção de quedas.
-        (3, "Acompanhamento Médico"),  # Visitas ao médico, exames, acompanhamento em procedimentos.
-        (4, "Apoio à Mobilidade"),  # Assistência para andar, usar cadeira de rodas, transferências.
+        (
+            0,
+            "Cuidados com a Saúde",
+        ),  # Assistência com medicação, monitoramento de condições de saúde, etc.
+        (
+            1,
+            "Apoio Emocional",
+        ),  # Companhia, atividades que estimulam a interação social.
+        (
+            2,
+            "Fisioterapia",
+        ),  # Exercícios de reabilitação, massagens, prevenção de quedas.
+        (
+            3,
+            "Acompanhamento Médico",
+        ),  # Visitas ao médico, exames, acompanhamento em procedimentos.
+        (
+            4,
+            "Apoio à Mobilidade",
+        ),  # Assistência para andar, usar cadeira de rodas, transferências.
         (5, "Cuidados Pessoais"),  # Higiene pessoal, banho, vestimenta.
         (6, "Apoio Doméstico"),  # Limpeza, manutenção da casa, lavanderia.
-        (7, "Nutrição"),  # Preparo de refeições, acompanhamento nutricional, ajuda com alimentação.
+        (
+            7,
+            "Nutrição",
+        ),  # Preparo de refeições, acompanhamento nutricional, ajuda com alimentação.
         (8, "Atividades Recreativas"),  # Jogos, artesanato, leitura, exercícios leves.
-        (9, "Gestão de Demência/Alzheimer"),  # Estratégias específicas para manejo, suporte cognitivo.
-        (10, "Suporte Noturno"),  # Assistência durante a noite, prevenção de confusão noturna.
-        (11, "Gestão da Dor"),  # Técnicas de alívio da dor, acompanhamento de medicação para dor.
-        (12, "Cuidados Paliativos"),  # Conforto no final da vida, suporte emocional e espiritual.
+        (
+            9,
+            "Gestão de Demência/Alzheimer",
+        ),  # Estratégias específicas para manejo, suporte cognitivo.
+        (
+            10,
+            "Suporte Noturno",
+        ),  # Assistência durante a noite, prevenção de confusão noturna.
+        (
+            11,
+            "Gestão da Dor",
+        ),  # Técnicas de alívio da dor, acompanhamento de medicação para dor.
+        (
+            12,
+            "Cuidados Paliativos",
+        ),  # Conforto no final da vida, suporte emocional e espiritual.
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.IntegerField(choices=CARE_TYPES)
 
     def __str__(self):
         return self.get_name_display()
-    
-    
-class SpecialCareUser(models.Model):
+
+
+class SpecialCareUserModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    care_type = models.ForeignKey(SpecialCare, on_delete=models.CASCADE, related_name="special_care_users")
-    care_receiver = models.ForeignKey('CareReceiver', on_delete=models.CASCADE, related_name="special_care_users")
+    care_type = models.ForeignKey(
+        SpecialCareModel, on_delete=models.CASCADE, related_name="special_care_users"
+    )
+    care_receiver = models.ForeignKey(
+        "CareReceiverModel", on_delete=models.CASCADE, related_name="special_care_users"
+    )
     description = models.TextField()
 
     def __str__(self):

@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -6,13 +7,13 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 from .models import (
-    Qualification,
-    WorkExperience,
-    Specialization,
-    FixedUnavailableDay,
-    FixedUnavailableHour,
-    CustomUnavailableDay,
-    Caregiver,
+    QualificationModel,
+    WorkExperienceModel,
+    SpecializationModel,
+    FixedUnavailableDayModel,
+    FixedUnavailableHourModel,
+    CustomUnavailableDayModel,
+    CaregiverModel,
 )
 from .serializers import (
     QualificationSerializer,
@@ -35,7 +36,7 @@ class CaregiverSerializerTests(TestCase):
             "conclusion_date": timezone.now().date(),
             "file": "http://example.com/file.pdf",
         }
-        self.qualification = Qualification.objects.create(**self.qualification_data)
+        self.qualification = QualificationModel.objects.create(**self.qualification_data)
 
         self.work_experience_data = {
             "place": "Hospital ABC",
@@ -43,25 +44,25 @@ class CaregiverSerializerTests(TestCase):
             "start_date": timezone.now().date(),
             "end_date": timezone.now().date() + timezone.timedelta(days=365),
         }
-        self.work_experience = WorkExperience.objects.create(
+        self.work_experience = WorkExperienceModel.objects.create(
             **self.work_experience_data
         )
 
         self.specialization_data = {"name": 0}
-        self.specialization = Specialization.objects.create(**self.specialization_data)
+        self.specialization = SpecializationModel.objects.create(**self.specialization_data)
 
         self.fixed_unavailable_day_data = {"day": 0}
-        self.fixed_unavailable_day = FixedUnavailableDay.objects.create(
+        self.fixed_unavailable_day = FixedUnavailableDayModel.objects.create(
             **self.fixed_unavailable_day_data
         )
 
         self.fixed_unavailable_hour_data = {"hour": 0}
-        self.fixed_unavailable_hour = FixedUnavailableHour.objects.create(
+        self.fixed_unavailable_hour = FixedUnavailableHourModel.objects.create(
             **self.fixed_unavailable_hour_data
         )
 
         self.custom_unavailable_day_data = {"day": "2024-03-10"}
-        self.custom_unavailable_day = CustomUnavailableDay.objects.create(
+        self.custom_unavailable_day = CustomUnavailableDayModel.objects.create(
             **self.custom_unavailable_day_data
         )
 
@@ -73,7 +74,7 @@ class CaregiverSerializerTests(TestCase):
             "additional_info": "Experienced with dementia care.",
         }
 
-        self.caregiver = Caregiver.objects.create(**self.caregiver_data)
+        self.caregiver = CaregiverModel.objects.create(**self.caregiver_data)
 
         self.caregiver.qualifications.set([self.qualification])
         self.caregiver.work_exp.set([self.work_experience])
@@ -96,6 +97,47 @@ class CaregiverSerializerTests(TestCase):
         self.assertTrue(serializer.is_valid())
         work_exp = serializer.save()
         self.assertEqual(work_exp.place, new_work_experience_data["place"])
+
+    def test_fail_create_work_experience_serializer(self):
+        wrong_work_experience_data = {
+            "place": None,
+            "start_date": "invalid",
+            "end_date": "invalid",
+        }
+        new_work_experience_data = {
+            "place": "Hospital",
+            "description": "Provided care",
+            "start_date": timezone.now().date(),
+            "end_date": timezone.now().date() + timezone.timedelta(days=365),
+        }
+        for field, value in wrong_work_experience_data.items():
+
+            altered_work_experience_data = new_work_experience_data.copy()
+            altered_work_experience_data[field] = wrong_work_experience_data.get(field)
+
+            serializer = WorkExperienceSerializer(data=altered_work_experience_data)
+
+            self.assertFalse(serializer.is_valid())
+            self.assertIn(field, serializer.errors)
+
+    def test_update_work_experience_serializer(self):
+        new_work_experience_data = {
+            "place": "Hospital",
+            "description": "Provided care",
+            "start_date": timezone.now().date(),
+            "end_date": timezone.now().date() + timezone.timedelta(days=365),
+        }
+        serializer = WorkExperienceSerializer(
+            instance=self.work_experience, data=new_work_experience_data, partial=True
+        )
+        self.assertTrue(serializer.is_valid())
+        updated_work_exp = serializer.save()
+
+        self.assertEqual(updated_work_exp.id, self.work_experience.id)
+        self.assertEqual(updated_work_exp.place, new_work_experience_data["place"])
+        self.assertEqual(
+            updated_work_exp.description, new_work_experience_data["description"]
+        )
 
     def test_qualification_serializer(self):
         serializer = QualificationSerializer(instance=self.qualification)
@@ -155,23 +197,23 @@ class CaregiverSerializerTests(TestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_retrieve_all_qualification(self):
-        qualifications = Qualification.objects.all()
+        qualifications = QualificationModel.objects.all()
         serializer = QualificationSerializer(instance=qualifications, many=True)
         self.assertEqual(len(serializer.data), qualifications.count())
 
     def test_retrieve_qualification_by_name(self):
-        self.test_create_qualification_serializer(self)
+        self.test_create_qualification_serializer()
         qualification_name = "Certificate in Geriatric Care"
-        qualification = Qualification.objects.get(name=qualification_name)
+        qualification = QualificationModel.objects.get(name=qualification_name)
         serializer = QualificationSerializer(instance=qualification)
         self.assertEqual(serializer.data["name"], qualification_name)
 
     def test_delete_qualification_by_id(self):
         qualification_id = self.qualification.id
-        qualification = Qualification.objects.get(pk=qualification_id)
+        qualification = QualificationModel.objects.get(pk=qualification_id)
         qualification.delete()
-        with self.assertRaises(Qualification.DoesNotExist):
-            Qualification.objects.get(pk=qualification_id)
+        with self.assertRaises(QualificationModel.DoesNotExist):
+            QualificationModel.objects.get(pk=qualification_id)
 
     def test_specialization_serializer(self):
         serializer = SpecializationSerializer(instance=self.specialization)
@@ -186,26 +228,22 @@ class CaregiverSerializerTests(TestCase):
 
     def test_create_specialization_serializer_invalid_data(self):
 
-        invalid_specialization_data = {
-            "name": 13
-            }
+        invalid_specialization_data = {"name": 13}
 
-        serializer = SpecializationSerializer(
-            data=invalid_specialization_data
-            )
+        serializer = SpecializationSerializer(data=invalid_specialization_data)
         self.assertFalse(serializer.is_valid())
-        self.assertIn('name', serializer.errors)
+        self.assertIn("name", serializer.errors)
 
     def test_update_specialization_serializer(self):
-        updated_specialization_data = {
-            "name": 4
-        }
+        updated_specialization_data = {"name": 4}
         serializer = SpecializationSerializer(
             instance=self.specialization, data=updated_specialization_data
         )
         self.assertTrue(serializer.is_valid())
         updated_specialization = serializer.save()
-        self.assertEqual(updated_specialization.name, updated_specialization_data["name"])
+        self.assertEqual(
+            updated_specialization.name, updated_specialization_data["name"]
+        )
 
     def test_update_specialization_with_invalid_data(self):
         invalid_data = {
@@ -217,23 +255,23 @@ class CaregiverSerializerTests(TestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_retrieve_all_specialization(self):
-        specialization = Specialization.objects.all()
+        specialization = SpecializationModel.objects.all()
         serializer = SpecializationSerializer(instance=specialization, many=True)
         self.assertEqual(len(serializer.data), specialization.count())
 
     def test_retrieve_specialization_by_name(self):
         self.test_create_specialization_serializer()
         specialization_name = 1
-        specialization = Specialization.objects.get(name=specialization_name)
+        specialization = SpecializationModel.objects.get(name=specialization_name)
         serializer = SpecializationSerializer(instance=specialization)
         self.assertEqual(serializer.data["name"], specialization_name)
 
     def test_delete_specialization_by_id(self):
         specialization_id = self.specialization.id
-        specialization = Specialization.objects.get(pk=specialization_id)
+        specialization = SpecializationModel.objects.get(pk=specialization_id)
         specialization.delete()
-        with self.assertRaises(Specialization.DoesNotExist):
-            Specialization.objects.get(pk=specialization_id)
+        with self.assertRaises(SpecializationModel.DoesNotExist):
+            SpecializationModel.objects.get(pk=specialization_id)
 
     def test_fixed_unavailable_day_serializer(self):
         serializer = FixedUnavailableDaySerializer(instance=self.fixed_unavailable_day)
@@ -296,13 +334,12 @@ class CaregiverSerializerTests(TestCase):
 
     def test_create_caregiver_serializer(self):
         new_caregiver_data = {
-            "hour_price": Decimal("25.00"),
-            "day_price": Decimal("180.00"),
-            "max_request_km": 60,
-            "career_time": 7,
-            "additional_info": "Experienced with dementia care.",
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
         }
-        self.caregiver = Caregiver.objects.create(**self.caregiver_data)
         serializer = CaregiverSerializer(data=new_caregiver_data)
 
         self.assertTrue(serializer.is_valid())
@@ -310,22 +347,68 @@ class CaregiverSerializerTests(TestCase):
         for field, value in new_caregiver_data.items():
             self.assertEqual(getattr(caregiver, field), value)
 
+    def test_fail_create_caregiver_serializer(self):
+        wrong_caregiver_data = {
+            "hour_price": "invalid",
+            "day_price": "invalid",
+            "max_request_km": "invalid",
+            "career_time": "invalid",
+        }
+        new_caregiver_data = {
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
+        }
+
+        for field, value in wrong_caregiver_data.items():
+
+            altered_caregiver_data = new_caregiver_data.copy()
+            altered_caregiver_data[field] = wrong_caregiver_data.get(field)
+
+            serializer = CaregiverSerializer(data=altered_caregiver_data)
+
+            self.assertFalse(serializer.is_valid())
+            self.assertIn(field, serializer.errors)
+
+    def test_update_caregiver_serializer(self):
+        new_caregiver_data = {
+            "hour_price": Decimal("250.00"),
+            "day_price": Decimal("280.00"),
+            "max_request_km": 600,
+            "career_time": 10,
+            "additional_info": "Experienced with dementia",
+        }
+
+        serializer = CaregiverSerializer(
+            instance=self.caregiver, data=new_caregiver_data, partial=True
+        )
+        self.assertTrue(serializer.is_valid())
+        updated_caregiver = serializer.save()
+
+        self.assertEqual(updated_caregiver.id, self.caregiver.id)
+        self.assertEqual(updated_caregiver.hour_price, new_caregiver_data["hour_price"])
+        self.assertEqual(
+            updated_caregiver.career_time, new_caregiver_data["career_time"]
+        )
+
     def test_add_manytomany_to_caregiver_serializer(self):
-        qualification = Qualification.objects.create(
+        qualification = QualificationModel.objects.create(
             name="Degree in Nursing",
             conclusion_date=timezone.now().date(),
             file="http://example.com/file1.pdf",
         )
-        work_exp = WorkExperience.objects.create(
+        work_exp = WorkExperienceModel.objects.create(
             place="Hospital ABC",
             description="Provided care to elderly patients",
             start_date=timezone.now().date(),
             end_date=timezone.now().date() + timezone.timedelta(days=365),
         )
-        specialization = Specialization.objects.create(name=0)
-        fixed_unavailable_days = FixedUnavailableDay.objects.create(day=0)
-        fixed_unavailable_hours = FixedUnavailableHour.objects.create(hour=0)
-        custom_unavailable_days = CustomUnavailableDay.objects.create(
+        specialization = SpecializationModel.objects.create(name=0)
+        fixed_unavailable_days = FixedUnavailableDayModel.objects.create(day=0)
+        fixed_unavailable_hours = FixedUnavailableHourModel.objects.create(hour=0)
+        custom_unavailable_days = CustomUnavailableDayModel.objects.create(
             day=date(2024, 3, 10)
         )
 
@@ -336,11 +419,11 @@ class CaregiverSerializerTests(TestCase):
             "career_time": 7,
             "additional_info": "Experienced with dementia care.",
         }
-
         serializer = CaregiverSerializer(data=new_caregiver_data)
         self.assertTrue(serializer.is_valid())
         caregiver = serializer.save()
 
+        # esse teste meio que ta errado, se não ta fazendo por um serializer, não faz sentido, parece mais um test de model.
         caregiver.specializations.add(specialization)
         caregiver.work_exp.add(work_exp)
         caregiver.qualifications.add(qualification)
@@ -373,7 +456,7 @@ class CaregiverAPITests(TestCase):
             "additional_info": "Experienced with dementia care.",
         }
 
-        self.caregiver = Caregiver.objects.create(**self.caregiver_data)
+        self.caregiver = CaregiverModel.objects.create(**self.caregiver_data)
 
     def test_get_caregiver_list_api(self):
         response = self.client.get(reverse("caregiver-list"))
@@ -392,7 +475,7 @@ class CaregiverAPITests(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        caregiver = Caregiver.objects.first()
+        caregiver = CaregiverModel.objects.first()
         self.assertEqual(
             caregiver.hour_price, Decimal(new_caregiver_data["hour_price"])
         )
@@ -437,13 +520,13 @@ class CaregiverAPITests(TestCase):
 
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Qualification.objects.count(), 1)
+        self.assertEqual(QualificationModel.objects.count(), 1)
         self.assertEqual(
-            Qualification.objects.get().name, "Academic Certificate in well-being care"
+            QualificationModel.objects.get().name, "Academic Certificate in well-being care"
         )
 
     def test_update_qualification_API(self):
-        qualification = Qualification.objects.create(
+        qualification = QualificationModel.objects.create(
             name="Previous Qualification",
             conclusion_date="2023-01-01",
             file="http://example.com/previous.pdf",
@@ -469,10 +552,10 @@ class CaregiverAPITests(TestCase):
 
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Qualification.objects.count(), 0)
+        self.assertEqual(QualificationModel.objects.count(), 0)
 
     def test_failUpdate_qualification_API(self):
-        qualification = Qualification.objects.create(
+        qualification = QualificationModel.objects.create(
             name="Previous Qualification",
             conclusion_date="2023-01-01",
             file="http://example.com/previous.pdf",
@@ -487,7 +570,7 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_delete_qualification_API(self):
-        qualification = Qualification.objects.create(
+        qualification = QualificationModel.objects.create(
             name="Previous Qualification",
             conclusion_date="2023-01-01",
             file="http://example.com/previous.pdf",
@@ -498,7 +581,7 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_retrieve_qualification_API(self):
-        qualification = Qualification.objects.create(
+        qualification = QualificationModel.objects.create(
             name="Phonoaudiologist",
             conclusion_date="2023-01-01",
             file="http://example.com/previous.pdf",
@@ -512,91 +595,136 @@ class CaregiverAPITests(TestCase):
 
         response = self.client.get(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Qualification.objects.count(), 1)
-        self.assertEqual(Qualification.objects.get().name, 'Phonoaudiologist')
-        
-    #leo
-        
-    def test_Create_specialization_api(self):
-        url = reverse('specialization-create')
-        data = {
-            'name': 1
-        }
+        self.assertEqual(QualificationModel.objects.count(), 1)
+        self.assertEqual(QualificationModel.objects.get().name, "Phonoaudiologist")
 
-        response = self.client.post(url, data, format='json')
+    # leo
+
+    def test_Create_specialization_api(self):
+        url = reverse("specialization-create")
+        data = {"name": 1}
+
+        response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Specialization.objects.count(), 1)
-        self.assertEqual(Specialization.objects.get().name, 1)#'Apoio à Mobilidade')
+        self.assertEqual(SpecializationModel.objects.count(), 1)
+        self.assertEqual(SpecializationModel.objects.get().name, 1)  #'Apoio à Mobilidade')
 
     def test_failCreate_specialization_api(self):
-        url = reverse('specialization-create')
+        url = reverse("specialization-create")
         data = {
-            'name': 10,
+            "name": 10,
         }
-                
-        response = self.client.post(url, data, format='json')
+
+        response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Specialization.objects.count(), 0)
+        self.assertEqual(SpecializationModel.objects.count(), 0)
 
     def test_retrieve_specialization_api(self):
-        specialization = Specialization.objects.create(
+        specialization = SpecializationModel.objects.create(
             name=1,
         )
-        url = reverse('specialization-update-delete', args=[specialization.pk])
-        data = {
-            'name': 1
-        }
+        url = reverse("specialization-update-delete", args=[specialization.pk])
+        data = {"name": 1}
 
-        response = self.client.get(url, data, format='json')
+        response = self.client.get(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Specialization.objects.count(), 1)
-        self.assertEqual(Specialization.objects.get().name, 1)
+        self.assertEqual(SpecializationModel.objects.count(), 1)
+        self.assertEqual(SpecializationModel.objects.get().name, 1)
 
     def test_delete_specialization_api(self):
-        specialization = Specialization.objects.create(
+        specialization = SpecializationModel.objects.create(
             name=2,
         )
         url = reverse("specialization-update-delete", args=[specialization.pk])
 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    
+
     def test_update_specialization_api(self):
-        specialization = Specialization.objects.create(
+        specialization = SpecializationModel.objects.create(
             name=3,
         )
         url = reverse("specialization-update-delete", args=[specialization.pk])
-        data = {
-            "name": 4
-        }
+        data = {"name": 4}
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         specialization.refresh_from_db()
         self.assertEqual(specialization.name, 4)
 
     def test_failUpdate_specialization_api(self):
-        specialization = Specialization.objects.create(
+        specialization = SpecializationModel.objects.create(
             name=5,
         )
         url = reverse("specialization-update-delete", args=[specialization.pk])
-        data = {
-            "name": 15
-        }
+        data = {"name": 15}
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_list_specialization_api(self):
-        Specialization.objects.create(
-            name=0
-            )#Cuidados Básicos de Saúde
-        Specialization.objects.create(
-            name=1
-            )#Apoio à Mobilidade
+        SpecializationModel.objects.create(name=0)  # Cuidados Básicos de Saúde
+        SpecializationModel.objects.create(name=1)  # Apoio à Mobilidade
 
         url = reverse("specialization-list")
-        response = self.client.get(url, format='json')
+        response = self.client.get(url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(response.data) >= 2)
-        names = [spec['name'] for spec in response.data]
+        names = [spec["name"] for spec in response.data]
         self.assertIn(0, names)
         self.assertIn(1, names)
+
+
+# Test Models Qualification (Odair)
+class QualificationModelTest(TestCase):
+
+    def setUp(self):
+        self.valid_data = {
+            "name": "Certificate in Geriatric Care",
+            "conclusion_date": timezone.now().date(),
+            "file": "http://example.com/valid_certificate.pdf",
+        }
+
+    def test_create_valid_qualification(self):
+        qualification = QualificationModel.objects.create(**self.valid_data)
+        self.assertEqual(QualificationModel.objects.count(), 1)
+        self.assertEqual(qualification.name, self.valid_data["name"])
+        self.assertEqual(
+            qualification.conclusion_date, self.valid_data["conclusion_date"]
+        )
+
+    def test_update_qualification(self):
+        qualification = QualificationModel.objects.create(**self.valid_data)
+        new_name = "Updated Certificate"
+        new_conclusion_date = timezone.now().date()
+        qualification.name = new_name
+        qualification.conclusion_date = new_conclusion_date
+        qualification.save()
+        self.assertEqual(qualification.name, new_name)
+        self.assertEqual(qualification.conclusion_date, new_conclusion_date)
+
+    def test_invalid_qualification(self):
+        invalid_data = {
+            "name": "",
+            "conclusion_date": timezone.now().date(),
+            "file": "http://example.com/invalid_certificate.pdf",
+        }
+        qualification = QualificationModel(**self.valid_data)
+        qualification.__dict__.update(invalid_data)
+
+        with self.assertRaises(ValidationError):
+            qualification.full_clean()
+
+    def test_retrieve_qualification(self):
+        qualification = QualificationModel.objects.create(**self.valid_data)
+        retrieved_qualification = QualificationModel.objects.get(pk=qualification.pk)
+        self.assertEqual(qualification.pk, retrieved_qualification.pk)
+        self.assertEqual(qualification.name, retrieved_qualification.name)
+        self.assertEqual(
+            qualification.conclusion_date, retrieved_qualification.conclusion_date
+        )
+
+    def test_delete_qualification(self):
+        qualification = QualificationModel.objects.create(**self.valid_data)
+        qualification_id = qualification.pk
+        qualification.delete()
+        with self.assertRaises(QualificationModel.DoesNotExist):
+            QualificationModel.objects.get(pk=qualification_id)

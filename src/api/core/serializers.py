@@ -4,25 +4,25 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import (
-    CareReceiver,
-    Qualification,
-    SpecialCare,
-    SpecialCareUser,
-    WorkExperience,
-    Specialization,
-    FixedUnavailableDay,
-    FixedUnavailableHour,
-    CustomUnavailableDay,
-    Caregiver,
-    CareRequest,
-    Rating,
-    CustomUser,
+    CareReceiverModel,
+    QualificationModel,
+    SpecialCareModel,
+    SpecialCareUserModel,
+    WorkExperienceModel,
+    SpecializationModel,
+    FixedUnavailableDayModel,
+    FixedUnavailableHourModel,
+    CustomUnavailableDayModel,
+    CaregiverModel,
+    CareRequestModel,
+    RatingModel,
+    CustomUserModel,
 )
 
 
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Qualification
+        model = QualificationModel
         fields = "__all__"
 
     def validate_file(self, value):
@@ -45,17 +45,17 @@ class QualificationSerializer(serializers.ModelSerializer):
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = WorkExperience
+        model = WorkExperienceModel
         fields = "__all__"
 
 
 class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Specialization
+        model = SpecializationModel
         fields = "__all__"
 
         def validate_name(self, value):
-            if value not in [choice[0] for choice in Specialization.SPECIALIZATION]:
+            if value not in [choice[0] for choice in SpecializationModel.SPECIALIZATION]:
                 raise serializers.ValidationError(
                     "Este não é um valor válido para o campo 'name'."
                 )
@@ -65,19 +65,19 @@ class SpecializationSerializer(serializers.ModelSerializer):
 
 class FixedUnavailableDaySerializer(serializers.ModelSerializer):
     class Meta:
-        model = FixedUnavailableDay
+        model = FixedUnavailableDayModel
         fields = "__all__"
 
 
 class FixedUnavailableHourSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FixedUnavailableHour
+        model = FixedUnavailableHourModel
         fields = "__all__"
 
 
 class CustomUnavailableDaySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUnavailableDay
+        model = CustomUnavailableDayModel
         fields = "__all__"
 
 
@@ -90,13 +90,13 @@ class CaregiverSerializer(serializers.ModelSerializer):
     custom_unavailable_days = CustomUnavailableDaySerializer(many=True, required=False)
 
     class Meta:
-        model = Caregiver
+        model = CaregiverModel
         fields = "__all__"
 
 
 class CareReceiverSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CareReceiver
+        model = CareReceiverModel
         fields = "__all__"
 
     def validate_emergency_contact(self, value):
@@ -114,20 +114,28 @@ class CareReceiverSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = CustomUserModel
         # Inclua todos os campos que você deseja expor via API
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined')
+        fields = (
+            "id",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_active",
+            "date_joined",
+        )
         extra_kwargs = {
-            'password': {'write_only': True, 'required': False},
+            "password": {"write_only": True, "required": False},
             # Garantir que campos sensíveis não sejam manipuláveis
-            'is_staff': {'read_only': True},
-            'is_superuser': {'read_only': True},
-            'user_permissions': {'read_only': True},
-            'groups': {'read_only': True},
+            "is_staff": {"read_only": True},
+            "is_superuser": {"read_only": True},
+            "user_permissions": {"read_only": True},
+            "groups": {"read_only": True},
         }
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
+        user = CustomUserModel.objects.create_user(**validated_data)
         return user
 
 
@@ -138,23 +146,22 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class CareRequestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CareRequest
+        model = CareRequestModel
         fields = "__all__"
 
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Rating
+        model = RatingModel
         fields = "__all__"
 
 
 class SpecialCareSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SpecialCare
-        fields = '__all__'
+        model = SpecialCareModel
+        fields = "__all__"
+
 
 class SpecialCareUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SpecialCareUser
-
-
+        model = SpecialCareUserModel
