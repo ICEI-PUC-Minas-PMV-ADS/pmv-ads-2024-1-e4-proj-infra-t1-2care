@@ -1,31 +1,37 @@
+from django.contrib.auth import authenticate
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, logout
-from django.http import HttpResponse
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import (
+    CareRequestModel,
+    CareReceiverModel,
+    CaregiverModel,
+    RatingModel,
+    SpecialCareModel,
+    SpecialCareUserModel,
+    SpecializationModel,
+    QualificationModel,
+)
+
+from .serializers import (
+    CareRequestSerializer,
+    CareReceiverSerializer,
+    CaregiverSerializer,
+    QualificationSerializer,
+    RatingSerializer,
+    SpecialCareSerializer,
+    SpecialCareUserSerializer,
+    SpecializationSerializer,
+    UserSerializer,
+)
 import pymongo
 from pymongo import MongoClient
 
-from .models import Greeting, Caregiver, Specialization, Qualification, Carereceiver
-from .serializers import (
-    GreetingSerializer,
-    CaregiverSerializer,
-    QualificationSerializer,
-    SpecializationSerializer,
-    CarereceiverSerializer,
-    UserSerializer,
-)
-
-class GreetingList(APIView):
-    def get(self, request):
-        greetings = Greeting.objects.all()
-        serializer = GreetingSerializer(greetings, many=True)
-        return Response(serializer.data)
-    
 class MongoUpdate(APIView):
     #temos que ver tudo que vai ser necessario ainda. por hora vou só salvar todos os caregivers no mongo, mas depois precisamos fazer updates ao alterar caregiver e create ao criar usuario
     #ou colocar algum scheduler pra re atualizar tudo de tempos em tempos
@@ -40,7 +46,7 @@ class MongoUpdate(APIView):
         collection = db["caregivers"]
         collection.delete_many({})
 
-        caregivers = Caregiver.objects.prefetch_related("qualifications", "work_exp", "specializations", "fixed_unavailable_days", "fixed_unavailable_hours", "custom_unavailable_days").all()
+        caregivers = CaregiverModel.objects.prefetch_related("qualifications", "work_exp", "specializations", "fixed_unavailable_days", "fixed_unavailable_hours", "custom_unavailable_days").all()
         caregiversData = []
         for caregiver in caregivers:
             caregiver_data = {
@@ -84,147 +90,272 @@ class MongoUpdate(APIView):
 
         return Response(caregiversData, 200)
     
-class CaregiverListView(generics.ListAPIView): #Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.#
-    queryset = Caregiver.objects.all()  #lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
+class CaregiverListView(
+    generics.ListAPIView
+):  # Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
+    queryset = (
+        CaregiverModel.objects.all()
+    )  # lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,) #fixme precisa do user pra auth
+    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
+    # authentication_classes =[JWTAuthentication]
+
 
 class CaregiverEditView(APIView):
-    queryset = Caregiver.objects.all()
-    serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,) #fixme precisa do user pra auth
+    queryset = CaregiverModel.objects.all()
 
-    #como não temos a token ainda, não consigo direcionar pro usuario certo
+    serializer_class = CaregiverSerializer
+    authentication_classes = [JWTAuthentication]
+
+    # como não temos a token ainda, não consigo direcionar pro usuario certo
     def put(self, request, format=None):
-        caregiver = self.queryset.first()  #fixme
+        caregiver = self.queryset.first()  # fixme
 
         serializer = CaregiverSerializer(caregiver, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, format=None):
-        caregiver = self.queryset.first()  #fixme
+        caregiver = self.queryset.first()  # fixme
         serializer = CaregiverSerializer(caregiver, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class CaregiverSelfCalendarView(generics.RetrieveAPIView):
-    queryset = Caregiver.objects.all()
+    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,) #fixme precisa do user pra auth
+    authentication_classes = [JWTAuthentication]
 
     def retrieve(self, request, *args, **kwargs):
-        instance = self.queryset.first() #fixme
+        instance = self.queryset.first()  # fixme
         serializer = self.get_serializer(instance)
 
         calendar = {
-           "fixed_unavailable_days":serializer.data.get('fixed_unavailable_days', []),
-           "fixed_unavailable_hours":serializer.data.get('fixed_unavailable_hours', []),
-           "custom_unavailable_days":serializer.data.get('custom_unavailable_days',[])
+            "fixed_unavailable_days": serializer.data.get("fixed_unavailable_days", []),
+            "fixed_unavailable_hours": serializer.data.get(
+                "fixed_unavailable_hours", []
+            ),
+            "custom_unavailable_days": serializer.data.get(
+                "custom_unavailable_days", []
+            ),
         }
 
         return Response(calendar)
 
+
 class CaregiverDetailView(generics.RetrieveAPIView):
-    queryset = Caregiver.objects.all()
+    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,) #fixme precisa do user pra auth
+    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
+    # authentication_classes =[JWTAuthentication]
+
 
 class CaregiverCalendarView(generics.RetrieveAPIView):
-    queryset = Caregiver.objects.all()
+    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)#fixme precisa do user pra auth
-    
+    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
+    authentication_classes = [JWTAuthentication]
+
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
 
         calendar = {
-           "fixed_unavailable_days":serializer.data.get('fixed_unavailable_days', []),
-           "fixed_unavailable_hours":serializer.data.get('fixed_unavailable_hours', []),
-           "custom_unavailable_days":serializer.data.get('custom_unavailable_days',[])
+            "fixed_unavailable_days": serializer.data.get("fixed_unavailable_days", []),
+            "fixed_unavailable_hours": serializer.data.get(
+                "fixed_unavailable_hours", []
+            ),
+            "custom_unavailable_days": serializer.data.get(
+                "custom_unavailable_days", []
+            ),
         }
 
         return Response(calendar)
 
+
 # Qualification (Odair)
 
-class QualificationCreate(generics.CreateAPIView):
-    queryset = Qualification.objects.all()
-    serializer_class = QualificationSerializer
-    permission_classes = (AllowAny,) #confirmar se precisa de auth 
 
-class QualificationRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Qualification.objects.all()
+class QualificationCreateView(generics.CreateAPIView):
+    queryset = QualificationModel.objects.all()
     serializer_class = QualificationSerializer
-    permission_classes = (AllowAny,)
+    authentication_classes = [JWTAuthentication]
+
+
+class QualificationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = QualificationModel.objects.all()
+    serializer_class = QualificationSerializer
+    authentication_classes = [JWTAuthentication]
+
 
 ##### Specialization - Leo #####
 class SpecializationListCreateView(generics.ListCreateAPIView):
-    queryset = Specialization.objects.all()
+    queryset = SpecializationModel.objects.all()
     serializer_class = SpecializationSerializer
+    authentication_classes = [JWTAuthentication]
+
 
 class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Specialization.objects.all()
+    queryset = SpecializationModel.objects.all()
     serializer_class = SpecializationSerializer
 
-class SpecializationListView(generics.ListAPIView):
-    queryset = Specialization.objects.all()
-    serializer_class = SpecializationSerializer
 
-class CarereceiverDetail(generics.RetrieveAPIView):
-    carereceiver = Carereceiver.objects.all()
-    queryset = Carereceiver.objects.all()
-    serializer_class = CarereceiverSerializer
+class CareReceiverDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Retrieve, update ou partially update um CareReceiver.
+    """
 
-class CarereceiverEdit(APIView):
-    queryset = Caregiver.objects.all()
-    serializer_class = CarereceiverSerializer
-    permission_classes = (AllowAny,)
+    serializer_class = CareReceiverSerializer
+    permission_classes = [IsAuthenticated]
 
-    def put(self, request, format=None):
-        carereceiver = self.queryset.first() 
+    def get_queryset(self):
+        """
+        Este view deverá retornar o CareReceiver relacionado ao usuário que fez a requisição
+        """
+        user = self.request.user
+        return CareReceiverModel.objects.filter(user=user)
 
-        serializer = CarereceiverSerializer(carereceiver, data=request.data)
+    def get_object(self):
+        """
+        Retorna o objeto do CareReceiver relacionado ao usuário.
+        Se o CareReceiver não existir, retorna NotFound.
+        """
+        queryset = self.get_queryset()
+        obj = generics.get_object_or_404(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
-class UserSignup(generics.CreateAPIView):
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+
+class CareReceiverCreateView(generics.CreateAPIView):
+    """
+    Cria um novo CareReceiver.
+    """
+
+    serializer_class = CareReceiverSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        """
+        Cria um novo CareReceiver associado ao usuário que fez a requisição.
+        """
+        serializer.save(user=self.request.user)
+
+
+# Supondo que você queira ter uma view para listar todos os CareReceivers
+# Esta view deverá ser protegida e restrita a apenas admins ou pessoal autorizado.
+# class CareReceiverListView(generics.ListAPIView):
+#     """
+#     Listar todos os CareReceivers. Deve ser acessível apenas por admins.
+#     """
+#     serializer_class = CareReceiverSerializer
+#     permission_classes = [IsAuthenticated]  # Altere para uma permissão mais específica de admin
+
+#     def get_queryset(self):
+#         """
+#         Este view deverá retornar uma lista de todos os CareReceivers.
+#         Pode ser filtrada para retornar apenas CareReceivers específicos.
+#         """
+#         return CareReceiver.objects.all()
+
+
+class UserSignupView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(authors=[self.request.user])
 
-class UserLogin(APIView):
-    permission_classes = [AllowAny]
+class UserLoginView(TokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer
 
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            serializer = UserSerializer(user)
-            return Response(serializer.data)
-        else:
-            return Response({'error': 'Usuário ou senha inválidos.'}, status=status.HTTP_400_BAD_REQUEST)
 
-class UserLogout(APIView):
-    permission_classes = [IsAuthenticated]
+class UserLogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        logout(request)
-        return Response({'message': 'Logout ocorreu com sucesso.'})
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class CareRequestListCreateView(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    queryset = CareRequestModel.objects.all()
+    serializer_class = CareRequestSerializer
+
+
+class CareRequestDetailView(generics.RetrieveAPIView):
+    authentication_classes = [JWTAuthentication]
+    queryset = CareRequestModel.objects.all()
+    serializer_class = CareRequestSerializer
+
+
+class CareRequestAcceptView(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def post(self, request, pk):
+        care_request = CareRequestModel.objects.get(pk=pk)
+        care_request.status = 2  # Autorizado
+        care_request.save()
+        return Response({"status": "accepted"}, status=status.HTTP_200_OK)
+
+
+class CareRequestDeclineView(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def post(self, request, pk):
+        care_request = CareRequestModel.objects.get(pk=pk)
+        care_request.status = 1  # Recusado
+        care_request.save()
+        return Response({"status": "declined"}, status=status.HTTP_200_OK)
+
+
+class RatingCreateView(generics.CreateAPIView):
+    queryset = RatingModel.objects.all()
+    serializer_class = RatingSerializer
+    authentication_classes = [JWTAuthentication]
+
+
+class RatingDetailView(generics.RetrieveAPIView):
+    queryset = RatingModel.objects.all()
+    serializer_class = RatingSerializer
+    authentication_classes = [JWTAuthentication]
+
+
+class SpecialCareListView(generics.ListCreateAPIView):
+    queryset = SpecialCareModel.objects.all()
+    serializer_class = SpecialCareSerializer
+
+
+class SpecialCareDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SpecialCareModel.objects.all()
+    serializer_class = SpecialCareSerializer
+    authentication_classes = [JWTAuthentication]
+
+
+class SpecialCareUserListView(generics.ListCreateAPIView):
+    queryset = SpecialCareUserModel.objects.all()
+    serializer_class = SpecialCareUserSerializer
+
+
+class SpecialCareUserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SpecialCareUserModel.objects.all()
+    serializer_class = SpecialCareUserSerializer
+    authentication_classes = [JWTAuthentication]
