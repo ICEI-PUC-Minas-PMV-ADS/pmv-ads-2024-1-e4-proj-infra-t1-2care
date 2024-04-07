@@ -3,13 +3,16 @@ from django.db import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-
-from rest_framework.test import APIClient
+from django.contrib.auth.hashers import check_password, make_password
+from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import (
+    CareReceiverModel,
+    CareRequestModel,
     QualificationModel,
+    RatingModel,
     WorkExperienceModel,
     SpecializationModel,
     FixedUnavailableDayModel,
@@ -19,7 +22,9 @@ from .models import (
     CustomUserModel
 )
 from .serializers import (
+    CareReceiverSerializer,
     QualificationSerializer,
+    UserSerializer,
     WorkExperienceSerializer,
     SpecializationSerializer,
     FixedUnavailableDaySerializer,
@@ -1062,3 +1067,448 @@ class CustomUnavailableDayModelTest(TestCase):
 
         with self.assertRaises(CustomUnavailableDayModel.DoesNotExist):
             CustomUnavailableDayModel.objects.get(pk=unavailable_day_id)
+
+# CustomUser Tests
+class CustomUserModelTest(TestCase):
+
+    def setUp(self):
+        self.user_data = {
+            "username": "testeUser",
+            "email": "teste@teste.com",
+            "name": "Teste User",
+            "phone": "+5511900000000",
+            "address": "Teste Address, 123",
+            "post_code": "12345678",
+            "latitude": "23.000000",
+            "longitude": "-43.000000",
+            "user_type": 1,
+            "gender": 1,
+            "preferred_contact": 1,
+            "birth_date": "1990-01-01",
+            "password": "testepassword123"
+        }
+
+    def test_create_user(self):
+        user = CustomUserModel.objects.create_user(**self.user_data)
+        self.assertEqual(CustomUserModel.objects.count(), 1)
+        self.assertEqual(user.email, self.user_data["email"])
+        self.assertTrue(check_password(self.user_data["password"], user.password))
+
+    def test_create_superuser(self):
+        superuser_data = self.user_data.copy()
+        superuser_data.update({"username": "superuser", "email": "superuser@teste.com"})
+        user = CustomUserModel.objects.create_superuser(**superuser_data)
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+
+    def test_user_string_representation(self):
+        user = CustomUserModel.objects.create(**self.user_data)
+        self.assertEqual(str(user), user.username)
+
+    def test_email_uniqueness(self):
+        CustomUserModel.objects.create(**self.user_data)
+        with self.assertRaises(ValidationError):
+            new_user_data = self.user_data.copy()
+            new_user_data["username"] = "testeUser2"
+            user = CustomUserModel(**new_user_data)
+            user.full_clean()
+
+    def test_user_update(self):
+        user = CustomUserModel.objects.create(**self.user_data)
+        user.name = "Updated Name"
+        user.save()
+        updated_user = CustomUserModel.objects.get(id=user.id)
+        self.assertEqual(updated_user.name, "Updated Name")
+
+    def test_user_delete(self):
+        user = CustomUserModel.objects.create(**self.user_data)
+        user_id = user.id
+        user.delete()
+        with self.assertRaises(CustomUserModel.DoesNotExist):
+            CustomUserModel.objects.get(id=user_id)
+
+# class UserSerializerTests(APITestCase):
+
+#     def setUp(self):
+#         self.user_data = {
+#             "username": "userTest",
+#             "email": "user@test.com",
+#             "name": "User Test",
+#             "password": "password",
+#             "phone": "+5511999999999",
+#             "address": "Test Street, 123",
+#             "post_code": "12345678",
+#             "latitude": "23.555500",
+#             "longitude": "-46.555500",
+#             "user_type": 1,
+#             "gender": 1,
+#             "preferred_contact": 1,
+#             "birth_date": "1990-01-01",
+#         }
+#         self.user = CustomUserModel.objects.create_user(**self.user_data)
+#         self.client = APIClient()
+
+#     def test_serialize_user(self):
+#         user = CustomUserModel.objects.get(email=self.user_data['email'])
+#         serializer = UserSerializer(user)
+#         for field in self.user_data:
+#             if field == 'password':
+#                 continue  # Password is write_only
+#             self.assertEqual(serializer.data[field], self.user_data[field])
+
+#     def test_create_user_via_serializer(self):
+#         new_user_data = {
+#             "username": "newUser",
+#             "email": "newuser@test.com",
+#             "name": "New User",
+#             "password": "newpassword",
+#             "phone": "+5511988888888",
+#             "address": "New Street, 456",
+#             "post_code": "87654321",
+#             "latitude": "23.666600",
+#             "longitude": "-46.666600",
+#             "user_type": 2,
+#             "gender": 2,
+#             "preferred_contact": 2,
+#             "birth_date": "1991-02-02",
+#         }
+#         serializer = UserSerializer(data=new_user_data)
+#         self.assertTrue(serializer.is_valid())
+#         serializer.save()
+#         self.assertEqual(CustomUserModel.objects.count(), 2)
+#         user = CustomUserModel.objects.get(email=new_user_data['email'])
+#         for field in new_user_data:
+#             if field == 'password':
+#                 self.assertTrue(user.check_password(new_user_data['password']))
+#             else:
+#                 self.assertEqual(getattr(user, field), new_user_data[field])
+
+# class UserViewTests(APITestCase):
+
+#     def setUp(self):
+#         self.user_data = {
+#             "username": "userTest",
+#             "email": "user@test.com",
+#             "name": "User Test",
+#             "password": "password",
+#             "phone": "+5511999999999",
+#             "address": "Test Street, 123",
+#             "post_code": "12345678",
+#             "latitude": "23.5555",
+#             "longitude": "-46.5555",
+#             "user_type": 1,
+#             "gender": 1,
+#             "preferred_contact": 1,
+#             "birth_date": "1990-01-01",
+#         }
+#         self.user = CustomUserModel.objects.create_user(**self.user_data)
+#         self.client = APIClient()
+
+#     def test_create_user_api(self):
+#         url = reverse('register')
+#         response = self.client.post(url, self.user_data, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+#         self.assertEqual(CustomUserModel.objects.count(), 2)  # Including setUp user
+
+#     def test_user_login_api(self):
+#         url = reverse('token_obtain_pair')
+#         response = self.client.post(url, {"email": self.user_data['email'], "password": self.user_data['password']}, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertIn("access", response.data)
+
+#     def test_user_update_api(self):
+#         self.client.force_authenticate(user=self.user)
+#         url = reverse('user-detail', kwargs={'pk': self.user.pk})
+#         updated_data = {"name": "Updated Name"}
+#         response = self.client.patch(url, updated_data, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.user.refresh_from_db()
+#         self.assertEqual(self.user.name, updated_data['name'])
+
+# CareReceiver Tests
+class CareReceiverModelTests(TestCase):
+
+    def setUp(self):
+        self.user = CustomUserModel.objects.create_user(
+            username= "testeUser",
+            email= "teste@teste.com",
+            name= "Teste User",
+            phone= "+5511900000000",
+            address= "Teste Address, 123",
+            post_code= "12345678",
+            latitude= "23.000000",
+            longitude= "-43.000000",
+            user_type= 2,
+            gender= 1,
+            preferred_contact= 1,
+            birth_date= "1990-01-01",
+            password= "testepassword123"
+        )
+        
+        # Dados para criar um CareReceiver
+        self.care_receiver_data = {
+            'user': self.user,
+            'emergency_contact': '+5511912345678',
+            'share_special_care': True,
+            'additional_info': 'Needs special care with medication'
+        }
+
+    def test_create_care_receiver(self):
+        care_receiver = CareReceiverModel.objects.create(**self.care_receiver_data)
+        self.assertEqual(CareReceiverModel.objects.count(), 1)
+        self.assertEqual(care_receiver.user, self.user)
+        self.assertEqual(care_receiver.emergency_contact, '+5511912345678')
+
+    def test_update_care_receiver(self):
+        care_receiver = CareReceiverModel.objects.create(**self.care_receiver_data)
+        new_emergency_contact = '+5511987654321'
+        care_receiver.emergency_contact = new_emergency_contact
+        care_receiver.save()
+        
+        updated_care_receiver = CareReceiverModel.objects.get(id=care_receiver.id)
+        self.assertEqual(updated_care_receiver.emergency_contact, new_emergency_contact)
+
+    def test_delete_care_receiver(self):
+        care_receiver = CareReceiverModel.objects.create(**self.care_receiver_data)
+        care_receiver_id = care_receiver.id
+        care_receiver.delete()
+        
+        with self.assertRaises(CareReceiverModel.DoesNotExist):
+            CareReceiverModel.objects.get(id=care_receiver_id)
+
+    def test_care_receiver_string_representation(self):
+        care_receiver = CareReceiverModel.objects.create(**self.care_receiver_data)
+        expected_string_representation = f"{self.user.username} - Care Receiver"
+        self.assertEqual(str(care_receiver), expected_string_representation)
+
+class CareReceiverSerializerTests(TestCase):
+
+    def setUp(self):
+        self.user = CustomUserModel.objects.create_user(
+            username="testeUser",
+            email="teste@teste.com",
+            name="Teste User",
+            phone="+5511900000000",
+            address="Teste Address, 123",
+            post_code="12345678",
+            latitude="23.000000",
+            longitude="-43.000000",
+            user_type=2,
+            gender=1,
+            preferred_contact=1,
+            birth_date="1990-01-01",
+            password="testepassword123"
+        )
+
+        self.care_receiver_data = {
+            'user': self.user.id,
+            'emergency_contact': '+5511987654321',
+            'share_special_care': True,
+            'additional_info': 'Additional info'
+        }
+
+    def test_serialize_care_receiver(self):
+        care_receiver = CareReceiverModel.objects.create(
+            user=self.user,
+            emergency_contact='+5511987654321',
+            share_special_care=True,
+            additional_info='Additional info'
+        )
+        serializer = CareReceiverSerializer(care_receiver)
+        self.assertEqual(serializer.data['emergency_contact'], care_receiver.emergency_contact)
+        self.assertEqual(serializer.data['share_special_care'], care_receiver.share_special_care)
+
+    def test_create_care_receiver_via_serializer(self):
+        serializer = CareReceiverSerializer(data=self.care_receiver_data)
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+
+        self.assertEqual(CareReceiverModel.objects.count(), 1)
+        care_receiver = CareReceiverModel.objects.get()
+        self.assertEqual(care_receiver.emergency_contact, self.care_receiver_data['emergency_contact'])
+        self.assertEqual(care_receiver.user, self.user)
+
+    def test_update_care_receiver_via_serializer(self):
+        care_receiver = CareReceiverModel.objects.create(
+            user=self.user,
+            emergency_contact='+5511987654321',
+            share_special_care=True,
+            additional_info='Initial info'
+        )
+        update_data = {'additional_info': 'Updated info'}
+        serializer = CareReceiverSerializer(care_receiver, data=update_data, partial=True)
+
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+        care_receiver.refresh_from_db()
+
+        self.assertEqual(care_receiver.additional_info, 'Updated info')
+
+    def test_validation_error_with_invalid_data(self):
+        invalid_data = self.care_receiver_data.copy()
+        invalid_data['emergency_contact'] = 'invalid phone number'
+        serializer = CareReceiverSerializer(data=invalid_data)
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('emergency_contact', serializer.errors)
+
+# class CareReceiverViewTests(APITestCase):
+#     def setUp(self):
+#         self.user = CustomUserModel.objects.create_user(
+#             username="testeUser",
+#             email="teste@teste.com",
+#             name="Teste User",
+#             phone="+5511900000000",
+#             address="Teste Address, 123",
+#             post_code="12345678",
+#             latitude="23.000000",
+#             longitude="-43.000000",
+#             user_type=2,
+#             gender=1,
+#             preferred_contact=1,
+#             birth_date="1990-01-01",
+#             password="testepassword123"
+#         )
+#         self.care_receiver = CareReceiverModel.objects.create(
+#             user=self.user,
+#             emergency_contact='+5511987654321',
+#             share_special_care=True,
+#             additional_info='Needs special care'
+#         )
+#         self.client.login(email='teste@teste.com', password='testepassword123')
+
+#     def test_get_care_receiver(self):
+#         url = reverse('carereceiver-detail', args=[self.care_receiver.pk])
+#         response = self.client.get(url)
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertEqual(response.data['emergency_contact'], self.care_receiver.emergency_contact)
+
+#     def test_create_care_receiver(self):
+#         self.client.force_authenticate(user=self.user)  # Garante que o usuário está autenticado
+#         url = reverse('carereceiver-create')  # Este é o nome correto, sem argumentos esperados
+#         data = {
+#         "user": self.user.id,
+#         "emergency_contact": "+5511987654322",
+#         "share_special_care": False,
+#         "additional_info": "No special care needed"
+#         }
+#         response = self.client.post(url, data, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)  # Confirma que o objeto foi criado
+#         self.assertEqual(CareReceiverModel.objects.count(), 2)
+#         self.assertEqual(CareReceiverModel.objects.last().emergency_contact, data['emergency_contact'])
+
+#     def test_update_care_receiver(self):
+#         url = reverse('carereceiver-detail', args=[self.care_receiver.pk])
+#         data = {"additional_info": "Updated special care needed"}
+#         response = self.client.patch(url, data, format='json')
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.care_receiver.refresh_from_db()
+#         self.assertEqual(self.care_receiver.additional_info, data['additional_info'])
+
+#     def test_delete_care_receiver(self):
+#         url = reverse('carereceiver-detail', args=[self.care_receiver.pk])
+#         response = self.client.delete(url)
+#         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+#         self.assertEqual(CareReceiverModel.objects.count(), 0)
+
+# class CareReceiverIntegrationTests(APITestCase):
+#     def setUp(self):
+#         # Cria um usuário para ser usado nos testes
+#         self.user_data = {
+#             "username": "testuser",
+#             "email": "testuser@example.com",
+#             "password": "password123",
+#             "name": "Test User",
+#             "phone": "+5511900000000",
+#             "address": "123 Test St",
+#             "post_code": "123456",
+#             "latitude": "23.000000",
+#             "longitude": "-43.000000",
+#             "user_type": 2,
+#             "gender": 1,
+#             "preferred_contact": 1,
+#             "birth_date": "1990-01-01",
+#         }
+#         self.user = CustomUserModel.objects.create_user(**self.user_data)
+#         self.client.force_authenticate(user=self.user)  # Autentica o usuário para os testes
+
+#     def test_care_receiver_crud_operations(self):
+#         # Testa a criação de um CareReceiver
+#         create_url = reverse('carereceiver-create')
+#         create_data = {
+#             "user": self.user.pk,  # Adiciona o ID do usuário
+#             "emergency_contact": "+5511987654321",
+#             "share_special_care": True,
+#             "additional_info": "Needs special care"
+#         }
+#         response = self.client.post(create_url, create_data, format='json')
+#         print(response.data)
+#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+#         self.assertTrue(CareReceiverModel.objects.exists())
+
+#         care_receiver_id = response.data['id']
+
+#         # Testa a recuperação de um CareReceiver
+#         retrieve_url = reverse('carereceiver-detail', args=[care_receiver_id])
+#         response = self.client.get(retrieve_url)
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertEqual(response.data['emergency_contact'], create_data['emergency_contact'])
+
+#         # Testa a atualização de um CareReceiver
+#         update_data = {"additional_info": "Updated special care needed"}
+#         response = self.client.patch(retrieve_url, update_data, format='json')
+#         print(response.data)
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         self.assertEqual(CareReceiverModel.objects.get(pk=care_receiver_id).additional_info, update_data['additional_info'])
+
+#         # Testa a exclusão de um CareReceiver
+#         response = self.client.delete(retrieve_url)
+#         print(response.data)
+#         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+#         self.assertFalse(CareReceiverModel.objects.filter(pk=care_receiver_id).exists())
+
+# class RatingModelTests(TestCase):
+#     def setUp(self):
+#         # Preparando um usuário e uma solicitação de cuidado para o teste
+#         self.user = CustomUserModel.objects.create_user(
+#             username="testeUser",
+#             email="teste@teste.com",
+#             name="Teste User",
+#             phone="+5511900000000",
+#             address="Teste Address, 123",
+#             post_code="12345678",
+#             latitude="23.000000",
+#             longitude="-43.000000",
+#             user_type=2,
+#             gender=1,
+#             preferred_contact=1,
+#             birth_date="1990-01-01",
+#             password="testepassword123"
+#         )
+#         self.care_request = CareRequestModel.objects.create(user=self.user)
+        
+#         self.rating = RatingModel.objects.create(
+#             care_request=self.care_request,
+#             rating=5,
+#             description="Excellent service!"
+#         )
+
+#     def test_rating_creation(self):
+#         """Testa a criação de uma avaliação."""
+#         self.assertEqual(self.rating.rating, 5)
+#         self.assertEqual(self.rating.description, "Excellent service!")
+#         self.assertEqual(self.rating.care_request, self.care_request)
+
+#     def test_rating_update(self):
+#         """Testa a atualização de uma avaliação."""
+#         self.rating.rating = 4
+#         self.rating.description = "Good service"
+#         self.rating.save()
+        
+#         updated_rating = RatingModel.objects.get(id=self.rating.id)
+#         self.assertEqual(updated_rating.rating, 4)
+#         self.assertEqual(updated_rating.description, "Good service")
+
+#     def test_rating_string_representation(self):
+#         """Testa a representação em string do objeto Rating."""
+#         self.assertEqual(str(self.rating), "5 - Excellent service!")
