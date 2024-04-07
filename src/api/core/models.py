@@ -228,7 +228,7 @@ class CaregiverModel(models.Model):
 
 class CareReceiverModel(models.Model):
     user = models.OneToOneField(
-        CustomUserModel, on_delete=models.CASCADE, related_name="CareReceiverModel"
+        CustomUserModel, on_delete=models.CASCADE, related_name="care_receiver"
     )
     emergency_contact = models.CharField("Telefone de Emergência", max_length=15)
     share_special_care = models.BooleanField(
