@@ -1,4 +1,5 @@
 from django.forms import ValidationError
+from django.db import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -829,3 +830,235 @@ class QualificationModelTest(TestCase):
             QualificationModel.objects.get(pk=qualification_id)
 
 
+
+class CaregiverModelTest(TestCase):
+
+    def setUp(self):
+        self.user_data = {
+            "username": "Carlos",
+            "email": "carlos@gmail.com",
+            "name": "Carlos Ferreira",
+            "picture": "string",
+            "latitude": "10.000000",
+            "longitude": "10.000000",
+            "user_type": 1,
+            "gender": 0,
+            "preferred_contact": 0,
+            "password": "123",
+            "phone": "+5521999999999",
+            "address": "a really cool place",
+            "post_code": "66666666"
+        }
+
+        self.user = CustomUserModel.objects.create(**self.user_data)
+
+        self.valid_data = {
+            "user": self.user,
+            "hour_price": Decimal(25.00),
+            "day_price": Decimal(180.00),
+            "max_request_km": 60,
+            "career_time": 7,
+            "additional_info": "Experienced with dementia care.",
+        }
+
+    def test_create_valid_caregiver_model(self):
+        caregiver = CaregiverModel.objects.create(**self.valid_data)
+        self.assertEqual(CaregiverModel.objects.count(), 1)
+
+        for field, value in self.valid_data.items():
+            if field == "user":
+                self.assertEqual(str(caregiver.user.id), str(value.id))
+            else:
+                self.assertEqual(getattr(caregiver, field), value)
+
+    def test_create_invalid_null_caregiver_model(self):
+        wrong_caregiver_data = {
+            "user": self.user,
+            "hour_price": None,
+            "career_time": None,
+        }
+
+        with self.assertRaises(IntegrityError):
+            CaregiverModel.objects.create(**wrong_caregiver_data)
+       
+
+    def test_update_caregiver_model(self):
+        caregiver = CaregiverModel.objects.create(**self.valid_data)
+        new_hour_price = "95.00"
+        new_additional_info = "Experienced with Elder"
+
+        caregiver.hour_price = new_hour_price
+        caregiver.additional_info = new_additional_info
+        caregiver.save()
+        self.assertEqual(caregiver.hour_price, new_hour_price)
+        self.assertEqual(caregiver.additional_info, new_additional_info)
+
+    def test_invalid_update_qualification(self):
+        wrong_caregiver_data = {
+            "hour_price": "Not decimal",
+            "day_price": "Not decimal",
+            "max_request_km": "Not number",
+            "career_time": "Not number",
+        }
+
+        caregiver = CaregiverModel.objects.create(**self.valid_data)
+
+        for field, value in wrong_caregiver_data.items():
+            setattr(caregiver, field, value)
+
+            with self.assertRaises(ValidationError):
+                caregiver.full_clean()
+            
+    def test_retrieve_caregiver_model(self):
+        caregiver = CaregiverModel.objects.create(**self.valid_data)
+        retrieved_caregiver = CaregiverModel.objects.get(pk=caregiver.pk)
+        self.assertEqual(caregiver.pk, retrieved_caregiver.pk)
+        self.assertEqual(caregiver.hour_price, retrieved_caregiver.hour_price)
+        self.assertEqual(
+            caregiver.additional_info, retrieved_caregiver.additional_info
+        )
+
+    def test_delete_qualification(self):
+        caregiver = CaregiverModel.objects.create(**self.valid_data)
+        caregiver_id = caregiver.pk
+        caregiver.delete()
+        with self.assertRaises(QualificationModel.DoesNotExist):
+            QualificationModel.objects.get(pk=caregiver_id)
+
+
+class FixedUnavailableDayModelTest(TestCase):
+
+    def setUp(self):
+        self.valid_data = {
+            "day": 0 
+        }
+
+    def test_create_valid_unavailable_day(self):
+        unavailable_day = FixedUnavailableDayModel.objects.create(**self.valid_data)
+        self.assertEqual(FixedUnavailableDayModel.objects.count(), 1)
+
+        self.assertEqual(unavailable_day.day, self.valid_data["day"])
+
+    def test_create_invalid_unavailable_day(self):
+        invalid_data = {
+            "day": None 
+        }
+
+        with self.assertRaises(IntegrityError):
+            FixedUnavailableDayModel.objects.create(**invalid_data)
+
+    def test_update_unavailable_day(self):
+        unavailable_day = FixedUnavailableDayModel.objects.create(**self.valid_data)
+        new_day = 1 
+
+        unavailable_day.day = new_day
+        unavailable_day.save()
+        updated_unavailable_day = FixedUnavailableDayModel.objects.get(pk=unavailable_day.pk)
+
+        self.assertEqual(updated_unavailable_day.day, new_day)
+
+    def test_retrieve_unavailable_day(self):
+        unavailable_day = FixedUnavailableDayModel.objects.create(**self.valid_data)
+        retrieved_unavailable_day = FixedUnavailableDayModel.objects.get(pk=unavailable_day.pk)
+
+        self.assertEqual(retrieved_unavailable_day.day, self.valid_data["day"])
+
+    def test_delete_unavailable_day(self):
+        unavailable_day = FixedUnavailableDayModel.objects.create(**self.valid_data)
+        unavailable_day_id = unavailable_day.pk
+        unavailable_day.delete()
+
+        with self.assertRaises(FixedUnavailableDayModel.DoesNotExist):
+            FixedUnavailableDayModel.objects.get(pk=unavailable_day_id)
+
+class FixedUnavailableHourModelTest(TestCase):
+
+    def setUp(self):
+        self.valid_data = {
+            "hour": 0 
+        }
+
+    def test_create_valid_unavailable_hour(self):
+        unavailable_hour = FixedUnavailableHourModel.objects.create(**self.valid_data)
+        self.assertEqual(FixedUnavailableHourModel.objects.count(), 1)
+
+        self.assertEqual(unavailable_hour.hour, self.valid_data["hour"])
+
+    def test_create_invalid_unavailable_hour(self):
+        invalid_data = {
+            "hour": None  
+        }
+
+        with self.assertRaises(IntegrityError):
+            FixedUnavailableHourModel.objects.create(**invalid_data)
+
+    def test_update_unavailable_hour(self):
+        unavailable_hour = FixedUnavailableHourModel.objects.create(**self.valid_data)
+        new_hour = 1
+
+        unavailable_hour.hour = new_hour
+        unavailable_hour.save()
+
+        updated_unavailable_hour = FixedUnavailableHourModel.objects.get(pk=unavailable_hour.pk)
+
+        self.assertEqual(updated_unavailable_hour.hour, new_hour)
+
+    def test_retrieve_unavailable_hour(self):
+        unavailable_hour = FixedUnavailableHourModel.objects.create(**self.valid_data)
+        retrieved_unavailable_hour = FixedUnavailableHourModel.objects.get(pk=unavailable_hour.pk)
+
+        self.assertEqual(retrieved_unavailable_hour.hour, self.valid_data["hour"])
+
+    def test_delete_unavailable_hour(self):
+        unavailable_hour = FixedUnavailableHourModel.objects.create(**self.valid_data)
+        unavailable_hour_id = unavailable_hour.pk
+        unavailable_hour.delete()
+
+        with self.assertRaises(FixedUnavailableHourModel.DoesNotExist):
+            FixedUnavailableHourModel.objects.get(pk=unavailable_hour_id)
+
+class CustomUnavailableDayModelTest(TestCase):
+
+    def setUp(self):
+        self.valid_data = {
+            "day": date(2024, 4, 8)
+        }
+
+    def test_create_valid_unavailable_day(self):
+        unavailable_day = CustomUnavailableDayModel.objects.create(**self.valid_data)
+        self.assertEqual(CustomUnavailableDayModel.objects.count(), 1)
+
+        self.assertEqual(unavailable_day.day, self.valid_data["day"])
+
+    def test_create_invalid_unavailable_day(self):
+        invalid_data = {
+            "day": None
+        }
+
+        with self.assertRaises(IntegrityError):
+            CustomUnavailableDayModel.objects.create(**invalid_data)
+
+    def test_update_unavailable_day(self):
+        unavailable_day = CustomUnavailableDayModel.objects.create(**self.valid_data)
+        new_day = date(2024, 4, 9)  
+
+        unavailable_day.day = new_day
+        unavailable_day.save()
+
+        updated_unavailable_day = CustomUnavailableDayModel.objects.get(pk=unavailable_day.pk)
+
+        self.assertEqual(updated_unavailable_day.day, new_day)
+
+    def test_retrieve_unavailable_day(self):
+        unavailable_day = CustomUnavailableDayModel.objects.create(**self.valid_data)
+        retrieved_unavailable_day = CustomUnavailableDayModel.objects.get(pk=unavailable_day.pk)
+
+        self.assertEqual(retrieved_unavailable_day.day, self.valid_data["day"])
+
+    def test_delete_unavailable_day(self):
+        unavailable_day = CustomUnavailableDayModel.objects.create(**self.valid_data)
+        unavailable_day_id = unavailable_day.pk
+        unavailable_day.delete()
+
+        with self.assertRaises(CustomUnavailableDayModel.DoesNotExist):
+            CustomUnavailableDayModel.objects.get(pk=unavailable_day_id)
