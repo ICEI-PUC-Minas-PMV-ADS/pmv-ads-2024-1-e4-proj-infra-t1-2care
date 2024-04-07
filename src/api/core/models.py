@@ -42,6 +42,8 @@ class CustomUserModel(AbstractUser):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["name"]
 
 class QualificationModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)

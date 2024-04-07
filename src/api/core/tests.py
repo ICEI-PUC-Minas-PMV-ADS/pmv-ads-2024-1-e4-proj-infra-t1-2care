@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import (
     QualificationModel,
@@ -14,6 +15,7 @@ from .models import (
     FixedUnavailableHourModel,
     CustomUnavailableDayModel,
     CaregiverModel,
+    CustomUserModel
 )
 from .serializers import (
     QualificationSerializer,
@@ -31,6 +33,24 @@ from decimal import Decimal
 
 class CaregiverSerializerTests(TestCase):
     def setUp(self):
+        self.user_data = {
+            "username": "Carlos",
+            "email": "carlos@gmail.com",
+            "name": "Carlos Ferreira",
+            "picture": "string",
+            "latitude": "10.000000",
+            "longitude": "10.000000",
+            "user_type": 1,
+            "gender": 0,
+            "preferred_contact": 0,
+            "password": "123",
+            "phone": "+5521999999999",
+            "address": "a really cool place",
+            "post_code": "66666666"
+        }
+
+        self.user = CustomUserModel.objects.create(**self.user_data)
+
         self.qualification_data = {
             "name": "Degree in Nursing",
             "conclusion_date": timezone.now().date(),
@@ -67,6 +87,7 @@ class CaregiverSerializerTests(TestCase):
         )
 
         self.caregiver_data = {
+            "user": self.user,
             "hour_price": "25.00",
             "day_price": "180.00",
             "max_request_km": 60,
@@ -366,11 +387,16 @@ class CaregiverSerializerTests(TestCase):
 
     def test_caregiver_serializer(self):
         serializer = CaregiverSerializer(instance=self.caregiver)
+       
         for field, value in self.caregiver_data.items():
-            self.assertEqual(serializer.data[field], value)
+            if field == "user":
+                self.assertEqual(str(serializer.data["user"]), str(value.id))
+            else:
+                self.assertEqual(serializer.data[field], value)
 
     def test_create_caregiver_serializer(self):
         new_caregiver_data = {
+            "user": self.user.id,
             "hour_price": Decimal("250.00"),
             "day_price": Decimal("280.00"),
             "max_request_km": 600,
@@ -382,7 +408,10 @@ class CaregiverSerializerTests(TestCase):
         self.assertTrue(serializer.is_valid())
         caregiver = serializer.save()
         for field, value in new_caregiver_data.items():
-            self.assertEqual(getattr(caregiver, field), value)
+            if field == "user":
+                self.assertEqual(str(caregiver.user.id), str(value))
+            else:
+                self.assertEqual(getattr(caregiver, field), value)
 
     def test_fail_create_caregiver_serializer(self):
         wrong_caregiver_data = {
@@ -392,6 +421,7 @@ class CaregiverSerializerTests(TestCase):
             "career_time": "invalid",
         }
         new_caregiver_data = {
+            "user": self.user.id,
             "hour_price": Decimal("250.00"),
             "day_price": Decimal("280.00"),
             "max_request_km": 600,
@@ -423,7 +453,6 @@ class CaregiverSerializerTests(TestCase):
         serializer = CaregiverSerializer(
             instance=self.caregiver, data=new_caregiver_data, partial=True
         )
-
         self.assertTrue(serializer.is_valid())
         updated_caregiver = serializer.save()
 
@@ -455,6 +484,7 @@ class CaregiverSerializerTests(TestCase):
         )
 
         new_caregiver_data = {
+            "user": self.user.id,
             "hour_price": Decimal("25.00"),
             "day_price": Decimal("180.00"),
             "max_request_km": 60,
@@ -489,8 +519,31 @@ class CaregiverSerializerTests(TestCase):
 
 class CaregiverAPITests(TestCase):
     def setUp(self):
+        
+        self.user_data = {
+            "username": "Carlos",
+            "email": "carlos@gmail.com",
+            "name": "Carlos Ferreira",
+            "picture": "string",
+            "latitude": "10.000000",
+            "longitude": "10.000000",
+            "user_type": 1,
+            "gender": 0,
+            "preferred_contact": 0,
+            "password": "123",
+            "phone": "+5521999999999",
+            "address": "a really cool place",
+            "post_code": "66666666"
+        }
+
+        self.user = CustomUserModel.objects.create(**self.user_data)
+
         self.client = APIClient()
+        refresh = RefreshToken.for_user(self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
+
         self.caregiver_data = {  # esse teste é um pouco estranho pq quando colocarmos auth, ele vai quebrar. ai eu tenho que ver como fazer.
+            "user": self.user,
             "hour_price": "25.00",
             "day_price": "180.00",
             "max_request_km": 60,
@@ -643,7 +696,7 @@ class CaregiverAPITests(TestCase):
     # leo
 
     def test_Create_specialization_api(self):
-        url = reverse("specialization-create")
+        url = reverse("specialization-list")
         data = {"name": 1}
 
         response = self.client.post(url, data, format="json")
@@ -652,7 +705,7 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(SpecializationModel.objects.get().name, 1)  #'Apoio à Mobilidade')
 
     def test_failCreate_specialization_api(self):
-        url = reverse("specialization-create")
+        url = reverse("specialization-list")
         data = {
             "name": 10,
         }
@@ -665,7 +718,7 @@ class CaregiverAPITests(TestCase):
         specialization = SpecializationModel.objects.create(
             name=1,
         )
-        url = reverse("specialization-update-delete", args=[specialization.pk])
+        url = reverse("specialization-retrieve-update-delete", args=[specialization.pk])
         data = {"name": 1}
 
         response = self.client.get(url, data, format="json")
@@ -677,7 +730,7 @@ class CaregiverAPITests(TestCase):
         specialization = SpecializationModel.objects.create(
             name=2,
         )
-        url = reverse("specialization-update-delete", args=[specialization.pk])
+        url = reverse("specialization-retrieve-update-delete", args=[specialization.pk])
 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -686,7 +739,7 @@ class CaregiverAPITests(TestCase):
         specialization = SpecializationModel.objects.create(
             name=3,
         )
-        url = reverse("specialization-update-delete", args=[specialization.pk])
+        url = reverse("specialization-retrieve-update-delete", args=[specialization.pk])
         data = {"name": 4}
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -697,7 +750,7 @@ class CaregiverAPITests(TestCase):
         specialization = SpecializationModel.objects.create(
             name=5,
         )
-        url = reverse("specialization-update-delete", args=[specialization.pk])
+        url = reverse("specialization-retrieve-update-delete", args=[specialization.pk])
         data = {"name": 15}
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

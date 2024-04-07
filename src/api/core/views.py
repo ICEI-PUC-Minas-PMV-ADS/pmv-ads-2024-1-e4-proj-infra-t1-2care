@@ -153,7 +153,7 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 
 
 class CaregiverDetailView(generics.RetrieveAPIView):
-    queryset = Caregiver.objects.all()
+    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     # authentication_classes =[JWTAuthentication]

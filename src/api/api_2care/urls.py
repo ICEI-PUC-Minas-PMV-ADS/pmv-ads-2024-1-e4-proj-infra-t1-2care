@@ -43,7 +43,6 @@ from core.views import (
     UserLoginView,
     UserLogoutView,
     MongoUpdate,
-    SpecializationListView,
 
 )
 from rest_framework import permissions
@@ -115,7 +114,7 @@ urlpatterns = [
     path(
         "specialization/<uuid:pk>/",
         SpecializationRetrieveUpdateDestroyView.as_view(),
-        name="specialization-list-update-delete",
+        name="specialization-retrieve-update-delete",
     ),
     # CareReceiver App -> Rotas relacionadas a aqueles que receberão os Cuidados
     path("carereceiver/", CareReceiverCreateView.as_view(), name="carereceiver-create"),

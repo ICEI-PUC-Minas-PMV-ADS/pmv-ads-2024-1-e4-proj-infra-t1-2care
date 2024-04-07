@@ -20,6 +20,40 @@ from .models import (
 )
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUserModel
+        # Inclua todos os campos que você deseja expor via API
+        fields = (
+            "id",
+            "username",
+            "email",
+            "name",
+            "date_joined",
+            "picture",
+            "latitude",
+            "longitude",
+            "user_type",
+            "password",
+            "gender",
+            "preferred_contact",
+            "phone",
+            "address",
+            "post_code",
+            "birth_date",
+        )
+        
+        extra_kwargs = {
+            "password": {"write_only": True},
+            # Garantir que campos sensíveis não sejam manipuláveis
+            "is_staff": {"read_only": True},
+            "is_superuser": {"read_only": True},
+            "user_permissions": {"read_only": True},
+            "groups": {"read_only": True},
+            "date_joined": {"read_only": True},
+        }
+
+
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = QualificationModel
@@ -82,6 +116,7 @@ class CustomUnavailableDaySerializer(serializers.ModelSerializer):
 
 
 class CaregiverSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=CustomUserModel.objects.all())
     qualifications = QualificationSerializer(many=True, required=False)
     work_exp = WorkExperienceSerializer(many=True, required=False)
     specializations = SpecializationSerializer(many=True, required=False)
@@ -110,34 +145,6 @@ class CareReceiverSerializer(serializers.ModelSerializer):
                 "O telefone deve estar no formato: '+999999999'. Até 15 dígitos são permitidos."
             )
         return value
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUserModel
-        # Inclua todos os campos que você deseja expor via API
-        fields = (
-            "id",
-            "username",
-            "email",
-            "first_name",
-            "last_name",
-            "is_active",
-            "date_joined",
-        )
-        extra_kwargs = {
-            "password": {"write_only": True, "required": False},
-            # Garantir que campos sensíveis não sejam manipuláveis
-            "is_staff": {"read_only": True},
-            "is_superuser": {"read_only": True},
-            "user_permissions": {"read_only": True},
-            "groups": {"read_only": True},
-        }
-
-    def create(self, validated_data):
-        user = CustomUserModel.objects.create_user(**validated_data)
-        return user
-
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     # Opcionalmente, personalize o TokenObtainPairSerializer
