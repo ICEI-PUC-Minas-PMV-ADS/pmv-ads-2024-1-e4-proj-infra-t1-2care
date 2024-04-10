@@ -12,9 +12,6 @@ function Home() {
   const theme = useTheme();
 
   return (
-    // <div style={{ backgroundColor: theme.palette.background.light  }}>
-    //   <h1> 2Care</h1>
-    // </div>
     <div className="App">
       <TopBar></TopBar>
       <NavBar></NavBar>

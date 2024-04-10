@@ -10,7 +10,7 @@ import theme from '../theme/theme.js';
 export default (props) => (
     <ThemeProvider theme={theme}>
         <BrowserRouter >
-            <ResponsiveAppBar />
+            {/* <ResponsiveAppBar /> */}
             <Routes>
             <Route exact path="/" element={<Login />} />
             <Route exact path="home" element={<Home />} />

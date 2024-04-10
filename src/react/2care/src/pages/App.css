@@ -8,6 +8,10 @@
   font-weight: 600;
 }
 
+p, h2, h6 {
+  font-weight: 400;
+}
+
 .App-logo {
   /* height: 40vmin; */
   pointer-events: none;
@@ -81,13 +85,17 @@ form .field {
 
 button {
   border-radius: 2em;
-  width: 80%;
+  width: 100%;
   height: 2.5em;
   border: none;
   background-color: #486142;
   color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
 
 }
+
 
 @keyframes App-logo-spin {
   from {
