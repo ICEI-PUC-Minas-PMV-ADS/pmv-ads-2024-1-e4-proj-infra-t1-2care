@@ -1,33 +1,25 @@
 import NavBar from "../components/NavBar/NavBar";
 import TopBar from "../components/TopBar/TopBar";
+import LoginForm from "../components/LoginForm/LoginForm";
 import { useTheme } from '@mui/material/styles';
+import './App.css'
 
 
 const Login = () => {
     const theme = useTheme();
 
     return (
-        <div>
+        <div className="App">
             <TopBar></TopBar>
             <NavBar></NavBar>
-            <section style={{ backgroundColor: theme.palette.background.main, display: 'flex' }} >
-                <article style={{ backgroundColor: theme.palette.background.light, borderRadius: '20px' }}>
-                    <h2>Bem-vindos ao 2Care!</h2>
-                    <h6 style={{ justifyContent: 'center' }}>Conectamos famílias a cuidadores de idosos de maneira ágil e eficiente, facilitando a busca pelo profissional que melhor atenda às suas necessidades.</h6>
+            <section style={{ backgroundColor: theme.palette.background.main, display: 'flex', backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')" }} >
+                <article style={{ backgroundColor: '#799275', borderRadius: '20px', margin: '10em', padding: '1em' }}>
+                    <h2 style={{ color:'#ED8733', fontWeight:'700' }}>Bem-vindos ao 2Care!</h2>
+                    <h6 style={{ justifyContent: 'center', fontSize: '1.2em', color: '#ffffff' }}>Conectamos famílias a cuidadores de idosos de maneira ágil e eficiente, facilitando a busca pelo profissional que melhor atenda às suas necessidades.</h6>
 
                 </article>
-                <article style={{ backgroundColor: theme.palette.background.light }}>
-                    <form>
-                        <h2>Entre agora mesmo</h2>
-                        <h6>Cria a sua conta aqui</h6>
-                        <div>
-                            <input type="text" id="email" placeholder="E-mail" required />
-                        </div>
-                        <div>
-                            <input type="password" id="password" placeholder="Senha" required />
-                        </div>
-                        <button type="submit">Entrar</button>
-                    </form>
+                <article>
+                    <LoginForm></LoginForm>
                 </article>
             </section>
         </div >

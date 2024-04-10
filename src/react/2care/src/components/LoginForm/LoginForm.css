@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Sofia&display=swap');
+
+.loginForm {
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-family: 'Catamaran';
+    padding: 1em;
+    margin: 10em;
+}
+
+.loginForm input {
+    width: 30em;
+    height: 2em;
+    margin: 1em;
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+h3 {
+    color: #799275;
+}
+
+h6 {
+    color: #ED8733;
+
+}

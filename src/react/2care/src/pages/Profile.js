@@ -5,7 +5,8 @@ import './App.css';
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
 import ProfileCard from '../components/ProfileCard/ProfileCard'
-import ProfileTab from '../components/ProfileTab/ProfileTab';
+import CaregiverForm from '../components/Forms/CaregiverForm';
+import CarereceiverForm from '../components/Forms/CarereceiverForm';
 
 function Home() {
   const theme = useTheme();
@@ -19,9 +20,10 @@ function Home() {
       <NavBar></NavBar>
 
       <header style={{ display: 'flex', margin: '1em' }}>
-          <ProfileCard></ProfileCard>
-        <ProfileTab caregiver={false}></ProfileTab>
-      </header>
+        <ProfileCard></ProfileCard>
+        {/* <CaregiverForm></CaregiverForm> */}
+        <CarereceiverForm></CarereceiverForm>
+     </header>
     </div>
   );
 }

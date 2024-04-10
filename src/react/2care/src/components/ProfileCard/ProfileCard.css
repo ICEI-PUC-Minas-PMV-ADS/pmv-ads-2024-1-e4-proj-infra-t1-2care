@@ -10,7 +10,7 @@ p, h2, h6 {
     font-weight: 400;
 }
 
-button {
+/* button {
     border: none;
     height: 30px;
     width: 200px;
@@ -19,7 +19,7 @@ button {
     margin: 4px 2px;
     cursor: pointer;
     text-align: center;
-}
+} */
 
 .profileCard img, .profileCard button {
     display: block;
