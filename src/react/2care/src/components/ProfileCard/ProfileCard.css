@@ -6,8 +6,8 @@
     border-radius: 25px;
 }
 
-.profileCard img, .profileCard button {
-    display: block;
-    justify-content: center;
-    align-items: center;
+.profileCard img {
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
 }

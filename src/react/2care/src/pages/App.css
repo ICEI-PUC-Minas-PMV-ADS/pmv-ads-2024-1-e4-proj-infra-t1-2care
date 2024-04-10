@@ -1,21 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap');
 
-.App {
+body {
+  background-color: red;
+  margin: 0;
+  padding: 0;
   text-align: center;
   font-family: 'Catamaran', sans-serif;
   color: #486142;
   background-color: #f6f6f6;
   font-weight: 600;
+  height: 100vh;
 }
 
-p, h2, h6 {
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+p,
+h2,
+h6 {
   font-weight: 400;
 }
 
-.App-logo {
-  /* height: 40vmin; */
-  pointer-events: none;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -23,20 +32,9 @@ p, h2, h6 {
   }
 }
 
-.App-header {
-  /* min-height: 100vh; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-input, select, textarea {
+input,
+select,
+textarea {
   width: 80%;
   height: 2.5em;
   border-radius: 1em;
@@ -49,30 +47,42 @@ form {
   background-color: rgba(255, 255, 255);
   display: flex;
   flex-wrap: wrap;
-  border-radius: 25px;
+  border-radius: 1.5em;
   padding: 1em;
   text-align: left;
   width: 100%;
-} 
+  margin: 0.5em;
+}
 
 @media screen and (min-width: 1000px) {
-  form .column-left {
+  .column-left {
     float: left;
     width: 50%;
-  } form .column-right {
+  }
+
+  .column-right {
     float: right;
-    width: 50%; ;
-  };
+    width: 50%;
+    ;
+  }
+
+  ;
 }
 
 @media screen and (min-width: 768px) and (max-width: 999px) {
-  form .column-left, form .column-right {
-    width: 100%; 
-  };
+
+  form .column-left,
+  form .column-right {
+    width: 100%;
+  }
+
+  ;
 }
 
 @media screen and (max-width: 767px) {
-  form .column-left, form .column-right {
+
+  form .column-left,
+  form .column-right {
     width: 100%;
   }
 }
@@ -93,7 +103,7 @@ button {
   text-decoration: none;
   cursor: pointer;
   text-align: center;
-
+  margin: 0.3em;
 }
 
 
@@ -101,6 +111,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

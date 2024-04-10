@@ -9,7 +9,7 @@ const NavBar = () => {
         <div className='navBar'>
             <a href="">Filtros</a>
             <a href="/home">Home</a>
-            {isLogged ? <a href="">Proposta</a> : <></>}
+            {isLogged ? <a href="/requests">Proposta</a> : <></>}
         </div>
     )
 }
