@@ -13,7 +13,13 @@ Aqui está o logotipo selecionado para a nossa aplicação 2Care.
 
 Segue a seleção de cores escolhida para a nossa aplicação 2Care.
 
-![Paleta de Cores](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/87c406fc-c0c7-474e-a6a4-2a568e46fc1c)
+![Paleta de Cores](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/c36d4d9f-b0bb-4cdd-a618-f40017262f9b)
+
+## Fontes
+
+As fontes utilizadas foram: 
+- [Catamaran](https://fonts.google.com/?query=catamaran)
+- [Inter](https://fonts.google.com/specimen/Inter?query=inter)
 
 ## Home/Login
 
