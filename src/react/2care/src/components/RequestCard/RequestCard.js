@@ -13,21 +13,13 @@ const RequestCard = () => {
         margin: '0.5em'
     }
 
-    const columnLeft = {
-        width: '30%',
-    }
-
-    const columnRight = {
-        width: '70%',
-    }
-
     return (
         <div className="requestCard" style={css}>
-            <div style={columnLeft}>
+            <div style={{width: '30%'}}>
                 <img src="" alt=""></img>
                 <p></p>
             </div>
-            <div style={columnRight}>
+            <div style={{width: '70%'}}>
                 <p>Data do envio da proposta: </p>
                 <p>Data: </p>
                 <p>Horário: </p>

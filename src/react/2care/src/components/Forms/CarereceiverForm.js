@@ -61,8 +61,8 @@ const CarereceiverForm = () => {
                         <label for="special_care">Cuidados Especiais:</label>
                         <input type="text" id="special_care" name="special_care" ></input>
                     </div>
-                    <div className='field'>
-                        <input type="checkbox" id="share_special_Care" name="share_special_Care" ></input>
+                    <div>
+                        <input type="checkbox" className="checkbox" id="share_special_Care" name="share_special_Care" ></input>
                         <label for="share_special_Care">Aceito compartilhar cuidados especiais</label>
                     </div>
                     <div className='field'>
