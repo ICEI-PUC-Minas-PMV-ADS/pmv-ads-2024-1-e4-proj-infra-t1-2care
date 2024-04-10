@@ -1,0 +1,5 @@
+./src/api/api_2care/__pycache__/
+./src/api/core/__pycache__/
+.venv
+*.pyc
+./src/api/db.sqlite3
