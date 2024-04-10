@@ -153,7 +153,8 @@ Na página de Propostas Enviadas, o usuário poderá visualizar as propostas que
 
 Na página de Envio de Proposta, o usuário terá a oportunidade de enviar sua proposta para um cuidador específico.
 
-![Tela Envie Sua Proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/d8198ea3-b73d-448a-938c-e2b096a398cc)
+![Tela Envie Sua Proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/3280b630-0e6e-41c5-8011-85dc8b8c4a69)
+
 
 ## Tela Perfil - Usuário Cuidador
 
