@@ -8,6 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme/theme.js';
 import SendRequest from '../pages/SendRequest.js';
 import Requests from '../pages/Requests.js';
+import Ratings from '../pages/Ratings.js';
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -19,6 +20,7 @@ export default (props) => (
             <Route path="profile" element={<Profile />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
+            <Route path="ratings" element={<Ratings />} />
             </Routes>
         </BrowserRouter >
     </ThemeProvider>

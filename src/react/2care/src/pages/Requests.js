@@ -10,6 +10,9 @@ const Requests = () => {
         <div>
             <TopBar></TopBar>
             <NavBar></NavBar>
+            <header>
+                <h1>Veja suas propostas: </h1>
+            </header>
             <main>
                 <RequestList></RequestList>
             </main>

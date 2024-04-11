@@ -1,26 +1,23 @@
 import NavBar from "../components/NavBar/NavBar";
+import RatingList from "../components/RatingList/RatingList";
 import TopBar from "../components/TopBar/TopBar";
 import { useTheme } from '@mui/material/styles';
-import './App.css'
-import RequestCard from "../components/RequestCard/RequestCard";
 
-
-const SendRequest = () => {
+const Ratings = () => {
     const theme = useTheme();
 
     return (
-        <div className="App">
+        <div>
             <TopBar></TopBar>
             <NavBar></NavBar>
             <header>
-                <h1>Envie uma proposta: </h1>
+                <h1>Veja as avaliações feitas: </h1>
             </header>
             <main>
-                <RequestCard></RequestCard>
-                <button>Enviar</button>
+                <RatingList></RatingList>
             </main>
         </div>
     )
 }
 
-export default SendRequest;
+export default Ratings;
