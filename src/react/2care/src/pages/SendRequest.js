@@ -2,7 +2,7 @@ import NavBar from "../components/NavBar/NavBar";
 import TopBar from "../components/TopBar/TopBar";
 import { useTheme } from '@mui/material/styles';
 import './App.css'
-import RequestCard from "../components/RequestCard/RequestCard";
+import RequestCard from "../components/Requests/RequestCard";
 import { useEffect } from "react";
 
 

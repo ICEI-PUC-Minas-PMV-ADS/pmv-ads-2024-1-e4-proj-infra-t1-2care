@@ -4,7 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import './App.css';
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
-import ProfileCard from '../components/ProfileCard/ProfileCard'
+import ProfileCard from '../components/Profile/ProfileCard/ProfileCard'
+import AgendaList from '../components/Profile/AgendaList'
 import CaregiverForm from '../components/Forms/CaregiverForm';
 import CarereceiverForm from '../components/Forms/CarereceiverForm';
 
@@ -24,6 +25,7 @@ function Home() {
           <ProfileCard></ProfileCard>
         </div>
         <div className='columnRight70'>
+          <AgendaList></AgendaList>
           <CaregiverForm></CaregiverForm>
           {/* <CarereceiverForm></CarereceiverForm> */}
         </div>

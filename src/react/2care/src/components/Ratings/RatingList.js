@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RatingCard from "../RatingCard/RatingCard";
+import RatingCard from "./RatingCard";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const RatingList = () => {

@@ -1,4 +1,4 @@
-import RatingStars from '../RatingStars/RatingStars';
+import RatingStars from '../Ratings/RatingStars';
 import './CaregiverCard.css'
 
 const CaregiverCard = (props) => {

@@ -1,4 +1,4 @@
-import RatingStars from "../RatingStars/RatingStars";
+import RatingStars from "./RatingStars";
 
 const RatingCard = () => {
     return (

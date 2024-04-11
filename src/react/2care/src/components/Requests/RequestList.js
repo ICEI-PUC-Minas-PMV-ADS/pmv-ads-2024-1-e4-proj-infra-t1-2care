@@ -1,4 +1,4 @@
-import RequestCard from "../RequestCard/RequestCard"
+import RequestCard from "./RequestCard"
 import { useState } from "react";
 
 const RequestList = () => {

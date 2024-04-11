@@ -1,6 +1,6 @@
 import NavBar from "../components/NavBar/NavBar";
 import TopBar from "../components/TopBar/TopBar";
-import LoginForm from "../components/LoginForm/LoginForm";
+import LoginForm from "../components/Forms/LoginForm/LoginForm";
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import './App.css'
@@ -29,10 +29,12 @@ const Login = () => {
                     </div>
                     <div style={{ float: 'left' }}>
                         <h4 style={{ color: theme.palette.background.light }}>Crie agora mesmo a sua conta!</h4>
-                        <Link to="/register-carereceiver">
+                        <Link to="/register">
                             <button>Cliente</button>
                         </Link>
-                        <button>Cuidador</button>
+                        <Link to="/register">
+                            <button>Cuidador</button>
+                        </Link>
                     </div>
                 </div>
 

@@ -24,8 +24,7 @@ main {
   padding: 0 2% 2% 2%;
 }
 
-h2,
-h6 {
+h2 {
   font-weight: 700;
 }
 
@@ -70,15 +69,19 @@ form {
 }
 
 .requestList,
-.ratingList {
+.ratingList,
+.agendaList {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1.5em;
 }
 
 .requestCard,
 .ratingCard,
-.profileCard {
+.profileCard, 
+.card {
   background-color: rgba(255, 255, 255);
   display: flex;
   flex-wrap: wrap;
