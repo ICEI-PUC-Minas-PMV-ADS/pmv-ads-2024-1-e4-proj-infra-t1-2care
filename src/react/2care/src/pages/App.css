@@ -32,6 +32,22 @@ h3, p {
   font-weight: 400;
 }
 
+form {
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 1.5em;
+  padding: 1em;
+  text-align: left;
+  width: 100%;
+  margin: 0.5em;
+}
+
+form .field {
+  display: flex;
+  flex-direction: column;
+}
+
 input,
 select,
 textarea {
@@ -45,7 +61,7 @@ textarea {
 }
 
 input.checkbox,
-.input.radio {
+input.radio {
   width: 2.5em;
 }
 
@@ -54,15 +70,17 @@ input.checkbox,
   border-color: #ED8733;
 }
 
-form {
-  background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 1.5em;
-  padding: 1em;
-  text-align: left;
-  width: 100%;
-  margin: 0.5em;
+.nav-button, button {
+  border-radius: 2em;
+  padding-left: 2em;
+  padding-right: 2em;
+  height: 2.5em;
+  border: none;
+  background-color: #486142;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0.3em;
 }
 
 .filter {
@@ -78,7 +96,7 @@ form {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 1.5em;
   padding-top: 1em;
 }
@@ -106,13 +124,13 @@ form {
   justify-content: center;
 }
 
-.profileCard img {
+.profileCard img, .caregiverCard img {
   border-radius: 50%;
   width: 8em;
   height: 8em;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1024px) {
   .columnLeft50 {
     float: left;
     width: 50%;
@@ -136,38 +154,15 @@ form {
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 999px) {
+@media screen and (max-width: 1023px) {
 
   .columnLeft50,
   .columnRight50 {
     width: 100%;
   }
-
-  ;
-}
-
-@media screen and (max-width: 767px) {
-
-  .columnLeft50,
-  .columnRight50 {
+  .columnLeft25,
+  .columnRight70 {
     width: 100%;
+
   }
-}
-
-form .field {
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-button, button {
-  border-radius: 2em;
-  padding-left: 2em;
-  padding-right: 2em;
-  height: 2.5em;
-  border: none;
-  background-color: #486142;
-  color: #FFFFFF;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 0.3em;
 }
