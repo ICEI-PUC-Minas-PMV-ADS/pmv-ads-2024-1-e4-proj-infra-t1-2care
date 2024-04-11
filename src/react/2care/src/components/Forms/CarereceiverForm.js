@@ -9,7 +9,7 @@ const CarereceiverForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <div className="column-left">
+                <div className="columnLeft50">
                     <div className='field'>
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required></input>
@@ -52,7 +52,7 @@ const CarereceiverForm = () => {
                         </select>
                     </div>
                 </div>
-                <div className="column-right">
+                <div className="columnRight50">
                     <div className='field'>
                         <label for="address">Localização:</label>
                         <input type="text" id="address" name="address" ></input>

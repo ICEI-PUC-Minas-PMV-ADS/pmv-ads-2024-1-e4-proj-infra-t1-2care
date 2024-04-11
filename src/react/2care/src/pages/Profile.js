@@ -19,11 +19,15 @@ function Home() {
       <TopBar></TopBar>
       <NavBar></NavBar>
 
-      <header style={{ display: 'flex', margin: '1em' }}>
-        <ProfileCard></ProfileCard>
-        {/* <CaregiverForm></CaregiverForm> */}
-        <CarereceiverForm></CarereceiverForm>
-     </header>
+      <main>
+        <div className='columnLeft25' >
+          <ProfileCard></ProfileCard>
+        </div>
+        <div className='columnRight70'>
+          <CaregiverForm></CaregiverForm>
+          {/* <CarereceiverForm></CarereceiverForm> */}
+        </div>
+      </main>
     </div>
   );
 }

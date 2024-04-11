@@ -11,7 +11,7 @@ function CaregiverForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <div className='column-left'>
+        <div className='columnLeft50'>
           <div className='field'>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required></input>
@@ -52,7 +52,7 @@ function CaregiverForm() {
             </select>
           </div>
         </div>
-        <div className='column-right'>
+        <div className='columnRight50'>
           <div className='field'>
             <label for="qualifications">Qualificações:</label>
             <input type="text" id="qualifications" name="qualifications" />

@@ -8,8 +8,7 @@ import { useEffect } from "react";
 const Ratings = () => {
     const theme = useTheme();
     useEffect(() => {
-        document.title = 'Avaliações';
-      }, []);
+        document.title = 'Avaliações';}, []);
 
     return (
         <div>
