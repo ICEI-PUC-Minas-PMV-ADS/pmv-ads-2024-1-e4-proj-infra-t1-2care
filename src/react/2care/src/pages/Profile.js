@@ -26,7 +26,7 @@ function Home() {
         </div>
         <div className='columnRight70'>
           <CaregiverForm></CaregiverForm>
-          {/* <CarereceiverForm></CarereceiverForm> */}
+          <CarereceiverForm></CarereceiverForm>
           {/* <AgendaList></AgendaList> */}
         </div>
       </main>

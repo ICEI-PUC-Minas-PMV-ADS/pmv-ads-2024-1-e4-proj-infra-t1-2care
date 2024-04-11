@@ -10,7 +10,6 @@ const CarereceiverForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
         <div className='columnLeft50'>
           <div className='field'>
             <label for='email'>Email:</label>
@@ -77,7 +76,6 @@ const CarereceiverForm = () => {
           </div>
         </div>
         <button type="submit">Salvar</button>
-      </div>
     </form >
   );
 }
