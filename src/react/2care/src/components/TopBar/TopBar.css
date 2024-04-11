@@ -3,13 +3,15 @@
     background-color: #FFFFFF;
     width: 100%;
     align-items: start;
-    padding: 0.3em;
+    padding-top: 0.8em;
 }
 
 .topBar .logo img, .topBar .rightMenu img {
     width: 2.5em;
     height: 2.5em;
     border-radius: 50%;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .topBar .search {

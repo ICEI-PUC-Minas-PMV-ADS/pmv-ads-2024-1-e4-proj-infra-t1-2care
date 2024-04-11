@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import logo from '../../logo.png'
 import './TopBar.css'
 
 const TopBar = () => {
