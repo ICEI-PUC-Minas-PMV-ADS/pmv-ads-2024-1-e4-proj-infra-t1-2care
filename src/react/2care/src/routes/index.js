@@ -20,7 +20,7 @@ export default (props) => (
             <Route path="profile" element={<Profile />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
-            <Route path="ratings" element={<Ratings />} />
+            <Route name="Rating" path="ratings" element={<Ratings />} />
             </Routes>
         </BrowserRouter >
     </ThemeProvider>

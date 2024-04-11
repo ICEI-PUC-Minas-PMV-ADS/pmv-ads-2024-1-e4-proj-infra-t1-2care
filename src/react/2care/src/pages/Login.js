@@ -9,7 +9,7 @@ const Login = () => {
     const theme = useTheme();
 
     return (
-        <div className="App">
+        <div>
             <TopBar></TopBar>
             <NavBar></NavBar>
             <section style={{ backgroundColor: theme.palette.background.main, display: 'flex', backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')" }} >

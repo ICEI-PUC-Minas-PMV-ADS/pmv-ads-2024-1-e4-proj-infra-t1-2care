@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css'
 import { useTheme } from '@mui/material/styles';
 
@@ -8,6 +8,9 @@ import CaregiverList from '../components/CaregiverList/CaregiverList'
 
 function Home() {
   const theme = useTheme();
+  useEffect(() => {
+    document.title = 'Home';
+  }, []);
 
   return (
     // <div style={{ backgroundColor: theme.palette.background.light  }}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 
 import './App.css';
@@ -10,9 +10,12 @@ import CarereceiverForm from '../components/Forms/CarereceiverForm';
 
 function Home() {
   const theme = useTheme();
+  useEffect(() => {
+    document.title = 'Perfil';
+  }, []);
 
   return (
-    <div className="App">
+    <div>
       <TopBar></TopBar>
       <NavBar></NavBar>
 

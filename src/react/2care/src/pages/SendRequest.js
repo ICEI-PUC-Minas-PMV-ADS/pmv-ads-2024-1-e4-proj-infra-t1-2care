@@ -3,13 +3,17 @@ import TopBar from "../components/TopBar/TopBar";
 import { useTheme } from '@mui/material/styles';
 import './App.css'
 import RequestCard from "../components/RequestCard/RequestCard";
+import { useEffect } from "react";
 
 
 const SendRequest = () => {
     const theme = useTheme();
+    useEffect(() => {
+        document.title = 'Envie uma proposta';
+      }, []);
 
     return (
-        <div className="App">
+        <div>
             <TopBar></TopBar>
             <NavBar></NavBar>
             <header>
