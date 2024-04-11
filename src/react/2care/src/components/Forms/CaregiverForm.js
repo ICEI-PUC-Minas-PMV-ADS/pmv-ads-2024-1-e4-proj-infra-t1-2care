@@ -4,7 +4,7 @@ function CaregiverForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica para salvar os dados
+    // Adicionar a lógica para salvar os dados
     console.log('Dados salvos:', {});
   };
 
@@ -31,14 +31,16 @@ function CaregiverForm() {
           <div className='field'>
             <label for="birth_date">Data de Nascimento:</label>
             <input type="date" id="birth_date" name="birth_date">
-            </input></div>
+            </input>
+          </div>
           <div className='field'>
             <label for="language">Idioma:</label>
             <select id="language" name="language">
               <option value="portugues">Português</option>
               <option value="ingles">Inglês</option>
               <option value="espanhol">Espanhol</option>
-            </select></div>
+            </select>
+          </div>
           <div className='field'>
             <label for="contact_number">Telefone/Celular:</label>
             <input type="tel" id="contact_number" name="contact_number"></input>

@@ -10,7 +10,6 @@ const RequestList = () => {
     return (
         <div>
             <div style={{textAlign:'left'}}>
-                {/* <h1>Veja suas propostas: </h1> */}
                 <div className="filter">
                     <div>
                         <input type="checkbox" className="checkbox" checked={acceptedChecked} onChange={() => setAcceptedChecked(!acceptedChecked)}></input>

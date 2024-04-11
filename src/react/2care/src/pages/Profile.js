@@ -25,9 +25,9 @@ function Home() {
           <ProfileCard></ProfileCard>
         </div>
         <div className='columnRight70'>
-          <AgendaList></AgendaList>
           <CaregiverForm></CaregiverForm>
           {/* <CarereceiverForm></CarereceiverForm> */}
+          {/* <AgendaList></AgendaList> */}
         </div>
       </main>
     </div>

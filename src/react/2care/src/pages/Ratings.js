@@ -8,7 +8,8 @@ import { useEffect } from "react";
 const Ratings = () => {
     const theme = useTheme();
     useEffect(() => {
-        document.title = 'Avaliações';}, []);
+        document.title = 'Avaliações';
+    }, []);
 
     return (
         <div>
@@ -18,8 +19,12 @@ const Ratings = () => {
                 <h1>Veja as avaliações feitas: </h1>
             </header>
             <main>
-                <ProfileCard></ProfileCard>
-                <RatingList></RatingList>
+                <div className="columnLeft25" >
+                    <ProfileCard></ProfileCard>
+                </div>
+                <div className="columnRight70">
+                    <RatingList ></RatingList>
+                </div>
             </main>
         </div>
     )

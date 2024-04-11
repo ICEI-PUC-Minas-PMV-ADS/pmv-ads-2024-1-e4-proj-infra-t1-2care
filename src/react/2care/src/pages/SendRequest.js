@@ -10,7 +10,7 @@ const SendRequest = () => {
     const theme = useTheme();
     useEffect(() => {
         document.title = 'Envie uma proposta';
-      }, []);
+    }, []);
 
     return (
         <div>
@@ -20,8 +20,12 @@ const SendRequest = () => {
                 <h1>Envie uma proposta: </h1>
             </header>
             <main>
+                <form>
+                    <label>Selecione o horário: </label>
+                    <input type='datetime-local'></input>
+                    <button>Enviar</button>
+                </form>
                 <RequestCard></RequestCard>
-                <button>Enviar</button>
             </main>
         </div>
     )
