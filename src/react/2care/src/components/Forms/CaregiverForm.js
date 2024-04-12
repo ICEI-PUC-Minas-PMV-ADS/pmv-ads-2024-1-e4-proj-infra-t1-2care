@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { authService } from '../../services/authService';
+import { otherService } from '../../services/otherService';
 
 function CaregiverForm() {
 
@@ -31,21 +33,11 @@ function CaregiverForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao enviar os dados");
-      }
-    
-      console.log("Dados salvos");
+      await authService.register(formData);
+      console.log("Usuário registrado com sucesso");
+      
     } catch (error) {
-      console.error("Erro ao enviar os dados:", error.message);
+      console.error("Erro ao cadastrar os dados:", error.message);
     }
   };
 

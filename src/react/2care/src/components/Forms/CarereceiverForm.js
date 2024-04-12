@@ -1,10 +1,37 @@
 import React, { useState } from "react";
+import { authService } from '../../services/authService';
 
 const CarereceiverForm = () => {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirm_password: "",
+    name: "",
+    birth_date: "",
+    language: "",
+    contact_number: "",
+    gender: "",
+    address: "",
+    special_care: "",
+    share_special_care: false,
+    emergency_contact: "",
+    additional_info: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Adicionar a lógica para salvar os dados
-    console.log("Dados salvos:", {});
+    try {
+      await authService.register(formData);
+      console.log("Usuário registrado com sucesso");
+      
+    } catch (error) {
+      console.error("Erro ao cadastrar os dados:", error.message);
+    }
   };
 
   return (
