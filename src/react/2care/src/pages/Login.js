@@ -1,5 +1,5 @@
 import NavBar from "../components/NavBar/NavBar";
-import TopBar from "../components/TopBar/TopBar";
+import TopBarLogin from "../components/TopBar/TopBarLogin";
 import LoginForm from "../components/Forms/LoginForm/LoginForm";
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -13,15 +13,15 @@ const Login = () => {
         backgroundColor: theme.palette.primary.dark,
         color: theme.palette.secondary.light,
         borderRadius: '1.5em',
-        width: '60%',
+        width: '90%',
         padding: '0.8em',
     }
 
     return (
         <div>
-            <TopBar></TopBar>
+            <TopBarLogin></TopBarLogin>
             <NavBar></NavBar>
-            <main style={{ alignItems: 'start', padding: '8% 8% 10% 8%', backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')" }}>
+            <section style={{ alignItems: 'start', padding: '8% 8% 10% 8%', backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex' }}>
                 <div className="columnLeft50" style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <div style={description}>
                         <h2>Bem-vindos ao <span style={{ color: theme.palette.secondary.main }}>2Care!</span></h2>
@@ -29,11 +29,11 @@ const Login = () => {
                     </div>
                     <div style={{ float: 'left' }}>
                         <h4 style={{ color: theme.palette.background.light }}>Crie agora mesmo a sua conta!</h4>
-                        <Link to="/register">
-                            <button>Cliente</button>
+                        <Link to="/register/carereceiver">
+                            <button style={{ width: '120px'}}>Cliente</button>
                         </Link>
-                        <Link to="/register">
-                            <button>Cuidador</button>
+                        <Link to="/register/caregiver">
+                            <button style={{ width: '120px'}}>Cuidador</button>
                         </Link>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ const Login = () => {
                 <div className="columnRight50" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
                     <LoginForm></LoginForm>
                 </div>
-            </main>
+            </section>
         </div >
     )
 }

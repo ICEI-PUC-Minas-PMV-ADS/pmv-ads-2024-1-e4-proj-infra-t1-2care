@@ -2,10 +2,51 @@ import React, { useState } from 'react';
 
 function CaregiverForm() {
 
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirm_password: "",
+    name: "",
+    birth_date: "",
+    language: "",
+    phone: "",
+    gender: "",
+    qualifications: [],
+    work_experience: [],
+    specializations: [],
+    fixed_unavailable_days: [],
+    fixed_unavailable_hours: [],
+    custom_unavailable_days: [],
+    hour_price: null,
+    day_price: null,
+    max_request_km: null,
+    additional_info: "",
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Adicionar a lógica para salvar os dados
-    console.log('Dados salvos:', {});
+    try {
+      const response = await fetch("/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar os dados");
+      }
+    
+      console.log("Dados salvos");
+    } catch (error) {
+      console.error("Erro ao enviar os dados:", error.message);
+    }
   };
 
   return (
