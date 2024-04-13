@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { authService } from '../../services/authService';
-import { otherService } from '../../services/otherService';
+import { registerCaregiver } from "../../services/authService";
 
 function CaregiverForm() {
 
@@ -33,7 +32,7 @@ function CaregiverForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(formData);
+      await registerCaregiver(formData);
       console.log("Usuário registrado com sucesso");
       
     } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authService } from '../../services/authService';
+import { registerCarereceiver } from '../../services/authService';
 
 const CarereceiverForm = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const CarereceiverForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(formData);
+      await registerCarereceiver(formData);
       console.log("Usuário registrado com sucesso");
       
     } catch (error) {
