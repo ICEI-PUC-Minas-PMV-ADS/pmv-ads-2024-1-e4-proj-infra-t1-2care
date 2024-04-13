@@ -25,11 +25,11 @@ const LoginForm = () => {
   };
 
   return (
-    <form style={{ width: "90%" }}>
+    <form style={{ width: "90%" }} onSubmit={handleSubmit}>
       <div style={{ width: "100%", textAlign: "center", padding: "1.5em" }}>
         <h2>Entre agora mesmo!</h2>
-        <input type="text" id="email" placeholder="E-mail" required />
-        <input type="password" id="password" placeholder="Senha" required />
+        <input type="text" id="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required />
+        <input type="password" id="password" name="password" placeholder="Senha" value={formData.password} onChange={handleChange} required />
         <button type="submit">Entrar</button>
       </div>
     </form>

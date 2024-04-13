@@ -17,3 +17,4 @@ pytest-django==4.8.0
 PyYAML==6.0.1
 uritemplate==4.1.1
 drf-yasg==1.21.7
+django-cors-headers==4.3.0

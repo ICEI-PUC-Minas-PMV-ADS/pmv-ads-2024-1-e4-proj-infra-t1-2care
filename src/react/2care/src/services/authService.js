@@ -1,9 +1,10 @@
-import jwt_decode from 'jwt-decode'; // Biblioteca para decodificar tokens JWT
-import { apiService } from './apiService';
 
-const API_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_MODE : process.env.REACT_APP_PROD_MODE;
+const API_URL = "http://127.0.0.1:8000";
 
 export const signIn = async ({ email, password }) => {
+
+    console.log( email, password )
+
     try {
         const response = await fetch(`${API_URL}/login/`, {
             method: 'POST',
@@ -28,13 +29,18 @@ export const signIn = async ({ email, password }) => {
 
 export const registerCaregiver = async ({ email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
     fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info }) => {
+    
+    {/*console.log( email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
+    fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info  )*/}
+
     try {
-        const response = await fetch(`${API_URL}/users/caregiver/`, {
+        const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
                 fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info })
         });
+        console.log(response)
         const result = await response.json();
         if (!response.ok) {
             throw new Error(JSON.stringify(result));
@@ -48,8 +54,12 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
 
 export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
     emergency_contact, additional_info }) => {
+    
+    console.log( email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
+    emergency_contact, additional_info  )
+    
     try {
-        const response = await fetch(`${API_URL}/users/carereceiver`, {
+        const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
@@ -69,5 +79,5 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
     // Verifica se há um token armazenado e se ele é válido
-    return token && jwt_decode(token).exp > Date.now() / 1000;
+    return !!token;
 };

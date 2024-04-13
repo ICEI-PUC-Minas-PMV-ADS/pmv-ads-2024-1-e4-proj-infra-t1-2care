@@ -38,45 +38,40 @@ const CarereceiverForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="columnLeft50">
         <div className="field">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required></input>
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required></input>
         </div>
         <div className="field">
-          <label for="password">password:</label>
-          <input type="password" id="password" name="password" required></input>
+          <label htmlFor="password">password:</label>
+          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required></input>
         </div>
         <div className="field">
-          <label for="confirm_password">Confirmar senha:</label>
-          <input
-            type="password"
-            id="confirm_password"
-            name="confirm_password"
-            required
-          ></input>
+          <label htmlFor="confirm_password">Confirmar senha:</label>
+          <input type="password" id="confirm_password" name="confirm_password" value={formData.confirm_password} onChange={handleChange} required></input>
         </div>
         <div className="field">
-          <label for="name">Nome completo:</label>
-          <input type="text" id="name" name="name" required></input>
+          <label htmlFor="name">Nome completo:</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required></input>
         </div>
         <div className="field">
-          <label for="birth_date">Data de Nascimento:</label>
-          <input type="date" id="birth_date" name="birth_date"></input>
+          <label htmlFor="birth_date">Data de Nascimento:</label>
+          <input type="date" id="birth_date" name="birth_date" value={formData.birth_date} onChange={handleChange} ></input>
         </div>
         <div className="field">
-          <label for="language">Idioma:</label>
-          <select id="language" name="language">
+          <label htmlFor="language">Idioma:</label>
+          <select id="language" name="language" value={formData.language} onChange={handleChange}>
             <option value="portugues">Português</option>
             <option value="ingles">Inglês</option>
             <option value="espanhol">Espanhol</option>
           </select>
         </div>
         <div className="field">
-          <label for="contact_number">Telefone/Celular:</label>
-          <input type="tel" id="contact_number" name="contact_number"></input>
+          <label htmlFor="contact_number">Telefone/Celular:</label>
+          <input type="tel" id="contact_number" name="contact_number" value={formData.contact_number} onChange={handleChange}></input>
         </div>
         <div className="field">
-          <label for="gender">Gênero:</label>
-          <select id="gender" name="gender">
+          <label htmlFor="gender">Gênero:</label>
+          <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
@@ -85,35 +80,24 @@ const CarereceiverForm = () => {
       </div>
       <div className="columnRight50">
         <div className="field">
-          <label for="address">Localização:</label>
-          <input type="text" id="address" name="address"></input>
+          <label htmlFor="address">Localização:</label>
+          <input type="text" id="address" name="address" value={formData.address} onChange={handleChange}></input>
         </div>
         <div className="field">
-          <label for="special_care">Cuidados Especiais:</label>
-          <input type="text" id="special_care" name="special_care"></input>
+          <label htmlFor="special_care">Cuidados Especiais:</label>
+          <input type="text" id="special_care" name="special_care" value={formData.special_care} onChange={handleChange}></input>
         </div>
         <div>
-          <input
-            type="checkbox"
-            className="checkbox"
-            id="share_special_Care"
-            name="share_special_Care"
-          ></input>
-          <label for="share_special_Care">
-            Aceito compartilhar cuidados especiais
-          </label>
+          <input type="checkbox" className="checkbox" id="share_special_Care" name="share_special_Care" value={formData.share_special_care} onChange={handleChange}></input>
+          <label htmlFor="share_special_Care">Aceito compartilhar cuidados especiais</label>
         </div>
         <div className="field">
-          <label for="emergency_contact">Contatos de Emergência:</label>
-          <input
-            type="text"
-            id="emergency_contact"
-            name="emergency_contact"
-          ></input>
+          <label htmlFor="emergency_contact">Contatos de Emergência:</label>
+          <input type="text" id="emergency_contact" name="emergency_contact" value={formData.emergency_contact} onChange={handleChange}></input>
         </div>
         <div className="field">
-          <label for="additional_info">Informações Adicionais:</label>
-          <textarea id="additional_info" name="additional_info"></textarea>
+          <label htmlFor="additional_info">Informações Adicionais:</label>
+          <textarea id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange}></textarea>
         </div>
       </div>
       <button type="submit">Salvar</button>
