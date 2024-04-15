@@ -26,6 +26,11 @@ export default (props) => (
             <Route path="sendProposal" element={<SendProposal />} /> 
             <Route path="proposalsSent" element={<ProposalsSent />} /> 
             <Route path="proposalsReceived" element={<ProposalsReceived />} />
+            <Route path="request" element={<SendRequest />} />
+            <Route path="requests" element={<Requests />} />
+            <Route path="register/:type" element={<Register />} />
+            <Route name="Rating" path="ratings" element={<Ratings />} />
+            <Route name="Rating" path="ratings" element={<Ratings />} />
             </Routes>
         </BrowserRouter >
     </ThemeProvider>
