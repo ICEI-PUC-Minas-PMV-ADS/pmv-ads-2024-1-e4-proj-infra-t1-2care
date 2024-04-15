@@ -1,14 +1,34 @@
+import { Card, CardContent, Grid, Typography } from '@mui/material';
 import RatingStars from "./RatingStars";
 
-const RatingCard = () => {
+const RatingCard = (props) => {
     return (
-        <div className='ratingCard'>
-            <img src='' alt=''></img>
-            <p id="Name">Ellen</p>
-            <p id="Coment">6 de dez. de 2017 — PS: O radio button que estiver selecionado não pode ter sua cor alterada, porque ela tem uma finalidade. html · css · radiobutton · ux.
-6 respostas Melhor resposta: Use um elemento ::after por exemplo, veja </p>
-            <RatingStars stars={3.7}></RatingStars>
-        </div>
+        <Card className='ratingCard' style={{marginTop: '1em'}}>
+            <CardContent>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <img src={props.evaluation.picture} alt='' style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '16px' }} />
+                    </Grid>
+                    <Grid item xs={12} sm container>
+                        <Grid item xs container direction="column" spacing={2}>
+                            <Grid item>
+                                <Typography variant="subtitle1" component="div">
+                                    <strong>{props.evaluation.name}</strong>
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="body2" color="textSecondary">
+                                    {props.evaluation.description}
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <RatingStars stars={props.evaluation.note} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
     )
 }
 
