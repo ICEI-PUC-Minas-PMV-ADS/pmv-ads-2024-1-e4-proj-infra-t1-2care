@@ -166,3 +166,22 @@ input.radio {
 
   }
 }
+
+
+/* Adicione estilos para o ProposalCard */
+.proposalCard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1em;
+}
+
+/* Estilos para a coluna esquerda do ProposalCard */
+.columnLeft {
+  width: 60%; /* Ajuste a largura conforme necessário */
+}
+
+/* Estilos para a coluna direita do ProposalCard */
+.columnRight {
+  width: 35%; /* Ajuste a largura conforme necessário */
+}

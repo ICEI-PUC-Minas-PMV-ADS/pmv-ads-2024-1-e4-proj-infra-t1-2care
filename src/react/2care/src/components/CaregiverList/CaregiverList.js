@@ -11,4 +11,4 @@ const CaregiverList = () => {
     )
 }
 
-export default CaregiverList
+export default CaregiverList;
