@@ -24,6 +24,7 @@ const Register = () => {
                         </div>
                     </div>
                 )}
+                
                 {type === 'caregiver' && (
                     <div id="CaregiverRegister" style={{ display: 'flex'}}>
                         
