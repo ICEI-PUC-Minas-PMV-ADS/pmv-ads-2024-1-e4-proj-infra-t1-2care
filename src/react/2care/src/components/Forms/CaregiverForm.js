@@ -11,6 +11,7 @@ function CaregiverForm() {
     birth_date: "",
     language: "",
     phone: "",
+    user_type: 2,
     gender: "",
     qualifications: [],
     work_experience: [],
@@ -79,9 +80,9 @@ function CaregiverForm() {
           <div className='field'>
             <label htmlFor="gender">Gênero:</label>
             <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="masculino">Masculino</option>
-              <option value="feminino">Feminino</option>
-              <option value="outro">Outro</option>
+              <option value="1">Masculino</option>
+              <option value="2">Feminino</option>
+              <option value="3">Outro</option>
             </select>
           </div>
         </div>
@@ -97,16 +98,16 @@ function CaregiverForm() {
           <div className='field'>
             <label htmlFor="specializations">Especializações:</label>
             <select id="specializations" name="specializations" value={formData.specializations} onChange={handleChange}>
-              <option value="0, Cuidados Básicos de Saúde">Cuidados Básicos de Saúde</option>
-              <option value="1, Apoio à Mobilidade">Apoio à Mobilidade</option>
-              <option value="2, Higiene e Cuidados Pessoais">Higiene e Cuidados Pessoais</option>
-              <option value="3, Nutrição e Preparo de Refeições">Nutrição e Preparo de Refeições</option>
-              <option value="4, Estimulação Cognitiva e Emocional">Estimulação Cognitiva e Emocional</option>          
-              <option value="5, Acompanhamento e Transporte">Acompanhamento e Transporte</option>
-              <option value="6, Gestão de Rotinas e Medicamentos">Gestão de Rotinas e Medicamentos</option>
-              <option value="7, Cuidados com o Ambiente Doméstico">Cuidados com o Ambiente Doméstico</option>
-              <option value="8, Suporte em Cuidados Paliativos">Suporte em Cuidados Paliativos</option>
-              <option value="9, Formação em Demência e Alzheimer">Formação em Demência e Alzheimer</option>
+              <option value="0">Cuidados Básicos de Saúde</option>
+              <option value="1">Apoio à Mobilidade</option>
+              <option value="2">Higiene e Cuidados Pessoais</option>
+              <option value="3">Nutrição e Preparo de Refeições</option>
+              <option value="4">Estimulação Cognitiva e Emocional</option>          
+              <option value="5">Acompanhamento e Transporte</option>
+              <option value="6">Gestão de Rotinas e Medicamentos</option>
+              <option value="7">Cuidados com o Ambiente Doméstico</option>
+              <option value="8">Suporte em Cuidados Paliativos</option>
+              <option value="9">Formação em Demência e Alzheimer</option>
             </select>
           </div>
           <div className='field'>

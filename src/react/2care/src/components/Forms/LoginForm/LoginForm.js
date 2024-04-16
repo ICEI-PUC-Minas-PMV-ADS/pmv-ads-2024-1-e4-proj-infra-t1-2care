@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signIn } from "../../../services/authService";
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLogged }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,6 +18,7 @@ const LoginForm = () => {
       await signIn(formData);
       console.log("Usuário autenticado com sucesso!");
       // Redirecionar o usuário para a página principal ou para a próxima rota após o login
+      setIsLogged(true);
     } catch (error) {
       console.error("Erro ao autenticar o usuário:", error.message);
       // Exibir uma mensagem de erro para o usuário, se necessário

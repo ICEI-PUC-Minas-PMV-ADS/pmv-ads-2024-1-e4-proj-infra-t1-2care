@@ -10,6 +10,7 @@ const CarereceiverForm = () => {
     birth_date: "",
     language: "",
     contact_number: "",
+    user_type: 1,
     gender: "",
     address: "",
     special_care: "",
@@ -72,9 +73,9 @@ const CarereceiverForm = () => {
         <div className="field">
           <label htmlFor="gender">Gênero:</label>
           <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-            <option value="outro">Outro</option>
+            <option value="1">Masculino</option>
+            <option value="2">Feminino</option>
+            <option value="3">Outro</option>
           </select>
         </div>
       </div>
