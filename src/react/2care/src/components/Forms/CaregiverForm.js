@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CaregiverForm() {
+const CaregiverForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,7 +10,7 @@ function CaregiverForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div id='columnForm'> 
         <div className='columnLeft50'>
           <div className='field'>
             <label for="email">Email:</label>
@@ -77,7 +77,7 @@ function CaregiverForm() {
             <label for="unavailable_hours">Horários fixos indisponíveis:</label>
             <input type="text" id="unavailable_hours" name="unavailable_hours" />
           </div>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+          <div class="flex-container">
             <div>
               <label for="daily_price">Valor diária:</label>
               <input type="text" id="daily_price" name="daily_price" />
@@ -97,7 +97,7 @@ function CaregiverForm() {
           </div>
           <div className='field'>
             <label for="additional_info">Informações adicionais:</label>
-            <input type="text" id="additional_info" name="additional_info" />
+            <textarea id="additional_info" name="additional_info"></textarea>
           </div>
         </div>
         <button type="submit">Salvar</button>
