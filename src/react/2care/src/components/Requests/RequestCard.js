@@ -26,7 +26,7 @@ const RequestCard = ({ startTime, endTime }) => {
     return (
         <div className="requestCard">
             <div style={{ width: '20%' }}>
-                <img src="" alt=""></img>
+                <img src="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg" alt=""></img>
                 <p></p>
             </div>
             <div style={{ width: '60%' }}>
@@ -35,10 +35,10 @@ const RequestCard = ({ startTime, endTime }) => {
                 <p>Horário: {startTime && new Date(startTime).toLocaleTimeString()}</p>
                 <p>Total de horas: {startTime && endTime && calculateTotalHours()}</p>
                 <p>Valor por hora: R$30,00</p>
-                <p>Valor a pagar: {startTime && endTime && calculateTotalPayment()}</p>
+                <p>Valor a pagar: R${startTime && endTime && calculateTotalPayment()}</p>
             </div>
             <div style={{ width: '20%' }}>
-                <p>Status: {proposalSent ? "Enviada" : "Não enviada"}</p>
+                <p>Status: {proposalSent ? "Proposta Enviada!" : "Não enviada!"}</p>
                 <button onClick={handleSendProposal}>Enviar</button>
             </div>
         </div>

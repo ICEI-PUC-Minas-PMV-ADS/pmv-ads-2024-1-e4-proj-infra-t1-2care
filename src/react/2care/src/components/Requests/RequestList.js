@@ -24,7 +24,7 @@ const RequestList = () => {
                         <label>Pendentes</label>
                     </div>
                 </div>
-                <a href='/request'><button>Envie sua proposta</button></a>
+                <a href='/request'><button>Aplicar</button></a>
             </div>
             <div className='requestList'>
                 <RequestCard></RequestCard>
