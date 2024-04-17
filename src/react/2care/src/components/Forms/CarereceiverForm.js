@@ -10,14 +10,14 @@ const CarereceiverForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div id='columnForm'> 
         <div className='columnLeft50'>
           <div className='field'>
             <label for='email'>Email:</label>
             <input type='email' id='email' name='email' required></input>
           </div>
           <div className='field'>
-            <label for='password'>password:</label>
+            <label for='password'>Senha:</label>
             <input type='password' id='password' name='password' required></input>
           </div>
           <div className='field'>
@@ -57,20 +57,21 @@ const CarereceiverForm = () => {
         <div className='columnRight50'>
           <div className='field'>
             <label for='address'>Localização:</label>
-            <input type='text' id='address' name='address' ></input>
+            <input type='text' id='address' name='address' />
           </div>
           <div className='field'>
             <label for='special_care'>Cuidados Especiais:</label>
-            <input type='text' id='special_care' name='special_care' ></input>
+            <input type='text' id='special_care' name='special_care' />
           </div>
-          <div>
-            <input type='checkbox' className='checkbox' id='share_special_Care' name='share_special_Care' ></input>
+          <div className='field'>
+            <input type='checkbox' className='checkbox' id='share_special_Care' name='share_special_Care' />
             <label for="share_special_Care">Aceito compartilhar cuidados especiais</label>
           </div>
           <div className='field'>
             <label for="emergency_contact">Contatos de Emergência:</label>
-            <input type="text" id="emergency_contact" name="emergency_contact" ></input>
+            <input type="text" id="emergency_contact" name="emergency_contact" />
           </div>
+
           <div className='field'>
             <label for="additional_info">Informações Adicionais:</label>
             <textarea id="additional_info" name="additional_info"></textarea>

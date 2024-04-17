@@ -190,3 +190,21 @@ button {
 
   }
 }
+
+.flex-container {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#columnForm {
+  width: 59vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+#additional_info {
+  width: 21.5vw;
+  height: 10vh;
+  resize: none;
+}
