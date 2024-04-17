@@ -4,13 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import './App.css';
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
-import ProfileCard from '../components/Profile/ProfileCard/ProfileCardCaregiver'
-import ProfileCardCarereciver from '../components/Profile/ProfileCard/ProfileCardCarereceiver';
+import ProfileCardCaregiver from '../components/Profile/ProfileCard/ProfileCardCaregiver'
 import AgendaList from '../components/Profile/AgendaList'
 import CaregiverForm from '../components/Forms/CaregiverForm';
 import CarereceiverForm from '../components/Forms/CarereceiverForm';
 
-function Home() {
+function ProfileCaregiver() {
   const theme = useTheme();
   useEffect(() => {
     document.title = 'Perfil';
@@ -23,10 +22,10 @@ function Home() {
 
       <main>
         <div className='columnLeft25' >
-          <ProfileCardCarereciver></ProfileCardCarereciver>
+          <ProfileCardCaregiver></ProfileCardCaregiver>
         </div>
         <div className='columnRight70'>
-          <CarereceiverForm></CarereceiverForm>
+          <CaregiverForm></CaregiverForm>
           {/* <CarereceiverForm></CarereceiverForm> */}
           {/* <AgendaList></AgendaList> */}
         </div>
@@ -35,4 +34,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ProfileCaregiver;
