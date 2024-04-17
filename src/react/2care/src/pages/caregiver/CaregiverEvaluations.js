@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
 import RatingList from '../../components/Ratings/RatingList';
+import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver'
 
 function CaregiverEvaluations() {
   const theme = useTheme();
@@ -52,13 +53,25 @@ function CaregiverEvaluations() {
       <TopBar></TopBar>
       <NavBar></NavBar>
 
-      {/* Bem, essa parte é meio dependente do perfil. farei apenas o calendar por hora. */}
-
-      <Grid container justifyContent="center">
+      <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
+        <Grid item xs={3}>
+          <ProfileCardCaregiver/>
+        </Grid>
         <Grid item xs={8}>
-          <Card>
+          <Card sx={{ borderRadius: 4 }} style={{ height: '80vh', overflowY: 'auto' }}>
             <CardHeader
               title="Veja as avaliações feitas:"
+              sx={{
+                margin: '0.5em',
+                marginBottom: 0,
+                paddingBottom: 0,
+                textAlign: 'left',
+                color: theme.palette.primary.main,
+                fontSize: '1.2rem',
+                '& .MuiTypography-root': {
+                  fontWeight: 500
+                }
+              }}
             />
             <Box m={2}>
                 <RatingList data={evaluations}/>

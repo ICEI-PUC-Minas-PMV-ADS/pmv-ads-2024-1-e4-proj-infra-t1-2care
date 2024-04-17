@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
+import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver'
 
 function CaregiverCalendar() {
   const theme = useTheme();
@@ -61,9 +62,10 @@ function CaregiverCalendar() {
       <TopBar></TopBar>
       <NavBar></NavBar>
 
-      {/* Bem, essa parte é meio dependente do perfil. farei apenas o calendar por hora. */}
-
-      <Grid container justifyContent="center">
+      <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
+        <Grid item xs={3}>
+          <ProfileCardCaregiver/>
+        </Grid>
         <Grid item xs={8}>
           <Card>
             <CardHeader

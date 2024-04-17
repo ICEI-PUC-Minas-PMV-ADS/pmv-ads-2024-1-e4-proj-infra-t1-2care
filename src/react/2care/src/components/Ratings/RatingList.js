@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import RatingCard from "./RatingCard";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 const RatingList = (props) => {
+    const theme = useTheme();
     const [selectedValue, setSelectedValue] = useState(null);
     const [filteredData, setFilteredData] = useState([]);
 
@@ -17,13 +20,15 @@ const RatingList = (props) => {
     };
 
     return (
-        <div className="ratingList">
+        <div>
             <div className="filter" style={{ display: 'flex', fontSize: '1.5em' }}>
-                <p>Filtros: </p>
+                <Typography variant="h6" style={{ color: theme.palette.primary.main }} >Filtros:</Typography>
                 {[1, 2, 3, 4, 5].map((star) => (
-                    <div key={`evaluation_${star}`}>
-                        <label >
-                            <span style={{ verticalAlign: 'middle', marginRight: '5px' }}>{star}</span>
+                    <div key={`evaluation_${star}`} >
+                        <label>
+                            <Typography component="span" style={{ verticalAlign: 'middle', marginRight: '0.2em', color: theme.palette.primary.main, fontSize: '1.2rem' }}>
+                                {star}
+                            </Typography>
                             <input type="radio" style={{ display: 'none' }} value={star} checked={selectedValue === star} readOnly onClick={() => handleRadioChange(star)} />
                             {selectedValue === star ? <AiFillStar style={{ color: '#FFBC0B', verticalAlign: 'middle' }}/> : <AiOutlineStar style={{ verticalAlign: 'middle' }} />}
                         </label>

@@ -3,7 +3,7 @@ import RatingStars from "./RatingStars";
 
 const RatingCard = (props) => {
     return (
-        <Card className='ratingCard' style={{marginTop: '1em'}}>
+        <Card  style={{marginTop: '1em'}} sx={{ boxShadow: 5 }}>
             <CardContent>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item>
