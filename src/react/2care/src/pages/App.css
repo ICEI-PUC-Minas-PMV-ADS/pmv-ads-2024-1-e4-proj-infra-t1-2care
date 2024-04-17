@@ -78,7 +78,24 @@ input[type='datetime-local'] {
   border-color: #ED8733;
 }
 
-.nav-button, button {
+.nav-button {
+  border-radius: 2em;
+  padding-left: 2em;
+  padding-right: 2em;
+  height: 2.5em;
+  border: none;
+  background-color: #486142;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0.3em;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+button {
   border-radius: 2em;
   padding-left: 2em;
   padding-right: 2em;
@@ -111,7 +128,6 @@ input[type='datetime-local'] {
 
 .requestCard,
 .ratingCard,
-.profileCard,
 .card {
   background-color: rgba(255, 255, 255);
   box-shadow: 0px 4px 4px 0px #00000040;
@@ -127,15 +143,23 @@ input[type='datetime-local'] {
 }
 
 .profileCard {
+  background-color: rgba(255, 255, 255);
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 1.5em;
+  padding: 0.3em;
+  width: 80%;
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  display: block;
-  justify-content: center;
 }
 
 .profileCard img, .caregiverCard img {
   border-radius: 50%;
   width: 8em;
   height: 8em;
+  margin-top: 1em;
 }
 
 .requestCard img {
@@ -182,8 +206,6 @@ input[type='datetime-local'] {
   }
 }
 
-
-/* Adicione estilos para o ProposalCard */
 .proposalCard {
   display: flex;
   flex-wrap: wrap;
@@ -191,12 +213,11 @@ input[type='datetime-local'] {
   margin: 1em;
 }
 
-/* Estilos para a coluna esquerda do ProposalCard */
 .columnLeft {
-  width: 60%; /* Ajuste a largura conforme necessário */
+  width: 60%;
 }
 
-/* Estilos para a coluna direita do ProposalCard */
 .columnRight {
-  width: 35%; /* Ajuste a largura conforme necessário */
+  width: 35%; 
 }
+

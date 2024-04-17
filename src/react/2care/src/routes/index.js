@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
 // import ResponsiveAppBar from '../components/layout/ResponsiveAppBar';
 import Home from '../pages/home.jsx'
-import Profile from '../pages/Profile.js'
+import ProfileCarereciver from '../pages/ProfileCarereciver.jsx'
+import ProfileCaregiver from '../pages/ProfileCaregiver.jsx'
 import Login from '../pages/Login.js'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme/theme.js';
@@ -19,7 +20,8 @@ export default (props) => (
             <Routes>
             <Route exact path="/" element={<Login />} />
             <Route exact path="home" element={<Home />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="ProfileCarereciver" element={<ProfileCarereciver />} />
+            <Route path="ProfileCaregiver" element={<ProfileCaregiver />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
             <Route path="register/:type" element={<Register />} />
