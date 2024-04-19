@@ -21,10 +21,6 @@ const Login = () => {
         padding: '0.8em',
     }
 
-    const handleTypeSelect = (userType) => {
-        console.log("Tipo de usuário selecionado:", userType)
-    }
-
     return (
         <div>
             <TopBarLogin></TopBarLogin>
@@ -38,10 +34,10 @@ const Login = () => {
                     <div style={{ float: 'left' }}>
                         <h4 style={{ color: theme.palette.background.light }}>Crie agora mesmo a sua conta!</h4>
                         <Link to="/register/carereceiver">
-                            <button style={{ width: '120px'}} onClick={() => handleTypeSelect(1)}>Cliente</button>
+                            <button style={{ width: '120px'}}>Cliente</button>
                         </Link>
                         <Link to="/register/caregiver">
-                            <button style={{ width: '120px'}} onClick={() => handleTypeSelect(2)}>Cuidador</button>
+                            <button style={{ width: '120px'}}>Cuidador</button>
                         </Link>
                     </div>
                 </div>

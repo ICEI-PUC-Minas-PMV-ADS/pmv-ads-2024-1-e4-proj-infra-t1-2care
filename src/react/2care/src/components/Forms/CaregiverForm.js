@@ -9,10 +9,11 @@ function CaregiverForm() {
     confirm_password: "",
     name: "",
     birth_date: "",
-    language: "",
     phone: "",
-    user_type: 2,
+    user_type: 1, 
     gender: "",
+    address: "",
+    post_code: "",
     qualifications: [],
     work_experience: [],
     specializations: [],
@@ -66,27 +67,28 @@ function CaregiverForm() {
             <input type="date" id="birth_date" name="birth_date" value={formData.birth_date} onChange={handleChange}></input>
           </div>
           <div className='field'>
-            <label htmlFor="language">Idioma:</label>
-            <select id="language" name="language" value={formData.language} onChange={handleChange}>
-              <option value="portugues">Português</option>
-              <option value="ingles">Inglês</option>
-              <option value="espanhol">Espanhol</option>
-            </select>
+            <label htmlFor="phone">Telefone/Celular:</label>
+            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange}></input>
+          </div>
+              <div className='field'>
+                <label htmlFor="gender">Gênero:</label>
+                <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
+                  <option value="">Selecione</option>
+                  <option value="1">Masculino</option>
+                  <option value="2">Feminino</option>
+                  <option value="0">Não especificado</option>
+                </select>
+              </div>
+          <div className='field'>
+            <label htmlFor="address">Address:</label>
+            <input id="address" name="address" type='text' value={formData.address} onChange={handleChange}/>
           </div>
           <div className='field'>
-            <label htmlFor="contact_number">Telefone/Celular:</label>
-            <input type="tel" id="contact_number" name="contact_number" value={formData.contact_number} onChange={handleChange}></input>
-          </div>
-          <div className='field'>
-            <label htmlFor="gender">Gênero:</label>
-            <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="1">Masculino</option>
-              <option value="2">Feminino</option>
-              <option value="3">Outro</option>
-            </select>
+            <label htmlFor="post_code">post_code:</label>
+            <input type="text" id="post_code" name="post_code" value={formData.post_code} onChange={handleChange}/>
           </div>
         </div>
-        <div className='columnRight50'>
+        {/* <div className='columnRight50'>
           <div className='field'>
             <label htmlFor="qualifications">Qualificações:</label>
             <input type="text" id="qualifications" name="qualifications" value={formData.qualifications} onChange={handleChange} />
@@ -140,7 +142,7 @@ function CaregiverForm() {
             <label htmlFor="additional_info">Informações adicionais:</label>
             <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
           </div>
-        </div>
+        </div> */}
         <button type="submit">Salvar</button>
       </div>
     </form >
