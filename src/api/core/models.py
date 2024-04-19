@@ -1,7 +1,33 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError(_('The Email must be set'))
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.name = email
+        user.latitude = 0
+        user.longitude = 0
+        user.user_type = 1
+        user.save()
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        return self.create_user(email, password, **extra_fields)
 
 
 class CustomUserModel(AbstractUser):
@@ -36,14 +62,23 @@ class CustomUserModel(AbstractUser):
     latitude = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
     user_type = models.IntegerField()
-    gender = models.IntegerField(choices=GENDER_CHOICES)
-    preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES)
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=0)
+    preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES, default=0)
     birth_date = models.DateField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    username = None
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
     class Meta:
         ordering = ["name"]
+
+    def __str__(self):
+        return self.email
 
 class QualificationModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
