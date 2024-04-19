@@ -1,14 +1,16 @@
+import Cookies from 'js-cookie';
 import { getGeolocationApi } from './otherService';
 
 const API_URL = "http://127.0.0.1:8000";
+//const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
 
 export const signIn = async ({ email, password }) => {
-    console.log( email, password )
+
     try {
         const response = await fetch(`${API_URL}/token/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username:email, password })
+            body: JSON.stringify({ email, password })
         });
        
 
@@ -18,9 +20,11 @@ export const signIn = async ({ email, password }) => {
         }
 
         const result = await response.json();
-        localStorage.setItem('token', result.access);
 
-        return result;
+        Cookies.set('access', result["access"], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('refresh', result["refresh"], { expires: 1, secure: true, sameSite: 'strict' });
+
+        return true;
     } catch (error) {
         alert('Usuário ou senha inválidos!');
         throw new Error(error.message);
@@ -30,17 +34,16 @@ export const signIn = async ({ email, password }) => {
 
 export const registerCaregiver = async ({ email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, qualifications, work_experience, specializations,
     fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info }) => {
-    let username = email //remover no futuro username daqui e abaixo
-    let preferred_contact = 0 //remover no futuro 
-    
+
     let geo = await getGeolocationApi(post_code)
     let latitude = geo['latitude']
     let longitude = geo['longitude']
+
     try {
         const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ preferred_contact, username, email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude, qualifications, work_experience, specializations,
+            body: JSON.stringify({email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude, qualifications, work_experience, specializations,
                 fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info })
         });
         const result = await response.json();
@@ -52,7 +55,6 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
         throw new Error(error.message);
     }
 };
-
 
 export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, special_care, share_special_care,
     emergency_contact, additional_info }) => {
@@ -71,6 +73,75 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
         if (!response.ok) {
             throw new Error(JSON.stringify(result));
         }
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const tokenRefresh = async () => {
+    try {
+        const refresh = Cookies.get("refresh")
+        const response = await fetch(`${API_URL}/token/refresh/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            //logout TODO
+            Cookies.remove('access', { secure: true, sameSite: 'strict' });
+            Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+            throw new Error(JSON.stringify(result));
+        }
+        const token = result['access']
+        if(token){
+            Cookies.set('access', token, { expires: 1, secure: true, sameSite: 'strict' });
+        }
+        return token;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const getAccessToken = async () => {
+    return Cookies.get('access')
+};
+
+export const sendAuthenticatedRequest = async (url, method = 'GET', data = null) => {
+    try {
+        let access = await getAccessToken();
+
+        const requestOptions = {
+            method: method,
+            headers: {
+                'Authorization': `Bearer ${access}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        if (data) {
+            requestOptions.body = JSON.stringify(data);
+        }
+
+        let response = await fetch(`${API_URL}${url}`, requestOptions);
+
+        if (response.status === 401 || response.status === 403) {
+            let newAccessToken = await tokenRefresh();
+            requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            response = await fetch(`${API_URL}${url}`, requestOptions);
+            if (response.status === 401 || response.status === 403) {
+                // logout TODO
+                Cookies.remove('access', { secure: true, sameSite: 'strict' });
+                Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+            }
+        }
+
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(JSON.stringify(result));
+        }
+
         return result;
     } catch (error) {
         throw new Error(error.message);
