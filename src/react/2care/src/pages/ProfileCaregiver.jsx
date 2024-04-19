@@ -18,15 +18,13 @@ function ProfileCaregiver() {
         <TopBar />
         <NavBar />
 
-        <Grid container spacing={-20} justify="center">
-            <Grid item xs={false} sm={2} /> 
-            <Grid item xs={12} sm={6} md={3}>
-                <ProfileCardCaregiver />
+        <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
+            <Grid item xs={3}>
+                <ProfileCardCaregiver/>
             </Grid>
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={8}>
                 <CaregiverForm />
             </Grid>
-            <Grid item xs={false} sm={1} />
         </Grid>
     </div>
 );
