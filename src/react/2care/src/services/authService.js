@@ -76,10 +76,3 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
         throw new Error(error.message);
     }
 };
-
-// Função para verificar se o usuário está autenticado
-export const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
-    // Verifica se há um token armazenado e se ele é válido
-    return !!token;
-};

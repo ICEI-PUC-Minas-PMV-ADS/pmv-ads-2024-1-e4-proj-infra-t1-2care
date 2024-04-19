@@ -1,12 +1,4 @@
-import { apiService } from './apiService';
 const BASE_URL = "http://127.0.0.1:8000";
-
-export const otherService = {
-  async getUserData(userId) {
-    return apiService.get(`users/${userId}`);
-  },
-  // Adicione outras funções de serviço conforme necessário
-};
 
 export const getGeolocationApi = async (post_code) => {
 
