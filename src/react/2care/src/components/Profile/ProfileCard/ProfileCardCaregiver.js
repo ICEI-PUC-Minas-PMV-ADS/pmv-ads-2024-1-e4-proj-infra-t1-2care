@@ -1,7 +1,7 @@
 import NavigationButton from '../../NavigationButton/NavigationButton';
 import { Link } from 'react-router-dom';
 
-const ProfileCard = () => {
+const ProfileCardCaregiver = () => {
     return (
         <div className='profileCard'>
             <h2>Maria Fontes</h2>
@@ -11,16 +11,16 @@ const ProfileCard = () => {
             <h6>Familiar</h6> */}
             <img src='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'></img>
             <NavigationButton to="/requests" text="Propostas Recebidas" />
-            <button>Agenda</button>
-            <NavigationButton to="/request" text="Enviar proposta" />
+            <NavigationButton to="/requests" text="Agenda" />
+            <NavigationButton to="/request" text="Avaliações Recebidas" />
 
             {/* 
             Client
             <button>Propostas Enviadas</button>
             <button>Avaliações Feitas</button> */}
-            <p>Membro desde </p>
+            <p>Membro(a) desde </p>
         </div>
     )
 }
 
-export default ProfileCard;
+export default ProfileCardCaregiver;
