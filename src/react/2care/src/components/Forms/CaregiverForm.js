@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { registerCaregiver } from "../../services/authService";
+import SpecializationList from '../ListSelection/SpecializationListSelection'
 
 const CaregiverForm = () => {
 
+  const [specializations, setSpecializations] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,6 +43,16 @@ const CaregiverForm = () => {
       console.error("Erro ao cadastrar os dados:", error.message);
     }
   };
+  
+  const handleAddSpecialization = (specialization) => {
+    if (!specializations.includes(specialization)) {
+      setSpecializations(prevSpecializations => [...prevSpecializations, specialization]);
+    }
+  };
+
+  const handleRemoveSpecialization = (specialization) => {
+    setSpecializations(prevSpecializations => prevSpecializations.filter(spec => spec !== specialization));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,6 +62,13 @@ const CaregiverForm = () => {
             <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required></input>
           </div>
+          <div className='field'>
+          <SpecializationList 
+            onAdd={handleAddSpecialization}
+            onRemove={handleRemoveSpecialization}
+            selectedSpecializations={specializations}
+          />
+        </div>
           <div className='field'>
             <label htmlFor="password">Senha:</label>
             <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required></input>
