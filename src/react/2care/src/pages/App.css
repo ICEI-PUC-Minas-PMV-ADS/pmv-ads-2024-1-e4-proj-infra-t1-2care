@@ -62,6 +62,7 @@ textarea {
 input.checkbox,
 input.radio {
   width: 2.5em;
+  box-shadow: none;
 }
 
 input[type='datetime-local'] {
@@ -134,7 +135,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   border-radius: 1.5em;
-  padding: 0.3em;
+  padding: 2.3em;
   width: 80%;
   text-align: left;
   align-items: center;
