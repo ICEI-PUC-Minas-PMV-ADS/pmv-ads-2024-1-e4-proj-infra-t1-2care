@@ -46,7 +46,7 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
         const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, qualifications, work_experience, specializations,
+            body: JSON.stringify({email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude, qualifications, work_experience, specializations,
                 fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info })
         });
         const result = await response.json();
@@ -60,22 +60,21 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
     }
 };
 
-export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, post_code, special_care, share_special_care,
+export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, phone, contact_number, user_type, gender, address, post_code, special_care, share_special_care,
     emergency_contact, additional_info }) => {
     
     let geo = await getGeolocationApi(post_code)
     let latitude = geo['latitude']
     let longitude = geo['longitude']
 
-    console.log( email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, special_care, share_special_care,
-    emergency_contact, additional_info  )
+    console.log( email, password, confirm_password, name, birth_date, language, phone, contact_number, user_type, gender, address, post_code, special_care, share_special_care,
+        emergency_contact, additional_info  )
     
     try {
         const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, post_code, special_care, share_special_care,
-                emergency_contact, additional_info })
+            body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude })
         });
         const result = await response.json();
         if (!response.ok) {
@@ -86,7 +85,7 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
         alert('Dados inválidos, gentileza verifique o preenchimento!');
         throw new Error(error.message);
     }
-};
+    };
 
 export const tokenRefresh = async () => {
     try {

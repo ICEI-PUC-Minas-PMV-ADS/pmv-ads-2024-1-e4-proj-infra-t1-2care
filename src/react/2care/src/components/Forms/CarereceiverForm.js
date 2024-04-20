@@ -106,9 +106,9 @@ const CarereceiverForm = () => {
             <label htmlFor="contact_number">Telefone/Celular:</label>
             <input
               type="tel"
-              id="contact_number"
-              name="contact_number"
-              value={formData.contact_number}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
             ></input>
           </div>

@@ -37,7 +37,6 @@ const CaregiverForm = () => {
       console.log("Usuário registrado com sucesso");
     } catch (error) {
       console.error("Erro ao cadastrar os dados:", error.message);
-
     }
   };
 
