@@ -1,15 +1,13 @@
 import './NavBar.css'
 import { useState } from 'react'
 
-const NavBar = () => {
+const NavBar = ({ isLogged}) => {
     
-    const [isLogged, setIsLogged] = useState(true)
-
-    return (
+      return (
         <div className='navBar'>
             <a href="">Filtros</a>
             <a href="/home">Home</a>
-            {isLogged ? <a href="/requests">Proposta</a> : <></>}
+            {isLogged && <a href="/requests">Proposta</a>}
         </div>
     )
 }
