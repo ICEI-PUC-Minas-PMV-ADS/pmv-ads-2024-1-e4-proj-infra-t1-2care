@@ -206,20 +206,18 @@ button {
   }
 }
 
-.flex-container {
-  width: 85%;
+.proposalCard {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  margin: 1em;
 }
 
-#columnForm {
-  width: 59vw;
-  display: flex;
-  justify-content: space-between;
+.columnLeft {
+  width: 60%;
 }
 
-#additional_info {
-  width: 21.5vw;
-  height: 10vh;
-  resize: none;
+.columnRight {
+  width: 35%; 
 }
+

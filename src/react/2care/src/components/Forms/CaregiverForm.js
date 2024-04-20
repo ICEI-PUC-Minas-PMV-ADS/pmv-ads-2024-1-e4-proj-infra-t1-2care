@@ -139,8 +139,8 @@ const CaregiverForm = () => {
             <input type="text" id="address" value={formData.address} onChange={handleChange} />
           </div>
           <div className='field'>
-            <label htmlFor="additional_info">Informações adicionais:</label>
-            <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
+            <label for="additional_info">Informações adicionais:</label>
+            <textarea id="additional_info" name="additional_info"></textarea>
           </div>
         </div> */}
         <button type="submit">Salvar</button>
