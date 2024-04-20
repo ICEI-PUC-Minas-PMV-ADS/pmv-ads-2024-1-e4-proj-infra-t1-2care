@@ -166,27 +166,49 @@ button {
 
   .columnLeft25 {
     float: left;
-    width: 25%;
-
+    width: 35%;
+    text-align: left;
   }
 
   .columnRight70 {
     float: right;
-    width: 70%;
-
+    width: 65%;
   }
 }
+
 
 @media screen and (max-width: 1023px) {
 
   .columnLeft50,
-  .columnRight50 {
-    width: 100%;
-  }
+  .columnRight50, 
   .columnLeft25,
   .columnRight70 {
     width: 100%;
+  }
 
+
+  #columnForm {
+    width: 90%;
+    flex-direction: column;   
+  }
+}
+
+@media screen and (max-width: 794px) {
+
+  #CarereceiverRegister,
+  #CaregiverRegister {
+    width: 90%;
+    flex-direction: column;   
+  }
+
+  #PreenchaOsCampos {
+    text-align: center;
+  }
+
+  #columnForm {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
