@@ -1,25 +1,30 @@
+import Cookies from 'js-cookie';
+import { getGeolocationApi } from './otherService';
 
 const API_URL = "http://127.0.0.1:8000";
+//const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
 
 export const signIn = async ({ email, password }) => {
 
-    console.log( email, password )
-
     try {
-        const response = await fetch(`${API_URL}/login/`, {
+        const response = await fetch(`${API_URL}/token/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         });
-        const result = await response.json();
+       
+
         if (!response.ok) {
-            throw new Error(JSON.stringify(result));
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Erro ao fazer login' );
         }
 
-        // Armazena o token JWT no armazenamento local (localStorage)
-        localStorage.setItem('token', result.token);
+        const result = await response.json();
 
-        return result;
+        Cookies.set('access', result["access"], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('refresh', result["refresh"], { expires: 1, secure: true, sameSite: 'strict' });
+
+        return true;
     } catch (error) {
         alert('Usuário ou senha inválidos!');
         throw new Error(error.message);
@@ -27,20 +32,20 @@ export const signIn = async ({ email, password }) => {
 }
 
 
-export const registerCaregiver = async ({ email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
+export const registerCaregiver = async ({ email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, qualifications, work_experience, specializations,
     fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info }) => {
-    
-    {/*console.log( email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
-    fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info  )*/}
+
+    let geo = await getGeolocationApi(post_code)
+    let latitude = geo['latitude']
+    let longitude = geo['longitude']
 
     try {
         const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, phone, gender, qualifications, work_experience, specializations,
+            body: JSON.stringify({email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude, qualifications, work_experience, specializations,
                 fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info })
         });
-        console.log(response)
         const result = await response.json();
         if (!response.ok) {
             throw new Error(JSON.stringify(result));
@@ -51,18 +56,17 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
     }
 };
 
-
-export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
+export const registerCarereceiver = async ({ email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, special_care, share_special_care,
     emergency_contact, additional_info }) => {
     
-    console.log( email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
+    console.log( email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, special_care, share_special_care,
     emergency_contact, additional_info  )
     
     try {
         const response = await fetch(`${API_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, contact_number, gender, address, special_care, share_special_care,
+            body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, contact_number, user_type, gender, address, special_care, share_special_care,
                 emergency_contact, additional_info })
         });
         const result = await response.json();
@@ -75,9 +79,71 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
     }
 };
 
-// Função para verificar se o usuário está autenticado
-export const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
-    // Verifica se há um token armazenado e se ele é válido
-    return !!token;
+export const tokenRefresh = async () => {
+    try {
+        const refresh = Cookies.get("refresh")
+        const response = await fetch(`${API_URL}/token/refresh/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            //logout TODO
+            Cookies.remove('access', { secure: true, sameSite: 'strict' });
+            Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+            throw new Error(JSON.stringify(result));
+        }
+        const token = result['access']
+        if(token){
+            Cookies.set('access', token, { expires: 1, secure: true, sameSite: 'strict' });
+        }
+        return token;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const getAccessToken = async () => {
+    return Cookies.get('access')
+};
+
+export const sendAuthenticatedRequest = async (url, method = 'GET', data = null) => {
+    try {
+        let access = await getAccessToken();
+
+        const requestOptions = {
+            method: method,
+            headers: {
+                'Authorization': `Bearer ${access}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        if (data) {
+            requestOptions.body = JSON.stringify(data);
+        }
+
+        let response = await fetch(`${API_URL}${url}`, requestOptions);
+
+        if (response.status === 401 || response.status === 403) {
+            let newAccessToken = await tokenRefresh();
+            requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            response = await fetch(`${API_URL}${url}`, requestOptions);
+            if (response.status === 401 || response.status === 403) {
+                // logout TODO
+                Cookies.remove('access', { secure: true, sameSite: 'strict' });
+                Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+            }
+        }
+
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(JSON.stringify(result));
+        }
+
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 };

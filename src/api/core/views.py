@@ -31,12 +31,25 @@ from .serializers import (
 )
 import pymongo
 from pymongo import MongoClient
+import requests
+
+class GetGeoLocation(APIView):
+    permission_classes = (AllowAny,) 
+    def get(self, request, *args, **kwargs):
+        response = requests.get(f'https://maps.googleapis.com/maps/api/geocode/json?address={kwargs["post_code"]}$&key=AIzaSyDcP7z-K5Dyc9xxVOeyUyNfb4QyBwjcIsQ')
+        if response.status_code == 200:
+            # Convert the response to JSON format
+            data = response.json()
+            # Now data contains the response data in JSON format
+            return Response(data, 200)
+        else:
+           Response(500)
 
 class MongoUpdate(APIView):
     #temos que ver tudo que vai ser necessario ainda. por hora vou só salvar todos os caregivers no mongo, mas depois precisamos fazer updates ao alterar caregiver e create ao criar usuario
     #ou colocar algum scheduler pra re atualizar tudo de tempos em tempos
     #vou deixar na nuvem por hora até de fato colocarmos na VPS, se não fica ruim do pessoal trabalhar.
-
+   
     def get(self, request):
         #collection.insert_one() #collection.find(),  #collection.find_one(), #collection.delete_one(), #collection.delete_many(),  #collection.delete_one(),   #collection.update_many()
         cluster = MongoClient(f"mongodb+srv://twocare:rb7NxWFV2fuAOzyBDRmpXbvmmuZvhYv7@2care.2cwas5l.mongodb.net/?retryWrites=true&w=majority&appName=2care")

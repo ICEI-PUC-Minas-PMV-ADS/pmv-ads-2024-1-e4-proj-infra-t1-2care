@@ -23,7 +23,7 @@ const Register = () => {
                             <CarereceiverForm></CarereceiverForm>
                         </div>
                     </div>
-                )}
+                )}               
                 {type === 'caregiver' && (
                     <div id="CaregiverRegister" style={{ display: 'flex'}}>
                         

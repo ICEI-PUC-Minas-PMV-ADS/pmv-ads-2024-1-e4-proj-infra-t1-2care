@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerCaregiver } from "../../services/authService";
 
-function CaregiverForm() {
+const CaregiverForm = () => {
 
   const [formData, setFormData] = useState({
     email: "",
@@ -9,9 +9,11 @@ function CaregiverForm() {
     confirm_password: "",
     name: "",
     birth_date: "",
-    language: "",
     phone: "",
+    user_type: 1, 
     gender: "",
+    address: "",
+    post_code: "",
     qualifications: [],
     work_experience: [],
     specializations: [],
@@ -42,8 +44,8 @@ function CaregiverForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-      <div className='columnLeft50'>
+      <div id='columnForm'> 
+        <div className='columnLeft50'>
           <div className='field'>
             <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required></input>
@@ -65,27 +67,28 @@ function CaregiverForm() {
             <input type="date" id="birth_date" name="birth_date" value={formData.birth_date} onChange={handleChange}></input>
           </div>
           <div className='field'>
-            <label htmlFor="language">Idioma:</label>
-            <select id="language" name="language" value={formData.language} onChange={handleChange}>
-              <option value="portugues">Português</option>
-              <option value="ingles">Inglês</option>
-              <option value="espanhol">Espanhol</option>
-            </select>
+            <label htmlFor="phone">Telefone/Celular:</label>
+            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange}></input>
+          </div>
+              <div className='field'>
+                <label htmlFor="gender">Gênero:</label>
+                <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
+                  <option value="">Selecione</option>
+                  <option value="1">Masculino</option>
+                  <option value="2">Feminino</option>
+                  <option value="0">Não especificado</option>
+                </select>
+              </div>
+          <div className='field'>
+            <label htmlFor="address">Address:</label>
+            <input id="address" name="address" type='text' value={formData.address} onChange={handleChange}/>
           </div>
           <div className='field'>
-            <label htmlFor="contact_number">Telefone/Celular:</label>
-            <input type="tel" id="contact_number" name="contact_number" value={formData.contact_number} onChange={handleChange}></input>
-          </div>
-          <div className='field'>
-            <label htmlFor="gender">Gênero:</label>
-            <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="masculino">Masculino</option>
-              <option value="feminino">Feminino</option>
-              <option value="outro">Outro</option>
-            </select>
+            <label htmlFor="post_code">post_code:</label>
+            <input type="text" id="post_code" name="post_code" value={formData.post_code} onChange={handleChange}/>
           </div>
         </div>
-        <div className='columnRight50'>
+        {/* <div className='columnRight50'>
           <div className='field'>
             <label htmlFor="qualifications">Qualificações:</label>
             <input type="text" id="qualifications" name="qualifications" value={formData.qualifications} onChange={handleChange} />
@@ -97,16 +100,16 @@ function CaregiverForm() {
           <div className='field'>
             <label htmlFor="specializations">Especializações:</label>
             <select id="specializations" name="specializations" value={formData.specializations} onChange={handleChange}>
-              <option value="0, Cuidados Básicos de Saúde">Cuidados Básicos de Saúde</option>
-              <option value="1, Apoio à Mobilidade">Apoio à Mobilidade</option>
-              <option value="2, Higiene e Cuidados Pessoais">Higiene e Cuidados Pessoais</option>
-              <option value="3, Nutrição e Preparo de Refeições">Nutrição e Preparo de Refeições</option>
-              <option value="4, Estimulação Cognitiva e Emocional">Estimulação Cognitiva e Emocional</option>          
-              <option value="5, Acompanhamento e Transporte">Acompanhamento e Transporte</option>
-              <option value="6, Gestão de Rotinas e Medicamentos">Gestão de Rotinas e Medicamentos</option>
-              <option value="7, Cuidados com o Ambiente Doméstico">Cuidados com o Ambiente Doméstico</option>
-              <option value="8, Suporte em Cuidados Paliativos">Suporte em Cuidados Paliativos</option>
-              <option value="9, Formação em Demência e Alzheimer">Formação em Demência e Alzheimer</option>
+              <option value="0">Cuidados Básicos de Saúde</option>
+              <option value="1">Apoio à Mobilidade</option>
+              <option value="2">Higiene e Cuidados Pessoais</option>
+              <option value="3">Nutrição e Preparo de Refeições</option>
+              <option value="4">Estimulação Cognitiva e Emocional</option>          
+              <option value="5">Acompanhamento e Transporte</option>
+              <option value="6">Gestão de Rotinas e Medicamentos</option>
+              <option value="7">Cuidados com o Ambiente Doméstico</option>
+              <option value="8">Suporte em Cuidados Paliativos</option>
+              <option value="9">Formação em Demência e Alzheimer</option>
             </select>
           </div>
           <div className='field'>
@@ -117,7 +120,7 @@ function CaregiverForm() {
             <label htmlFor="unavailable_hours">Horários fixos indisponíveis:</label>
             <input type="text" id="unavailable_hours" name="unavailable_hours" value={formData.fixed_unavailable_hours} onChange={handleChange} />
           </div>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+          <div class="flex-container">
             <div>
               <label htmlFor="daily_price">Valor diária:</label>
               <input type="text" id="daily_price" name="day_price" value={formData.day_price} onChange={handleChange} />
@@ -139,7 +142,7 @@ function CaregiverForm() {
             <label htmlFor="additional_info">Informações adicionais:</label>
             <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
           </div>
-        </div>
+        </div> */}
         <button type="submit">Salvar</button>
       </div>
     </form >

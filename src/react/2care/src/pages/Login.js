@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import NavBar from "../components/NavBar/NavBar";
 import TopBarLogin from "../components/TopBar/TopBarLogin";
 import LoginForm from "../components/Forms/LoginForm/LoginForm";
@@ -10,6 +11,8 @@ import { apiService } from "../services/apiService";
 const Login = () => {
     const theme = useTheme();
 
+    const [isLogged, setIsLogged] = useState(false);
+
     const description = {
         backgroundColor: theme.palette.primary.dark,
         color: theme.palette.secondary.light,
@@ -21,7 +24,7 @@ const Login = () => {
     return (
         <div>
             <TopBarLogin></TopBarLogin>
-            <NavBar></NavBar>
+            <NavBar isLogged={isLogged}></NavBar>
             <section style={{ alignItems: 'start', padding: '8% 8% 10% 8%', backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex' }}>
                 <div className="columnLeft50" style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <div style={description}>
@@ -40,7 +43,7 @@ const Login = () => {
                 </div>
 
                 <div className="columnRight50" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-                    <LoginForm></LoginForm>
+                    <LoginForm setIsLogged={setIsLogged}></LoginForm>
                 </div>
             </section>
         </div >

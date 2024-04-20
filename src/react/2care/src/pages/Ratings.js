@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar/NavBar";
 import RatingList from "../components/Ratings/RatingList";
 import TopBar from "../components/TopBar/TopBar";
-import ProfileCard from '../components/Profile/ProfileCard/ProfileCard'
+import ProfileCard from '../components/Profile/ProfileCard/ProfileCardCaregiver'
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from "react";
 
