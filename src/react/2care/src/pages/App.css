@@ -267,7 +267,7 @@ button {
   border-radius: 4px;
   flex-shrink: 0;
   margin-left: 10px;
-  width: 3.3vw;
+  width: 75px;
 }
 
 .delete-button {
@@ -277,7 +277,7 @@ button {
   border-radius: 4px;
   flex-shrink: 0;
   margin-left: 10px;
-  width: 3.3vw;
+  width: 75px;
 }
 
 .add-button:hover {

@@ -11,6 +11,7 @@ import SendRequest from '../pages/SendRequest.js';
 import Requests from '../pages/Requests.js';
 import Ratings from '../pages/Ratings.js';
 import Register from '../pages/Register.js';
+import ProfileCaregiverSpec from '../pages/ProfileCareGiverSpec.jsx';
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -21,6 +22,7 @@ export default (props) => (
             <Route exact path="home" element={<Home />} />
             <Route path="ProfileCareReceiver" element={<ProfileCareReceiver />} />
             <Route path="ProfileCaregiver" element={<ProfileCaregiver />} />
+            <Route path='ProfileCaregiverSpec' element={<ProfileCaregiverSpec />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
             <Route path="register/:type" element={<Register />} />
