@@ -34,7 +34,9 @@ const LoginForm = ({ setIsLogged }) => {
         <h2>Entre agora mesmo!</h2>
         <input type="text" id="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required />
         <input type="password" id="password" name="password" placeholder="Senha" value={formData.password} onChange={handleChange} required />
-        <button type="submit">Entrar</button>
+        <div>
+          <button type="submit">Entrar</button>
+        </div>
       </div>
     </form>
   );
