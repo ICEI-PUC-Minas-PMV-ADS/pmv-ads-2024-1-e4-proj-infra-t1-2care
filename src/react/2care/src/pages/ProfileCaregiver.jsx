@@ -6,6 +6,7 @@ import TopBar from '../components/TopBar/TopBar';
 import ProfileCardCaregiver from '../components/Profile/ProfileCard/ProfileCardCaregiver';
 import CaregiverForm from '../components/Forms/CaregiverForm';
 import './App.css';
+import CaregiverProfileForm from '../components/Profile/ProfileForm/CaregiverProfileForm';
 
 function ProfileCaregiver() {
   const theme = useTheme();
@@ -23,7 +24,7 @@ function ProfileCaregiver() {
                 <ProfileCardCaregiver/>
             </Grid>
             <Grid item xs={8}>
-                <CaregiverForm />
+                < CaregiverProfileForm />
             </Grid>
         </Grid>
     </div>
