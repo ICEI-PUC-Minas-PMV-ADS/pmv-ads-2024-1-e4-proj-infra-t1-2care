@@ -153,6 +153,29 @@ button {
   margin-top: 1em;
 }
 
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.columnLeft50, .columnRight50 {
+  width: 90%; 
+  margin-bottom: 20px; 
+}
+
+@media screen and (min-width: 900px) {
+  .columnContainer {
+    flex-direction: row; 
+    justify-content: space-around; 
+  }
+  
+  .columnLeft50, .columnRight50 {
+    width: 45%; 
+    margin-bottom: 0; 
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .columnLeft50 {
     float: left;

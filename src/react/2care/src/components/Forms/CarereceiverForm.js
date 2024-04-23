@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { registerCarereceiver } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const CarereceiverForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,6 +33,7 @@ const CarereceiverForm = () => {
     try {
       await registerCarereceiver(formData);
       console.log("Usuário registrado com sucesso");
+      navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar os dados:", error.message);
     }

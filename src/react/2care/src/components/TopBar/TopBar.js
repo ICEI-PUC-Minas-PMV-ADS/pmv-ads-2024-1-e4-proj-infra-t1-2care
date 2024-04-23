@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom'
 import './TopBar.css'
 
-const TopBar = () => {
-
-    const [isLogged, setIsLogged] = useState(false)
+const TopBar = ({ isLogged, userName }) => {
 
     return (
         <div className='topBar'>
@@ -14,10 +13,16 @@ const TopBar = () => {
                 <input type="text" className='searchInput' placeholder='Buscar'></input>
             </div>
             <div className='rightMenu'>
-                {isLogged ? <a href="/profile"><img src="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg" alt="Perfil"></img></a> : <a href='/'><button>Login</button></a>}
+                {isLogged ? (
+                       <span>{userName}</span>                                 
+                ) : (
+                    <Link to="/">
+                        <button>Login</button>
+                    </Link>                 
+                )}
             </div>
-        </div>
 
+        </div>
     )
 }
 

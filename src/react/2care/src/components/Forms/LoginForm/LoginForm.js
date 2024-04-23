@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signIn } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
+import getUserByEmail from "../../../services/userService";
 
 const LoginForm = ({ setIsLogged }) => {
   const navigate = useNavigate();
@@ -19,12 +20,13 @@ const LoginForm = ({ setIsLogged }) => {
     try {
       await signIn(formData);
       console.log("Usuário autenticado com sucesso!");
-      // Redirecionar o usuário para a página principal ou para a próxima rota após o login
-      navigate("/home"); 
+      navigate("/home");      
+      const userData = await getUserByEmail(formData.email);
       setIsLogged(true);
+      console.log("Informações do usuário:", userData);
     } catch (error) {
       console.error("Erro ao autenticar o usuário:", error.message);
-      // Exibir uma mensagem de erro para o usuário, se necessário
+     // Exibir uma mensagem de erro para o usuário, se necessário
     }
   };
 
