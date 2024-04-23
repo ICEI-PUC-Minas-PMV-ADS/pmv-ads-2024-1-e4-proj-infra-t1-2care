@@ -156,7 +156,6 @@ button {
 .columnContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .columnLeft50, .columnRight50 {

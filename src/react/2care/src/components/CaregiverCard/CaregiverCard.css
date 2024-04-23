@@ -17,11 +17,20 @@
     display: block;
     text-align: left;
     justify-content: center;
-    line-height: 0.5;
+    line-height: 1;
+    margin: 1em;
+
 }
 
 .caregiverCard img {
     border-radius: 50%;
     width: 8em;
     height: 8em;
+    margin-top: 1em;
 }
+
+@media screen and (max-width: 768px) {
+    .caregiverCard {
+      width: 90%;
+    }
+  }

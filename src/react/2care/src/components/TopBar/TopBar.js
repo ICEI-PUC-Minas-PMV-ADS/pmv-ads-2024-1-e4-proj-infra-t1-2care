@@ -1,29 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import './TopBar.css'
+import React, { useState } from "react";
+import { searchCaregivers } from '../../utils/searchUtils';
+import { Link } from "react-router-dom";
+import "./TopBar.css";
 
-const TopBar = ({ isLogged, userName }) => {
+const TopBar = ({ isLogged, userName, caregivers, onSearch }) => {
+  const [searchText, setSearchText] = useState("");
 
-    return (
-        <div className='topBar'>
-            <div className='logo'>
-                <a href='/home'><img src='../../logo.png' alt="Logo" /></a>
-            </div>
-            <div className='search'>
-                <input type="text" className='searchInput' placeholder='Buscar'></input>
-            </div>
-            <div className='rightMenu'>
-                {isLogged ? (
-                       <span>{userName}</span>                                 
-                ) : (
-                    <Link to="/">
-                        <button>Login</button>
-                    </Link>                 
-                )}
-            </div>
+  const handleSearchChange = (event) => {
+    const searchText = event.target.value;
+    setSearchText(searchText);
+    const filteredCaregivers = searchCaregivers(searchText, caregivers)
+    onSearch(filteredCaregivers);
+  };
 
-        </div>
-    )
-}
+  return (
+    <div className="topBar">
+      <div className="logo">
+        <a href="/home">
+          <img src="../../logo.png" alt="Logo" />
+        </a>
+      </div>
+      <div className="search">
+        <input type="text" className="searchInput" placeholder="Buscar" value={searchText} onChange={handleSearchChange}></input>
+      
+         {/* Aqui você pode adicionar lógica para enviar a consulta de pesquisa */}
+        
+      </div>
+      <div className="rightMenu">
+        {isLogged ? (
+          <span>{userName}</span>
+        ) : (
+          <Link to="/">
+            <button>Login</button>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default TopBar
+export default TopBar;
