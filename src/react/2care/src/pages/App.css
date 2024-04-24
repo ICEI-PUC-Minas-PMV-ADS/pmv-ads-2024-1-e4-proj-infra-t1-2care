@@ -38,7 +38,7 @@ form {
   flex-wrap: wrap;
   border-radius: 1.5em;
   padding: 1em;
-  text-align: center;
+  text-align: left;
   width: 100%;
 }
 
@@ -51,7 +51,7 @@ input,
 select,
 textarea {
   width: 80%;
-  height: 1.5em;
+  height: 2.5em;
   border-radius: 0.65em;
   background-color: white;
   border: none;
@@ -62,17 +62,7 @@ textarea {
 input.checkbox,
 input.radio {
   width: 2.5em;
-  box-shadow: none;
 }
-
-input[type='datetime-local'] {
-  width: 15%;
-  padding: 8px;
-  border: 1px solid rgba(255, 255, 255);
-  border-radius: 4px;
-  font-size: 16px;
-}
-
 
 .checkbox input:checked {
   background-color: #ED8733;
@@ -135,7 +125,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   border-radius: 1.5em;
-  padding: 2.3em;
+  padding: 0.3em;
   width: 80%;
   text-align: left;
   align-items: center;
@@ -163,11 +153,26 @@ button {
   margin-top: 1em;
 }
 
-.requestCard img {
-  border-radius: 50%;
-  width: 8em;
-  height: 8em;
-  margin-top: 1em;
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnLeft50, .columnRight50 {
+  width: 90%; 
+  margin-bottom: 20px; 
+}
+
+@media screen and (min-width: 900px) {
+  .columnContainer {
+    flex-direction: row; 
+    justify-content: space-around; 
+  }
+  
+  .columnLeft50, .columnRight50 {
+    width: 45%; 
+    margin-bottom: 0; 
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -229,18 +234,20 @@ button {
   }
 }
 
-.proposalCard {
+.flex-container {
+  width: 85%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  margin: 1em;
 }
 
-.columnLeft {
-  width: 60%;
+#columnForm {
+  width: 59vw;
+  display: flex;
+  justify-content: space-between;
 }
 
-.columnRight {
-  width: 35%; 
+#additional_info {
+  width: 21.5vw;
+  height: 10vh;
+  resize: none;
 }
-
