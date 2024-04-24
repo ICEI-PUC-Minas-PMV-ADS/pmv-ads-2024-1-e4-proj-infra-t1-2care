@@ -22,14 +22,79 @@ const CarereceiverForm = () => {
     emergency_contact: "",
     additional_info: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const validateEmail = (email) => {
+    const re = /^\S+@\S+\.\S+$/;
+    return re.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const re = /^\(\d{2}\) \d{5}-\d{4}$/;
+    return re.test(phone);
+  };
+
+  const validateCEP = (cep) => {
+    const re = /^\d{5}-\d{3}$/;
+    return re.test(cep);
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (name === 'email' && !validateEmail(value)) {
+      setErrors({ ...errors, [name]: "Por favor, insira um e-mail válido." });
+    } else
+    
+    {/*
+    if (name === 'phone' && !validatePhone(value)) {
+      setErrors({ ...errors, [name]: "Por favor, insira um telefone válido." });
+    */}
+    
+    if (name === 'post_code' && !validateCEP(value)) {
+      setErrors({ ...errors, [name]: "Por favor, insira um CEP válido." });
+    } else {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = {};
+
+    if (!formData.email || !validateEmail(formData.email)) {
+      validationErrors.email = "Por favor, insira um um e-mail válido.";
+    }
+
+    if (!formData.password || formData.password.length < 6) {
+      validationErrors.password = "A senha deve ter no mínimo 6 caracteres.";
+    }
+
+    if (formData.password !== formData.confirm_password) {
+      validationErrors.confirm_password = "As senhas não coincidem.";
+    }
+
+{/*
+    if (!formData.phone || !validatePhone(formData.phone)) {
+      validationErrors.phone = "Por favor, revise o número do telefone.";
+    }
+  */}
+
+
+    if (!formData.post_code || !validateCEP(formData.post_code)) {
+      validationErrors.post_code = "Por favor, insira um CEP válido.";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       await registerCarereceiver(formData);
       console.log("Usuário registrado com sucesso");
@@ -38,6 +103,7 @@ const CarereceiverForm = () => {
       console.error("Erro ao cadastrar os dados:", error.message);
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -52,8 +118,10 @@ const CarereceiverForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-            ></input>
-          </div>
+              onBlur={handleBlur}
+              ></input>
+              {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
+            </div>
           <div className="field">
             <label htmlFor="password">password:</label>
             <input
@@ -63,8 +131,9 @@ const CarereceiverForm = () => {
               value={formData.password}
               onChange={handleChange}
               required
-            ></input>
-          </div>
+              ></input>
+              {errors.password && <span style={{ color: "red" }}>{errors.password}</span>}
+           </div>
           <div className="field">
             <label htmlFor="confirm_password">Confirmar senha:</label>
             <input
@@ -74,8 +143,9 @@ const CarereceiverForm = () => {
               value={formData.confirm_password}
               onChange={handleChange}
               required
-            ></input>
-          </div>
+              ></input>
+              {errors.confirm_password && <span style={{ color: "red" }}>{errors.confirm_password}</span>}
+            </div>
           <div className="field">
             <label htmlFor="name">Nome completo:</label>
             <input
@@ -113,8 +183,10 @@ const CarereceiverForm = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-            ></input>
-          </div>
+              onBlur={handleBlur}
+              ></input>
+              {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
+            </div>
         </div>
 
         <div className="columnRight50">
@@ -130,7 +202,8 @@ const CarereceiverForm = () => {
               <option value="1">Masculino</option>
               <option value="2">Feminino</option>
               <option value="0">Não especificado</option>
-            </select>
+              </select>
+            {errors.gender && <span style={{ color: "red" }}>{errors.gender}</span>}
           </div>
           <div className="field">
             <label htmlFor="address">Endereço:</label>
@@ -150,8 +223,10 @@ const CarereceiverForm = () => {
               name="post_code"
               value={formData.post_code}
               onChange={handleChange}
-            />
-          </div>
+              onBlur={handleBlur}
+              ></input>
+              {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
+            </div>
           <div className="field">
             <label htmlFor="emergency_contact">Contatos de Emergência:</label>
             <input
