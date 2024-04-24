@@ -11,6 +11,8 @@ import SendRequest from '../pages/SendRequest.js';
 import Requests from '../pages/Requests.js';
 import Ratings from '../pages/Ratings.js';
 import Register from '../pages/Register.js';
+import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.js';
+import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.js'
 import ProfileCaregiverSpec from '../pages/ProfileCareGiverSpec.jsx';
 
 export default (props) => (
@@ -28,6 +30,8 @@ export default (props) => (
             <Route path="register/:type" element={<Register />} />
             <Route name="Rating" path="ratings" element={<Ratings />} />
             <Route name="Rating" path="ratings" element={<Ratings />} />
+            <Route name="caregiverCalendar" path="caregiver/calendar" element={<CaregiverCalendar />} />
+            <Route name="caregiverEvaluations" path="caregiver/evaluations" element={<CaregiverEvaluations />} />
             </Routes>
         </BrowserRouter >
     </ThemeProvider>
