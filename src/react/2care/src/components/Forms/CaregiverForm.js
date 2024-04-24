@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { registerCaregiver } from "../../services/authService";
 
 const CaregiverForm = () => {
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -10,7 +9,7 @@ const CaregiverForm = () => {
     name: "",
     birth_date: "",
     phone: "",
-    user_type: 1, 
+    user_type: 1,
     gender: "",
     address: "",
     post_code: "",
@@ -24,9 +23,9 @@ const CaregiverForm = () => {
     day_price: null,
     max_request_km: null,
     additional_info: "",
-  })
+  });
 
-  const handleChange = (e) => {
+    const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -36,7 +35,6 @@ const CaregiverForm = () => {
     try {
       await registerCaregiver(formData);
       console.log("Usuário registrado com sucesso");
-      
     } catch (error) {
       console.error("Erro ao cadastrar os dados:", error.message);
     }
@@ -44,51 +42,111 @@ const CaregiverForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div id='columnForm'> 
-        <div className='columnLeft50'>
-          <div className='field'>
+      <div id="columnForm">
+        <div className="columnLeft50">
+          <div className="field">
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required></input>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            ></input>
           </div>
-          <div className='field'>
+          <div className="field">
             <label htmlFor="password">Senha:</label>
-            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required></input>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            ></input>
           </div>
-          <div className='field'>
+          <div className="field">
             <label htmlFor="confirm_password">Confirmar senha:</label>
-            <input type="password" id="confirm_password" name="confirm_password" value={formData.confirm_password} onChange={handleChange} required></input>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              value={formData.confirm_password}
+              onChange={handleChange}
+              required
+            ></input>
           </div>
-          <div className='field'>
+          <div className="field">
             <label htmlFor="name">Nome completo:</label>
-            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required></input>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            ></input>
           </div>
-          <div className='field'>
+          <div className="field">
             <label htmlFor="birth_date">Data de Nascimento:</label>
-            <input type="date" id="birth_date" name="birth_date" value={formData.birth_date} onChange={handleChange}></input>
+            <input
+              type="date"
+              id="birth_date"
+              name="birth_date"
+              value={formData.birth_date}
+              onChange={handleChange}
+            ></input>
           </div>
-          <div className='field'>
+          <div className="field">
             <label htmlFor="phone">Telefone/Celular:</label>
-            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange}></input>
-          </div>
-              <div className='field'>
-                <label htmlFor="gender">Gênero:</label>
-                <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-                  <option value="">Selecione</option>
-                  <option value="1">Masculino</option>
-                  <option value="2">Feminino</option>
-                  <option value="0">Não especificado</option>
-                </select>
-              </div>
-          <div className='field'>
-            <label htmlFor="address">Address:</label>
-            <input id="address" name="address" type='text' value={formData.address} onChange={handleChange}/>
-          </div>
-          <div className='field'>
-            <label htmlFor="post_code">post_code:</label>
-            <input type="text" id="post_code" name="post_code" value={formData.post_code} onChange={handleChange}/>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            ></input>
           </div>
         </div>
-        {/* <div className='columnRight50'>
+
+        <div className="columnRight50">
+          <div className="field">
+            <label htmlFor="gender">Gênero:</label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Selecione</option>
+              <option value="1">Masculino</option>
+              <option value="2">Feminino</option>
+              <option value="0">Não especificado</option>
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="address">Endereço:</label>
+            <input
+              id="address"
+              name="address"
+              type="text"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="post_code">CEP:</label>
+            <input
+              type="text"
+              id="post_code"
+              name="post_code"
+              value={formData.post_code}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* 
           <div className='field'>
             <label htmlFor="qualifications">Qualificações:</label>
             <input type="text" id="qualifications" name="qualifications" value={formData.qualifications} onChange={handleChange} />
@@ -139,14 +197,14 @@ const CaregiverForm = () => {
             <input type="text" id="address" value={formData.address} onChange={handleChange} />
           </div>
           <div className='field'>
-            <label for="additional_info">Informações adicionais:</label>
-            <textarea id="additional_info" name="additional_info"></textarea>
-          </div>
-        </div> */}
-        <button type="submit">Salvar</button>
+            <label htmlFor="additional_info">Informações adicionais:</label>
+            <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
+          </div>*/}
+        <button class="buttonRegister" type="submit">Salvar</button>
+        </div>
       </div>
-    </form >
+    </form>
   );
-}
+};
 
 export default CaregiverForm;
