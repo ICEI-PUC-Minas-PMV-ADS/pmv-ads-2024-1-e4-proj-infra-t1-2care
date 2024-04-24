@@ -25,8 +25,8 @@ export default (props) => (
             <Route path="ProfileCaregiver" element={<ProfileCaregiver />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
+            <Route path="register/:type" element={<Register />} />
             <Route name="Rating" path="ratings" element={<Ratings />} />
-            <Route name="Register" path="register" element={<Register />} />
             <Route name="Rating" path="ratings" element={<Ratings />} />
             <Route name="caregiverCalendar" path="caregiver/calendar" element={<CaregiverCalendar />} />
             <Route name="caregiverEvaluations" path="caregiver/evaluations" element={<CaregiverEvaluations />} />

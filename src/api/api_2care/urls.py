@@ -43,6 +43,7 @@ from core.views import (
     UserLoginView,
     UserLogoutView,
     MongoUpdate,
+    GetGeoLocation,
 
 )
 from rest_framework import permissions
@@ -156,4 +157,5 @@ urlpatterns = [
     ),
     path("ratings/", RatingCreateView.as_view(), name="rating-create"),
     path("ratings/<uuid:pk>/", RatingDetailView.as_view(), name="rating-detail"),
+    path("get/location/<str:post_code>", GetGeoLocation.as_view(), name="get-location"),
 ]

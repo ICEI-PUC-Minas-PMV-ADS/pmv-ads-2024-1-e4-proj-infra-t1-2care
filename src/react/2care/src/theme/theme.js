@@ -4,10 +4,6 @@ import './catamaran.css';
 const theme = createTheme({
   typography:{
     fontFamily: "'Catamaran', sans-serif",
-    fontSize: '1rem',
-    '@media (min-width:600px)': {
-      fontSize: '1.2rem',
-    },
     fontWeight: 600,
   },
   palette: {
