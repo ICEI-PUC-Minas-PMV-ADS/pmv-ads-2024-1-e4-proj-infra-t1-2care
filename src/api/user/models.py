@@ -46,10 +46,6 @@ class CustomUserModel(AbstractUser):
         (2, "CareReceiver"),
     ]
 
-    user_type = models.CharField(
-        max_length=12, choices=USER_TYPE_CHOICES, blank=False, null=False
-    )
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True, blank=False, null=False)
     password = models.CharField(max_length=128)
@@ -60,7 +56,7 @@ class CustomUserModel(AbstractUser):
     post_code = models.CharField(max_length=15)
     latitude = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
-    user_type = models.IntegerField()
+    user_type = models.IntegerField(choices=USER_TYPE_CHOICES,)
     gender = models.IntegerField(choices=GENDER_CHOICES, default=0)
     preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES, default=0)
     birth_date = models.DateField(null=True, blank=True)

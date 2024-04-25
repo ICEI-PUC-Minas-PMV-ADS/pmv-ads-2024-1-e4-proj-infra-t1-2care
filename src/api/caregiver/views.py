@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.db import transaction
+from api_2care.mongo_connection import MongoConnection
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -21,6 +23,11 @@ from .serializers import (
     SpecializationSerializer,
 )
 
+class MongoCaregiverListView(APIView):
+    permission_classes = (AllowAny,) 
+    def get(self, request):
+        return Response(MongoConnection().get_data_on_mongo(), 200)
+
 class CaregiverListView(
     generics.ListAPIView
 ):  # Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
@@ -31,32 +38,53 @@ class CaregiverListView(
     permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     # authentication_classes =[JWTAuthentication]
 
-
 class CaregiverEditView(APIView):
     queryset = CaregiverModel.objects.all()
 
     serializer_class = CaregiverSerializer
     authentication_classes = [JWTAuthentication]
 
-    # como não temos a token ainda, não consigo direcionar pro usuario certo
-    def put(self, request, format=None):
-        caregiver = self.queryset.first()  # fixme
+    def post(self, request, *args, **kwargs):
+        caregiver = CaregiverModel.objects.filter(user=request.user).first()
+        request.data["user"] = request.user.id
+        update = False
 
-        serializer = CaregiverSerializer(caregiver, data=request.data)
-
+        if caregiver:
+            update = True
+            serializer = CaregiverSerializer(caregiver, data=request.data)
+        else:
+            if not request.user.get_user_type_display() == "Caregiver":
+                return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+            
+            serializer = self.serializer_class(data=request.data)
+    
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            caregiver_instance = serializer.save()
+            MongoConnection().set_caregiver_data_on_mongo(caregiver_instance, update)
+            return Response(serializer.data, status=status.HTTP_201_CREATED if not caregiver else status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, format=None):
+        caregiver = CaregiverModel.objects.filter(user=request.user).first()
+        if caregiver:
+            serializer = CaregiverSerializer(caregiver, data=request.data)
+            if serializer.is_valid():
+                caregiver_instance = serializer.save()
+                MongoConnection().set_caregiver_data_on_mongo(caregiver_instance, update=True)
+                return Response(serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, format=None):
-        caregiver = self.queryset.first()  # fixme
-        serializer = CaregiverSerializer(caregiver, data=request.data, partial=True)
+        caregiver = CaregiverModel.objects.filter(user=request.user).first()
+        if caregiver:
+            serializer = CaregiverSerializer(caregiver, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            if serializer.is_valid():
+                caregiver_instance = serializer.save()
+                MongoConnection().set_caregiver_data_on_mongo(caregiver_instance, update=True)
+                return Response(serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

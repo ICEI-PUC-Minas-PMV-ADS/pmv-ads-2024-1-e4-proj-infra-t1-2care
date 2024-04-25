@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import (
+    MongoCaregiverListView,
     CareRequestAcceptView,
     CareRequestDeclineView,
     CareRequestDetailView,
@@ -20,7 +21,7 @@ from .views import (
 
 urlpatterns = [
     # Caregiver App -> Rotas relacionadas aos Cuidadores
-    path("", CaregiverListView.as_view(), name="caregiver-list"),
+    path("", MongoCaregiverListView.as_view(), name="caregiver-list"),
     path("edit/", CaregiverEditView.as_view(), name="caregiver-edit"),
     path(
         "my-calendar",
