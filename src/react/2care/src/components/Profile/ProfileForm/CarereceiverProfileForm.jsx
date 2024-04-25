@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 const CareReceiverProfileForm = () => {
   const [formData, setFormData] = useState({
     name: '',
-    age: '',
+    birth_date: '',
     gender: '',
-    contact: '',
+    phone: '',
     emergency_contact: '',
     address: '',
     post_code: '',
@@ -16,7 +16,7 @@ const CareReceiverProfileForm = () => {
 
   const [errors, setErrors] = useState({
     name: false,
-    contact: false,
+    phone: false,
     address: false,
     post_code: false,
     gender: false
@@ -26,16 +26,16 @@ const CareReceiverProfileForm = () => {
     const { name, value } = e.target;
     let updatedValue = value;
 
-    if (name === 'age' || name === 'contact' || name === 'emergency_contact') {
+    if (name === 'birth_date' || name === 'phone' || name === 'emergency_contact') {
       const numericValue = value.replace(/\D/g, '');
 
-      if (name === 'age') {
+      if (name === 'birth_date') {
         updatedValue = numericValue.slice(0, 8);
 
         if (updatedValue.length === 8) {
           updatedValue = `${updatedValue.substring(0, 2)}/${updatedValue.substring(2, 4)}/${updatedValue.substring(4, 8)}`;
         }
-      } else if (name === 'contact' || name === 'emergency_contact') {
+      } else if (name === 'phone' || name === 'emergency_contact') {
         updatedValue = numericValue.slice(0, 11);
 
         if (updatedValue.length >= 10) {
@@ -57,7 +57,7 @@ const CareReceiverProfileForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requiredFields = ['name', 'contact', 'address', 'post_code', 'gender'];
+    const requiredFields = ['name', 'phone', 'address', 'post_code', 'gender'];
     const newErrors = {};
     let hasError = false;
 
@@ -94,12 +94,12 @@ const CareReceiverProfileForm = () => {
           </div>
 
           <div className="field">
-            <label htmlFor="age">Data de Nascimento:</label>
+            <label htmlFor="birth_date">Data de Nascimento:</label>
             <input
               type="text"
-              id="age"
-              name="age"
-              value={formData.age}
+              id="birth_date"
+              name="birth_date"
+              value={formData.birth_date}
               onChange={handleChange}
             />
           </div>
@@ -115,19 +115,17 @@ const CareReceiverProfileForm = () => {
               <option value="">Selecione o Gênero</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
-              <option value="Não-binário">Não-binário</option>
-              <option value="Prefiro não responder">Prefiro não responder</option>
-              <option value="Outro">Outro</option>
+              <option value="Não especificado">Não especificado</option>
             </select>
           </div>
 
           <div className="field">
-            <label htmlFor="contact">Telefone:</label>
+            <label htmlFor="phone">Telefone:</label>
             <input
               type="text"
-              id="contact"
-              name="contact"
-              value={formData.contact}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
             />
           </div>
