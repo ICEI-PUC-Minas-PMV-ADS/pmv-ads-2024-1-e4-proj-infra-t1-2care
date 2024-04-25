@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
 // import ResponsiveAppBar from '../components/layout/ResponsiveAppBar';
 import Home from '../pages/home.jsx'
-import ProfileCarereciver from '../pages/ProfileCarereciver.jsx'
+import ProfileCareReceiver from '../pages/ProfileCareReceiver.jsx';
 import ProfileCaregiver from '../pages/ProfileCaregiver.jsx'
 import Login from '../pages/Login.js'
 import { ThemeProvider } from '@mui/material/styles';
@@ -13,6 +13,7 @@ import Ratings from '../pages/Ratings.js';
 import Register from '../pages/Register.js';
 import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.js';
 import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.js'
+import ProfileCaregiverSpec from '../pages/ProfileCareGiverSpec.jsx';
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -21,8 +22,9 @@ export default (props) => (
             <Routes>
             <Route exact path="/" element={<Login />} />
             <Route exact path="home" element={<Home />} />
-            <Route path="ProfileCarereciver" element={<ProfileCarereciver />} />
+            <Route path="ProfileCareReceiver" element={<ProfileCareReceiver />} />
             <Route path="ProfileCaregiver" element={<ProfileCaregiver />} />
+            <Route path='ProfileCaregiverSpec' element={<ProfileCaregiverSpec />} />
             <Route path="request" element={<SendRequest />} />
             <Route path="requests" element={<Requests />} />
             <Route path="register/:type" element={<Register />} />

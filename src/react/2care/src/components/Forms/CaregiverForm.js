@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerCaregiver } from "../../services/authService";
+import SpecializationList from '../ListSelection/SpecializationListSelection'
 import { useNavigate } from "react-router-dom";
 
 const CaregiverForm = () => {
