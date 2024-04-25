@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie';
 import { getGeolocationApi } from './otherService';
+import { API_URL } from './apiService';
 
-const API_URL = "http://127.0.0.1:8000";
-//const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
+const SERVICE_URL = "/user";
 
 export const signIn = async ({ email, password }) => {
 
     try {
-        const response = await fetch(`${API_URL}/token/`, {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/login/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -20,9 +20,10 @@ export const signIn = async ({ email, password }) => {
         }
 
         const result = await response.json();
-
         Cookies.set('access', result["access"], { expires: 1, secure: true, sameSite: 'strict' });
         Cookies.set('refresh', result["refresh"], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('latitude', result["user"]["latitude"], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('longitude', result["user"]["longitude"], { expires: 1, secure: true, sameSite: 'strict' });
 
         return true;
     } catch (error) {
@@ -43,7 +44,7 @@ export const registerCaregiver = async ({ email, password, confirm_password, nam
         fixed_unavailable_days, fixed_unavailable_hours, custom_unavailable_days, hour_price, day_price, max_request_km, additional_info)
 
     try {
-        const response = await fetch(`${API_URL}/register/`, {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude, qualifications, work_experience, specializations,
@@ -71,7 +72,7 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
         emergency_contact, additional_info  )
     
     try {
-        const response = await fetch(`${API_URL}/register/`, {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, confirm_password, name, birth_date, language, phone, user_type, gender, address, post_code, latitude, longitude })
@@ -90,7 +91,7 @@ export const registerCarereceiver = async ({ email, password, confirm_password, 
 export const tokenRefresh = async () => {
     try {
         const refresh = Cookies.get("refresh")
-        const response = await fetch(`${API_URL}/token/refresh/`, {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/token/refresh/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh })
@@ -132,7 +133,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             requestOptions.body = JSON.stringify(data);
         }
 
-        let response = await fetch(`${API_URL}${url}`, requestOptions);
+        let response = await fetch(`${API_URL}${SERVICE_URL}${url}`, requestOptions);
 
         if (response.status === 401 || response.status === 403) {
             let newAccessToken = await tokenRefresh();
@@ -153,5 +154,16 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
         return result;
     } catch (error) {
         throw new Error(error.message);
+    }
+};
+
+export const isLoggedIn = () => {
+    if( Cookies.get('access') &&  Cookies.get('refresh')){
+        return true;
+    }else{
+        //logout TODO
+        Cookies.remove('access', { secure: true, sameSite: 'strict' });
+        Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+        return false
     }
 };

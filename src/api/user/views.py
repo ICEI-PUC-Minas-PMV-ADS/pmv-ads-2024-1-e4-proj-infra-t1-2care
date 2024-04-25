@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer
 
 from .models import (
     CustomUserModel
@@ -21,7 +21,8 @@ class UserSignupView(generics.CreateAPIView):
 
 
 class UserLoginView(TokenObtainPairView):
-    serializer_class = TokenObtainPairSerializer
+    permission_classes = [AllowAny]
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class UserLogoutView(APIView):

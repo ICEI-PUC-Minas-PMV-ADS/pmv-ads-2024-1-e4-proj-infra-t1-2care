@@ -47,5 +47,13 @@ class UserSerializer(serializers.ModelSerializer):
         return super(UserSerializer, self).update(instance, validated_data)
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    # Opcionalmente, personalize o TokenObtainPairSerializer
-    pass
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
+        data['user'] = {
+            'latitude': self.user.latitude,
+            'longitude': self.user.longitude,
+        }
+        return data
