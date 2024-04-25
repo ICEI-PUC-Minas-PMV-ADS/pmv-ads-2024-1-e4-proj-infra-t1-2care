@@ -35,11 +35,6 @@ const CarereceiverForm = () => {
     return re.test(email);
   };
 
-  const validatePhone = (phone) => {
-    const re = /^\(\d{2}\) \d{5}-\d{4}$/;
-    return re.test(phone);
-  };
-
   const validateCEP = (cep) => {
     const re = /^\d{5}-\d{3}$/;
     return re.test(cep);
@@ -50,12 +45,7 @@ const CarereceiverForm = () => {
     if (name === 'email' && !validateEmail(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um e-mail válido." });
     } else
-    
-    {/*
-    if (name === 'phone' && !validatePhone(value)) {
-      setErrors({ ...errors, [name]: "Por favor, insira um telefone válido." });
-    */}
-    
+          
     if (name === 'post_code' && !validateCEP(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um CEP válido." });
     } else {
@@ -78,17 +68,35 @@ const CarereceiverForm = () => {
     if (formData.password !== formData.confirm_password) {
       validationErrors.confirm_password = "As senhas não coincidem.";
     }
-
-{/*
-    if (!formData.phone || !validatePhone(formData.phone)) {
-      validationErrors.phone = "Por favor, revise o número do telefone.";
+    
+    if (!formData.name) {
+      validationErrors.name = "Por favor, preencha seu nome completo.";
     }
-  */}
 
+    if (!formData.birth_date) {
+      validationErrors.birth_date = "Por favor, insira sua data de nascimento.";
+    }
 
+    if (!formData.phone) {
+      validationErrors.phone = "Por favor, insira seu número de telefone ou celular.";
+    }
+  
+    if (!formData.gender) {
+      validationErrors.gender = "Por favor, selecione seu gênero.";
+    }
+  
+    if (!formData.address) {
+      validationErrors.address = "Por favor, insira seu endereço.";
+    }
+  
     if (!formData.post_code || !validateCEP(formData.post_code)) {
-      validationErrors.post_code = "Por favor, insira um CEP válido.";
+      validationErrors.post_code = "Por favor, insira um CEP válido, no formato: 00000-000.";
     }
+
+    if (!formData.emergency_contact) {
+      validationErrors.emergency_contact = "Por favor, insira um contato para emergência.";
+    }
+
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -165,6 +173,7 @@ const CarereceiverForm = () => {
               name="birth_date"
               value={formData.birth_date}
               onChange={handleChange}
+              required
             ></input>
           </div>
           {/*<div className="field">
@@ -183,6 +192,7 @@ const CarereceiverForm = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              required
               onBlur={handleBlur}
               ></input>
               {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
@@ -197,6 +207,7 @@ const CarereceiverForm = () => {
               name="gender"
               value={formData.gender}
               onChange={handleChange}
+              required
             >
               <option value="">Selecione</option>
               <option value="1">Masculino</option>
@@ -213,6 +224,7 @@ const CarereceiverForm = () => {
               type="text"
               value={formData.address}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="field">
@@ -223,6 +235,7 @@ const CarereceiverForm = () => {
               name="post_code"
               value={formData.post_code}
               onChange={handleChange}
+              required
               onBlur={handleBlur}
               ></input>
               {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
@@ -235,6 +248,7 @@ const CarereceiverForm = () => {
               name="emergency_contact"
               value={formData.emergency_contact}
               onChange={handleChange}
+              required
             ></input>
           </div>
 
