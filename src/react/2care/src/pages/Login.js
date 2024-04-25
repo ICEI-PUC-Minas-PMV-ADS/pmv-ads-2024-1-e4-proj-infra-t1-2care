@@ -35,24 +35,26 @@ const Login = () => {
             <TopBarLogin></TopBarLogin>
             <NavBar isLogged={isLogged}></NavBar>
             <section style={sectionBackground}>
-                <div className="columnLeft50" >
-                    <div style={description}>
-                        <h2>Bem-vindos ao <span style={{ color: theme.palette.secondary.main }}>2Care!</span></h2>
-                        <h4>Conectamos famílias a cuidadores de idosos de maneira ágil e eficiente, facilitando a busca pelo profissional que melhor atenda às suas necessidades.</h4>
+                <div className="columnContainer">
+                    <div className="columnLeft50">
+                        <div style={description}>
+                            <h2>Bem-vindos ao <span style={{ color: theme.palette.secondary.main }}>2Care!</span></h2>
+                            <h4>Conectamos famílias a cuidadores de idosos de maneira ágil e eficiente, facilitando a busca pelo profissional que melhor atenda às suas necessidades.</h4>
+                        </div>
+                        <div style={{ float: 'left' }}>
+                            <h4 style={{ color: theme.palette.background.light }}>Crie agora mesmo a sua conta!</h4>
+                            <Link to="/register/carereceiver">
+                                <button style={{ width: '120px', background: theme.palette.secondary.main}}>Cliente</button>
+                            </Link>
+                            <Link to="/register/caregiver">
+                                <button style={{ width: '120px', background: theme.palette.secondary.main }}>Cuidador</button>
+                            </Link>
+                        </div>
                     </div>
-                    <div style={{ float: 'left' }}>
-                        <h4 style={{ color: theme.palette.background.light }}>Crie agora mesmo a sua conta!</h4>
-                        <Link to="/register/carereceiver">
-                            <button style={{ width: '120px', background: theme.palette.secondary.main}}>Cliente</button>
-                        </Link>
-                        <Link to="/register/caregiver">
-                            <button style={{ width: '120px', background: theme.palette.secondary.main }}>Cuidador</button>
-                        </Link>
-                    </div>
-                </div>
 
-                <div className="columnRight50">
-                    <LoginForm setIsLogged={setIsLogged}></LoginForm>
+                    <div className="columnRight50">
+                        <LoginForm setIsLogged={setIsLogged}></LoginForm>
+                    </div>
                 </div>
             </section>
         </div >
