@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import './App.css'
 import { useTheme } from '@mui/material/styles';
-
 import NavBar from '../components/NavBar/NavBar'
 import TopBar from '../components/TopBar/TopBar'
 import CaregiverList from '../components/CaregiverList/CaregiverList'
+import './App.css'
 
 function Home() {
   const theme = useTheme();
