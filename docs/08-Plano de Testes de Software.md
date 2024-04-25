@@ -8,8 +8,8 @@ O sistema visa proporcionar uma plataforma para conectar clientes que buscam ser
 
 ### b) Referências/documentação do Projeto
 
-- Especificação de Requisitos do Sistema: link para a documentação
-- Especificação de Casos de Uso: link para a documentação
+- Especificação de Requisitos do Sistema: [link para a documentação]
+- Especificação de Casos de Uso: [link para a documentação]
 
 
 ## 2. Abordagens de testes
@@ -66,7 +66,7 @@ O sistema visa proporcionar uma plataforma para conectar clientes que buscam ser
 ### a) Definição do ambiente de testes
 - Teremos testes unitários desenvolvidos individualmente por desenvolvedores com um volume moderado de dados. Faremos testes de integração com desenvolvedores e analistas de sistema, com um volume moderado de dados, conforme detalhamento a seguir.
 - Teremos testes em toda a aplicação com analistas de sistemas e testadores com um volume moderado de dados. Serão utilizados dados reais ou criados na hora. Também teremos testes de aceitação com toda a aplicação, com testadores com um volume moderado de dados reais.
-- As máquinas deverão estar em um servidor em nuvem para melhor desempenho, com conexão de internet de no mínimo 100 mb de velocidade, os softwares utilizados para testes serão [........ Mantis para gerenciamento de defeitos, Selenium WebDriver para automação de testes e Jtest para testes estáticos, Netbeans e SQLIte para desenvolvimento do software.......]
+- As máquinas deverão estar em um servidor em nuvem para melhor desempenho, com conexão de internet de no mínimo 100 mb de velocidade.
 
 ## 4. Programação dos testes
 
@@ -371,7 +371,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a página de Busca</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
+|Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a página de Cuidadores ir até o filtro de Buscas</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
 | Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
 
 
@@ -395,7 +395,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a página de Busca</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
+|Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a página de cuidadores ir até o filtro de Buscas</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
 | Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
 
 
