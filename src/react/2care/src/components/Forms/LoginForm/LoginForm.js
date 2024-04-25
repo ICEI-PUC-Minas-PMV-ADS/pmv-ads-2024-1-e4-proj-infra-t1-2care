@@ -75,7 +75,7 @@ const LoginForm = ({ setIsLogged }) => {
             required 
             style={{ borderColor: errors.email ? 'red' : 'initial' }}
           />
-          {errors.email && <span style={{ color: "red", position: 'relative', top: '100%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.email}</span>}
+          {errors.email && <span style={{ color: "red", position: 'relative', center: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.email}</span>}
         </div>
         <div style={{ position: 'relative' }}>
           <input 
@@ -88,7 +88,7 @@ const LoginForm = ({ setIsLogged }) => {
             required 
             style={{ borderColor: errors.password ? 'red' : 'initial' }} 
           />
-          {errors.password && <span style={{ color: "red", position: 'relative', top: '100%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.password}</span>}
+          {errors.password && <span style={{ color: "red", position: 'relative', center: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.password}</span>}
         </div>
         <div>
           <button type="submit">Entrar</button>

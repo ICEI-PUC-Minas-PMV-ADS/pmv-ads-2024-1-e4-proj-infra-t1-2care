@@ -71,11 +71,11 @@ const CaregiverForm = () => {
     const validationErrors = {};
 
     if (!formData.email || !validateEmail(formData.email)) {
-      validationErrors.email = "Por favor, insira o e-mail cadastrado.";
+      validationErrors.email = "Por favor, insira um e-mail válido.";
     }
 
     if (!formData.password || formData.password.length < 6) {
-      validationErrors.password = "Senha inválida!";
+      validationErrors.password = "A senha deve ter no mínimo 6 caracteres.";
     }
 
     if (formData.password !== formData.confirm_password) {

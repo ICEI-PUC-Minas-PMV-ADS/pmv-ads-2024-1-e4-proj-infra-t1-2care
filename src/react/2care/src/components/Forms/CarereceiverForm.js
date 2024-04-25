@@ -68,7 +68,7 @@ const CarereceiverForm = () => {
     const validationErrors = {};
 
     if (!formData.email || !validateEmail(formData.email)) {
-      validationErrors.email = "Por favor, insira um um e-mail válido.";
+      validationErrors.email = "Por favor, insira um e-mail válido.";
     }
 
     if (!formData.password || formData.password.length < 6) {
