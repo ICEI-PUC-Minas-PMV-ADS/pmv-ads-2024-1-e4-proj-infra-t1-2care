@@ -4,14 +4,13 @@ import Grid from '@mui/material/Grid';
 import NavBar from '../components/NavBar/NavBar';
 import TopBar from '../components/TopBar/TopBar';
 import ProfileCardCaregiver from '../components/Profile/ProfileCard/ProfileCardCaregiver';
-import CaregiverForm from '../components/Forms/CaregiverForm';
 import './App.css';
 import CaregiverProfileForm from '../components/Profile/ProfileForm/CaregiverProfileForm';
 
 function ProfileCaregiver() {
   const theme = useTheme();
   useEffect(() => {
-      document.title = 'Perfil';
+    document.title = 'Perfil';
   }, []);
 
   return (

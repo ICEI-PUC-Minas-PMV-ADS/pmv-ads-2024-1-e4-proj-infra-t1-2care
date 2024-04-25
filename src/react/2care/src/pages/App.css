@@ -349,3 +349,14 @@ button {
 .list-item:not(:last-child) {
   border-bottom: 1px solid #ddd;
 }
+
+.field.error input,
+.field.error select {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
