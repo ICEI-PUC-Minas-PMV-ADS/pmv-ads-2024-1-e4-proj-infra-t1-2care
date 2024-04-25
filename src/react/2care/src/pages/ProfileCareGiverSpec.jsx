@@ -4,13 +4,14 @@ import Grid from '@mui/material/Grid';
 import NavBar from '../components/NavBar/NavBar';
 import TopBar from '../components/TopBar/TopBar';
 import ProfileCardCaregiver from '../components/Profile/ProfileCard/ProfileCardCaregiver';
+import CaregiverForm from '../components/Forms/CaregiverForm';
 import './App.css';
-import CaregiverProfileForm from '../components/Profile/ProfileForm/CaregiverProfileForm';
+import SpecializationForm from '../components/Forms/SpecializationForm';
 
-function ProfileCaregiver() {
+function ProfileCaregiverSpec() {
   const theme = useTheme();
   useEffect(() => {
-    document.title = 'Perfil';
+      document.title = 'Perfil';
   }, []);
 
   return (
@@ -23,11 +24,11 @@ function ProfileCaregiver() {
                 <ProfileCardCaregiver/>
             </Grid>
             <Grid item xs={8}>
-                < CaregiverProfileForm />
+                <SpecializationForm />
             </Grid>
         </Grid>
     </div>
 );
 }
 
-export default ProfileCaregiver;
+export default ProfileCaregiverSpec;

@@ -1,5 +1,93 @@
 # Plano de Testes de Software
 
+## 1. Introdução
+
+### a) Propósito do Sistema
+O sistema visa proporcionar uma plataforma para conectar clientes que buscam serviços de cuidadores profissionais, oferecendo uma aplicação fácil de ser usada e segura para ambas as partes.
+
+
+### b) Referências/documentação do Projeto
+
+- Especificação de Requisitos do Sistema: [link para a documentação]
+- Especificação de Casos de Uso: [link para a documentação]
+
+
+## 2. Abordagens de testes
+
+### a) Requisitos Funcionais e Não Funcionais
+- Os testes serão realizados para garantir que todos os requisitos funcionais e não funcionais sejam atendidos conforme especificado na documentação.
+
+### Requisitos Funcionais
+
+|ID    | Descrição do Requisito  |
+|------|-----------------------------------------|
+|RF-01 | A aplicação deve permitir que os usuários façam seus cadastros e login. | 
+|RF-02 | A aplicação deve permitir que os usuários adicionem, editem e apaguem suas informações pessoais. | 
+|RF-03 | A aplicação deve permitir ao usuário cliente realizar buscas por profissionais de determinada região. |  
+|RF-04 | A aplicação deve permitir ao cuidador delimitar sua região de atendimento. | 
+|RF-05 | A aplicação deve oferecer recurso de filtragem de profissionais por formação, especialização e/ou tempo de experiência como cuidadores. | 
+|RF-06 | A aplicação deve permitir que o cuidador disponibilize suas datas e horários disponíveis para o atendimento. | 
+|RF-07 | A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores. | 
+|RF-08 | A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores. | 
+|RF-09 | A aplicação deve permitir que os profissionais insiram seus valores de atendimento.  | 
+|RF-10 | A aplicação deve apresentar o valor dos serviços ao cliente no momento da busca.  | 
+
+### Requisitos não Funcionais
+
+|ID     | Descrição do Requisito  |
+|-------|-------------------------|
+|RNF-01 | A interface da aplicação deve ser intuitiva e fácil de usar para pessoas de todas as idades. | 
+|RNF-02 | A aplicação deve ter um desempenho rápido e eficiente. |  
+|RNF-03 | A aplicação deve oferecer suporte para a língua portuguesa, garantindo que os usuários possam navegar e utilizar a plataforma em seu idioma nativo. | 
+|RNF-04 | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | 
+|RNF-05 | A aplicação deve assegurar a privacidade e segurança dos dados dos usuários, incluindo informações pessoais e feedback sobre cuidadores, cumprindo com a legislação local de proteção de dados (como LGPD no Brasil) | 
+|RNF-06 | A aplicação Web deve ser compatível com os principais navegadores (Google Chrome, Firefox, Edge).  | 
+|RNF-07 | A aplicação Mobile deve ser compatível com os sistemas operacionais Android e iOS,  garantindo uma experiência consistente para os usuários. | 
+
+
+### b) Detalhamento das abordagens de Teste
+- Testes de Unidade
+- Testes de Integração
+- Testes de Sistema e Aceitação
+- Testes de Desempenho
+- Testes de Usabilidade
+- Testes de Disponibilidade
+- Testes de Segurança
+
+### c) Ferramentas utilizadas
+| Ferramenta | Fabricante   | Versão | Finalidade |
+|------------|--------------|--------|------------|
+| TestLink   | TestLink.org | 1.9.20 | Gerenciamento de testes |
+| Pytest     | Python.org   | 3.12.3 | Testes unitários e de integração |
+| Zed Attack Proxy (ZAP) | Zaproxy.org | | Testes de segurança |    
+
+## 3. Ambiente de testes
+
+### a) Definição do ambiente de testes
+- Teremos testes unitários desenvolvidos individualmente por desenvolvedores com um volume moderado de dados. Faremos testes de integração com desenvolvedores e analistas de sistema, com um volume moderado de dados, conforme detalhamento a seguir.
+- Teremos testes em toda a aplicação com analistas de sistemas e testadores com um volume moderado de dados. Serão utilizados dados reais ou criados na hora. Também teremos testes de aceitação com toda a aplicação, com testadores com um volume moderado de dados reais.
+- As máquinas deverão estar em um servidor em nuvem para melhor desempenho, com conexão de internet de no mínimo 100 mb de velocidade.
+
+## 4. Programação dos testes
+
+### a) Objetivos e Prioridades
+. Por meio da API, a aplicação poderá realizar suas atribuições permitindo a realização de requestes de forma eficiente.
+
+. Por meio da aplicação Web e Mobile, os usuários podem:
+
+- Cadastrar-se e realizar login;
+- Gerenciar suas informações pessoais;
+- Buscar por profissionais em sua região;
+- Filtrar profissionais por critérios específicos;
+- Visualizar a disponibilidade dos cuidadores;
+- Agendar atendimentos;
+- Avaliar os serviços prestados;
+- Acessar o histórico de avaliações;
+- Visualizar o valor dos serviços;
+- Manter seus dados pessoais seguros e privados.
+
+## 5. Casos de testes
+
 ## Testes Unitários - Componentes Isolados - API
 
 ### Casos de Teste para Model
@@ -206,3 +294,271 @@
 | TII-01                  | Testar a integração entre a criação de um usuário e a criação de um CareReceiver associado. | `/api/register`, `/api/carereceivers/`              | Criação de usuário e CareReceiver       | Dados válidos para registro de um usuário e criação de um CareReceiver.    | Usuário e CareReceiver associado criados com sucesso.   | -                          |
 | TII-02                  | Testar o acesso autenticado a recursos protegidos após o login.                | `/api/login`, `/api/protected-resource`             | Login e Acesso a Recurso Protegido      | Credenciais válidas para login; Acesso a recurso protegido.               | Acesso ao recurso protegido concedido após autenticação. | -                          |
 | TII-03                  | Verificar o processo de logout e negação de acesso a recursos protegidos.      | `/api/logout`, `/api/protected-resource`            | Logout e Tentativa de Acesso            | Logout bem-sucedido; Tentativa de acesso a recurso protegido sem login.   | Logout bem-sucedido; Acesso negado ao recurso protegido. | -                          |
+
+
+
+<br>
+
+## Casos de testes WEB
+
+### Testes de Sistema e Aceitação
+
+Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, conforme descritos a seguir:
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-01 - Cadastro de Usuário |RF-01 – A aplicação deve permitir que os usuários façam seus cadastros e login.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os usuários podem se cadastrar na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher todos os campos obrigatórios com dados válidos.</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve retornar o usuário para a página de Login.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-02 - Login de Usuário |RF-01 – A aplicação deve permitir que os usuários façam seus cadastros e login.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+| Verificar se os usuários podem fazer o Login na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" cadastrados.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve direcionar o usuário para a tela "Cuidadores" já Logado, o que será visivelmente confirmado pela apresentação da foto/Imagem no canto superior esquerdo da tela.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-03 - Cadastro de Usuário com Dados Inválidos |RF-01 – A aplicação deve permitir que os usuários façam seus cadastros e login.|
+
+|Objetivo do teste | Passos | Critérios de êxito|
+|-|-|-|
+| Verificar se a aplicação nega o cadastro com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher os campos obrigatórios com dados inválidos (ex: e-mail sem formato válido, senha muito curta, etc.)</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos precisam ser revistos, não permitindo assim o cadastro. |
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-04 - Login de Usuário com Dados Inválidos |RF-01 – A aplicação deve permitir que os usuários façam seus cadastros e login.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a aplicação nega o login com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" com dados inválidos.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos são inválidos, não permitindo assim o login do usuário.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-05 - Edição de Informações Pessoais |RF-02 – A aplicação deve permitir que os usuários adicionem, editem e apaguem suas informações pessoais.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os usuários podem editar suas informações pessoais na aplicação.|<ol><li>Acessar a página de Perfil do usuário</li><li>Clicar no botão "Editar perfil"</li><li>Modificar as informações pessoais desejadas</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as informações do usuário e exibir uma mensagem de confirmação.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-06 - Busca por Profissionais por Região |RF-03 – A aplicação deve permitir ao usuário cliente realizar buscas por profissionais de determinada região.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a página de Cuidadores ir até o filtro de Buscas</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-07 - Delimitação de Região de Atendimento |RF-04 – A aplicação deve permitir ao cuidador delimitar sua região de atendimento.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os cuidadores conseguem delimitar sua região de atendimento na aplicação.|<ol><li>Acessar a página de Perfil</li><li>Localizar a opção de delimitar a região de atendimento</li><li>Definir a área desejada</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as configurações da conta do cuidador e exibir uma mensagem de confirmação.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-08 - Filtragem de Profissionais por Critérios |RF-05 – A aplicação deve oferecer recurso de filtragem de profissionais por formação, especialização e/ou tempo de experiência como cuidadores.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a página de cuidadores ir até o filtro de Buscas</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-09 - Disponibilização de Horários pelos Cuidadores |RF-06 – A aplicação deve permitir que o cuidador disponibilize suas datas e horários disponíveis para o atendimento.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os cuidadores podem disponibilizar seus horários na aplicação.|<ol><li>Acessar a página de Configurações de horários</li><li>Selecionar os horários disponíveis</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os horários disponíveis do cuidador e exibir uma mensagem de confirmação.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-10 - Avaliação dos Cuidadores pelos Clientes |RF-07 – A aplicação deve permitir que o cliente realize uma avaliação quantitativa e/ou qualitativa dos cuidadores.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os clientes podem avaliar os cuidadores após o atendimento.|<ol><li>Acessar a página de Avaliação</li><li>Selecionar o cuidador a ser avaliado</li><li>Atribuir uma pontuação como base no conceito de estrelas e/ou deixar um comentário</li><li>Clicar em "Enviar Avaliação"</li></ol> | A aplicação deve registrar a avaliação do cliente e exibir uma mensagem de confirmação.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-11 - Visualização da Avaliação dos Cuidadores |RF-08 – A aplicação deve permitir aos usuários clientes a visualização da avaliação atribuída aos cuidadores pelos clientes anteriores.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os clientes podem visualizar as avaliações dos cuidadores.|<ol><li>Acessar a página de Perfil do cuidador</li><li>Localizar a seção de avaliações</li><li>Visualizar as avaliações atribuídas pelos clientes anteriores</li></ol> | A aplicação deve exibir as avaliações dos cuidadores de forma clara e organizada.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-12 - Inserção de Valores de Atendimento pelos Profissionais |RF-09 – A aplicação deve permitir que os profissionais insiram seus valores de atendimento.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os profissionais podem inserir seus valores de atendimento na aplicação.|<ol><li>Acessar a página de Perfil de usuário</li><li>Localizar a opção de inserir valores de atendimento</li><li>Inserir os valores desejados</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os valores de atendimento do profissional e exibir uma mensagem de confirmação.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-13 - Apresentação dos Valores dos Serviços aos Clientes |RF-10 – A aplicação deve apresentar o valor dos serviços ao cliente no momento da busca.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os clientes podem visualizar os valores dos serviços durante a busca.|<ol><li>Acessar a página de Busca</li><li>Realizar uma busca por profissionais</li><li>Observar os valores dos serviços exibidos junto aos perfis dos profissionais</li></ol> | A aplicação deve apresentar de forma clara e precisa os valores dos serviços ao cliente.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF01 - Interface Intuitiva |RNF-01 – A interface da aplicação deve ser intuitiva e fácil de usar para pessoas de todas as idades.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a interface da aplicação é intuitiva para usuários de todas as idades.|<ol><li>Acessar a aplicação</li><li>Explorar as diferentes seções e funcionalidades da interface</li><li>Observar a facilidade de navegação e compreensão das funcionalidades</li></ol> | A aplicação deve ser fácil de usar e entender, mesmo para usuários com pouca experiência em tecnologia.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF02 - Desempenho Rápido |RNF-02 – A aplicação deve ter um desempenho rápido e eficiente.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a aplicação responde de forma rápida às solicitações dos usuários, não superior a 30 segundos.|<ol><li>Acessar a aplicação</li><li>Realizar diversas ações, como navegar entre páginas e acessar funcionalidades</li><li>Observar o tempo de resposta para cada ação</li></ol> | A aplicação deve responder de maneira ágil, sem atrasos perceptíveis durante o uso normal.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br>  
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF03 - Suporte à Língua Portuguesa |RNF-03 – A aplicação deve oferecer suporte para a língua portuguesa.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se todas as partes da aplicação estão disponíveis em língua portuguesa.|<ol><li>Acessar a aplicação</li><li>Verificar se todos os textos e elementos da interface estão em português</li><li>Explorar diferentes seções e funcionalidades para garantir que todas as partes estejam traduzidas</li></ol> | Todos os elementos da aplicação devem estar corretamente traduzidos para o português e serem compreensíveis para os usuários.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF04 - Disponibilidade Contínua |RNF-04 – A aplicação deve estar acessível por pelo menos 95% do tempo.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a aplicação está disponível e acessível durante um período prolongado.|<ol><li>Monitorar a aplicação continuamente por um período representativo</li><li>Registrar qualquer tempo de inatividade ou interrupção</li></ol> | A aplicação deve estar disponível por pelo menos 95% do tempo monitorado, conforme especificado.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF05 - Contraste Adequado |RNF-05 – A aplicação deve ter bom nível de contraste entre os elementos da tela.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se todos os elementos da tela têm contraste adequado para uma boa legibilidade.|<ol><li>Acessar a aplicação</li><li>Verificar o contraste entre diferentes elementos, como texto e fundo</li><li>Usar uma ferramenta de análise de contraste para avaliar a conformidade</li></ol> | Todos os elementos da tela devem atender aos padrões de contraste recomendados para garantir uma boa legibilidade.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-RNF06 - Compatibilidade com Navegadores e Sistemas Operacionais |RNF-06 – A aplicação Web deve ser compatível com os principais navegadores e a aplicação Mobile deve ser compatível com os sistemas operacionais Android e iOS.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a aplicação é compatível com diferentes navegadores e sistemas operacionais.|<ol><li>Acessar a aplicação em diferentes navegadores, como Google Chrome, Firefox e Edge</li><li>Acessar a aplicação em diferentes dispositivos móveis, incluindo Android e iOS</li><li>Explorar diferentes funcionalidades para garantir o funcionamento adequado</li></ol> | A aplicação deve funcionar corretamente em todos os navegadores e sistemas operacionais suportados, sem comprometer a experiência do usuário.|
+| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br> 
+ 
+ ### Testes de Segurança
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generete Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
+| Registro do Teste |   | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+
+
+<br>
+
+## Métricas para Monitoramento dos Testes
+
+| Métricas | Fórmula | Objetivos |
+|----------|---------|-----------|
+| Cobertura de Requisitos | (Número de requisitos cobertos / Número total de requisitos) * 100 | Garantir que todos os requisitos sejam testados adequadamente |
+| Taxa de Defeitos | (Número de defeitos encontrados / Número total de casos de teste executados) * 100 | Avaliar a eficácia dos testes na detecção de defeitos |
+| Cobertura de Código | (Linhas de código testadas / Total de linhas de código) * 100 | Assegurar uma boa cobertura do código para reduzir o risco de falhas |
+| Taxa de Execução de Testes Automatizados | (Número de casos de teste automatizados executados / Número total de casos de teste automatizados) * 100 | Garantir uma boa cobertura de teste automatizado e detectar possíveis problemas de automação |
+| Tempo Médio para Resolver Defeitos | Soma do tempo de resolução de todos os defeitos / Número total de defeitos resolvidos | Minimizar o tempo de resolução de defeitos para manter o progresso do projeto |
+
+### Monitoramento das Métricas
+
+| Métricas | Medição 1 | Medição 2 | Medição 3 | Medição 4 | Medição 5 | Medição 6 |
+|----------|---------|-----------|---------|---------|-----------|-----------|
+| Cobertura de Requisitos |   |   |   |   |   |   |
+| Taxa de Defeitos        |   |   |   |   |   |   |
+| Cobertura de Código     |   |   |   |   |   |   |
+| Taxa de Execução de Testes Automatizados  |   |   |   |   |   |   |
+| Tempo Médio para Resolver Defeitos |   |   |   |   |   |   |

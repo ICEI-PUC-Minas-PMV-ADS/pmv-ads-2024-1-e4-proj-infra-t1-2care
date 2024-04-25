@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
 import { PrivateRouteWrapper } from './PrivateRoute.js';
 import Home from '../pages/home.jsx'
-import ProfileCarereciver from '../pages/ProfileCarereciver.jsx'
+import ProfileCareReceiver from '../pages/ProfileCareReceiver.jsx';
 import ProfileCaregiver from '../pages/ProfileCaregiver.jsx'
 import Login from '../pages/Login.js'
 import { ThemeProvider } from '@mui/material/styles';
@@ -12,6 +12,7 @@ import Requests from '../pages/Requests.js';
 import Register from '../pages/Register.js';
 import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.js';
 import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.js'
+import ProfileCaregiverSpec from '../pages/ProfileCareGiverSpec.jsx';
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -21,6 +22,7 @@ export default (props) => (
                 <Route exact path='/home' element={<Home/>}/>
                 <Route path="register/:type" element={<Register />} />
                 <Route path="profile/caregiver" element={<ProfileCaregiver />} />
+                 <Route path='profile/caregiver/spec' element={<ProfileCaregiverSpec />} />
                 <Route name="CaregiverCalendar" path="profile/caregiver/calendar" element={<CaregiverCalendar />} />
                 <Route name="CaregiverEvaluations" path="profile/caregiver/evaluations" element={<CaregiverEvaluations />} />
 
