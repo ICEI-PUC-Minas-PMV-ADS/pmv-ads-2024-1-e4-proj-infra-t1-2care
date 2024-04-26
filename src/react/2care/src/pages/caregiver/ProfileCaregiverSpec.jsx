@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import NavBar from '../components/NavBar/NavBar';
-import TopBar from '../components/TopBar/TopBar';
-import ProfileCardCaregiver from '../components/Profile/ProfileCard/ProfileCardCaregiver';
-import CaregiverForm from '../components/Forms/CaregiverForm';
-import './App.css';
-import SpecializationForm from '../components/Forms/SpecializationForm';
+import NavBar from '../../components/NavBar/NavBar';
+import TopBar from '../../components/TopBar/TopBar';
+import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
+import CaregiverForm from '../../components/Forms/CaregiverForm';
+import '../App.css';
+import SpecializationForm from '../../components/Forms/SpecializationForm';
 
 function ProfileCaregiverSpec() {
   const theme = useTheme();

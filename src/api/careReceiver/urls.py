@@ -10,12 +10,12 @@ from .views import (
 
 urlpatterns = [
     # CareReceiver App -> Rotas relacionadas a aqueles que receberão os Cuidados
-    path("carereceiver/", CareReceiverCreateView.as_view(), name="carereceiver-create"),
-    #path(
-    #    "carereceiver/<uuid:pk>",
-    #    CareReceiverDetailView.as_view(),
-    #    name="carereceiver-detail",
-    #),
+    path(
+        "",
+        CareReceiverDetailView.as_view(),
+        name="carereceiver-detail",
+    ),
+    path("edit/", CareReceiverCreateView.as_view(), name="carereceiver-create"),
     path("special-care/", SpecialCareListView.as_view(), name="special-care-list"),
     path(
         "special-care/<uuid:pk>/",

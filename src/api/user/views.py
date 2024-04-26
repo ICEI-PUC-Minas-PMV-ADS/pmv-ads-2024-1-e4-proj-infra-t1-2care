@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializers import CustomTokenObtainPairSerializer, UserUpdateSerializer
 
 from .models import (
     CustomUserModel
@@ -13,12 +14,30 @@ from .models import (
 from .serializers import (
     UserSerializer,
 )
-
+UserUpdateSerializer
 
 class UserSignupView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
+class UserUpdateView(generics.UpdateAPIView):
+    authentication_classes = [JWTAuthentication]
+    serializer_class = UserUpdateSerializer
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return None
+
+class UserRetrieveView(generics.RetrieveAPIView):
+    authentication_classes = [JWTAuthentication]
+    serializer_class = UserUpdateSerializer
+    
+    def get_object(self):
+        return self.request.user
+
+    def get_queryset(self):
+        return None
 
 class UserLoginView(TokenObtainPairView):
     permission_classes = [AllowAny]

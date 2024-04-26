@@ -3,6 +3,7 @@ from user.models import CustomUserModel
 import uuid
 
 class CareReceiverModel(models.Model):
+    id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
         CustomUserModel, on_delete=models.CASCADE, related_name="care_receiver"
     )

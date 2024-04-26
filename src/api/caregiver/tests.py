@@ -584,7 +584,7 @@ class CaregiverAPITests(TestCase):
 
     def test_get_caregiver_view_as_user_api(self):
         response = self.client.get(
-            reverse("caregiver-detail", kwargs={"pk": self.caregiver.pk})
+            reverse("caregiver-detail")
         )
 
         self.assertEqual(response.status_code, 200)

@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { updateCareReceiver } from '../../../services/careReceiverService';
 
-const CareReceiverProfileForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    birth_date: '',
+const CareReceiverProfileForm = (props) => {
+  const [formDataUser, setFormDataUser] = useState({
+    //user info
+    name: '', //required
+    phone: '', //required
     gender: '',
-    phone: '',
-    emergency_contact: '',
-    address: '',
-    post_code: '',
-    careNeeds: '',
-    preferredHours: '',
-    priceRange: ''
+    birth_date: '',
+    address: '', //required
+    post_code: '', //required
+  });
+  const [formDataCareReceiver, setFormDataCareReceiver] = useState({
+    //Care receiver info
+    emergency_contact: '', //required
+    share_special_care: false,
+    additional_info: ''
   });
 
   const [errors, setErrors] = useState({
@@ -22,20 +29,51 @@ const CareReceiverProfileForm = () => {
     gender: false
   });
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    let defaultData = {}
+    Object.keys(formDataUser).forEach(key => {
+      defaultData[key] = props.userData.hasOwnProperty(key) ? props.userData[key] : ""
+      defaultData[key] = defaultData[key] === null ? '' : defaultData[key]
+      
+    });
+    setFormDataUser(defaultData)
+  }, [props.userData]);
+
+  useEffect(() => {
+    let defaultData = {}
+    Object.keys(formDataCareReceiver).forEach(key => {
+      defaultData[key] = props.careReceiverData.hasOwnProperty(key) ? props.careReceiverData[key] : ""
+      defaultData[key] = defaultData[key] === null ? '' : defaultData[key]
+    });
+
+    setFormDataCareReceiver(defaultData)
+  }, [props.careReceiverData]);
+
+  const handleChangeCareReceiver = (e) => {
+    const { name, value } = e.target;
+    let updatedValue = value;
+    const numericValue = value.replace(/\D/g, '');
+
+    if(name === "share_special_care"){
+      updatedValue = e.target.checked;
+    }
+    else if (name === 'emergency_contact'){
+      updatedValue = numericValue.slice(0, 11);
+      if (updatedValue.length >= 10) {
+        updatedValue = `(${updatedValue.substring(0, 2)}) ${updatedValue.substring(2, 7)}-${updatedValue.substring(7)}`;
+      }
+    }
+    setFormDataCareReceiver({ ...formDataCareReceiver, [name]: updatedValue });
+  }
+
+  const handleChangeUser = (e) => {
     const { name, value } = e.target;
     let updatedValue = value;
 
-    if (name === 'birth_date' || name === 'phone' || name === 'emergency_contact') {
+    if (name === 'birth_date' || name === 'phone') {
       const numericValue = value.replace(/\D/g, '');
 
-      if (name === 'birth_date') {
-        updatedValue = numericValue.slice(0, 8);
-
-        if (updatedValue.length === 8) {
-          updatedValue = `${updatedValue.substring(0, 2)}/${updatedValue.substring(2, 4)}/${updatedValue.substring(4, 8)}`;
-        }
-      } else if (name === 'phone' || name === 'emergency_contact') {
+      if (name === 'phone') {
         updatedValue = numericValue.slice(0, 11);
 
         if (updatedValue.length >= 10) {
@@ -52,17 +90,35 @@ const CareReceiverProfileForm = () => {
       }
     }
 
-    setFormData({ ...formData, [name]: updatedValue });
+    setFormDataUser({ ...formDataUser, [name]: updatedValue });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requiredFields = ['name', 'phone', 'address', 'post_code', 'gender'];
+    const requiredFieldsUser = ['name', 'phone', 'address', 'post_code', 'gender'];
+    const requiredFieldsCareReceiver = ['emergency_contact'];
     const newErrors = {};
     let hasError = false;
 
-    requiredFields.forEach((field) => {
-      if (!formData[field].trim()) {
+    requiredFieldsUser.forEach((field) => {
+      if (typeof formDataUser[field] === 'string') {
+        if (!formDataUser[field].trim()) {
+          newErrors[field] = true;
+          hasError = true;
+        }
+      }else if (!formDataUser[field]) {
+        newErrors[field] = true;
+        hasError = true;
+      }
+    });
+
+    requiredFieldsCareReceiver.forEach((field) => {
+      if (typeof formDataCareReceiver[field] === 'string') {
+        if (!formDataCareReceiver[field].trim()) {
+          newErrors[field] = true;
+          hasError = true;
+        }
+      }else if (!formDataCareReceiver[field]) {
         newErrors[field] = true;
         hasError = true;
       }
@@ -72,112 +128,128 @@ const CareReceiverProfileForm = () => {
       setErrors(newErrors);
       console.log('Por favor, preencha todos os campos obrigatórios.');
     } else {
-      console.log('Dados atualizados:', formData);
+      updateCareReceiver(formDataUser, formDataCareReceiver).then((reponse) =>{//da pra jogar um if dps e descer uma badge pra dar os resultados
+        reponse ? window.location.reload() :  alert("Erro ao atualizar dados.")
+      })
     }
   };
 
-  
   return (
     <form onSubmit={handleSubmit}>
       <div id="columnForm">
-        <div className="columnLeft50">
-          <h1>Editar Perfil</h1>
-          <div className="field">
-            <label htmlFor="name">Nome Completo:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+        <Grid container justifyContent="center">
+          <Grid item xs={12}>
+            <h1>Editar Perfil</h1>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="field">
+              <label htmlFor="name">Nome Completo:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formDataUser.name}
+                onChange={handleChangeUser}
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="birth_date">Data de Nascimento:</label>
+              <input
+                type="date"
+                id="birth_date"
+                name="birth_date"
+                value={formDataUser.birth_date}
+                onChange={handleChangeUser}
+              ></input>
+            </div>
+
+            <div className="field">
+              <label htmlFor="gender">Gênero:</label>
+              <select
+                id="gender"
+                name="gender"
+                value={formDataUser.gender}
+                onChange={handleChangeUser}
+              >
+                <option value="">Selecione o Gênero</option>
+                <option value="1">Masculino</option>
+                <option value="2">Feminino</option>
+                <option value="0">Não especificado</option>
+              </select>
+            </div>
+
+            <div className="field">
+              <label htmlFor="phone">Telefone:</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                value={formDataUser.phone}
+                onChange={handleChangeUser}
+              />
+            </div>
+
+
+            <div className="field">
+              <label htmlFor="address">Endereço:</label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={formDataUser.address}
+                onChange={handleChangeUser}
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="post_code">CEP:</label>
+              <input
+                type="text"
+                id="post_code"
+                name="post_code"
+                value={formDataUser.post_code}
+                onChange={handleChangeUser}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="field">
+              <label htmlFor="emergency_contact">Telefone de Emergência:</label>
+              <input
+                type="text"
+                id="emergency_contact"
+                name="emergency_contact"
+                value={formDataCareReceiver.emergency_contact}
+                onChange={handleChangeCareReceiver}
+              />
+            </div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="share_special_care"
+                  name="share_special_care"
+                  checked={formDataCareReceiver.share_special_care ? true : false}
+                  onChange={handleChangeCareReceiver}
+                />
+              }
+              label="Share special care"
             />
-          </div>
-
-          <div className="field">
-            <label htmlFor="birth_date">Data de Nascimento:</label>
-            <input
-              type="text"
-              id="birth_date"
-              name="birth_date"
-              value={formData.birth_date}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="gender">Gênero:</label>
-            <select
-              id="gender"
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-            >
-              <option value="">Selecione o Gênero</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-              <option value="Não especificado">Não especificado</option>
-            </select>
-          </div>
-
-          <div className="field">
-            <label htmlFor="phone">Telefone:</label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="emergency_contact">Telefone de Emergência:</label>
-            <input
-              type="text"
-              id="emergency_contact"
-              name="emergency_contact"
-              value={formData.emergency_contact}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="address">Endereço:</label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="post_code">CEP:</label>
-            <input
-              type="text"
-              id="post_code"
-              name="post_code"
-              value={formData.post_code}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="careNeeds">Descrição das Necessidades de Cuidado:</label>
-            <textarea
-              id="careNeeds"
-              name="careNeeds"
-              value={formData.careNeeds}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button type="submit">Salvar Alterações</button>
-        </div>
+            <div className="">
+              <label htmlFor="additional_info">Informações adicionais:</label>
+              <textarea
+                type="text" 
+                id="additional_info"
+                name="additional_info"
+                value={formDataCareReceiver.additional_info}
+                onChange={handleChangeCareReceiver}
+              />
+            </div>
+          </Grid>
+        <button type="submit">Salvar Alterações</button>
+        </Grid>
       </div>
     </form>
   );
 };
-
 export default CareReceiverProfileForm;

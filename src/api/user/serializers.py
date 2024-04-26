@@ -46,6 +46,25 @@ class UserSerializer(serializers.ModelSerializer):
         instance.password = make_password(validated_data.get('password', instance.password))
         return super(UserSerializer, self).update(instance, validated_data)
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+    user_type_display = serializers.CharField(source='get_user_type_display', read_only=True)
+    class Meta:
+        model = CustomUserModel
+        fields = (
+            "name",
+            "date_joined",  
+            "picture",
+            "latitude",
+            "longitude",
+            "gender",
+            "preferred_contact",
+            "phone",
+            "address",
+            "post_code",
+            "birth_date",
+            "user_type_display"
+        )
+    
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)

@@ -8,7 +8,6 @@ from .views import (
     CareRequestListCreateView,
     CaregiverSelfCalendarView,
     CaregiverDetailView,
-    CaregiverListView,
     CaregiverEditView,
     CaregiverCalendarView,
     QualificationCreateView,
@@ -21,14 +20,14 @@ from .views import (
 
 urlpatterns = [
     # Caregiver App -> Rotas relacionadas aos Cuidadores
-    path("", MongoCaregiverListView.as_view(), name="caregiver-list"),
+    path("", CaregiverDetailView.as_view(), name="caregiver-detail"),
+    path("list", MongoCaregiverListView.as_view(), name="caregiver-list"),
     path("edit/", CaregiverEditView.as_view(), name="caregiver-edit"),
     path(
         "my-calendar",
         CaregiverSelfCalendarView.as_view(),
         name="caregiver-self-calendar-view",
     ),
-    path("<uuid:pk>", CaregiverDetailView.as_view(), name="caregiver-detail"),
     path(
         "<uuid:pk>/calendar",
         CaregiverCalendarView.as_view(),

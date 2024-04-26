@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { registerCaregiver } from "../../services/authService";
 import SpecializationList from '../ListSelection/SpecializationListSelection';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ const SpecializationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        await registerCaregiver({ specializations });
+      //???
         console.log("Usuário registrado com sucesso");
         // Salve as especializações conforme necessário aqui
         // Redireciona para a página ProfileCaregiver

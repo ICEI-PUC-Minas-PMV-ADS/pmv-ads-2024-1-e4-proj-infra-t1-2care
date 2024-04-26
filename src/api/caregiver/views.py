@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 from django.db import transaction
 from api_2care.mongo_connection import MongoConnection
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -28,16 +29,6 @@ class MongoCaregiverListView(APIView):
     def get(self, request):
         return Response(MongoConnection().get_data_on_mongo(), 200)
 
-class CaregiverListView(
-    generics.ListAPIView
-):  # Não sei se essa url faz sentido já que vamos pegar do mongo, mas como não temos mongo ainda, ta ai.
-    queryset = (
-        CaregiverModel.objects.all()
-    )  # lembrando que tem que implementar filtro tbm {query_params} quando passar pro mongo.
-    serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
-    # authentication_classes =[JWTAuthentication]
-
 class CaregiverEditView(APIView):
     queryset = CaregiverModel.objects.all()
 
@@ -49,13 +40,13 @@ class CaregiverEditView(APIView):
         request.data["user"] = request.user.id
         update = False
 
+        if not request.user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
         if caregiver:
             update = True
             serializer = CaregiverSerializer(caregiver, data=request.data)
         else:
-            if not request.user.get_user_type_display() == "Caregiver":
-                return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
-            
             serializer = self.serializer_class(data=request.data)
     
         if serializer.is_valid():
@@ -67,6 +58,10 @@ class CaregiverEditView(APIView):
 
     def put(self, request, format=None):
         caregiver = CaregiverModel.objects.filter(user=request.user).first()
+
+        if not request.user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
         if caregiver:
             serializer = CaregiverSerializer(caregiver, data=request.data)
             if serializer.is_valid():
@@ -78,6 +73,10 @@ class CaregiverEditView(APIView):
 
     def patch(self, request, format=None):
         caregiver = CaregiverModel.objects.filter(user=request.user).first()
+
+        if not request.user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
         if caregiver:
             serializer = CaregiverSerializer(caregiver, data=request.data, partial=True)
 
@@ -110,18 +109,19 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 
         return Response(calendar)
 
-
 class CaregiverDetailView(generics.RetrieveAPIView):
-    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
-    # authentication_classes =[JWTAuthentication]
+    authentication_classes = [JWTAuthentication]
 
+    def get_queryset(self):
+        return None
+
+    def get_object(self):
+        return get_object_or_404(CaregiverModel, user=self.request.user)
 
 class CaregiverCalendarView(generics.RetrieveAPIView):
     queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
-    permission_classes = (AllowAny,)  # fixme precisa do user pra auth
     authentication_classes = [JWTAuthentication]
 
     def retrieve(self, request, *args, **kwargs):

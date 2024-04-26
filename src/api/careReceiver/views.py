@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -18,29 +19,14 @@ from .serializers import (
 )
 
 class CareReceiverDetailView(generics.RetrieveUpdateAPIView):
-    """
-    Retrieve, update ou partially update um CareReceiver.
-    """
-
     serializer_class = CareReceiverSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        """
-        Este view deverá retornar o CareReceiver relacionado ao usuário que fez a requisição
-        """
-        user = self.request.user
-        return CareReceiverModel.objects.filter(user=user)
+        return None
 
     def get_object(self):
-        """
-        Retorna o objeto do CareReceiver relacionado ao usuário.
-        Se o CareReceiver não existir, retorna NotFound.
-        """
-        queryset = self.get_queryset()
-        obj = generics.get_object_or_404(queryset)
-        self.check_object_permissions(self.request, obj)
-        return obj
+        return get_object_or_404(CareReceiverModel, user=self.request.user)
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
@@ -54,13 +40,14 @@ class CareReceiverCreateView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         careReceiver = CareReceiverModel.objects.filter(user=request.user).first()
+        request.data["user"] = request.user.id
+
+        if not request.user.get_user_type_display() == "CareReceiver":
+            return Response("This user is not a Care Receiver", status=status.HTTP_400_BAD_REQUEST)
         
         if careReceiver:
             serializer = CareReceiverSerializer(careReceiver, data=request.data)
         else:
-            if not request.user.get_user_type_display() == "CareReceiver":
-                return Response("This user is not a Care Receiver", status=status.HTTP_400_BAD_REQUEST)
-
             serializer = self.get_serializer(data=request.data)
         
         if serializer.is_valid():
@@ -74,7 +61,6 @@ class CareReceiverCreateView(generics.CreateAPIView):
 class SpecialCareListView(generics.ListCreateAPIView):
     queryset = SpecialCareModel.objects.all()
     serializer_class = SpecialCareSerializer
-
 
 class SpecialCareDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SpecialCareModel.objects.all()
