@@ -87,11 +87,6 @@ const CarereceiverForm = () => {
       validationErrors.post_code = "Por favor, insira um CEP válido, no formato: 00000-000.";
     }
 
-    if (!formData.emergency_contact) {
-      validationErrors.emergency_contact = "Por favor, insira um contato para emergência.";
-    }
-
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
