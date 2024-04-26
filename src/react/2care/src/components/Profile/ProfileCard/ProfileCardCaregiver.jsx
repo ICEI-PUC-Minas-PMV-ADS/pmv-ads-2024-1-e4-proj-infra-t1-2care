@@ -1,21 +1,21 @@
 import React from 'react';
 import NavigationButton from '../../NavigationButton/NavigationButton';
 
-const ProfileCardCaregiver = () => {
+const ProfileCardCaregiver = (props) => {
     return (
         <div className="profileCard">
-            <h2>Maria Fontes</h2>
-            <h3>Cuidador</h3>
+            <h2>{props.userData.name}</h2>
+            <h3>{props.userData.user_type_display === "Caregiver" ? "Cuidador" : "Cliente"}</h3>
 
             <img 
-                alt="Maria Fontes"
-                src='https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg'
+                alt={props.userData.name} 
+                src={props.userData.picture ? props.userData.picture : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s"}
             />
             <NavigationButton to="/requests" text="Propostas Recebidas" />
             <NavigationButton to="/requests" text="Agenda" />
             <NavigationButton to="/request" text="Avaliações Recebidas" />
 
-            <p>Membro(a) desde 2021</p>
+            <p>Membro(a) desde {props.userData.date_joined ? props.userData.date_joined.slice(0,10) : "-"}</p>
         </div>
     );
 };

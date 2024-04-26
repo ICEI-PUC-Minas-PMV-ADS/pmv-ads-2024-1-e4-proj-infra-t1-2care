@@ -1,11 +1,12 @@
 import { sendAuthenticatedRequest } from "./authService.js";
-const BASE_URL = "http://127.0.0.1:8000";
+import { API_URL } from './apiService';
 
+const SERVICE_URL = "/core";
 
 export const getGeolocationApi = async (post_code) => {
 
   try {
-    const response = await fetch(`${BASE_URL}/get/location/${post_code}`, {
+    const response = await fetch(`${API_URL}${SERVICE_URL}/get/location/${post_code}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     });

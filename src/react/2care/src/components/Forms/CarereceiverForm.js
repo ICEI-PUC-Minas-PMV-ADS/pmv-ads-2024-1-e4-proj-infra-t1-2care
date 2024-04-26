@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerCarereceiver } from "../../services/authService";
+import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 
 const CarereceiverForm = () => {
@@ -11,16 +11,10 @@ const CarereceiverForm = () => {
     name: "",
     birth_date: "",
     phone: "",
-    language: "",
-    contact_number: "",
     user_type: 2,
     gender: "",
     address: "",
     post_code: "",
-    special_care: "",
-    share_special_care: false,
-    emergency_contact: "",
-    additional_info: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -93,18 +87,13 @@ const CarereceiverForm = () => {
       validationErrors.post_code = "Por favor, insira um CEP válido, no formato: 00000-000.";
     }
 
-    if (!formData.emergency_contact) {
-      validationErrors.emergency_contact = "Por favor, insira um contato para emergência.";
-    }
-
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     try {
-      await registerCarereceiver(formData);
+      await registerUser(formData);
       console.log("Usuário registrado com sucesso");
       navigate("/");
     } catch (error) {
@@ -240,37 +229,6 @@ const CarereceiverForm = () => {
               ></input>
               {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
             </div>
-          <div className="field">
-            <label htmlFor="emergency_contact">Contatos de Emergência:</label>
-            <input
-              type="text"
-              id="emergency_contact"
-              name="emergency_contact"
-              value={formData.emergency_contact}
-              onChange={handleChange}
-              required
-            ></input>
-          </div>
-
-          {/*
-
-        *<div className="field">
-          <label htmlFor="address">Localização:</label>
-          <input type="text" id="address" name="address" value={formData.address} onChange={handleChange}></input>
-        </div>
-        <div className="field">
-          <label htmlFor="special_care">Cuidados Especiais:</label>
-          <input type="text" id="special_care" name="special_care" value={formData.special_care} onChange={handleChange}></input>
-        </div>
-        <div>
-          <input type="checkbox" className="checkbox" id="share_special_Care" name="share_special_Care" value={formData.share_special_care} onChange={handleChange}></input>
-          <label htmlFor="share_special_Care">Aceito compartilhar cuidados especiais</label>
-        </div>
-          
-        <div className="field">
-          <label htmlFor="additional_info">Informações Adicionais:</label>
-          <textarea id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange}></textarea>
-        </div>*/}
           <button type="submit">Salvar</button>
         </div>
       </div>

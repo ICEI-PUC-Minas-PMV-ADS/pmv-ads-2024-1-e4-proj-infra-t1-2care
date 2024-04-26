@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { registerCaregiver } from "../../services/authService";
-import SpecializationList from '../ListSelection/SpecializationListSelection'
+import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 
 const CaregiverForm = () => {
@@ -16,16 +15,6 @@ const CaregiverForm = () => {
     gender: "",
     address: "",
     post_code: "",
-    qualifications: [],
-    work_experience: [],
-    specializations: [],
-    fixed_unavailable_days: [],
-    fixed_unavailable_hours: [],
-    custom_unavailable_days: [],
-    hour_price: null,
-    day_price: null,
-    max_request_km: null,
-    additional_info: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -123,7 +112,7 @@ const CaregiverForm = () => {
     }
 
     try {
-      await registerCaregiver(formData);
+      await registerUser(formData);
       console.log("Usuário registrado com sucesso");
       navigate("/");
     } catch (error) {

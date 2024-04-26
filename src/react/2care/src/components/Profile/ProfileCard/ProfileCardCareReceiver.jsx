@@ -1,21 +1,21 @@
 import React from 'react';
 import NavigationButton from '../../NavigationButton/NavigationButton';
 
-const ProfileCardCareReceiver = () => {
+const ProfileCardCareReceiver = (props) => {
     return (
         <div className="profileCard">
-            <h2>Renata Silva</h2>
-            <h3>-</h3>
+            <h2>{props.userData.name}</h2>
+            <h3>{props.userData.user_type === "Caregiver" ? "Cuidador" : "Cliente"}</h3>
 
             <img 
-                alt="Renata Silva" 
-                src="https://img.freepik.com/fotos-gratis/fechar-o-jovem-em-um-churrasco_23-2149271990.jpg?t=st=1713220706~exp=1713224306~hmac=a4aef687ef53707d135c35ca7753f000e2e522e5e97bbfe8a63736b5ac1d16b6&w=1380"
+                alt={props.userData.name} 
+                src={props.userData.picture ? props.userData.picture : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s"}
             />
 
             <NavigationButton to="/sent-requests" text="Propostas Enviadas" />
             <NavigationButton to="/reviews" text="Avaliações Feitas" />
 
-            <p>Membro(a) desde 2020</p>
+            <p>Membro(a) desde {props.userData.date_joined ? props.userData.date_joined.slice(0,10) : "-"}</p>
         </div>
     );
 };
