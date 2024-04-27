@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerCarereceiver } from "../../services/authService";
+import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 
 const CarereceiverForm = () => {
@@ -11,16 +11,10 @@ const CarereceiverForm = () => {
     name: "",
     birth_date: "",
     phone: "",
-    language: "",
-    contact_number: "",
     user_type: 2,
     gender: "",
     address: "",
     post_code: "",
-    special_care: "",
-    share_special_care: false,
-    emergency_contact: "",
-    additional_info: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -35,11 +29,6 @@ const CarereceiverForm = () => {
     return re.test(email);
   };
 
-  const validatePhone = (phone) => {
-    const re = /^\(\d{2}\) \d{5}-\d{4}$/;
-    return re.test(phone);
-  };
-
   const validateCEP = (cep) => {
     const re = /^\d{5}-\d{3}$/;
     return re.test(cep);
@@ -50,12 +39,7 @@ const CarereceiverForm = () => {
     if (name === 'email' && !validateEmail(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um e-mail válido." });
     } else
-    
-    {/*
-    if (name === 'phone' && !validatePhone(value)) {
-      setErrors({ ...errors, [name]: "Por favor, insira um telefone válido." });
-    */}
-    
+          
     if (name === 'post_code' && !validateCEP(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um CEP válido." });
     } else {
@@ -68,7 +52,7 @@ const CarereceiverForm = () => {
     const validationErrors = {};
 
     if (!formData.email || !validateEmail(formData.email)) {
-      validationErrors.email = "Por favor, insira um um e-mail válido.";
+      validationErrors.email = "Por favor, insira um e-mail válido.";
     }
 
     if (!formData.password || formData.password.length < 6) {
@@ -78,16 +62,29 @@ const CarereceiverForm = () => {
     if (formData.password !== formData.confirm_password) {
       validationErrors.confirm_password = "As senhas não coincidem.";
     }
-
-{/*
-    if (!formData.phone || !validatePhone(formData.phone)) {
-      validationErrors.phone = "Por favor, revise o número do telefone.";
+    
+    if (!formData.name) {
+      validationErrors.name = "Por favor, preencha seu nome completo.";
     }
-  */}
 
+    if (!formData.birth_date) {
+      validationErrors.birth_date = "Por favor, insira sua data de nascimento.";
+    }
 
+    if (!formData.phone) {
+      validationErrors.phone = "Por favor, insira seu número de telefone ou celular.";
+    }
+  
+    if (!formData.gender) {
+      validationErrors.gender = "Por favor, selecione seu gênero.";
+    }
+  
+    if (!formData.address) {
+      validationErrors.address = "Por favor, insira seu endereço.";
+    }
+  
     if (!formData.post_code || !validateCEP(formData.post_code)) {
-      validationErrors.post_code = "Por favor, insira um CEP válido.";
+      validationErrors.post_code = "Por favor, insira um CEP válido, no formato: 00000-000.";
     }
 
     if (Object.keys(validationErrors).length > 0) {
@@ -96,7 +93,7 @@ const CarereceiverForm = () => {
     }
 
     try {
-      await registerCarereceiver(formData);
+      await registerUser(formData);
       console.log("Usuário registrado com sucesso");
       navigate("/");
     } catch (error) {
@@ -165,6 +162,7 @@ const CarereceiverForm = () => {
               name="birth_date"
               value={formData.birth_date}
               onChange={handleChange}
+              required
             ></input>
           </div>
           {/*<div className="field">
@@ -183,6 +181,7 @@ const CarereceiverForm = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              required
               onBlur={handleBlur}
               ></input>
               {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
@@ -197,6 +196,7 @@ const CarereceiverForm = () => {
               name="gender"
               value={formData.gender}
               onChange={handleChange}
+              required
             >
               <option value="">Selecione</option>
               <option value="1">Masculino</option>
@@ -213,6 +213,7 @@ const CarereceiverForm = () => {
               type="text"
               value={formData.address}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="field">
@@ -223,40 +224,11 @@ const CarereceiverForm = () => {
               name="post_code"
               value={formData.post_code}
               onChange={handleChange}
+              required
               onBlur={handleBlur}
               ></input>
               {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
             </div>
-          <div className="field">
-            <label htmlFor="emergency_contact">Contatos de Emergência:</label>
-            <input
-              type="text"
-              id="emergency_contact"
-              name="emergency_contact"
-              value={formData.emergency_contact}
-              onChange={handleChange}
-            ></input>
-          </div>
-
-          {/*
-
-        *<div className="field">
-          <label htmlFor="address">Localização:</label>
-          <input type="text" id="address" name="address" value={formData.address} onChange={handleChange}></input>
-        </div>
-        <div className="field">
-          <label htmlFor="special_care">Cuidados Especiais:</label>
-          <input type="text" id="special_care" name="special_care" value={formData.special_care} onChange={handleChange}></input>
-        </div>
-        <div>
-          <input type="checkbox" className="checkbox" id="share_special_Care" name="share_special_Care" value={formData.share_special_care} onChange={handleChange}></input>
-          <label htmlFor="share_special_Care">Aceito compartilhar cuidados especiais</label>
-        </div>
-          
-        <div className="field">
-          <label htmlFor="additional_info">Informações Adicionais:</label>
-          <textarea id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange}></textarea>
-        </div>*/}
           <button type="submit">Salvar</button>
         </div>
       </div>

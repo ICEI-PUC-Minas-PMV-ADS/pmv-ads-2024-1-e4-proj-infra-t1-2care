@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { signIn } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
-import getUserByEmail from "../../../services/userService";
 
 const LoginForm = ({ setIsLogged }) => {
   const navigate = useNavigate();
@@ -52,9 +51,7 @@ const LoginForm = ({ setIsLogged }) => {
       await signIn(formData);
       console.log("Usuário autenticado com sucesso!");
       navigate("/home");      
-      const userData = await getUserByEmail(formData.email);
       setIsLogged(true);
-      console.log("Informações do usuário:", userData);
     } catch (error) {
       console.error("Erro ao autenticar o usuário:", error.message);
     }
@@ -64,7 +61,7 @@ const LoginForm = ({ setIsLogged }) => {
     <form style={{ width: "90%" }} onSubmit={handleSubmit}>
       <div style={{ width: "100%", textAlign: "center", padding: "1.5em" }}>
         <h2>Entre agora mesmo!</h2>
-        <div style={{ position: 'relative' }}>
+        <div>
           <input 
             type="text" 
             id="email" 
@@ -75,9 +72,9 @@ const LoginForm = ({ setIsLogged }) => {
             required 
             style={{ borderColor: errors.email ? 'red' : 'initial' }}
           />
-          {errors.email && <span style={{ color: "red", position: 'relative', top: '100%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.email}</span>}
+          {errors.email && <span style={{ color: "red", display: 'block' }}>{errors.email}</span>}
         </div>
-        <div style={{ position: 'relative' }}>
+        <div>
           <input 
             type="password" 
             id="password" 
@@ -88,7 +85,7 @@ const LoginForm = ({ setIsLogged }) => {
             required 
             style={{ borderColor: errors.password ? 'red' : 'initial' }} 
           />
-          {errors.password && <span style={{ color: "red", position: 'relative', top: '100%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding: '0.5em', borderRadius: '5px' }}>{errors.password}</span>}
+          {errors.password && <span style={{ color: "red", display: 'block' }}>{errors.password}</span>}
         </div>
         <div>
           <button type="submit">Entrar</button>

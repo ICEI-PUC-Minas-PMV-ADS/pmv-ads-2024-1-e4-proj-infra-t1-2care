@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerCaregiver } from "../../services/authService";
+import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 
 const CaregiverForm = () => {
@@ -15,16 +15,6 @@ const CaregiverForm = () => {
     gender: "",
     address: "",
     post_code: "",
-    qualifications: [],
-    work_experience: [],
-    specializations: [],
-    fixed_unavailable_days: [],
-    fixed_unavailable_hours: [],
-    custom_unavailable_days: [],
-    hour_price: null,
-    day_price: null,
-    max_request_km: null,
-    additional_info: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -70,23 +60,49 @@ const CaregiverForm = () => {
     e.preventDefault();
     const validationErrors = {};
 
+    if (!formData.email) {
+      validationErrors.email = "Por favor, esse campo é obrigatório!";
+    }
+
     if (!formData.email || !validateEmail(formData.email)) {
-      validationErrors.email = "Por favor, insira o e-mail cadastrado.";
+      validationErrors.email = "Por favor, insira um e-mail válido.";
     }
 
-    if (!formData.password || formData.password.length < 6) {
-      validationErrors.password = "Senha inválida!";
+    if (!formData.password) {
+      validationErrors.password = "Por favor, esse campo é obrigatório!";
+    } else if (!formData.password || formData.password.length < 6) {
+      validationErrors.password = "A senha deve ter no mínimo 6 caracteres.";
     }
 
-    if (formData.password !== formData.confirm_password) {
+    if (!formData.confirm_password) {
+      validationErrors.confirm_password = "Por favor, esse campo é obrigatório!";
+    } else if (formData.password !== formData.confirm_password) {
       validationErrors.confirm_password = "As senhas não coincidem.";
     }
-{/*
-    if (!formData.phone || !validatePhone(formData.phone)) {
-      validationErrors.phone = "Por favor, revise o número do telefone.";
+
+    if (!formData.birth_date) {
+      validationErrors.birth_date = "Por favor, insira sua data de nascimento.";
     }
-  */}
-    if (!formData.post_code || !validateCEP(formData.post_code)) {
+
+    if (!formData.name) {
+      validationErrors.name = "Por favor, preencha seu nome completo.";
+    }
+    
+    if (!formData.phone) {
+      validationErrors.phone = "Por favor, insira seu número de telefone ou celular.";
+    }
+    
+    if (!formData.gender) {
+      validationErrors.gender = "Por favor, selecione seu gênero.";
+    }
+
+    if (!formData.address) {
+      validationErrors.address = "Por favor, insira seu endereço.";
+    }
+
+    if (!formData.post_code) {
+      validationErrors.post_code = "Por favor, esse campo é obrigatório!";
+    } else if (!formData.post_code || !validateCEP(formData.post_code)) {
       validationErrors.post_code = "Por favor, insira um CEP válido.";
     }
 
@@ -96,7 +112,7 @@ const CaregiverForm = () => {
     }
 
     try {
-      await registerCaregiver(formData);
+      await registerUser(formData);
       console.log("Usuário registrado com sucesso");
       navigate("/");
     } catch (error) {
@@ -165,6 +181,7 @@ const CaregiverForm = () => {
               name="birth_date"
               value={formData.birth_date}
               onChange={handleChange}
+              required
             ></input>
           </div>
           <div className="field">
@@ -205,6 +222,7 @@ const CaregiverForm = () => {
               type="text"
               value={formData.address}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="field">

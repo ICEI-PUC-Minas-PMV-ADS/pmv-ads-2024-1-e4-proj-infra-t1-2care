@@ -1,55 +1,52 @@
-import { sendAuthenticatedRequest } from "./authService.js";
+import { getGeolocationApi } from './otherService';
+import { sendAuthenticatedRequest } from './authService';
+import { API_URL } from './apiService';
 
-const API_URL = "http://127.0.0.1:8000";
+const SERVICE_URL = "/user";
 
-export const getUserByEmail = async (email) => {
-  try {
-    const result = await sendAuthenticatedRequest(`/register?email=${encodeURIComponent(email)}`, 'GET');
-    return result;
-  } catch (error) {
-    throw new Error(`Erro ao obter usuário por e-mail: ${error.message}`);
-  }
-};
+export const registerUser = async (userForm) => {
+    let geo = await getGeolocationApi(userForm["post_code"])
+    userForm["latitude"] = geo['latitude']
+    userForm["longitude"] = geo['longitude']
 
-export const getUsers = async () => {
     try {
-        const result = await sendAuthenticatedRequest('/user/list/', 'GET');
+        const response = await fetch(`${API_URL}${SERVICE_URL}/register/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userForm)
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(JSON.stringify(result));
+        }
         return result;
     } catch (error) {
-        throw new Error(`Erro ao obter a lista de usuários: ${error.message}`);
+        alert('Dados inválidos, gentileza verifique o preenchimento!');
+        throw new Error(error.message);
     }
 };
 
-export const getUserById = async (userId) => {
+export const updateUser = async (userForm) => {
+    let geo = await getGeolocationApi(userForm["post_code"])
+    userForm["latitude"] = geo['latitude']
+    userForm["longitude"] = geo['longitude']
+
     try {
-        const result = await sendAuthenticatedRequest(`/user/${userId}/details`, 'GET');
-        return result;
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/edit/`, "PATCH", userForm)
+        return response;
     } catch (error) {
-        throw new Error(`Erro ao obter detalhes do usuário: ${error.message}`);
+        alert('Dados inválidos, gentileza verifique o preenchimento!');
+        throw new Error(error.message);
     }
 };
 
-export const updateUser = async (userId, userData) => {
+export const getUserData = async () => {
     try {
-        const result = await sendAuthenticatedRequest(`/user/${userId}/update`, 'PUT', userData);
-        return result;
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}`)
+        return response;
     } catch (error) {
-        throw new Error(`Erro ao atualizar usuário: ${error.message}`);
+        return false
     }
 };
 
-export const deleteUser = async (userId) => {
-    try {
-        const result = await sendAuthenticatedRequest(`/user/${userId}/delete`, 'DELETE');
-        return result.message;
-    } catch (error) {
-        throw new Error(`Erro ao excluir usuário: ${error.message}`);
-    }
-};
 
-export default {
-    getUsers,
-    getUserById,
-    updateUser,
-    deleteUser
-};

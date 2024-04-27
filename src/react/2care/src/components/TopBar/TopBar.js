@@ -1,16 +1,14 @@
+
 import React, { useState } from "react";
-import { searchCaregivers } from '../../utils/searchUtils';
 import { Link } from "react-router-dom";
 import "./TopBar.css";
 
-const TopBar = ({ isLogged, userName, caregivers, onSearch }) => {
+const TopBar = ({ isLogged, userName }) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (event) => {
     const searchText = event.target.value;
     setSearchText(searchText);
-    const filteredCaregivers = searchCaregivers(searchText, caregivers)
-    onSearch(filteredCaregivers);
   };
 
   return (
