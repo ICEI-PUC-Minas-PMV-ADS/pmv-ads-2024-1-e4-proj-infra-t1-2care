@@ -1,12 +1,16 @@
 import { useParams } from 'react-router-dom';
 import CaregiverForm from "../components/Forms/CaregiverForm";
 import CarereceiverForm from "../components/Forms/CarereceiverForm";
+import NavBar from "../components/NavBar/NavBar";
+import TopBar from "../components/TopBar/TopBar";
 
 const Register = () => {
     const { type } = useParams();
 
     return (
-        <div className="App">       
+        <div className="App"> 
+            <TopBar></TopBar>
+            <NavBar></NavBar>          
             <section style={{ display: 'flex', margin: '2.5em'}}>
 
                 {type === 'carereceiver' && (

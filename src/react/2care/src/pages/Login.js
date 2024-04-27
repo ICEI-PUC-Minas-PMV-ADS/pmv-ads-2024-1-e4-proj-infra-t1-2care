@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 import './App.css'
 import { height, width } from "@mui/system";
 
-
-
 const Login = () => {
     const theme = useTheme();
 
@@ -26,35 +24,11 @@ const Login = () => {
         alignItems: 'start', 
         padding: '8% 8% 10% 8%',
         height: '60vh', 
-
-        backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')",
-        
+        backgroundImage: "url('https://ohoje.com/public/imagens/fotos/amp/2022/06/9-abre-Pedro-Pinheiro-3-scaled.jpg')",    
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
         display: 'flex',
     }
-
-    {/* 
-
-
-        backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTElXejxt2tigB6vAZYXkz9FqKMA6O9mWv32Q&s')",
-    
-        
-
-backgroundImage: "url('https://jaycampbell.com/wp-content/uploads/2022/08/dreamstime_s_27991533.jpg')",
-
-backgroundImage: "url('https://ohoje.com/public/imagens/fotos/amp/2022/06/9-abre-Pedro-Pinheiro-3-scaled.jpg')",
-
-backgroundImage: "url('https://img.portalt5.com/lYiPACEftl3E50KsPwMuC6-yJTE=/516x350/smart/imagens%2FParaiba_recebe_forca-tarefa_que_investiga_crimes_de_violencia_contra_idosos.jpeg')", 
-
-backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTElXejxt2tigB6vAZYXkz9FqKMA6O9mWv32Q&s')",
-
-backgroundImage: "url('https://images.unsplash.com/photo-1580893246395-52aead8960dc?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-
-    */}
-
-
-
 
         return (
         <div>
