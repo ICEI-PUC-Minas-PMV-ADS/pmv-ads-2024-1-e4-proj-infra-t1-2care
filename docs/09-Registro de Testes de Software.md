@@ -183,8 +183,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem se cadastrar na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher todos os campos obrigatórios com dados válidos.</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve retornar o usuário para a página de Login.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
-
+| Registro da tela: | ![Tela Login - Botões para Cadastro](image-1.png), ![Tela Cadastro Cliente](image-2.png), ![Console Confirmação Cadastro Cliente](image-3.png), ![Tela Cadastro Cuidador](image-4.png), ![Console Confirmação Cadastro Cuidador](image-5.png), | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite fazer o cadastro dos usuários Cliente e Cuidador com sucesso." |
 
 <br> 
 
@@ -195,7 +194,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se os usuários podem fazer o Login na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" cadastrados.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve direcionar o usuário para a tela "Cuidadores" já Logado, o que será visivelmente confirmado pela apresentação da foto/Imagem no canto superior esquerdo da tela.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela Login com Formulário](image-6.png), ![Tela Home com a Confirmação de Usuário Logado](image-7.png), ![Tela Login com Formulário](image-9.png), ![Tela Home com a Confirmação de Usuário Logado no Console](image-10.png)  | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite que os usuários Cliente e Cuidador, façam seu login com sucesso." |
 
 
 <br> 
@@ -207,7 +206,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste | Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se a aplicação nega o cadastro com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher os campos obrigatórios com dados inválidos (ex: e-mail sem formato válido, senha muito curta, etc.)</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos precisam ser revistos, não permitindo assim o cadastro. |
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela Cadastro Cliente com Dados Inválidos](image-12.png), ![Tela Cadastro Cuidador com Dados Inválidos](image-13.png)  | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu que os usuários Cliente e Cuidador conseguissem se cadastrar com dados inválidos, retornando as mensagens de erro para cada campo preenchida com erro, ou não preenchida com sucesso." |
 
 
 <br> 
@@ -219,7 +218,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação nega o login com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" com dados inválidos.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos são inválidos, não permitindo assim o login do usuário.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela de Login com Tentativa de Logar com Dados Inválidos](image-11.png) | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu o login com dados inválidos e retornou as mensagens de erro para o usuário com sucesso." |
 
 
 <br> 
@@ -408,7 +407,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generete Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
+|Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generate Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
 | Registro do Teste |   | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
 
 
