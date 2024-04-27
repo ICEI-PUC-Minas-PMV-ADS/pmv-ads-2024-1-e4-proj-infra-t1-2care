@@ -228,8 +228,10 @@ const CarereceiverForm = () => {
               onBlur={handleBlur}
               ></input>
               {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
-            </div>
-          <button type="submit">Salvar</button>
+          </div>
+          <div id="buttonReg">
+            <button type="submit">Salvar conta</button>
+          </div>
         </div>
       </div>
     </form>
