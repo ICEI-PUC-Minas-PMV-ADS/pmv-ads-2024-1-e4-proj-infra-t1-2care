@@ -231,7 +231,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem editar suas informações pessoais na aplicação.|<ol><li>Acessar a página de Perfil do usuário</li><li>Clicar no botão "Editar perfil"</li><li>Modificar as informações pessoais desejadas</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as informações do usuário e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![editar carereceiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/44ebeabf-d003-4507-b2cf-6b21c2c67812) | Data do Teste: 29/09/2024 - Resultado: Passou - O usuário conseguiu editar suas informações pessoais com sucesso. |
 
 
 <br> 
@@ -255,7 +255,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os cuidadores conseguem delimitar sua região de atendimento na aplicação.|<ol><li>Acessar a página de Perfil</li><li>Localizar a opção de delimitar a região de atendimento</li><li>Definir a área desejada</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as configurações da conta do cuidador e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![editar caregiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/36c6ba9c-8444-4c6b-8932-8fec05dccc35) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu delimitar a sua região de atendimento com sucesso. |
 
 
 <br> 
@@ -315,7 +315,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os profissionais podem inserir seus valores de atendimento na aplicação.|<ol><li>Acessar a página de Perfil de usuário</li><li>Localizar a opção de inserir valores de atendimento</li><li>Inserir os valores desejados</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os valores de atendimento do profissional e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![editar caregiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/ea75c8f0-b441-4a5a-9b01-bb7b7f42d5a9) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu inserir seus valores de atendimento com sucesso. |
 
 
 <br> 
