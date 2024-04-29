@@ -1,7 +1,7 @@
-import RequestCard from "./RequestCard"
+import RequestCard from "./RequestCard";
 import { useState } from "react";
 
-const RequestList = () => {
+const RequestList = ({ userType }) => {
 
     const [acceptedChecked, setAcceptedChecked] = useState(true);
     const [declinedChecked, setDeclinedChecked] = useState(true);
@@ -24,18 +24,17 @@ const RequestList = () => {
                         <label>Pendentes</label>
                     </div>
                 </div>
-                <a href='/request'><button>Envie sua proposta</button></a>
+                {userType === 'carereceiver' && <a href='/request'><button>Envie sua proposta</button></a>}
             </div>
             <div className='requestList'>
                 <RequestCard></RequestCard>
                 <RequestCard></RequestCard>
                 <RequestCard></RequestCard>
                 <RequestCard></RequestCard>
-                <RequestCard></RequestCard>
-                <RequestCard></RequestCard>
+
             </div>
         </div>
     )
 }
 
-export default RequestList
+export default RequestList;

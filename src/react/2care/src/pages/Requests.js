@@ -4,22 +4,31 @@ import TopBar from "../components/TopBar/TopBar";
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from "react";
 
-
-const Requests = () => {
+const Requests = ({ userType }) => {
     const theme = useTheme();
     useEffect(() => {
-        document.title = 'Propostas';
-      }, []);
+        document.title = userType === 'caregiver' ? 'Propostas Recebidas' : 'Propostas Enviadas';
+    }, [userType]);
+
+    const getHeaderText = () => {
+        if (userType === 'caregiver') {
+            return 'Veja as suas propostas recebidas:';
+        } else if (userType === 'carereceiver') {
+            return 'Veja as propostas enviadas por você:';
+        } else {
+            return 'Veja suas propostas:';
+        }
+    };
 
     return (
         <div>
             <TopBar></TopBar>
             <NavBar></NavBar>
             <header>
-                <h1>Veja suas propostas: </h1>
+                <h1>{getHeaderText()}</h1>
             </header>
             <main>
-                <RequestList></RequestList>
+                <RequestList userType={userType}></RequestList>
             </main>
         </div>
     )
