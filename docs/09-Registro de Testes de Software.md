@@ -183,7 +183,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem se cadastrar na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher todos os campos obrigatórios com dados válidos.</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve retornar o usuário para a página de Login.|
-| Registro da tela: | ![Tela Login - Botões para Cadastro](image-1.png), ![Tela Cadastro Cliente](image-2.png), ![Console Confirmação Cadastro Cliente](image-3.png), ![Tela Cadastro Cuidador](image-4.png), ![Console Confirmação Cadastro Cuidador](image-5.png), | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite fazer o cadastro dos usuários Cliente e Cuidador com sucesso." |
+| Registro da tela: | ![Tela Login - Botões para Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/808e1521-09c4-4371-9547-9ebf08c26beb), ![Tela Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/edfb763f-a97b-4749-9b70-64eb3ef83037), ![Console Confirmação Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/416df1fe-8a42-42a3-9d3e-e36a6f4071fb), ![Tela Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/c5874382-40f8-4206-956c-b040ed55888e), ![Console Confirmação Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f765000b-2d22-47aa-ba90-617d5641e83d), | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite fazer o cadastro dos usuários Cliente e Cuidador com sucesso." |
 
 <br> 
 
@@ -194,7 +194,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se os usuários podem fazer o Login na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" cadastrados.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve direcionar o usuário para a tela "Cuidadores" já Logado, o que será visivelmente confirmado pela apresentação da foto/Imagem no canto superior esquerdo da tela.|
-| Registro da tela: | ![Tela Login com Formulário](image-6.png), ![Tela Home com a Confirmação de Usuário Logado](image-7.png), ![Tela Login com Formulário](image-9.png), ![Tela Home com a Confirmação de Usuário Logado no Console](image-10.png)  | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite que os usuários Cliente e Cuidador, façam seu login com sucesso." |
+| Registro da tela: | ![Tela Login com Formulário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/479c39da-dcde-4b1a-ad15-9448fa4a7101), ![Tela Home com a Confirmação de Usuário Logado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/e7c5588c-deb4-4785-bf73-caa88d65622f), ![Tela Login com Formulário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/ff0c2c81-e8ab-4a4d-9656-9f6e9afff90d), ![Tela Home com a Confirmação de Usuário Logado no Console](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/3e5368a4-7625-4936-9d57-816bcdc717fb) | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação permite que os usuários Cliente e Cuidador, façam seu login com sucesso." |
 
 
 <br> 
@@ -206,7 +206,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste | Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se a aplicação nega o cadastro com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher os campos obrigatórios com dados inválidos (ex: e-mail sem formato válido, senha muito curta, etc.)</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos precisam ser revistos, não permitindo assim o cadastro. |
-| Registro da tela: | ![Tela Cadastro Cliente com Dados Inválidos](image-12.png), ![Tela Cadastro Cuidador com Dados Inválidos](image-13.png)  | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu que os usuários Cliente e Cuidador conseguissem se cadastrar com dados inválidos, retornando as mensagens de erro para cada campo preenchida com erro, ou não preenchida com sucesso." |
+| Registro da tela: | ![Tela Cadastro Cliente com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f107ae4b-dd40-452c-a880-71f59d48cb88), ![Tela Cadastro Cuidador com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f0b38e95-1cd2-4d1a-afdb-ddeff1ff9b03) | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu que os usuários Cliente e Cuidador conseguissem se cadastrar com dados inválidos, retornando as mensagens de erro para cada campo preenchida com erro, ou não preenchida com sucesso." |
 
 
 <br> 
@@ -218,7 +218,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação nega o login com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" com dados inválidos.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos são inválidos, não permitindo assim o login do usuário.|
-| Registro da tela: | ![Tela de Login com Tentativa de Logar com Dados Inválidos](image-11.png) | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu o login com dados inválidos e retornou as mensagens de erro para o usuário com sucesso." |
+| Registro da tela: | ![Tela de Login com Tentativa de Logar com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/ff83a35d-c49a-48e7-9304-1fb3104ec060) | Data do Teste: 27/04/2024 - Resultado: "Passou" - "A aplicação não permitiu o login com dados inválidos e retornou as mensagens de erro para o usuário com sucesso." |
 
 
 <br> 
