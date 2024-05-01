@@ -1,35 +1,26 @@
-import NavBar from "../../components/NavBar/NavBar";
-import RequestList from "../../components/Requests/RequestList";
-import TopBar from "../../components/TopBar/TopBar";
-import { useTheme } from '@mui/material/styles';
-import { useEffect } from "react";
+import React from 'react';
+import NavBar from '../../components/NavBar/NavBar';
+import TopBar from '../../components/TopBar/TopBar';
+import { Typography, Grid } from '@mui/material';
+import RequestList from '../../components/Requests/RequestList';
 
-const RequestsCareReceiver = ({ userType }) => {
-    const theme = useTheme();
-    useEffect(() => {
-        document.title = userType === 'caregiver' ? 'Propostas Recebidas' : 'Propostas Enviadas';
-    }, [userType]);
+const RequestsCareReceiver = () => {
+    document.title = 'Propostas Enviadas';
 
     const getHeaderText = () => {
-        if (userType === 'caregiver') {
-            return 'Veja as suas propostas recebidas:';
-        } else if (userType === 'carereceiver') {
-            return 'Veja as propostas enviadas por você:';
-        } else {
-            return 'Veja suas propostas:';
-        }
+        return 'Veja as suas propostas enviadas:';
     };
 
     return (
         <div>
-            <TopBar></TopBar>
-            <NavBar></NavBar>
-            <header>
-                <h1>{getHeaderText()}</h1>
-            </header>
-            <main>
-                <RequestList userType={userType}></RequestList>
-            </main>
+            <TopBar />
+            <NavBar />
+            <Grid container justifyContent="center" style={{ marginTop: '5vh' }}>
+                <Grid item xs={12} md={6}>
+                    <Typography variant="h5" gutterBottom>{getHeaderText()}</Typography>
+                    <RequestList userType="careReceiver" /> 
+                </Grid>
+            </Grid>
         </div>
     )
 }
