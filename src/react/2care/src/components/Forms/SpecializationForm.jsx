@@ -33,7 +33,7 @@ const SpecializationForm = () => {
   return (
     <form onSubmit={handleSubmit}>
         <div id='columnForm'> 
-            <div className='columnLeft50'>
+            <div className='column100spec'>
                 <SpecializationList 
                     onAdd={handleAddSpecialization}
                     onRemove={handleRemoveSpecialization}

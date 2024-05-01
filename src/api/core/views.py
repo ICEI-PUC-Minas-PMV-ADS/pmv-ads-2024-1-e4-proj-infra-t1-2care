@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from caregiver.models import (CaregiverModel,)
+import json
 
 import pymongo
 from pymongo import MongoClient
@@ -18,6 +19,20 @@ class GetGeoLocation(APIView):
             return Response(data, 200)
         else:
            Response(500)
+
+class AddSpecialization(APIView):
+    permission_classes = (AllowAny)
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        especializacao = data.get('especializacao')
+        if not especializacao:
+            return Response({"error": "Especialização não fornecida"}, status=400)
+        
+        # new_specialization = CaregiverModel(especializacao=especializacao)
+        # new_specialization.save()
+
+        return Response({"status": "success", "especializacao": especializacao}, status=200)
 
 #deixei aqui de ref caso eu precise..
 """ class MongoUpdate(APIView):

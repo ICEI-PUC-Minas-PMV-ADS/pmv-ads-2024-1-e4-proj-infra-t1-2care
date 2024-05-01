@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { updateCaregiver } from '../../../services/caregiverService';
+import { useNavigate } from "react-router-dom";
 
 
 const CaregiverProfileForm = (props) => {
@@ -113,6 +114,7 @@ const CaregiverProfileForm = (props) => {
     }
   };
 
+  const navigate = useNavigate() 
 
   return (
     <form onSubmit={handleSubmit}>
@@ -243,6 +245,10 @@ const CaregiverProfileForm = (props) => {
                 value={formDataCaregiver.career_time}
                 onChange={handleChangeCaregiver}
               />
+            </div>
+            <div className="field">
+              <label htmlFor="specialization">Especializações:</label>
+              <button className="spec-button" onClick={()=> {navigate('/profile/caregiver/spec')}}>Gerenciar Especializações</button>
             </div>
             <div className="field">
               <label htmlFor="additional_info">Informações adicionais:</label>
