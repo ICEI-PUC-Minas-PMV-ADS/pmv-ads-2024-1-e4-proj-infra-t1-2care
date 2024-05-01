@@ -157,6 +157,21 @@ class QualificationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIVi
 
 
 ##### Specialization - Leo #####
+
+class AddSpecialization(APIView):
+    permission_classes = (AllowAny)
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        especializacao = data.get('especializacao')
+        if not especializacao:
+            return Response({"error": "Especialização não fornecida"}, status=400)
+        
+        # new_specialization = CaregiverModel(especializacao=especializacao)
+        # new_specialization.save()
+
+        return Response({"status": "success", "especializacao": especializacao}, status=200)
+    
 class SpecializationListCreateView(generics.ListCreateAPIView):
     queryset = SpecializationModel.objects.all()
     serializer_class = SpecializationSerializer
@@ -208,4 +223,4 @@ class RatingCreateView(generics.CreateAPIView):
 class RatingDetailView(generics.RetrieveAPIView):
     queryset = RatingModel.objects.all()
     serializer_class = RatingSerializer
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [JWTAuthentication]    

@@ -20,20 +20,6 @@ class GetGeoLocation(APIView):
         else:
            Response(500)
 
-class AddSpecialization(APIView):
-    permission_classes = (AllowAny)
-
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        especializacao = data.get('especializacao')
-        if not especializacao:
-            return Response({"error": "Especialização não fornecida"}, status=400)
-        
-        # new_specialization = CaregiverModel(especializacao=especializacao)
-        # new_specialization.save()
-
-        return Response({"status": "success", "especializacao": especializacao}, status=200)
-
 #deixei aqui de ref caso eu precise..
 """ class MongoUpdate(APIView):
     #temos que ver tudo que vai ser necessario ainda. por hora vou só salvar todos os caregivers no mongo, mas depois precisamos fazer updates ao alterar caregiver e create ao criar usuario
