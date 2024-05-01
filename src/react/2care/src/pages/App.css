@@ -112,6 +112,11 @@ button {
   font-weight: bold;
 }
 
+.spec-button:hover {
+  transform: scale(1.01);
+}
+
+
 button:hover {
   transform: scale(1.10);
 }
