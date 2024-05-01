@@ -1,98 +1,170 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTheme } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
-import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { format, parse } from 'date-fns';
+import { sendProposalToCaregiver } from '../../services/careReceiverService';
 
 function SendRequests() {
+  const theme = useTheme();
   const [selectedDate, setSelectedDate] = useState('');
-  const [startDateTime, setStartDateTime] = useState('');
-  const [endDateTime, setEndDateTime] = useState('');
-  const caregiverData = {
-    name: 'Nome do Cuidador',
-    picture: 'url_da_foto_do_cuidador.jpg',
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [totalHours, setTotalHours] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [error, setError] = useState('');
+
+  // Função para lidar com a mudança de data
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
-  const valorHora = 10; // o certo seria o valor que o cuidador cadastrou 
 
-  const handleSendRequest = () => {
-    console.log('Enviado com sucesso!');
+  // Função para lidar com a mudança de hora inicial
+  const handleStartTimeChange = (event) => {
+    setStartTime(event.target.value);
   };
 
-  const calculateTotalValue = (start, end, valuePerHour) => {
-    const startTime = parse(start, 'HH:mm', new Date());
-    let endTime = parse(end, 'HH:mm', new Date());
+  // Função para lidar com a mudança de hora final
+  const handleEndTimeChange = (event) => {
+    setEndTime(event.target.value);
+  };
 
-    if (endTime < startTime) {
-      endTime = parse(end, 'HH:mm', new Date(new Date(selectedDate).getTime() + 24 * 60 * 60 * 1000));
+  // Função para calcular o total de horas com base nas horas de início e fim
+  const calculateTotalHours = () => {
+    const start = new Date(`2000-01-01T${startTime}`);
+    const end = new Date(`2000-01-01T${endTime}`);
+    const hours = (end - start) / (1000 * 60 * 60);
+    setTotalHours(parseFloat(hours.toFixed(2)) || 0); 
+  };
+
+  // Efeito para recalcular as horas totais sempre que as horas de início ou fim mudarem
+  useEffect(() => {
+    calculateTotalHours();
+  }, [startTime, endTime]);
+
+  // Efeito para recalcular o pagamento total com base nas horas totais
+  useEffect(() => {
+    setTotalPayment(parseFloat((totalHours * 20).toFixed(2)) || 0); // Valor da hora fixo de R$20,00 que será mudado depois quando eu conseguir pegar os dados do cuidador
+  }, [totalHours]);
+
+  // Função para lidar com o envio do formulário
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+
+    // Verifica se todos os campos necessários estão preenchidos
+    if (!selectedDate || !startTime || !endTime) {
+      setError('Por favor, preencha todos os campos.');
+      return;
     }
 
-    const diffInMs = endTime - startTime;
-    const diffInHours = diffInMs / (1000 * 60 * 60);
+    // Dados da proposta a serem enviados
+    const proposalData = {
+      date: selectedDate,
+      startTime: startTime,
+      endTime: endTime,
+    };
 
-    return diffInHours * valuePerHour;
-  };
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
-
-  const handleStartDateTimeChange = (e) => {
-    setStartDateTime(e.target.value);
-  };
-
-  const handleEndDateTimeChange = (e) => {
-    setEndDateTime(e.target.value);
+    try {
+      // Envia a proposta para o serviço do cuidador estou com dificuldade nisso
+      const response = await sendProposalToCaregiver(proposalData);
+      console.log("Resposta da API:", response);
+      console.log("Proposta enviada com sucesso!");
+      // Adicione aqui qualquer manipulação de sucesso necessária, como redirecionar o usuário ou exibir uma mensagem de sucesso.
+    } catch (error) {
+      console.error("Erro ao enviar proposta:", error);
+      setError('Erro ao enviar proposta. Por favor, tente novamente mais tarde.');
+    }
   };
 
   return (
     <div>
       <TopBar />
       <NavBar />
+
       <Grid container justifyContent="center" style={{ marginTop: '5vh' }}>
-        <Grid item xs={3}>
-          <ProfileCardCaregiver userData={caregiverData} />
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <h2>Envie sua proposta</h2>
-            <div>
-              <label>Data:</label>
-              <input
-                type="date"
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
-            </div>
-            <div>
-              <label>Hora Inicial:</label>
-              <input
-                type="time"
-                value={startDateTime}
-                onChange={handleStartDateTimeChange}
-              />
-            </div>
-            <div>
-              <label>Hora Final:</label>
-              <input
-                type="time"
-                value={endDateTime}
-                onChange={handleEndDateTimeChange}
-              />
-            </div>
-            {selectedDate && startDateTime && endDateTime && (
-              <div>
-                <p>Data do envio da proposta: {format(new Date(), 'dd/MM/yyyy HH:mm')}</p>
-                <p>Valor por hora: R${valorHora.toFixed(2)}</p>
-                <p>Valor a pagar: R${calculateTotalValue(startDateTime, endDateTime, valorHora).toFixed(2)}</p>
-                <Button variant="contained" onClick={handleSendRequest}>
-                  Enviar Proposta
-                </Button>
-              </div>
-            )}
-          </Box>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h5" gutterBottom>
+            Envie uma proposta
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Data"
+              type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Hora Inicial"
+              type="time"
+              value={startTime}
+              onChange={handleStartTimeChange}
+              onBlur={calculateTotalHours}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300,
+              }}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Hora Final"
+              type="time"
+              value={endTime}
+              onChange={handleEndTimeChange}
+              onBlur={calculateTotalHours}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, 
+              }}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Total de Horas"
+              type="number"
+              value={totalHours}
+              InputProps={{ readOnly: true }}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Valor da Hora"
+              type="number"
+              value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
+              InputProps={{ readOnly: true }}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Valor Total a Pagar"
+              type="number"
+              value={totalPayment}
+              InputProps={{ readOnly: true }}
+              fullWidth
+              margin="normal"
+            />
+            {/* Mensagem de erro, se houver */}
+            {error && <Typography color="error">{error}</Typography>}
+            <Button variant="contained" color="primary" type="submit">
+              Enviar Proposta
+            </Button>
+          </form>
         </Grid>
       </Grid>
     </div>
