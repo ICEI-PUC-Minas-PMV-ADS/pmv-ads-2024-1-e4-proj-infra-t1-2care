@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
 import { sendProposalToCaregiver } from '../../services/careReceiverService';
+import CaregiverCard from '../../components/CaregiverCard/CaregiverCard';
+import '../../components/CaregiverCard/CaregiverCard.css';
 
 function SendRequests() {
   const theme = useTheme();
@@ -47,7 +49,7 @@ function SendRequests() {
 
   // Efeito para recalcular o pagamento total com base nas horas totais
   useEffect(() => {
-    setTotalPayment(parseFloat((totalHours * 20).toFixed(2)) || 0); // Valor da hora fixo de R$20,00 que será mudado depois quando eu conseguir pegar os dados do cuidador
+    setTotalPayment(parseFloat((totalHours * 20).toFixed(2)) || 0);
   }, [totalHours]);
 
   // Função para lidar com o envio do formulário
@@ -69,7 +71,7 @@ function SendRequests() {
     };
 
     try {
-      // Envia a proposta para o serviço do cuidador estou com dificuldade nisso
+      // Envia a proposta para o serviço do cuidador
       const response = await sendProposalToCaregiver(proposalData);
       console.log("Resposta da API:", response);
       console.log("Proposta enviada com sucesso!");
@@ -86,85 +88,95 @@ function SendRequests() {
       <NavBar />
 
       <Grid container justifyContent="center" style={{ marginTop: '5vh' }}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={10} lg={8}>
           <Typography variant="h5" gutterBottom>
             Envie uma proposta
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Data"
-              type="date"
-              value={selectedDate}
-              onChange={handleDateChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Hora Inicial"
-              type="time"
-              value={startTime}
-              onChange={handleStartTimeChange}
-              onBlur={calculateTotalHours}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300,
-              }}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Hora Final"
-              type="time"
-              value={endTime}
-              onChange={handleEndTimeChange}
-              onBlur={calculateTotalHours}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, 
-              }}
-              fullWidth
-              margin="normal"
-              required
-            />
-            <TextField
-              label="Total de Horas"
-              type="number"
-              value={totalHours}
-              InputProps={{ readOnly: true }}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Valor da Hora"
-              type="number"
-              value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
-              InputProps={{ readOnly: true }}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Valor Total a Pagar"
-              type="number"
-              value={totalPayment}
-              InputProps={{ readOnly: true }}
-              fullWidth
-              margin="normal"
-            />
-            {/* Mensagem de erro, se houver */}
-            {error && <Typography color="error">{error}</Typography>}
-            <Button variant="contained" color="primary" type="submit">
-              Enviar Proposta
-            </Button>
-          </form>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <CaregiverCard
+                image="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
+                name="Nome do Cuidador"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  label="Data"
+                  type="date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Hora Inicial"
+                  type="time"
+                  value={startTime}
+                  onChange={handleStartTimeChange}
+                  onBlur={calculateTotalHours}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300,
+                  }}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Hora Final"
+                  type="time"
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                  onBlur={calculateTotalHours}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300,
+                  }}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Total de Horas"
+                  type="number"
+                  value={totalHours}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Valor da Hora"
+                  type="number"
+                  value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Valor Total a Pagar"
+                  type="number"
+                  value={totalPayment}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                />
+                {/* Mensagem de erro, se houver */}
+                {error && <Typography color="error">{error}</Typography>}
+                <Button variant="contained" color="primary" type="submit">
+                  Enviar Proposta
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>
