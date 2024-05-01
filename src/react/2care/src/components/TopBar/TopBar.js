@@ -15,7 +15,7 @@ const TopBar = ({ isLogged, userName }) => {
     <div className="topBar">
       <div className="logo">
         <a href="/home">
-          <img src="../../logo.png" alt="Logo" />
+          <img className="logoImg" src="../../logo.png" alt="Logo" />
         </a>
       </div>
       <div className="search">

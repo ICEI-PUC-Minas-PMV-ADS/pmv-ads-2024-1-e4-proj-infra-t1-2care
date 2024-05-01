@@ -238,7 +238,7 @@ const CaregiverForm = () => {
             {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
           </div>
             
-          </div>
+          
 
           {/* 
           <div className='field'>
@@ -294,9 +294,12 @@ const CaregiverForm = () => {
             <label htmlFor="additional_info">Informações adicionais:</label>
             <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
           </div>*/}
-        <button class="buttonRegister" type="submit">Salvar</button>
+        
+          <div id="buttonReg">
+            <button type="submit">Salvar conta</button>
+          </div>
         </div>
-      
+      </div>
     </form>
   );
 };
