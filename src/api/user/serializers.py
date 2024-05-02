@@ -51,6 +51,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUserModel
         fields = (
+            "id",
             "name",
             "date_joined",  
             "picture",

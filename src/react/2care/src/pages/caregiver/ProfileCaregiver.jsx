@@ -27,7 +27,7 @@ function ProfileCaregiver(props) {
         getCaregiverData().then((result) => {
             setCaregiverData(result)
         })
-        console.log(caregiverData)
+
     }, []);
 
     return (

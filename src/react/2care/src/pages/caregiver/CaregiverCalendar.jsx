@@ -6,6 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { useNavigate } from "react-router-dom";
 import { ptBR } from '@mui/x-date-pickers/locales';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Card from '@mui/material/Card';
@@ -13,7 +14,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import { getUserData } from '../../services/userService';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
 import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver'
@@ -21,8 +22,20 @@ import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCa
 function CaregiverCalendar() {
   const theme = useTheme();
   const [events, setEvents] = useState([]);
+  const [userData, setUserData] = useState({});
   const [showFirstCalendar, setShowFirstCalendar] = useState(true);
   const [focusedDate, setFocusedDate] = useState(new Date());
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    //da pra receber props e não fazer o request caso necessario, mas tem que parar de entrar em getUserData pq vai redirecionar.
+    getUserData().then((result) => {
+      result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+    })
+    
+
+  }, []);
 
   useEffect(() => {
     document.title = 'Calendar';
@@ -64,7 +77,7 @@ function CaregiverCalendar() {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-          <ProfileCardCaregiver/>
+        <ProfileCardCaregiver  userData={userData}/>
         </Grid>
         <Grid item xs={8}>
           <Card>

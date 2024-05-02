@@ -13,6 +13,7 @@ from .models import (
     RatingModel,
 )
 from user.models import CustomUserModel
+from careReceiver.serializers import CareReceiverSerializer
 
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,6 +89,7 @@ class CaregiverSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class CareRequestSerializer(serializers.ModelSerializer):
+    carereceiver = CareReceiverSerializer()
     class Meta:
         model = CareRequestModel
         fields = "__all__"
@@ -97,3 +99,18 @@ class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatingModel
         fields = "__all__"
+
+class RatingListSerializer(serializers.ModelSerializer):
+
+    care_receiver = serializers.SerializerMethodField()
+    
+    def get_care_receiver(self, instance):
+        carereceiver = instance.care_request.carereceiver.user
+        if carereceiver:
+            return {"name": carereceiver.name, "picture": carereceiver.picture}
+        else:
+            return {}
+
+    class Meta:
+        model = RatingModel
+        fields = ["id", "rating", "description", "care_receiver"]

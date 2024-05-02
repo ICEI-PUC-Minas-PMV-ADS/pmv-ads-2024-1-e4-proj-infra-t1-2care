@@ -21,6 +21,7 @@ from .serializers import (
     CaregiverSerializer,
     QualificationSerializer,
     RatingSerializer,
+    RatingListSerializer,
     SpecializationSerializer,
 )
 
@@ -197,12 +198,52 @@ class CareRequestDeclineView(APIView):
         care_request.status = 1  # Recusado
         care_request.save()
         return Response({"status": "declined"}, status=status.HTTP_200_OK)
+    
+class RatingAllowCountView(APIView):
+    authentication_classes = [JWTAuthentication]
 
+    def post(self, request):
+        if not self.request.data:
+            return Response("False", status=status.HTTP_200_OK)
+        care_requests = CareRequestModel.objects.filter(caregiver__user=self.request.data, status=2, carereceiver__user=request.user)
+        ratings_count = care_requests.exclude(ratingmodel__id=None).values_list("ratingmodel__id", flat=True).count()
+        
+        return Response(True if care_requests.count() > ratings_count else False, status=status.HTTP_200_OK)
+
+
+class RatingListView(generics.ListAPIView):
+    serializer_class = RatingListSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_queryset(self):
+        caregiver = CaregiverModel.objects.get(user=self.request.user)
+        return RatingModel.objects.filter(care_request__caregiver=caregiver.pk)
 
 class RatingCreateView(generics.CreateAPIView):
     queryset = RatingModel.objects.all()
     serializer_class = RatingSerializer
     authentication_classes = [JWTAuthentication]
+
+    def post(self, request):
+        if not self.request.data.get("caregiverId", None):
+            return Response("Cuidador não encontrado", status=status.HTTP_404_NOT_FOUND)
+        
+        caregiver = self.request.data.pop("caregiverId")
+        care_request = CareRequestModel.objects.filter(caregiver__user=caregiver, status=2, carereceiver__user=request.user, ratingmodel__id=None).order_by("date").first()
+
+        if not care_request:
+            return Response("Registro de cuidado não encontrado", status=status.HTTP_404_NOT_FOUND)
+        
+        request.data["care_request"] = str(care_request.pk)
+        
+        serializer = RatingSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data)
+        
+        return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class RatingDetailView(generics.RetrieveAPIView):
