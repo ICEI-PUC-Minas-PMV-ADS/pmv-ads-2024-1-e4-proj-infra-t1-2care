@@ -248,7 +248,7 @@ const CaregiverProfileForm = (props) => {
             </div>
             <div className="field">
               <label htmlFor="specialization">Especializações:</label>
-              <button className="spec-button" onClick={()=> {navigate('/profile/caregiver/spec')}}>Gerenciar Especializações</button>
+              <button className="spec-button" onClick={()=> {navigate('/profile/caregiver')}}>Gerenciar Especializações</button>
             </div>
             <div className="field">
               <label htmlFor="additional_info">Informações adicionais:</label>
