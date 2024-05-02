@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
+import { useNavigate } from "react-router-dom";
 import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
 import CaregiverForm from '../../components/Forms/CaregiverForm';
 import '../App.css';
 import SpecializationForm from '../../components/Forms/SpecializationForm';
+import { getUserData } from '../../services/userService';
 
 function ProfileCaregiverSpec() {
-  const theme = useTheme();
-  useEffect(() => {
-      document.title = 'Perfil';
+    const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
+    const theme = useTheme();
+
+    useEffect(() => {
+        document.title = 'Perfil';
+
+        getUserData().then((result) => {
+            result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+        })
   }, []);
 
   return (
@@ -21,7 +30,7 @@ function ProfileCaregiverSpec() {
 
         <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
             <Grid item xs={3}>
-                <ProfileCardCaregiver/>
+                <ProfileCardCaregiver userData={userData}/>
             </Grid>
             <Grid item xs={8}>
                 <SpecializationForm />
