@@ -100,6 +100,23 @@ button {
   margin: 0.3em;
 }
 
+.spec-button {
+  width: 95%;
+  height: 2.5em;
+  border-radius: 0.65em;
+  background-color: #486142;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.spec-button:hover {
+  transform: scale(1.01);
+}
+
+
 button:hover {
   transform: scale(1.10);
 }
@@ -212,7 +229,11 @@ button:hover {
   .columnRight70 {
     float: right;
     width: 65%;
+  }
 
+  .column100spec {
+    float: center;
+    width: 100%;
   }
 }
 
@@ -273,7 +294,7 @@ button:hover {
 }
 
 #additional_info {
-  width: 21.5vw;
+  width: 95%;
   height: 10vh;
   resize: none;
 }
@@ -290,8 +311,7 @@ button:hover {
   box-shadow: 0px 4px 4px 0px #00000040;
   border-radius: 1.5em;
   padding: 1em;
-  max-width: 20vw;
-  max-height: 35vw;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -363,6 +383,11 @@ button:hover {
   padding-left: 0;
 }
 
+.qualification-list {
+  list-style: none;
+  padding-left: 0;
+}
+
 .select-container {
   display: flex;
   justify-content: space-between;
@@ -371,7 +396,7 @@ button:hover {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  width: 80%; /* LISTA */
+  width: 100%; /* LISTA */
 }
 
 .list-item {
@@ -382,7 +407,7 @@ button:hover {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  width: 80%; /* LISTA ADICIONADA */
+  width: 98%; /* LISTA ADICIONADA */
 }
 
 .input-style-spec {

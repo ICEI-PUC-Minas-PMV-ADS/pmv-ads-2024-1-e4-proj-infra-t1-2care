@@ -23,15 +23,31 @@ function SpecializationList() {
       setSelectedSpecializations(prev => [...prev, currentSelection]);
       setCurrentSelection('');
     }
+    enviarEspecializacao()
   };
 
   const handleDeleteClick = (specialization) => {
     setSelectedSpecializations(prev => prev.filter(item => item !== specialization));
   };
 
+  function enviarEspecializacao() {
+    const especializacao = currentSelection
+  
+    fetch('/add/specialization/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ especializacao: especializacao })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Sucesso:', data))
+    .catch((error) => console.error('Erro:', error));
+  }
+
   return (
     <div>
-      <h2>Lista das especializações</h2>
+      <h1>Lista das Especializações</h1>
       <div className="select-add-container">
         <div className="select-container">
           <select 

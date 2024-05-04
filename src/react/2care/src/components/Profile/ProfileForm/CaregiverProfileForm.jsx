@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { updateCaregiver } from '../../../services/caregiverService';
+import { useNavigate } from "react-router-dom";
 
 
 const CaregiverProfileForm = (props) => {
@@ -113,6 +114,7 @@ const CaregiverProfileForm = (props) => {
     }
   };
 
+  const navigate = useNavigate() 
 
   return (
     <form onSubmit={handleSubmit}>

@@ -18,6 +18,7 @@ from .views import (
     RatingAllowCountView,
     SpecializationListCreateView,
     SpecializationRetrieveUpdateDestroyView,
+    AddSpecialization
 )
 
 urlpatterns = [
@@ -72,4 +73,7 @@ urlpatterns = [
     path("ratings/", RatingCreateView.as_view(), name="rating-create"),
     path("ratings/<uuid:pk>/", RatingDetailView.as_view(), name="rating-detail"),
     path("ratings/count", RatingAllowCountView.as_view(), name="rating-allow-count"),
+  
+    path("add/specialization/", AddSpecialization.as_view(), name="add-specialization"),
+
 ]

@@ -13,6 +13,7 @@ import Register from '../pages/Register.js';
 import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.jsx';
 import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.jsx';
 import ProfileCaregiverSpec from '../pages/caregiver/ProfileCaregiverSpec.jsx';
+import ProfileCaregiverQuali from '../pages/caregiver/ProfileCaregiverQuali.jsx';
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -23,6 +24,7 @@ export default (props) => (
                 <Route path="register/:type" element={<Register />} />
                 <Route path="profile/caregiver" element={<ProfileCaregiver />} />
                 <Route path='profile/caregiver/spec' element={<ProfileCaregiverSpec />} />
+                <Route path='profile/caregiver/quali' element={<ProfileCaregiverQuali />} />
                 <Route name="CaregiverCalendar" path="profile/caregiver/calendar" element={<CaregiverCalendar />} />
                 <Route name="CaregiverEvaluations" path="profile/caregiver/evaluations" element={<CaregiverEvaluations />} />
 
