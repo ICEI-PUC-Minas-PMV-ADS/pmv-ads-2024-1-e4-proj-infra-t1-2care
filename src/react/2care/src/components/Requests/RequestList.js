@@ -59,7 +59,7 @@ const RequestList = ({ userType }) => {
                 <div key={request.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={4}>
-                            <img src={request.caregiver.image} alt="Imagem do Cuidador" style={{ maxWidth: '50%', borderRadius: '50%' }} />
+                            <img src={request.caregiver.image} alt="Imagem do Cuidador" style={{ width: '8rem', height: '8rem', objectFit: 'cover', borderRadius: '50%', objectFit: 'cover' }} />
                             <Typography variant="body1">{request.caregiver.name}</Typography>
                         </Grid>
                         <Grid item xs={12} md={8}>
