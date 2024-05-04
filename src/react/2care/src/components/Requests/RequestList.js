@@ -1,66 +1,91 @@
 import React, { useState } from 'react';
-import { Checkbox, FormControlLabel, Button } from '@mui/material';
+import { Checkbox, FormControlLabel, Button, Typography, Grid } from '@mui/material';
 
 const RequestList = ({ userType }) => {
-    const [acceptedChecked, setAcceptedChecked] = useState(true);
-    const [declinedChecked, setDeclinedChecked] = useState(true);
-    const [pendingChecked, setPendingChecked] = useState(true);
+    const [requests, setRequests] = useState([
+        {
+            id: 1,
+            caregiver: {
+                name: "Nome do Cuidador 1",
+                image: "https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
+            },
+            date: "2024-05-03",
+            startTime: "09:00",
+            endTime: "17:00",
+            totalHours: 8,
+            totalPayment: 160.00,
+            accepted: false,
+            rejected: false
+        },
+        {
+            id: 2,
+            caregiver: {
+                name: "Nome do Cuidador 2",
+                image: "https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
+            },
+            date: "2024-05-04",
+            startTime: "10:00",
+            endTime: "18:00",
+            totalHours: 8,
+            totalPayment: 160.00,
+            accepted: false,
+            rejected: false
+        }
+    ]);
 
-    const handleAccept = () => {
-
+    const handleAccept = (id) => {
+        const updatedRequests = requests.map(request => {
+            if (request.id === id) {
+                return { ...request, accepted: true };
+            }
+            return request;
+        });
+        setRequests(updatedRequests);
     };
 
-    const requestCards = [
-        {
-            currentDate: '...',
-            selectedDate: '...',
-            selectedStartTime: '...',
-            totalHours: '...',
-            amount: '...',
-        },
-    ];
+    const handleReject = (id) => {
+        const updatedRequests = requests.map(request => {
+            if (request.id === id) {
+                return { ...request, rejected: true };
+            }
+            return request;
+        });
+        setRequests(updatedRequests);
+    };
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px' }}>
-                <FormControlLabel
-                    control={<Checkbox checked={acceptedChecked} onChange={() => setAcceptedChecked(!acceptedChecked)} />}
-                    label="Aceitas"
-                />
-                <FormControlLabel
-                    control={<Checkbox checked={declinedChecked} onChange={() => setDeclinedChecked(!declinedChecked)} />}
-                    label="Recusadas"
-                />
-                <FormControlLabel
-                    control={<Checkbox checked={pendingChecked} onChange={() => setPendingChecked(!pendingChecked)} />}
-                    label="Pendentes"
-                />
-            </div>
-            {userType === 'carereceiver' && (
-                <Button variant="contained" color="primary" href="/request" style={{ marginBottom: '10px' }}>
-                    Envie sua proposta
-                </Button>
-            )}
-            <div className='requestList'>
-                {requestCards.map((request, index) => (
-                    <div key={index} className="requestCard" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px' }}>
-                        <div style={{ flex: 1 }}>
-                            <img src="" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                        </div>
-                        <div style={{ flex: 3 }}>
-                            <p>Data do envio da proposta: 27/11/2023 {request.currentDate}</p>
-                            <p>Data: 14/12/2023 {request.selectedDate}</p>
-                            <p>Horário: 17:45{request.selectedStartTime}</p>
-                            <p>Total de horas: 2{request.totalHours}</p>
-                            <p>Valor por hora: R$25,00</p>
-                            <p>Valor total: R$50,00{request.amount}</p>
-                        </div>
-
-                    </div>
-                ))}
-            </div>
+            {requests.map(request => (
+                <div key={request.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={4}>
+                            <img src={request.caregiver.image} alt="Imagem do Cuidador" style={{ maxWidth: '50%', borderRadius: '50%' }} />
+                            <Typography variant="body1">{request.caregiver.name}</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <Typography variant="body1">Data: {request.date}</Typography>
+                            <Typography variant="body1">Hora Inicial: {request.startTime}</Typography>
+                            <Typography variant="body1">Hora Final: {request.endTime}</Typography>
+                            <Typography variant="body1">Total de Horas: {request.totalHours}</Typography>
+                            <Typography variant="body1">Valor Total a Pagar: R${request.totalPayment.toFixed(2)}</Typography>
+                            {!request.accepted && !request.rejected && (
+                                <div>
+                                    <Button variant="contained" color="primary" onClick={() => handleAccept(request.id)}>Aceitar</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => handleReject(request.id)}>Recusar</Button>
+                                </div>
+                            )}
+                            {request.accepted && (
+                                <Typography variant="body1" style={{ color: 'green' }}>Aceita</Typography>
+                            )}
+                            {request.rejected && (
+                                <Typography variant="body1" style={{ color: 'red' }}>Recusada</Typography>
+                            )}
+                        </Grid>
+                    </Grid>
+                </div>
+            ))}
         </div>
-    )
+    );
 }
 
 export default RequestList;

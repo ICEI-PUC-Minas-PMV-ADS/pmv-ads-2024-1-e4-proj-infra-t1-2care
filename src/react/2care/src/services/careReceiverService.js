@@ -3,8 +3,7 @@ import { sendAuthenticatedRequest } from './authService';
 import { updateUser } from './userService';
 
 const CARE_RECEIVER_SERVICE_URL = "/careReceiver";
-const CAREGIVER_REQUESTS_SERVICE_URL = "/caregiver/requests"; // Ajuste a URL conforme sua configuração
-
+const CAREGIVER_REQUESTS_SERVICE_URL = "/caregiver/requests"; 
 export const updateCareReceiver = async (user, careReceiver) => { 
     try {
         const responseUserUpdate = await updateUser(user)

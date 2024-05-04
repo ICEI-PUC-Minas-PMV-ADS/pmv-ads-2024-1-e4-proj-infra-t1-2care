@@ -92,91 +92,90 @@ function SendRequests() {
           <Typography variant="h5" gutterBottom>
             Envie uma proposta
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <CaregiverCard
-                image="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
-                name="Nome do Cuidador"
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+            <CaregiverCard
+              image="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
+              name="Nome do Cuidador"
+              showDescription={false}
+              showName={true}
+              especialization="Especialização do Cuidador"
+            />
+            <form onSubmit={handleSubmit} style={{ width: '50%' }}>
+              <TextField
+                label="Data"
+                type="date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                margin="normal"
+                required
               />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  label="Data"
-                  type="date"
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  label="Hora Inicial"
-                  type="time"
-                  value={startTime}
-                  onChange={handleStartTimeChange}
-                  onBlur={calculateTotalHours}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300,
-                  }}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  label="Hora Final"
-                  type="time"
-                  value={endTime}
-                  onChange={handleEndTimeChange}
-                  onBlur={calculateTotalHours}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300,
-                  }}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  label="Total de Horas"
-                  type="number"
-                  value={totalHours}
-                  InputProps={{ readOnly: true }}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Valor da Hora"
-                  type="number"
-                  value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
-                  InputProps={{ readOnly: true }}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Valor Total a Pagar"
-                  type="number"
-                  value={totalPayment}
-                  InputProps={{ readOnly: true }}
-                  fullWidth
-                  margin="normal"
-                />
-                {/* Mensagem de erro, se houver */}
-                {error && <Typography color="error">{error}</Typography>}
-                <Button variant="contained" color="primary" type="submit">
-                  Enviar Proposta
-                </Button>
-              </form>
-            </Grid>
-          </Grid>
+              <TextField
+                label="Hora Inicial"
+                type="time"
+                value={startTime}
+                onChange={handleStartTimeChange}
+                onBlur={calculateTotalHours}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
+                }}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Hora Final"
+                type="time"
+                value={endTime}
+                onChange={handleEndTimeChange}
+                onBlur={calculateTotalHours}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
+                }}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Total de Horas"
+                type="number"
+                value={totalHours}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Valor da Hora"
+                type="number"
+                value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
+                InputProps={{ readOnly: true }}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Valor Total a Pagar"
+                type="number"
+                value={totalPayment}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                margin="normal"
+              />
+              {/* Mensagem de erro, se houver */}
+              {error && <Typography color="error">{error}</Typography>}
+              <Button variant="contained" color="primary" type="submit">
+                Enviar Proposta
+              </Button>
+            </form>
+          </div>
         </Grid>
       </Grid>
     </div>
