@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
+import Inputmask from "inputmask";
 
 const CarereceiverForm = () => {
   const navigate = useNavigate();
@@ -34,6 +35,27 @@ const CarereceiverForm = () => {
     return re.test(cep);
   };
 
+  const validatePhone = (phone) => {
+    const re = /^\(\d{2}\)\s?\d?\d{4}-\d{4}$/;
+    return re.test(phone);
+  };
+
+  const phoneInputRef = useRef(null);
+  useEffect(() => {
+    Inputmask({ 
+      mask: ["(99) 9999-9999", "(99) 99999-9999"],
+      placeholder: "(**) ****-****" 
+    }).mask(phoneInputRef.current);
+  }, []);
+  
+  const codePostInputRef = useRef(null);
+  useEffect(() => {
+    Inputmask({ 
+      mask: "99999-999",
+      placeholder: "*****-***" 
+    }).mask(codePostInputRef.current);
+  }, []);
+
   const handleBlur = (e) => {
     const { name, value } = e.target;
     if (name === 'email' && !validateEmail(value)) {
@@ -51,15 +73,23 @@ const CarereceiverForm = () => {
     e.preventDefault();
     const validationErrors = {};
 
+    if (!formData.email) {
+      validationErrors.email = "Por favor, esse campo é obrigatório!";
+    }
+
     if (!formData.email || !validateEmail(formData.email)) {
       validationErrors.email = "Por favor, insira um e-mail válido.";
     }
 
-    if (!formData.password || formData.password.length < 6) {
+    if (!formData.password) {
+      validationErrors.password = "Por favor, esse campo é obrigatório!";
+    } else if (!formData.password || formData.password.length < 6) {
       validationErrors.password = "A senha deve ter no mínimo 6 caracteres.";
     }
 
-    if (formData.password !== formData.confirm_password) {
+    if (!formData.confirm_password) {
+      validationErrors.confirm_password = "Por favor, esse campo é obrigatório!";
+    } else if (formData.password !== formData.confirm_password) {
       validationErrors.confirm_password = "As senhas não coincidem.";
     }
     
@@ -72,7 +102,11 @@ const CarereceiverForm = () => {
     }
 
     if (!formData.phone) {
-      validationErrors.phone = "Por favor, insira seu número de telefone ou celular.";
+      validationErrors.phone = "Por favor, insira um número de telefone ou celular.";
+    } else if (!validatePhone(formData.phone)) {
+      validationErrors.phone = "Por favor, insira um número de telefone válido.";
+    } else if (formData.phone.replace(/\D/g,'').length < 10) {
+      validationErrors.phone = "O número de telefone deve ter pelo menos 8 dígitos.";
     }
   
     if (!formData.gender) {
@@ -83,8 +117,10 @@ const CarereceiverForm = () => {
       validationErrors.address = "Por favor, insira seu endereço.";
     }
   
-    if (!formData.post_code || !validateCEP(formData.post_code)) {
-      validationErrors.post_code = "Por favor, insira um CEP válido, no formato: 00000-000.";
+    if (!formData.post_code) {
+      validationErrors.post_code = "Por favor, esse campo é obrigatório!";
+    } else if (!formData.post_code || !validateCEP(formData.post_code)) {
+      validationErrors.post_code = "Por favor, insira um CEP válido.";
     }
 
     if (Object.keys(validationErrors).length > 0) {
@@ -100,7 +136,6 @@ const CarereceiverForm = () => {
       console.error("Erro ao cadastrar os dados:", error.message);
     }
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -165,17 +200,10 @@ const CarereceiverForm = () => {
               required
             ></input>
           </div>
-          {/*<div className="field">
-          <label htmlFor="language">Idioma:</label>
-          <select id="language" name="language" value={formData.language} onChange={handleChange}>
-            <option value="portugues">Português</option>
-            <option value="ingles">Inglês</option>
-            <option value="espanhol">Espanhol</option>
-          </select>
-        </div>*/}
           <div className="field">
             <label htmlFor="contact_number">Telefone/Celular:</label>
             <input
+              ref={phoneInputRef}
               type="tel"
               id="phone"
               name="phone"
@@ -219,6 +247,7 @@ const CarereceiverForm = () => {
           <div className="field">
             <label htmlFor="post_code">CEP:</label>
             <input
+              ref={codePostInputRef}
               type="text"
               id="post_code"
               name="post_code"
