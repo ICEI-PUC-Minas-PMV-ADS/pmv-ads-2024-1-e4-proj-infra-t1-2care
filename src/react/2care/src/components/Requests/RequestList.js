@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox, FormControlLabel, Button, Typography, Grid } from '@mui/material';
 
-const RequestList = ({ userType }) => {
+const RequestList = ({ userType, hideActions }) => {
     const [requests, setRequests] = useState([
         {
             id: 1,
@@ -33,6 +33,12 @@ const RequestList = ({ userType }) => {
         }
     ]);
 
+    const [filterOptions, setFilterOptions] = useState({
+        accepted: true,
+        rejected: true,
+        pending: true
+    });
+
     const handleAccept = (id) => {
         const updatedRequests = requests.map(request => {
             if (request.id === id) {
@@ -53,8 +59,35 @@ const RequestList = ({ userType }) => {
         setRequests(updatedRequests);
     };
 
+    const filteredRequests = requests.filter(request => {
+        if (filterOptions.accepted && request.accepted) {
+            return true;
+        }
+        if (filterOptions.rejected && request.rejected) {
+            return true;
+        }
+        if (filterOptions.pending && !request.accepted && !request.rejected) {
+            return true;
+        }
+        return false;
+    });
+
     return (
         <div>
+            <div style={{ marginBottom: '20px' }}>
+                <FormControlLabel
+                    control={<Checkbox checked={filterOptions.accepted} onChange={() => setFilterOptions({ ...filterOptions, accepted: !filterOptions.accepted })} />}
+                    label="Aceitas"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={filterOptions.rejected} onChange={() => setFilterOptions({ ...filterOptions, rejected: !filterOptions.rejected })} />}
+                    label="Recusadas"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={filterOptions.pending} onChange={() => setFilterOptions({ ...filterOptions, pending: !filterOptions.pending })} />}
+                    label="Pendentes"
+                />
+            </div>
             {requests.map(request => (
                 <div key={request.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
                     <Grid container spacing={2}>
@@ -68,7 +101,7 @@ const RequestList = ({ userType }) => {
                             <Typography variant="body1">Hora Final: {request.endTime}</Typography>
                             <Typography variant="body1">Total de Horas: {request.totalHours}</Typography>
                             <Typography variant="body1">Valor Total a Pagar: R${request.totalPayment.toFixed(2)}</Typography>
-                            {!request.accepted && !request.rejected && (
+                            {!hideActions && !request.accepted && !request.rejected && (
                                 <div>
                                     <Button variant="contained" color="primary" onClick={() => handleAccept(request.id)}>Aceitar</Button>
                                     <Button variant="contained" color="secondary" onClick={() => handleReject(request.id)}>Recusar</Button>
