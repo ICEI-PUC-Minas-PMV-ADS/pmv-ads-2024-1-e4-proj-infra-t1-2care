@@ -18,7 +18,7 @@ const RequestsCareReceiver = () => {
             <Grid container justifyContent="center" style={{ marginTop: '5vh' }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h5" gutterBottom>{getHeaderText()}</Typography>
-                    <RequestList userType="careReceiver" /> 
+                    <RequestList userType="careReceiver" hideActions={true}/> 
                 </Grid>
             </Grid>
         </div>

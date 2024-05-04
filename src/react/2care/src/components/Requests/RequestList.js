@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox, FormControlLabel, Button, Typography, Grid } from '@mui/material';
 
-const RequestList = ({ userType }) => {
+const RequestList = ({ userType, hideActions }) => {
     const [requests, setRequests] = useState([
         {
             id: 1,
@@ -101,7 +101,7 @@ const RequestList = ({ userType }) => {
                             <Typography variant="body1">Hora Final: {request.endTime}</Typography>
                             <Typography variant="body1">Total de Horas: {request.totalHours}</Typography>
                             <Typography variant="body1">Valor Total a Pagar: R${request.totalPayment.toFixed(2)}</Typography>
-                            {!request.accepted && !request.rejected && (
+                            {!hideActions && !request.accepted && !request.rejected && (
                                 <div>
                                     <Button variant="contained" color="primary" onClick={() => handleAccept(request.id)}>Aceitar</Button>
                                     <Button variant="contained" color="secondary" onClick={() => handleReject(request.id)}>Recusar</Button>
