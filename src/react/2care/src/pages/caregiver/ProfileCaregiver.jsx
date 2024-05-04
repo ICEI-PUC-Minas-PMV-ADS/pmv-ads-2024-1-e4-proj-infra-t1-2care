@@ -109,15 +109,15 @@ function ProfileCaregiver(props) {
             </Tabs>
             <TabPanel value={value} index={0}>
               <CaregiverProfileForm userData={userData} caregiverData={caregiverData} />
-              <Button variant="contained" color="primary" onClick={handleSaveProfile}>Salvar Perfil</Button>
+              <button type="submit" onClick={handleSaveProfile}>Salvar Alterações</button>
             </TabPanel>
             <TabPanel value={value} index={1}>
               <SpecializationList caregiverData={caregiverData} />
-              <Button variant="contained" color="primary" onClick={handleSaveSpecializations}>Salvar Especializações</Button>
+              <button type="submit" onClick={handleSaveSpecializations}>Salvar Alterações</button>
             </TabPanel>
             <TabPanel value={value} index={2}>
               <QualificationList caregiverData={caregiverData} />
-              <Button variant="contained" color="primary" onClick={handleSaveQualifications}>Salvar Qualificações</Button>
+              <button type="submit" onClick={handleSaveQualifications}>Salvar Alterações</button>
             </TabPanel>
           </Box>
         </Grid>

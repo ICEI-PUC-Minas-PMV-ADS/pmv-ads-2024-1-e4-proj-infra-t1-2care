@@ -226,7 +226,7 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
             <div className="field">
-              <label htmlFor="max_request_km">Distancia maxima de atendimento:</label>
+              <label htmlFor="max_request_km">Distancia maxima de atendimento(Km):</label>
               <input
                 required
                 type="number" 
@@ -237,7 +237,7 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
             <div className="field">
-              <label htmlFor="career_time">Tempo de carreira:</label>
+              <label htmlFor="career_time">Tempo de carreira(Anos):</label>
               <input
                 type="number" 
                 id="career_time"
@@ -257,7 +257,6 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
           </Grid>
-          <button type="submit">Salvar Alterações</button>
         </Grid>
       </div>
     </form >
