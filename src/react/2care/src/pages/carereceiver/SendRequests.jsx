@@ -171,7 +171,7 @@ function SendRequests() {
               />
               {/* Mensagem de erro, se houver */}
               {error && <Typography color="error">{error}</Typography>}
-              <Button variant="contained" color="primary" type="submit">
+              <Button variant="contained" color="primary" type="submit" style={{ borderRadius: '50px', height: '30px'}}>
                 Enviar Proposta
               </Button>
             </form>
