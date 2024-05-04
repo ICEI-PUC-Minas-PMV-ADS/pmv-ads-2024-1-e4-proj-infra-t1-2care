@@ -25,3 +25,30 @@ export const getCaregiverData = async () => {
         return false
     }
 };
+
+export const getEvaluationData = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings`)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+export const getAllowedToEvaluate = async (caregiverId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings/count`, "POST", caregiverId)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+export const createEvaluation = async (evaluation) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings/`, "POST", evaluation)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
