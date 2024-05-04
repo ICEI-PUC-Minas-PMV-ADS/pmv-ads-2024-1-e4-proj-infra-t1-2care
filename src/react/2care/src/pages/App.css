@@ -294,7 +294,7 @@ button:hover {
 }
 
 #additional_info {
-  width: 21.5vw;
+  width: 95%;
   height: 10vh;
   resize: none;
 }
@@ -383,6 +383,11 @@ button:hover {
   padding-left: 0;
 }
 
+.qualification-list {
+  list-style: none;
+  padding-left: 0;
+}
+
 .select-container {
   display: flex;
   justify-content: space-between;
@@ -391,7 +396,7 @@ button:hover {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  width: 80%; /* LISTA */
+  width: 100%; /* LISTA */
 }
 
 .list-item {
@@ -402,7 +407,7 @@ button:hover {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  width: 80%; /* LISTA ADICIONADA */
+  width: 98%; /* LISTA ADICIONADA */
 }
 
 .input-style-spec {

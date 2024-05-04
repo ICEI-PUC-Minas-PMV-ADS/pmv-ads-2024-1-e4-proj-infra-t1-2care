@@ -47,7 +47,7 @@ function SpecializationList() {
 
   return (
     <div>
-      <h2>Lista das especializações</h2>
+      <h1>Lista das Especializações</h1>
       <div className="select-add-container">
         <div className="select-container">
           <select 
