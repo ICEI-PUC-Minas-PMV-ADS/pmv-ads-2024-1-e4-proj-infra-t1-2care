@@ -53,7 +53,7 @@ class CaregiverModel(models.Model):
     additional_info = models.TextField("Informações adicionais", null=True, blank=True)
 
     def __str__(self):
-        return f"Caregiver - {self.id}"
+        return f"Caregiver - {self.user}"
 
     class Meta:
         # ordering = ['user']
@@ -192,7 +192,7 @@ class RatingModel(models.Model):
         (4, "4 Estrelas"),
         (5, "5 Estrelas"),
     ]
-    id = models.UUIDField(primary_key=True, editable=False)
+    id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     care_request = models.OneToOneField("caregiver.CareRequestModel", on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_CHOICES)
     description = models.TextField(null=True, blank=True)
@@ -207,7 +207,7 @@ class CareRequestModel(models.Model):
         (1, "Recusado"),
         (2, "Autorizado"),
     ]
-    id = models.UUIDField(primary_key=True, editable=False)
+    id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()

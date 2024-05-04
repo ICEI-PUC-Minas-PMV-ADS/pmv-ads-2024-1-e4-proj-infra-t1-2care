@@ -12,8 +12,10 @@ from .views import (
     CaregiverCalendarView,
     QualificationCreateView,
     QualificationRetrieveUpdateDestroyView,
+    RatingListView,
     RatingCreateView,
     RatingDetailView,
+    RatingAllowCountView,
     SpecializationListCreateView,
     SpecializationRetrieveUpdateDestroyView,
     AddSpecialization
@@ -66,7 +68,12 @@ urlpatterns = [
         CareRequestDeclineView.as_view(),
         name="care-request-decline",
     ),
+    
+    path("ratings", RatingListView.as_view(), name="rating-list"),
     path("ratings/", RatingCreateView.as_view(), name="rating-create"),
     path("ratings/<uuid:pk>/", RatingDetailView.as_view(), name="rating-detail"),
+    path("ratings/count", RatingAllowCountView.as_view(), name="rating-allow-count"),
+  
     path("add/specialization/", AddSpecialization.as_view(), name="add-specialization"),
+
 ]

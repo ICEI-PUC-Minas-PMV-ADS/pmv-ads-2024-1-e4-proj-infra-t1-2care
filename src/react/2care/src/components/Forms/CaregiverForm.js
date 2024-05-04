@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
+import Inputmask from "inputmask";
 
 const CaregiverForm = () => {
   const navigate = useNavigate();
@@ -29,27 +30,38 @@ const CaregiverForm = () => {
     return re.test(email);
   };
 
-  {/*
-  const validatePhone = (phone) => {
-    const re = /^\(\d{2}\) \d{4,5}-\d{4}$/;
-    return re.test(phone);
-  };
-*/}
-
   const validateCEP = (cep) => {
     const re = /^\d{5}-\d{3}$/;
     return re.test(cep);
   };
 
+  const validatePhone = (phone) => {
+    const re = /^\(\d{2}\)\s?\d?\d{4}-\d{4}$/;
+    return re.test(phone);
+  };
+
+  const phoneInputRef = useRef(null);
+  useEffect(() => {
+    Inputmask({ 
+      mask: ["(99) 9999-9999", "(99) 99999-9999"],
+      placeholder: "(**) ****-****" 
+    }).mask(phoneInputRef.current);
+  }, []);
+  
+  const codePostInputRef = useRef(null);
+  useEffect(() => {
+    Inputmask({ 
+      mask: "99999-999",
+      placeholder: "*****-***" 
+    }).mask(codePostInputRef.current);
+  }, []);
+
   const handleBlur = (e) => {
     const { name, value } = e.target;
     if (name === 'email' && !validateEmail(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um e-mail válido." });
-    } else
-    {/*else if (name === 'phone' && !validatePhone(value)) {
-      setErrors({ ...errors, [name]: "Por favor, insira um telefone válido." });
-    */}
-     if (name === 'post_code' && !validateCEP(value)) {
+    } else 
+    if (name === 'post_code' && !validateCEP(value)) {
       setErrors({ ...errors, [name]: "Por favor, insira um CEP válido." });
     } else {
       setErrors({ ...errors, [name]: "" });
@@ -89,9 +101,13 @@ const CaregiverForm = () => {
     }
     
     if (!formData.phone) {
-      validationErrors.phone = "Por favor, insira seu número de telefone ou celular.";
+      validationErrors.phone = "Por favor, insira um número de telefone ou celular.";
+    } else if (!validatePhone(formData.phone)) {
+      validationErrors.phone = "Por favor, insira um número de telefone válido.";
+    } else if (formData.phone.replace(/\D/g,'').length < 10) {
+      validationErrors.phone = "O número de telefone deve ter pelo menos 8 dígitos.";
     }
-    
+
     if (!formData.gender) {
       validationErrors.gender = "Por favor, selecione seu gênero.";
     }
@@ -119,7 +135,6 @@ const CaregiverForm = () => {
       console.error("Erro ao cadastrar os dados:", error.message);
     }
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -187,6 +202,7 @@ const CaregiverForm = () => {
           <div className="field">
             <label htmlFor="phone">Telefone/Celular:</label>
             <input
+              ref={phoneInputRef}
               type="tel"
               id="phone"
               name="phone"
@@ -196,7 +212,6 @@ const CaregiverForm = () => {
             {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
           </div>
         </div>
-
         <div className="columnRight50">
           <div className="field">
             <label htmlFor="gender">Gênero:</label>
@@ -228,6 +243,7 @@ const CaregiverForm = () => {
           <div className="field">
             <label htmlFor="post_code">CEP:</label>
             <input
+              ref={codePostInputRef}
               type="text"
               id="post_code"
               name="post_code"
@@ -237,64 +253,7 @@ const CaregiverForm = () => {
             ></input>
             {errors.post_code && <span style={{ color: "red" }}>{errors.post_code}</span>}
           </div>
-            
-          
-
-          {/* 
-          <div className='field'>
-            <label htmlFor="qualifications">Qualificações:</label>
-            <input type="text" id="qualifications" name="qualifications" value={formData.qualifications} onChange={handleChange} />
-          </div>
-          <div className='field'>
-          <label htmlFor="work_experience">Experiência de trabalho:</label>
-            <input type="text" id="work_experience" name="work_experience" value={formData.work_experience} onChange={handleChange} />
-          </div>
-          <div className='field'>
-            <label htmlFor="specializations">Especializações:</label>
-            <select id="specializations" name="specializations" value={formData.specializations} onChange={handleChange}>
-              <option value="0">Cuidados Básicos de Saúde</option>
-              <option value="1">Apoio à Mobilidade</option>
-              <option value="2">Higiene e Cuidados Pessoais</option>
-              <option value="3">Nutrição e Preparo de Refeições</option>
-              <option value="4">Estimulação Cognitiva e Emocional</option>          
-              <option value="5">Acompanhamento e Transporte</option>
-              <option value="6">Gestão de Rotinas e Medicamentos</option>
-              <option value="7">Cuidados com o Ambiente Doméstico</option>
-              <option value="8">Suporte em Cuidados Paliativos</option>
-              <option value="9">Formação em Demência e Alzheimer</option>
-            </select>
-          </div>
-          <div className='field'>
-            <label htmlFor="unavailable_days">Dias fixos indisponíveis:</label>
-            <input type="text" id="unavailable_days" name="unavailable_days" value={formData.fixed_unavailable_days} onChange={handleChange} />
-          </div>
-          <div className='field'>
-            <label htmlFor="unavailable_hours">Horários fixos indisponíveis:</label>
-            <input type="text" id="unavailable_hours" name="unavailable_hours" value={formData.fixed_unavailable_hours} onChange={handleChange} />
-          </div>
-          <div class="flex-container">
-            <div>
-              <label htmlFor="daily_price">Valor diária:</label>
-              <input type="text" id="daily_price" name="day_price" value={formData.day_price} onChange={handleChange} />
-            </div>
-            <div>
-              <label htmlFor="hourly_price">Valor hora:</label>
-              <input type="text" id="hourly_price" name="hour_price" value={formData.hour_price} onChange={handleChange} />
-            </div>
-            <div>
-              <label htmlFor="work_years">Anos na área:</label>
-              <input type="text" id="work_years" name="work_years" value={formData.work_years} onChange={handleChange} />
-            </div>
-          </div>
-          <div className='field'>
-            <label htmlFor="address">Localização:</label>
-            <input type="text" id="address" value={formData.address} onChange={handleChange} />
-          </div>
-          <div className='field'>
-            <label htmlFor="additional_info">Informações adicionais:</label>
-            <input type="text" id="additional_info" name="additional_info" value={formData.additional_info} onChange={handleChange} />
-          </div>*/}
-        
+                  
           <div id="buttonReg">
             <button type="submit">Salvar conta</button>
           </div>

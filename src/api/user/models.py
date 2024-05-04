@@ -49,7 +49,7 @@ class CustomUserModel(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True, blank=False, null=False)
     password = models.CharField(max_length=128)
-    name = models.CharField(unique=True, max_length=80, null=False, blank=False)
+    name = models.CharField(max_length=80, null=False, blank=False)
     phone = models.CharField(max_length=64)
     picture = models.TextField(blank=True, null=True)
     address = models.TextField()
