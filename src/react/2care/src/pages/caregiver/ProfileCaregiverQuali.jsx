@@ -21,7 +21,7 @@ function ProfileCaregiverQuali() {
         getUserData().then((result) => {
             result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
         })
-  }, []);
+    }, []);
 
   return (
     <div>

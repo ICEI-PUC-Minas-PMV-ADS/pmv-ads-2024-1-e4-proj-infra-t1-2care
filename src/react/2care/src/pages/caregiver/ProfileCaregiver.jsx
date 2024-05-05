@@ -7,6 +7,7 @@ import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCa
 import CaregiverProfileForm from '../../components/Profile/ProfileForm/CaregiverProfileForm';
 import SpecializationList from '../../components/ListSelection/SpecializationListSelection';
 import QualificationList from '../../components/ListSelection/QualificationList';
+import WorkExperienceList from '../../components/ListSelection/WorkExperienceList';
 import { getUserData } from '../../services/userService';
 import { getCaregiverData } from '../../services/caregiverService';
 import '../App.css';
@@ -53,7 +54,6 @@ function ProfileCaregiver(props) {
     getUserData().then((result) => {
       if (result.user_type_display === "Caregiver") {
         setUserData(result);
-        setIsProfileComplete(true);
       } else {
         navigate('/');
       }
@@ -62,6 +62,7 @@ function ProfileCaregiver(props) {
     // pegar dado do caregiver
     getCaregiverData().then((result) => {
       setCaregiverData(result);
+      setIsProfileComplete(result ? true : false);
     });
   }, []);
 
@@ -72,13 +73,6 @@ function ProfileCaregiver(props) {
     } else {
       setValue(newValue);
     }
-  };
-
-    // salvar dados perfil, especializações e qualificações
-  const handleSaveProfile = () => {
-    //logica de salvar perfil provavelmente por aqui
-    alert("Perfil salvo com sucesso!");
-    setIsProfileComplete(true);
   };
 
   const handleSaveSpecializations = () => {
@@ -106,18 +100,19 @@ function ProfileCaregiver(props) {
               <Tab label="Informações Pessoais" {...a11yProps(0)} />
               <Tab label="Especializações" {...a11yProps(1)} disabled={!isProfileComplete} />
               <Tab label="Qualificações" {...a11yProps(2)} disabled={!isProfileComplete} />
+              <Tab label="Experiência de trabalho" {...a11yProps(2)} disabled={!isProfileComplete} />
             </Tabs>
             <TabPanel value={value} index={0}>
               <CaregiverProfileForm userData={userData} caregiverData={caregiverData} />
-              <button type="submit" onClick={handleSaveProfile}>Salvar Alterações</button>
             </TabPanel>
             <TabPanel value={value} index={1}>
               <SpecializationList caregiverData={caregiverData} />
-              <button type="submit" onClick={handleSaveSpecializations}>Salvar Alterações</button>
             </TabPanel>
             <TabPanel value={value} index={2}>
               <QualificationList caregiverData={caregiverData} />
-              <button type="submit" onClick={handleSaveQualifications}>Salvar Alterações</button>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <WorkExperienceList caregiverData={caregiverData} />
             </TabPanel>
           </Box>
         </Grid>

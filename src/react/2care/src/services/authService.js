@@ -24,7 +24,8 @@ export const signIn = async ({ email, password }) => {
         Cookies.set('refresh', result["refresh"], { expires: 1, secure: true, sameSite: 'strict' });
         Cookies.set('latitude', result["user"]["latitude"], { expires: 1, secure: true, sameSite: 'strict' });
         Cookies.set('longitude', result["user"]["longitude"], { expires: 1, secure: true, sameSite: 'strict' });
-
+        Cookies.set('picture', result["user"]["picture"], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('user_type', result["user"]["user_type"], { expires: 1, secure: true, sameSite: 'strict' });
         return true;
     } catch (error) {
         alert('Usuário ou senha inválidos!');
@@ -88,11 +89,12 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
                 Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
             }
         }
+        
+        if (!response.ok) {
+            throw new Error(JSON.stringify(response));
+        }
 
         const result = await response.json();
-        if (!response.ok) {
-            throw new Error(JSON.stringify(result));
-        }
 
         return result;
     } catch (error) {

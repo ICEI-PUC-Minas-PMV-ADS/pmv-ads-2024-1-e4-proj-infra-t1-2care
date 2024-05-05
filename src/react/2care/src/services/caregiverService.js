@@ -52,3 +52,92 @@ export const createEvaluation = async (evaluation) => {
         return false
     }
 };
+
+export const addSpecialization = async (specialization) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/add/specialization/`, "POST", specialization)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+export const removeSpecialization = async (specialization) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/remove/specialization/`, "POST", specialization)
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+
+export const getSpecializationList = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/specialization`)
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+
+export const addQualification = async (qualification) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/`, "POST", qualification)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+export const removeQualification = async (qualification) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/${qualification}/`, "DELETE")
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+
+export const getQualificationList = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification`)
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+
+
+export const addWorkExperience = async (workExperience) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/workExperience/`, "POST", workExperience)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+export const removeWorkExperience = async (workExperience) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/workExperience/${workExperience}/`, "DELETE")
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+
+export const getWorkExperienceList = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/workExperience`)
+        return response;
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+};
+

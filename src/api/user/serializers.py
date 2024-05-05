@@ -75,5 +75,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['user'] = {
             'latitude': self.user.latitude,
             'longitude': self.user.longitude,
+            'picture': self.user.picture,
+            'user_type': self.user.get_user_type_display()
         }
         return data

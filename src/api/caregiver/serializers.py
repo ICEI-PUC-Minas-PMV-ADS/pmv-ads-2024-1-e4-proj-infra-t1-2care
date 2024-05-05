@@ -32,7 +32,7 @@ class QualificationSerializer(serializers.ModelSerializer):
             r"(?:/?|[/?]\S+)$",
             re.IGNORECASE,
         )
-        if not re.match(url_regex, value):
+        if value and not re.match(url_regex, value):
             raise ValidationError("O campo 'file' deve conter um link válido.")
 
         return value
