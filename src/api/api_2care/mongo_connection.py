@@ -15,7 +15,7 @@ class MongoConnection(object):
 
     def get_data_on_mongo(self, filter=None):
         # filter not implemented
-        return list(self.mongo_conn.find({}))
+        return list(self.mongo_conn.find({"hour_price": {"$gt": 0}}))
 
     def set_caregiver_data_on_mongo(self, caregiver_instance, update=False):
         try:

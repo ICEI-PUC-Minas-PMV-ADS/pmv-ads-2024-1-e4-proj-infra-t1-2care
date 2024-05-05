@@ -10,7 +10,7 @@ from .views import (
     CaregiverDetailView,
     CaregiverEditView,
     CaregiverCalendarView,
-    QualificationCreateView,
+    QualificationListCreateView,
     QualificationRetrieveUpdateDestroyView,
     RatingListView,
     RatingCreateView,
@@ -18,7 +18,10 @@ from .views import (
     RatingAllowCountView,
     SpecializationListCreateView,
     SpecializationRetrieveUpdateDestroyView,
-    AddSpecialization
+    AddSpecialization,
+    RemoveSpecialization,
+    WorkExperienceListCreateView,
+    WorkExperienceRetrieveUpdateDestroyView,
 )
 
 urlpatterns = [
@@ -37,11 +40,17 @@ urlpatterns = [
         name="caregiver-calendar-view",
     ),
     # path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
-    path("qualification/", QualificationCreateView.as_view(), name="qualification-create"),
+    path("qualification/", QualificationListCreateView.as_view(), name="qualification-list-create"),
     path(
         "qualification/<uuid:pk>/",
         QualificationRetrieveUpdateDestroyView.as_view(),
         name="qualification-update-delete",
+    ),
+    path("workExperience/", WorkExperienceListCreateView.as_view(), name="workExperience-list-create"),
+    path(
+        "workExperience/<uuid:pk>/",
+        WorkExperienceRetrieveUpdateDestroyView.as_view(),
+        name="workExperience-update-delete",
     ),
     path(
         "specialization/",
@@ -75,5 +84,6 @@ urlpatterns = [
     path("ratings/count", RatingAllowCountView.as_view(), name="rating-allow-count"),
   
     path("add/specialization/", AddSpecialization.as_view(), name="add-specialization"),
+    path("remove/specialization/", RemoveSpecialization.as_view(), name="remove-specialization"),
 
 ]

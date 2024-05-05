@@ -603,7 +603,7 @@ class CaregiverAPITests(TestCase):
 
     # test Odair
     def test_create_qualification_API(self):
-        url = reverse("qualification-create")
+        url = reverse("qualification-list-create")
         data = {
             "name": "Academic Certificate in well-being care",
             "conclusion_date": "2024-03-15",
@@ -635,7 +635,7 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(qualification.name, "Updated Qualification")
 
     def test_failCreate_qualification_API(self):
-        url = reverse("qualification-create")
+        url = reverse("qualification-list-create")
         data = {
             "name": "Academic Certificate in well-being care",
             "conclusion_date": "tttt.tt.tt",
@@ -667,10 +667,11 @@ class CaregiverAPITests(TestCase):
             conclusion_date="2023-01-01",
             file="http://example.com/previous.pdf",
         )
+        self.caregiver.qualifications.add(qualification)
         url = reverse("qualification-update-delete", args=[qualification.pk])
 
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_retrieve_qualification_API(self):
         qualification = QualificationModel.objects.create(
@@ -753,16 +754,19 @@ class CaregiverAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_list_specialization_api(self):
-        SpecializationModel.objects.create(name=0)  # Cuidados Básicos de Saúde
-        SpecializationModel.objects.create(name=1)  # Apoio à Mobilidade
+        spe1 = SpecializationModel.objects.create(name=0)  # Cuidados Básicos de Saúde
+        spe2 = SpecializationModel.objects.create(name=1)  # Apoio à Mobilidade
+        self.caregiver.specializations.add(spe1)
+        self.caregiver.specializations.add(spe2)
 
         url = reverse("specialization-list")
         response = self.client.get(url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(response.data) >= 2)
-        names = [spec["name"] for spec in response.data]
-        self.assertIn(0, names)
-        self.assertIn(1, names)
+        names = [spec for spec in response.data["specializations"]]
+
+        self.assertIn(spe1.get_name_display(), names)
+        self.assertIn(spe2.get_name_display(), names)
 
 
 # Test Models Qualification (Odair)

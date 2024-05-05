@@ -259,6 +259,9 @@ const CaregiverProfileForm = (props) => {
           </Grid>
         </Grid>
       </div>
+      <Grid container justifyContent="center">
+        <button onClick={handleSubmit}>Salvar Alterações</button>
+      </Grid>
     </form >
     );
   };

@@ -36,10 +36,6 @@ function Home() {
         <CaregiverList></CaregiverList>
       </header>
 
-      <button onClick={fetchData} disabled={loading}>
-        {loading ? 'Carregando...' : 'Iniciar Carregamento'}
-      </button>
-
     </div>
   );
 }
