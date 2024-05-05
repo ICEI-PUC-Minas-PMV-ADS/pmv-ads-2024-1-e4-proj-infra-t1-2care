@@ -8,8 +8,7 @@ O sistema visa proporcionar uma plataforma para conectar clientes que buscam ser
 
 ### b) Referências/documentação do Projeto
 
-- Especificação de Requisitos do Sistema: [link para a documentação]
-- Especificação de Casos de Uso: [link para a documentação]
+<span> - Especificação de Requisitos do Sistema: <a href="02-Especificação do Projeto.md">02-Especificação do Projeto.md</a>
 
 
 ## 2. Abordagens de testes
