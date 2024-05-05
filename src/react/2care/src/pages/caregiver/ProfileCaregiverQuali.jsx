@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
 import CaregiverForm from '../../components/Forms/CaregiverForm';
 import '../App.css';
-import SpecializationForm from '../../components/Forms/SpecializationForm';
+import QualificationForm from '../../components/Forms/QualificationForm';
 import { getUserData } from '../../services/userService';
 
-function ProfileCaregiverSpec() {
+function ProfileCaregiverQuali() {
     const [userData, setUserData] = useState({});
     const navigate = useNavigate();
     const theme = useTheme();
@@ -21,7 +21,7 @@ function ProfileCaregiverSpec() {
         getUserData().then((result) => {
             result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
         })
-  }, []);
+    }, []);
 
   return (
     <div>
@@ -33,11 +33,11 @@ function ProfileCaregiverSpec() {
                 <ProfileCardCaregiver userData={userData}/>
             </Grid>
             <Grid item xs={8}>
-                <SpecializationForm />
+                <QualificationForm />
             </Grid>
         </Grid>
     </div>
 );
 }
 
-export default ProfileCaregiverSpec;
+export default ProfileCaregiverQuali;

@@ -1,21 +1,35 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { isLoggedIn } from "../../services/authService";
+import { getUserPicture, getUserType } from "../../services/userService";
 import "./TopBar.css";
 
-const TopBar = ({ isLogged, userName }) => {
+const TopBar = () => {
   const [searchText, setSearchText] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
+  const [userPicture, setUserPicture] = useState("");
+  const [userType, setUserType] = useState("");
 
   const handleSearchChange = (event) => {
     const searchText = event.target.value;
     setSearchText(searchText);
   };
 
+  useEffect(() => {
+    if(isLoggedIn()){
+      setIsLogged(true)
+      setUserPicture(getUserPicture())
+      setUserType(getUserType())
+      
+    }
+  }, []);
+
   return (
     <div className="topBar">
       <div className="logo">
         <a href="/home">
-          <img src="../../logo.png" alt="Logo" />
+          <img className="logoImg" src="../../logo.png" alt="Logo" />
         </a>
       </div>
       <div className="search">
@@ -25,13 +39,24 @@ const TopBar = ({ isLogged, userName }) => {
         
       </div>
       <div className="rightMenu">
-        {isLogged ? (
-          <span>{userName}</span>
+         {isLogged ? (
+          <Link to={userType == "Caregiver" ? '/profile/Caregiver' : '/profile/Carereceiver'}>
+            <img 
+              alt="User picture"
+              style={{
+                  borderRadius: "50%",
+                  width: "3.5em",
+                  height: "3.5em",
+                  objectFit: "cover"
+              }}
+              src={userPicture ? userPicture : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s"}
+            />
+       </Link>
         ) : (
           <Link to="/">
             <button>Login</button>
           </Link>
-        )}
+        )} 
       </div>
     </div>
   );

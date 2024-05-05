@@ -183,8 +183,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem se cadastrar na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher todos os campos obrigatórios com dados válidos.</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve retornar o usuário para a página de Login.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
-
+| Registro da tela: | ![Tela Login - Botões para Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/808e1521-09c4-4371-9547-9ebf08c26beb), ![Tela Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/edfb763f-a97b-4749-9b70-64eb3ef83037), ![Console Confirmação Cadastro Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/416df1fe-8a42-42a3-9d3e-e36a6f4071fb), ![Tela Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/c5874382-40f8-4206-956c-b040ed55888e), ![Console Confirmação Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f765000b-2d22-47aa-ba90-617d5641e83d), | Data do Teste: 27/04/2024 - Resultado: "Passou" - A aplicação permite aos usuários, "Cliente" e "Cuidador", fazerem seus cadastros com dados válidos com sucesso. |
 
 <br> 
 
@@ -195,7 +194,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se os usuários podem fazer o Login na aplicação.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" cadastrados.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve direcionar o usuário para a tela "Cuidadores" já Logado, o que será visivelmente confirmado pela apresentação da foto/Imagem no canto superior esquerdo da tela.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela Login com Formulário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/479c39da-dcde-4b1a-ad15-9448fa4a7101), ![Tela Home com a Confirmação de Usuário Logado](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/e7c5588c-deb4-4785-bf73-caa88d65622f), ![Tela Login com Formulário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/ff0c2c81-e8ab-4a4d-9656-9f6e9afff90d), ![Tela Home com a Confirmação de Usuário Logado no Console](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/3e5368a4-7625-4936-9d57-816bcdc717fb) | Data do Teste: 27/04/2024 - Resultado: "Passou" - A aplicação permite que os usuários, "Cliente" e "Cuidador", façam login com dados válidos.|
 
 
 <br> 
@@ -207,7 +206,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste | Passos | Critérios de êxito|
 |-|-|-|
 | Verificar se a aplicação nega o cadastro com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Clicar no botão o qual gostaria de fazer o cadastro "Cliente" ou "Cuidador"</li><li>A aplicação deve direcionar o usuário para a página de cadastro correto</li><li>Preencher os campos obrigatórios com dados inválidos (ex: e-mail sem formato válido, senha muito curta, etc.)</li><li>Clicar em "Criar conta"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos precisam ser revistos, não permitindo assim o cadastro. |
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela Cadastro Cliente com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f107ae4b-dd40-452c-a880-71f59d48cb88), ![Tela Cadastro Cuidador com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f0b38e95-1cd2-4d1a-afdb-ddeff1ff9b03) | Data do Teste: 27/04/2024 - Resultado: "Passou" - A aplicação não permite que os usuários, "Cliente" e "Cuidador", consiguam se cadastrar com dados inválidos, retornando as mensagens de erro para cada campo obrigatório preenchido com erro ou não preenchido. Obtendo assim, êxito no teste. |
 
 
 <br> 
@@ -219,7 +218,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação nega o login com dados inválidos.|<ol><li>Acessar a página de Login (http://2care.com/Login)</li><li>Preencher o "E-mail" e "Senha" com dados inválidos.</li><li>Clicar em "Entrar"</li></ol> | A aplicação deve exibir uma mensagem de erro indicando que os dados fornecidos são inválidos, não permitindo assim o login do usuário.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Tela de Login com Tentativa de Logar com Dados Inválidos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/ff83a35d-c49a-48e7-9304-1fb3104ec060) | Data do Teste: 27/04/2024 - Resultado: "Passou" - A aplicação não permitiu o login com dados inválidos, retornando as mensagens de erro para o usuário, conforme esperado. |
 
 
 <br> 
@@ -291,7 +290,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem avaliar os cuidadores após o atendimento.|<ol><li>Acessar a página de Avaliação</li><li>Selecionar o cuidador a ser avaliado</li><li>Atribuir uma pontuação como base no conceito de estrelas e/ou deixar um comentário</li><li>Clicar em "Enviar Avaliação"</li></ol> | A aplicação deve registrar a avaliação do cliente e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/4e7bca6a-39a3-4719-9959-7ae6edd40135) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/93b02fc8-6230-4efc-a6d7-436dbbf4ade7) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/ea715d83-b794-4a63-a5eb-9e9141fd2eb2) | Data do Teste: 01/05/2024 - Resultado: Passou - A aplicação permitiu realizar uma avaliação do cuidador. |
 
 
 <br> 
@@ -339,7 +338,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface da aplicação é intuitiva para usuários de todas as idades.|<ol><li>Acessar a aplicação</li><li>Explorar as diferentes seções e funcionalidades da interface</li><li>Observar a facilidade de navegação e compreensão das funcionalidades</li></ol> | A aplicação deve ser fácil de usar e entender, mesmo para usuários com pouca experiência em tecnologia.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 004651](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/a89e488b-17bd-438b-bf03-bb5b5e2f88cb) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação é de fácil navegação e uso, porém novos testes serão realizados na próxima etapa. |
 
 
 <br> 
@@ -363,7 +362,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se todas as partes da aplicação estão disponíveis em língua portuguesa.|<ol><li>Acessar a aplicação</li><li>Verificar se todos os textos e elementos da interface estão em português</li><li>Explorar diferentes seções e funcionalidades para garantir que todas as partes estejam traduzidas</li></ol> | Todos os elementos da aplicação devem estar corretamente traduzidos para o português e serem compreensíveis para os usuários.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 013022](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/9fcef671-73f9-4b38-9126-f7e072c744aa) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação foi desenvolvida na Língua Portuguesa |
 
 
 <br> 
@@ -399,7 +398,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação é compatível com diferentes navegadores e sistemas operacionais.|<ol><li>Acessar a aplicação em diferentes navegadores, como Google Chrome, Firefox e Edge</li><li>Acessar a aplicação em diferentes dispositivos móveis, incluindo Android e iOS</li><li>Explorar diferentes funcionalidades para garantir o funcionamento adequado</li></ol> | A aplicação deve funcionar corretamente em todos os navegadores e sistemas operacionais suportados, sem comprometer a experiência do usuário.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 011818](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/2d69ad6a-6958-438d-8963-e5ab079b571e), ![Screenshot 2024-05-05 011857](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/aea4c655-05f8-446c-84ca-23183b8df465),![Screenshot 2024-05-05 011923](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/78ec98d3-7a4a-459b-bc35-616f1f9cb78c), ![Screenshot 2024-05-05 012836](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/8d17a7ef-c8cf-4f52-9fe3-8e5f8717ee94) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação rodou com sucesso nos Navegadores, Google Chrome, Firefox, Edge e Opera |
 
 
 <br> 
@@ -408,8 +407,8 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generete Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
-| Registro do Teste |   | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+|Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generate Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
+| Registro do Teste | ![Alerts](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/10c92d2d-e51d-48fe-9f47-ab5c9888c5e5), ![Part Report](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/501c8f24-1599-4f8f-aa37-497fe5c692a0), ![Part Report](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/c733a136-56cc-463f-93e1-89eb36ccc455) | Data do Teste: 04/05/2024 - Resultado: "Média e Baixa Vulnerabilidade" - Ao rodar a ferramenta ZAP, foram identificados riscos de vulnerabilidade Média e Baixa, a serem analisadas e corrigidas. |
 
 
 <br>
@@ -428,8 +427,8 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | Métricas | Medição 1 | Medição 2 | Medição 3 | Medição 4 | Medição 5 | Medição 6 |
 |----------|---------|-----------|---------|---------|-----------|-----------|
-| Cobertura de Requisitos |   |   |   |   |   |   |
+| Cobertura de Requisitos | 100%  |   |   |   |   |   |
 | Taxa de Defeitos        |   |   |   |   |   |   |
 | Cobertura de Código     |   |   |   |   |   |   |
-| Taxa de Execução de Testes Automatizados  |   |   |   |   |   |   |
+| Taxa de Execução de Testes Automatizados  | 87% |   |   |   |   |   |
 | Tempo Médio para Resolver Defeitos |   |   |   |   |   |   |

@@ -8,7 +8,7 @@ const RatingStars = (props) => {
 
   return (
     <div className='ratingStars'>
-      <Rating initialValue={props.stars} allowFraction readonly />
+      <Rating initialValue={props.stars} allowFraction readonly/>
     </div>
   )
 }

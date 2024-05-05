@@ -9,7 +9,7 @@ const TopBarLogin = () => {
     return (
         <div className='topBar'>
             <div className='logo'>
-                <a href='/home'><img src='../../logo.png' alt="Logo" /></a>
+                <a href='/home'><img className="logoImg" src='../../logo.png' alt="Logo" /></a>
             </div>
             <div className='search'>
                 <input type="text" className='searchInput' placeholder='Buscar'></input>

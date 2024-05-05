@@ -14,14 +14,18 @@ from .models import (
     RatingModel,
     SpecializationModel,
     QualificationModel,
+    WorkExperienceModel
 )
+from user.models import CustomUserModel
 
 from .serializers import (
     CareRequestSerializer,
     CaregiverSerializer,
     QualificationSerializer,
     RatingSerializer,
+    RatingListSerializer,
     SpecializationSerializer,
+    WorkExperienceSerializer
 )
 
 class MongoCaregiverListView(APIView):
@@ -144,23 +148,124 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
 # Qualification (Odair)
 
 
-class QualificationCreateView(generics.CreateAPIView):
+class QualificationListCreateView(generics.ListCreateAPIView):
     queryset = QualificationModel.objects.all()
     serializer_class = QualificationSerializer
     authentication_classes = [JWTAuthentication]
 
+    def get(self, request):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        if caregiver:
+            return Response({"status": "success", "qualifications": self.serializer_class(caregiver.qualifications.all(), many=True).data}, status=200)
+
+        return SpecializationModel.objects.none()
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            try:
+                with transaction.atomic():
+                    qualification = serializer.save()
+                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+                    caregiver.qualifications.add(qualification)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except:
+                return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class QualificationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = QualificationModel.objects.all()
     serializer_class = QualificationSerializer
     authentication_classes = [JWTAuthentication]
 
+    def delete(self, request, pk):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+      
+        if(pk):
+            caregiver = get_object_or_404(CaregiverModel, user=user)
+            qualification = caregiver.qualifications.filter(id=pk)
+            if qualification.count() == 1:
+                qualification.delete()
+                return Response({"status": "success", "qualification": pk}, status=200)
+            else:
+                return Response("Qualificação não encontrada", status=status.HTTP_404_NOT_FOUND)  
+        else:
+            return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 ##### Specialization - Leo #####
+
+class AddSpecialization(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        specialization = get_object_or_404(SpecializationModel, name=data)
+        caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+        caregiver.specializations.add(specialization)
+        
+        return Response({"status": "success", "specialization": specialization.get_name_display()}, status=200)
+    
+class RemoveSpecialization(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+
+        specialization = ""
+        for value, specialization_text in SpecializationModel.SPECIALIZATION:
+
+            if specialization_text == data:
+                specialization = get_object_or_404(SpecializationModel, name=value)
+
+        if(specialization):
+            caregiver = get_object_or_404(CaregiverModel, user=user)
+            caregiver.specializations.remove(specialization)
+            
+            return Response({"status": "success", "specialization": specialization.get_name_display()}, status=200)
+        else:
+            return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    
 class SpecializationListCreateView(generics.ListCreateAPIView):
     queryset = SpecializationModel.objects.all()
     serializer_class = SpecializationSerializer
     authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        if caregiver:
+            return Response({"status": "success", "specializations": [SpecializationModel.SPECIALIZATION[vl][1] for vl in caregiver.specializations.all().values_list("name", flat=True)]}, status=200)
+
+        return SpecializationModel.objects.none()
 
 
 class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -171,7 +276,6 @@ class CareRequestListCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = CareRequestModel.objects.all()
     serializer_class = CareRequestSerializer
-
 
 class CareRequestDetailView(generics.RetrieveAPIView):
     authentication_classes = [JWTAuthentication]
@@ -197,15 +301,115 @@ class CareRequestDeclineView(APIView):
         care_request.status = 1  # Recusado
         care_request.save()
         return Response({"status": "declined"}, status=status.HTTP_200_OK)
+    
+class RatingAllowCountView(APIView):
+    authentication_classes = [JWTAuthentication]
 
+    def post(self, request):
+        if not self.request.data:
+            return Response("False", status=status.HTTP_200_OK)
+        care_requests = CareRequestModel.objects.filter(caregiver__user=self.request.data, status=2, carereceiver__user=request.user)
+        ratings_count = care_requests.exclude(ratingmodel__id=None).values_list("ratingmodel__id", flat=True).count()
+        
+        return Response(True if care_requests.count() > ratings_count else False, status=status.HTTP_200_OK)
+
+
+class RatingListView(generics.ListAPIView):
+    serializer_class = RatingListSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_queryset(self):
+        caregiver = CaregiverModel.objects.get(user=self.request.user)
+        return RatingModel.objects.filter(care_request__caregiver=caregiver.pk)
 
 class RatingCreateView(generics.CreateAPIView):
     queryset = RatingModel.objects.all()
     serializer_class = RatingSerializer
     authentication_classes = [JWTAuthentication]
 
+    def post(self, request):
+        if not self.request.data.get("caregiverId", None):
+            return Response("Cuidador não encontrado", status=status.HTTP_404_NOT_FOUND)
+        
+        caregiver = self.request.data.pop("caregiverId")
+        care_request = CareRequestModel.objects.filter(caregiver__user=caregiver, status=2, carereceiver__user=request.user, ratingmodel__id=None).order_by("date").first()
+
+        if not care_request:
+            return Response("Registro de cuidado não encontrado", status=status.HTTP_404_NOT_FOUND)
+        
+        request.data["care_request"] = str(care_request.pk)
+        
+        serializer = RatingSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data)
+        
+        return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class RatingDetailView(generics.RetrieveAPIView):
     queryset = RatingModel.objects.all()
     serializer_class = RatingSerializer
+    authentication_classes = [JWTAuthentication]    
+
+
+class WorkExperienceListCreateView(generics.ListCreateAPIView):
+    queryset = WorkExperienceModel.objects.all()
+    serializer_class = WorkExperienceSerializer
     authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        if caregiver:
+            return Response({"status": "success", "work_experience": self.serializer_class(caregiver.work_exp.all(), many=True).data}, status=200)
+
+        return WorkExperienceModel.objects.none()
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            try:
+                with transaction.atomic():
+                    work_exp = serializer.save()
+                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+                    caregiver.work_exp.add(work_exp)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except:
+                return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class WorkExperienceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = WorkExperienceModel.objects.all()
+    serializer_class = WorkExperienceSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def delete(self, request, pk):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+      
+        if(pk):
+            caregiver = get_object_or_404(CaregiverModel, user=user)
+            work_exp = caregiver.work_exp.filter(id=pk)
+            if work_exp.count() == 1:
+                work_exp.delete()
+                return Response({"status": "success", "work_experience": pk}, status=200)
+            else:
+                return Response("Experiencia de trabalho não encontrada", status=status.HTTP_404_NOT_FOUND)  
+        else:
+            return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)

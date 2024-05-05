@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { getGeolocationApi } from './otherService';
 import { sendAuthenticatedRequest } from './authService';
 import { API_URL } from './apiService';
@@ -47,6 +48,14 @@ export const getUserData = async () => {
     } catch (error) {
         return false
     }
+};
+
+export const getUserPicture = () => {
+    return Cookies.get('picture') ? Cookies.get('picture') : null;
+};
+
+export const getUserType = () => {
+    return Cookies.get('user_type') ? Cookies.get('user_type') : null;
 };
 
 

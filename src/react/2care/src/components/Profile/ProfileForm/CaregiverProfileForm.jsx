@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { updateCaregiver } from '../../../services/caregiverService';
+import { useNavigate } from "react-router-dom";
 
 
 const CaregiverProfileForm = (props) => {
@@ -113,6 +114,7 @@ const CaregiverProfileForm = (props) => {
     }
   };
 
+  const navigate = useNavigate() 
 
   return (
     <form onSubmit={handleSubmit}>
@@ -224,7 +226,7 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
             <div className="field">
-              <label htmlFor="max_request_km">Distancia maxima de atendimento:</label>
+              <label htmlFor="max_request_km">Distancia maxima de atendimento(Km):</label>
               <input
                 required
                 type="number" 
@@ -235,7 +237,7 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
             <div className="field">
-              <label htmlFor="career_time">Tempo de carreira:</label>
+              <label htmlFor="career_time">Tempo de carreira(Anos):</label>
               <input
                 type="number" 
                 id="career_time"
@@ -255,9 +257,11 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
           </Grid>
-          <button type="submit">Salvar Alterações</button>
         </Grid>
       </div>
+      <Grid container justifyContent="center">
+        <button onClick={handleSubmit}>Salvar Alterações</button>
+      </Grid>
     </form >
     );
   };
