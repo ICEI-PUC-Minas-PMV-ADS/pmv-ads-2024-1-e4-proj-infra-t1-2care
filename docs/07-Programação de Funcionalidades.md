@@ -1,5 +1,7 @@
 # Programação de Funcionalidades
 
+As funcionalidades desenvolvidas na aplicação estão apresentadas com sua respectiva descrição, requisitos aos quais elas se relacionam, artefatos produzidos, rotas da API utilizadas e imagens demonstrativas de como essas funcionalidades aparecem na aplicação na versão Web. Uma documentação mais detalhada da API desenvolvida está disponível no Swagger através do endpoint `api/core/swagger/` e conta com todos os endpoints configurados e seus respectivos retornos esperados.
+
 ### Funcionalidade 01: Cadastro de usuários (RF-01)
 A funcionalidade permite o cadastro de usuários, dividindo-os em dois tipos de usuários: clientes e cuidadores.
 
@@ -18,6 +20,7 @@ A funcionalidade permite o cadastro de usuários, dividindo-os em dois tipos de 
 * [Tela de Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/pages/Register.js)
 * [Formulário Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/components/Forms/CaregiverForm.js)
 * [Formulário Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/components/Forms/CarereceiverForm.js)
+* Endpoint: [api/user/register/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/user)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 02: Login na conta de usuário criada (RF-01)
@@ -34,6 +37,7 @@ A funcionalidade permite o login na conta de usuários criada.
 ##### Artefatos produzidos
 * [Login page](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/pages/Login.js)
 * [Formulário de Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/components/Forms/LoginForm/LoginForm.js)
+* Endpoint: [api/user/login/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/user)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 03: Edição de dados da conta (RF-02)
@@ -53,6 +57,9 @@ A funcionalidade permite que o usuário possa editar os dados de sua conta, apag
 * [Componentes utilizados no Perfil](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/Profile)
 * [Perfil Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/pages/carereceiver/ProfileCareReceiver.jsx)
 * [Perfil Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/pages/caregiver/ProfileCaregiver.jsx)
+* Endpoint: [api/user/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/user)
+* Endpoint: [api/caregiver/edit/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
+* Endpoint: [api/carereceiver/edit/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/carereceiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 04: Busca de cuidadores (RF-03)
@@ -69,6 +76,7 @@ A funcionalidade permite que o usuário cliente possa buscar por cuidadores.
 ##### Artefatos produzidos
 * [Barra superior](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/TopBar)
 * [Busca aplicada]()
+* Endpoint: [api/caregiver/list/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 05: Cuidador pode delimitar sua região de atendimento (RF-04)
@@ -90,6 +98,7 @@ A funcionalidade permite que o usuário cuidador especifique qual sua região de
 * [Componentes utilizados no Perfil](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/Profile)
 * [Formulário Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/components/Forms/CaregiverForm.js)
 * [Perfil Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/blob/develop/src/react/2care/src/pages/caregiver/ProfileCaregiver.jsx)
+* Endpoint: [api/caregiver/edit](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 06: Aplicar filtros para encontrar profissionais (RF-05, RF-03)
@@ -104,8 +113,10 @@ A funcionalidade permite que o usuário use filtros para encontrar profissionais
 4. Será redirecionado para uma página onde poderá aplicar os filtros especificados.
    
 ##### Artefatos produzidos
+*
+* Endpoint: [api/caregiver/list/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
-* 
+  
 ### Funcionalidade 07: Cuidador disponibilizar horários e datas de atendimento (RF-06)
 A funcionalidade permite que o usuário cuidador disponibilize suas datas e horários disponíveis para o atendimento. Quando o cliente visualizar os dados do cuidador, poderá consultar sua disponibilidade.	
 
@@ -121,6 +132,7 @@ A funcionalidade permite que o usuário cuidador disponibilize suas datas e hor�
 7. Clique no botão "Salvar"
    
 ##### Artefatos produzidos
+* Endpoint: [api/caregiver/edit/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 08: Cliente avaliar cuidador (RF-07)
@@ -139,6 +151,7 @@ A funcionalidade permite o cliente avalie o cuidador que lhe prestou serviço, u
    
 ##### Artefatos produzidos
 * [Componentes de Avaliação](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/Ratings)
+* Endpoint: [api/caregiver/rating/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 09: Visualizar avaliações do cuidador (RF-08)
@@ -153,6 +166,7 @@ A funcionalidade permite o cliente visualize as avaliações anteriores atribuí
    
 ##### Artefatos produzidos
 * [Componentes de Avaliação](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/Ratings)
+* Endpoint: [api/caregiver/rating/{id}](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 ### Funcionalidade 10: Cuidador inserir seus valores de atendimento (RF-09)
@@ -172,6 +186,7 @@ A funcionalidade permite o cuidador insira seus valores de atendimento por hora 
    
 ##### Artefatos produzidos
 * [Componentes de Avaliação](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/react/2care/src/components/Ratings)
+* Endpoint: [api/caregiver/edit/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
 
@@ -186,5 +201,6 @@ A funcionalidade permite o cliente visualize o valor dos serviços dos cuidadore
 3. Na página inicial, irá ser apresentado os cuidadores e seus referentes valores
    
 ##### Artefatos produzidos
+* Endpoint: [api/caregiver/list/](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api/caregiver)
 * [API](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/tree/develop/src/api)
 
