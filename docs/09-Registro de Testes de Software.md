@@ -338,7 +338,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface da aplicação é intuitiva para usuários de todas as idades.|<ol><li>Acessar a aplicação</li><li>Explorar as diferentes seções e funcionalidades da interface</li><li>Observar a facilidade de navegação e compreensão das funcionalidades</li></ol> | A aplicação deve ser fácil de usar e entender, mesmo para usuários com pouca experiência em tecnologia.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 004651](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/a89e488b-17bd-438b-bf03-bb5b5e2f88cb) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação é de fácil navegação e uso, porém novos testes serão realizados na próxima etapa. |
 
 
 <br> 
@@ -362,7 +362,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se todas as partes da aplicação estão disponíveis em língua portuguesa.|<ol><li>Acessar a aplicação</li><li>Verificar se todos os textos e elementos da interface estão em português</li><li>Explorar diferentes seções e funcionalidades para garantir que todas as partes estejam traduzidas</li></ol> | Todos os elementos da aplicação devem estar corretamente traduzidos para o português e serem compreensíveis para os usuários.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 013022](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/9fcef671-73f9-4b38-9126-f7e072c744aa) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação foi desenvolvida na Língua Portuguesa |
 
 
 <br> 
@@ -398,7 +398,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação é compatível com diferentes navegadores e sistemas operacionais.|<ol><li>Acessar a aplicação em diferentes navegadores, como Google Chrome, Firefox e Edge</li><li>Acessar a aplicação em diferentes dispositivos móveis, incluindo Android e iOS</li><li>Explorar diferentes funcionalidades para garantir o funcionamento adequado</li></ol> | A aplicação deve funcionar corretamente em todos os navegadores e sistemas operacionais suportados, sem comprometer a experiência do usuário.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screenshot 2024-05-05 011818](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/2d69ad6a-6958-438d-8963-e5ab079b571e), ![Screenshot 2024-05-05 011857](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/aea4c655-05f8-446c-84ca-23183b8df465),![Screenshot 2024-05-05 011923](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/78ec98d3-7a4a-459b-bc35-616f1f9cb78c), ![Screenshot 2024-05-05 012836](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/8d17a7ef-c8cf-4f52-9fe3-8e5f8717ee94) | Data do Teste: 04/05/2024 - Resultado: "Passou" - A aplicação rodou com sucesso nos Navegadores, Google Chrome, Firefox, Edge e Opera |
 
 
 <br> 
@@ -408,7 +408,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar o nível de segurança da aplicação.|<ol><li>Baixar a ferramenta Zed Attack Proxy (ZAP) (<https://www.zaproxy.org/>)</li><li>Copie o endereço URL do site 2Care</li><li>Abra a ferramenta ZAP</li><li>Click em "Automated Scan"</li><li>Cole o Endereço URL do site 2Care no campo: "URL to attack"</li><li>Click no botão Attack</li><li>A ferramenta apresentará os "Alertas" de vulnerabilidade a serem observadas e corrigidas</li><li>A ferramenta fornecerá um relatório, para visualizá-lo o tester irá até a barra superior "Relatório" => "Generate Report"</li><li>Configure o tipo de relatório que deseja ser impresso</li><li>Analise os aletas e/ou relatório para buscar sanar as vulnerabilidades.</li></ol> | A aplicação deve apresentar um nível satisfatório de segurança.|
-| Registro do Teste |   | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro do Teste | ![Alerts](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/10c92d2d-e51d-48fe-9f47-ab5c9888c5e5), ![Part Report](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/501c8f24-1599-4f8f-aa37-497fe5c692a0), ![Part Report](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/c733a136-56cc-463f-93e1-89eb36ccc455) | Data do Teste: 04/05/2024 - Resultado: "Média e Baixa Vulnerabilidade" - Ao rodar a ferramenta ZAP, foram identificados riscos de vulnerabilidade Média e Baixa, a serem analisadas e corrigidas. |
 
 
 <br>
@@ -427,8 +427,8 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | Métricas | Medição 1 | Medição 2 | Medição 3 | Medição 4 | Medição 5 | Medição 6 |
 |----------|---------|-----------|---------|---------|-----------|-----------|
-| Cobertura de Requisitos |   |   |   |   |   |   |
+| Cobertura de Requisitos | 100%  |   |   |   |   |   |
 | Taxa de Defeitos        |   |   |   |   |   |   |
 | Cobertura de Código     |   |   |   |   |   |   |
-| Taxa de Execução de Testes Automatizados  |   |   |   |   |   |   |
+| Taxa de Execução de Testes Automatizados  | 87% |   |   |   |   |   |
 | Tempo Médio para Resolver Defeitos |   |   |   |   |   |   |
