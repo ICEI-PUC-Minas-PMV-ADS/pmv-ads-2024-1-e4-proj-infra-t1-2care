@@ -230,7 +230,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem editar suas informações pessoais na aplicação.|<ol><li>Acessar a página de Perfil do usuário</li><li>Clicar no botão "Editar perfil"</li><li>Modificar as informações pessoais desejadas</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as informações do usuário e exibir uma mensagem de confirmação.|
-| Registro da tela: | ![editar carereceiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/44ebeabf-d003-4507-b2cf-6b21c2c67812) | Data do Teste: 29/09/2024 - Resultado: Passou - O usuário conseguiu editar suas informações pessoais com sucesso. |
+| Registro da tela: | ![teste edit](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/67fc7301-65a7-420c-a16d-b9545a718f6e) | Data do Teste: 29/09/2024 - Resultado: Passou - O usuário conseguiu editar suas informações pessoais com sucesso. |
 
 
 <br> 
@@ -254,7 +254,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os cuidadores conseguem delimitar sua região de atendimento na aplicação.|<ol><li>Acessar a página de Perfil</li><li>Localizar a opção de delimitar a região de atendimento</li><li>Definir a área desejada</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as configurações da conta do cuidador e exibir uma mensagem de confirmação.|
-| Registro da tela: | ![editar caregiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/36c6ba9c-8444-4c6b-8932-8fec05dccc35) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu delimitar a sua região de atendimento com sucesso. |
+| Registro da tela: | ![teste edit](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/a26bf922-4767-4c82-84e4-7add3629345b) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu delimitar a sua região de atendimento com sucesso. |
 
 
 <br> 
@@ -278,7 +278,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os cuidadores podem disponibilizar seus horários na aplicação.|<ol><li>Acessar a página de Configurações de horários</li><li>Selecionar os horários disponíveis</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os horários disponíveis do cuidador e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![teste agenda](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/94672dc3-9e72-4ec5-b9ba-7f89a9c2a34b) | Data do Teste: 05/05/2024 - Resultado: Passou - O cuidador conseguiu desponibilizar suas datas e horários disponíveis com sucesso. |
 
 
 <br> 
@@ -290,7 +290,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem avaliar os cuidadores após o atendimento.|<ol><li>Acessar a página de Avaliação</li><li>Selecionar o cuidador a ser avaliado</li><li>Atribuir uma pontuação como base no conceito de estrelas e/ou deixar um comentário</li><li>Clicar em "Enviar Avaliação"</li></ol> | A aplicação deve registrar a avaliação do cliente e exibir uma mensagem de confirmação.|
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/4e7bca6a-39a3-4719-9959-7ae6edd40135) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/93b02fc8-6230-4efc-a6d7-436dbbf4ade7) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/ea715d83-b794-4a63-a5eb-9e9141fd2eb2) | Data do Teste: 01/05/2024 - Resultado: Passou - A aplicação permitiu realizar uma avaliação do cuidador. |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/4e7bca6a-39a3-4719-9959-7ae6edd40135) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/93b02fc8-6230-4efc-a6d7-436dbbf4ade7) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/96087622/ea715d83-b794-4a63-a5eb-9e9141fd2eb2) | Data do Teste: 01/05/2024 - Resultado: Passou - A aplicação permitiu realizar uma avaliação ao cuidador. |
 
 
 <br> 
@@ -314,7 +314,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os profissionais podem inserir seus valores de atendimento na aplicação.|<ol><li>Acessar a página de Perfil de usuário</li><li>Localizar a opção de inserir valores de atendimento</li><li>Inserir os valores desejados</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os valores de atendimento do profissional e exibir uma mensagem de confirmação.|
-| Registro da tela: | ![editar caregiver](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/ea75c8f0-b441-4a5a-9b01-bb7b7f42d5a9) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu inserir seus valores de atendimento com sucesso. |
+| Registro da tela: | ![teste edit](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/c4ebc331-6f05-4f32-8f5b-2c977320d9ff) | Data do Teste: 29/04/2024 - Resultado: Passou - O cuidador conseguiu inserir seus valores de atendimento com sucesso. |
 
 
 <br> 
