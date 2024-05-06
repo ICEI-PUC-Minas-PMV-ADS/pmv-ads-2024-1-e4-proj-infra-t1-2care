@@ -21,6 +21,7 @@ As fontes utilizadas foram:
 - [Catamaran](https://fonts.google.com/?query=catamaran)
 - [Inter](https://fonts.google.com/specimen/Inter?query=inter)
 
+# Versão Web
 ## Home/Login
 
 Na versão web de nossa aplicação, o usuário é recebido inicialmente pela tela de Home/Login. Nesta tela, encontrará uma breve apresentação da aplicação, o campo de login e duas opções de cadastro: uma para "Cuidador" e outra para "Cliente", caso ainda não possua uma conta.
@@ -169,6 +170,131 @@ Na página de Perfil do Usuário Cuidador, o usuário terá a opção de retorna
 Na página de Propostas Recebidas, o cuidador terá a possibilidade de visualizar as propostas que recebeu, podendo filtrá-las por "aceitas", "recusadas" e "pendentes". Além disso, ele terá a opção de aceitar ou recusar as propostas pendentes.
 
 ![Tela Propostas Recebidas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/113949375/31fee514-caa7-4d81-868b-8e3e431a3e84)
+
+
+# Versão Mobile
+[Acesse o protótipo interativo para melhor experiência.](https://www.figma.com/proto/oO6ZeNcDngTuyvNuBHjIP6/Mobile-2Care?type=design&node-id=209-8435&t=Fo4CqlAPegGPAfY9-1&scaling=scale-down&page-id=1%3A2&starting-point-node-id=209%3A8435&show-proto-sidebar=1&mode=design)
+
+## Login
+
+Na versão mobile de nossa aplicação, o usuário é recebido inicialmente pela tela de Home/Login. Nesta tela, encontrará uma breve apresentação da aplicação, o campo de login e a possibilidade de criar uma nova conta, caso ainda não possua uma conta.
+
+![Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/f0dcbc1b-e8eb-4452-b202-12da4288e3ea)
+
+## Cadastro 
+Ao selecionar para criar uma conta, esta tela aparece para que o usuário selecione qual tipo de conta deseja ser criada: Cuidador ou Cliente
+
+![Cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/c954fbdd-4c76-46e9-a477-911dd6c7f423)
+
+## Cadastro Específico - Cuidador
+
+Na tela de Cadastro Específico para Cuidadores, o usuário fornecerá informações para criar sua conta de "cuidador"
+
+![Cadastro Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/54ad4e3b-a5ab-4a90-a798-c7e73b1e0ce6)
+
+
+## Cadastro Específico - Cliente
+
+Na página de Cadastro Específico para Clientes, o usuário fornecerá informações para criar sua conta de "cliente".
+
+![Cadastro Específico - Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/2e5aee4b-163e-4843-ae92-145b56068817)
+
+
+## Tela Inicial
+
+Na Página Inicial, os usuários terão a possibilidade de visualizar alguns cuidadores no feed e navegar entre as páginas do aplicativo. Caso o usuário não esteja logado, ao clicar em alguma ação que necessite conta, ele será redirecionado ao login.
+
+![Tela Inicial](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/96d48261-66c7-408d-8059-b0c583bf48e3)
+
+## Propostas - Visão Cuidador
+
+Na tela de propostas na visão do cuidador, o cuidador logado poderá ver suas propostas recebidas separadas por seus estados de pendentes, aceitas e recusadas.
+
+![Propostas - Visão Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/799f794f-0ae6-47ad-98bc-6b2b2e099378)
+
+## Propostas - Visão Cliente
+
+Na tela de propostas na visão do cliente, o cliente logado poderá ver suas propostas enviadas separadas por seus estados de pendentes, aceitas e recusadas.
+
+![Propostas - Visão Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/3bd7661a-8130-44d6-82bd-33311220fca0)
+
+## Busca e Filtros
+
+Na página de busca e filtros, usuários poderão realizar buscas utilizando diferentes critérios de filtro.
+
+![Busca e Filtros](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/945441f4-9aeb-4499-9fad-ac3282fbf5c4)
+
+## Perfil do Cuidador - Visão do Cuidador
+
+Ao visualizar seu perfil, o cuidador poderá ver seus dados pessoais e profissionais. Também possui a opção de editar seus dados ou sair da conta, bem como de navegar para as telas de Avaliações e Agenda.
+
+![Perfil Cuidador - Visão Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bc283f39-5eeb-45ae-b6ee-d736a5915ba9)
+
+## Editar Perfil do Cuidador - Visão do Cuidador
+
+Ao visualizar seu perfil, o cuidador poderá escolher editar seus dados pessoais e profissionais. Nesta tela de edição, ele poderá atualizar suas informações principais.
+
+![Editar Perfil do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/a70661fa-5a2c-49ac-b9c0-bffecc7e0765)
+
+
+## Avaliações do Cuidador - Visão do Cuidador
+
+Ao visualizar seu perfil, o cuidador poderá navegar para suas avaliações, onde poderá ver as avaliações que seus clientes lhe atribuiram e filtrar pela escala de 1 a 5.
+
+![Avaliações - Visão Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/3cea720e-5524-4bdb-9651-b57764974835)
+
+
+## Agenda do Cuidador - Visão do Cuidador
+
+Ao visualizar seu perfil, o cuidador poderá navegar para sua agenda e adicionar ou atualizar seus horários.
+
+![Agenda do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/1e6d607c-5293-40a0-8d9a-96d29a7ce4d4)
+
+## Dados do Cliente - Visão do Cuidador
+
+Ao receber uma proposta, o cuidador poderá visualizar os dados do cliente que lhe enviou a proposta.
+
+![Dados do Cliente - Visão do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/8f4df7b4-756a-4e87-bda5-7f50938a61c0)
+
+## Perfil do Cliente - Visão do Cliente
+
+Ao visualizar seu perfil, o cliente poderá ver seus dados pessoais. Também possui a opção de editar seus dados ou sair da conta, bem como de navegar para as telas das suas propostas enviadas e suas avaliações feitas.
+
+![Perfil do Cliente - Visão do Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/901200d6-ac74-4210-b1d4-2c2bce5d60b8)
+
+
+## Editar Perfil do Cliente - Visão do Cliente
+
+Ao visualizar seu perfil, o cuidador poderá escolher editar seus dados pessoais. Nesta tela de edição, ele poderá atualizar suas informações principais.
+
+![Editar Perfil do Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/a8512683-6d4e-453b-bcad-2a502cc53e36)
+
+
+## Dados do Cuidador - Visão do Cliente
+
+Ao encontrar um cuidador, o cliente poderá visualizar os dados do cuidador e navegar para ver as avaliações e a agenda deste. Há também um botão para que possa enviar sua proposta.
+
+![Dados do Cuidador - Visão do Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/77c98d03-9414-47e5-88e3-6d88b6f7790f)
+
+
+## Avaliações do Cuidador - Visão do Cliente contratante
+
+Ao visualizar as avaliações de um cuidador, o cliente poderá ver as avaliações que lhe foram atribuídas e filtrar pela escala de 1 a 5. Caso ele tenha contratado um serviço do cuidador selecionado, o cliente poderá adicionar sua avaliação também.
+
+![Avaliações - Visão Cliente](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/4676abd1-3b64-485d-b181-88d926517613)
+
+
+## Agenda do Cuidador - Visão do Cliente
+
+Ao visualizar seu perfil, o cliente poderá ver a agenda do cuidador.
+
+![Agenda do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/1e6d607c-5293-40a0-8d9a-96d29a7ce4d4)
+
+## Envie sua proposta
+
+Para enviar sua proposta, o cliente poderá clicar no botão "Enviar proposta" e preencher com a data e hora desejada. A aplicação contará o valor a ser pago e, caso concorde, o cliente poderá enviar a proposta.
+
+![Envie sua proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bfa6f1f7-00a0-4144-9e92-ca14a1e4fdf8)
 
 
 
