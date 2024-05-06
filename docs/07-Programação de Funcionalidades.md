@@ -68,7 +68,7 @@ A funcionalidade permite que o usuário cliente possa buscar por cuidadores.
 <img src="" alt="Buscar profissionais" width="50%"/>
 
 ##### Instruções de acesso
-1. Acesse o site em [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+1. Acesse o site
 2. Efetue o login corretamente
 3. Na barra superior, digite o que busca na barra de pesquisa
 4. Será redirecionado para a página com a sua busca aplicada exibindo os cuidadores que se aplicam a ela.
