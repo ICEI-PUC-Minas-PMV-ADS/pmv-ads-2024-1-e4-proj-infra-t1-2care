@@ -28,7 +28,6 @@ class UserSerializer(serializers.ModelSerializer):
         # Inclua todos os campos que você deseja expor via API
         fields = (
             "id",
-            "username",
             "email",
             "name",
             "date_joined",

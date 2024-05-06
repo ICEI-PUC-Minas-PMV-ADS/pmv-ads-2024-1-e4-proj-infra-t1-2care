@@ -1,0 +1,20 @@
+.navBar {
+    background-color: #486142;
+    height: 1.8em;
+    align-items: baseline;
+    padding-top: 0.3em;
+    width: 100%;
+}
+
+.navBar a {
+    color: #FFFFFF;
+    border-bottom: none;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.navBar :hover {
+    border-bottom: 3px solid #ED8733;
+    padding-bottom: 1px;
+}

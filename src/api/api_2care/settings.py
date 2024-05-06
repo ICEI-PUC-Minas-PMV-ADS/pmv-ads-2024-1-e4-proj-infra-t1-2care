@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps
     "core",
+    "user",
+    "caregiver",
+    "careReceiver",
     # external
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_yasg",
-    "pymongo"
+    "pymongo",
+    "corsheaders"
 ]
 
 REST_FRAMEWORK = {
@@ -55,6 +59,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -62,6 +67,21 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ALLOWED_HOSTS = ['*'] #fixme se der problema de cors fala comigo
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 ROOT_URLCONF = "api_2care.urls"
@@ -131,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -148,4 +168,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "core.CustomUserModel"
+AUTH_USER_MODEL = "user.CustomUserModel"

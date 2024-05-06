@@ -1,0 +1,37 @@
+.topBar {
+    display: flex;
+    background-color: #FFFFFF;
+    width: 100%;
+    align-items: start;
+    padding-top: 0.5em;
+    align-items: center;
+}
+
+.topBar .logo img, .topBar .rightMenu img {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.logoImg:hover {
+    transform: scale(1.20); 
+    transition: transform 0.3s ease;
+}
+
+.topBar .search {
+    width: 95%;
+    height: 2.5em;
+}
+
+.searchInput {
+    background-color: #D2DAC3;
+    box-shadow: none;
+    border-radius: 2em;
+    border: none;
+    text-align: left;
+    justify-content: center;
+    padding-left: 1em;
+    width: 95%;
+  }

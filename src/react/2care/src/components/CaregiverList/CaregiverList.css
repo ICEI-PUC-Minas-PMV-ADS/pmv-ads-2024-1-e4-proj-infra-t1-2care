@@ -1,0 +1,20 @@
+.caregiverList {
+    align-items: start;
+    margin: 1em;
+
+
+}
+
+.caregiverList .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+h1 {
+    color: #486142;
+    padding-left: 1%;
+    text-align: left;
+    margin: 0;
+    font-weight: 500;
+}
