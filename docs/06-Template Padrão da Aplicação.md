@@ -290,3 +290,11 @@ Ao visualizar seu perfil, o cliente poderá ver a agenda do cuidador.
 
 ![Agenda do Cuidador](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/1e6d607c-5293-40a0-8d9a-96d29a7ce4d4)
 
+## Envie sua proposta
+
+Para enviar sua proposta, o cliente poderá clicar no botão "Enviar proposta" e preencher com a data e hora desejada. A aplicação contará o valor a ser pago e, caso concorde, o cliente poderá enviar a proposta.
+
+![Envie sua proposta](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/12260321/bfa6f1f7-00a0-4144-9e92-ca14a1e4fdf8)
+
+
+
