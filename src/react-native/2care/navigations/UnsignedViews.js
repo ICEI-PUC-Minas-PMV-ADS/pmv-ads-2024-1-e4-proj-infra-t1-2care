@@ -1,20 +1,37 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '../screens/Unsigned/Home';
+import Login from '../screens/Unsigned/Login';
+import Register from '../screens/Unsigned/Register';
+import RegisterUsers from '../screens/Unsigned/RegisterUsers';
 
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
     return (
-        <stack.Navigator initialRouteName="Home">
+        <stack.Navigator initialRouteName="Login">
             <stack.Screen
-                name="Home"
-                component={Home}
+                name="Login"
+                component={Login}
                 options={{
                     header: () => null,
                 }}
             />
+            <stack.Screen
+                name="Register"
+                component={Register}
+                options={{
+                    header: () => null,
+                }}
+            />
+             <stack.Screen
+                name="RegisterUsers"
+                component={RegisterUsers}
+                options={{
+                    header: () => null,
+                }}
+            />
+
         </stack.Navigator>
     );
 };
