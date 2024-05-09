@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
-import theme from "../../theme/theme.js";
-import "../AppMobile.css";
 import { useNavigation } from "@react-navigation/native";
+import "../AppMobile.css";
 
 export default function Register() {
   const navigation = useNavigation();
@@ -11,23 +10,38 @@ export default function Register() {
     <View style={styles.containerRegister}>
       <View style={styles.logo}>
         <Image
-          source={require("../../assets/logo.png")}
+          source={require("../../assets/logo2care.png")}
           style={styles.logoImg}
         />
       </View>
 
       <View style={styles.description}>
-        
         <Text style={styles.title}>Você é</Text>
-        <Pressable onPress={() => navigation.navigate('RegisterUsers', { type: 'carereceiver' })} style={styles.buttonUser}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate("RegisterUsers", { type: "carereceiver" })
+          }
+          style={({ pressed }) => [
+            styles.buttonUser,
+            pressed && { transform: [{ scale: 1.1 }] },
+          ]}
+        >
           <Text style={styles.buttonUserText}>Cliente</Text>
         </Pressable>
         <Text style={styles.subtitle}>
           Familiares ou pessoas que buscam por cuidadores para assistência
           personalizada.
         </Text>
-   
-        <Pressable onPress={() => navigation.navigate('RegisterUsers', { type: 'caregiver' })} style={styles.buttonUser}>
+
+        <Pressable
+          onPress={() =>
+            navigation.navigate("RegisterUsers", { type: "caregiver" })
+          }
+          style={({ pressed }) => [
+            styles.buttonUser,
+            pressed && { transform: [{ scale: 1.1 }] },
+          ]}
+        >
           <Text style={styles.buttonUserText}>Cuidador</Text>
         </Pressable>
         <Text style={styles.subtitle}>
@@ -73,7 +87,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
- buttonUser: {
+  buttonUser: {
     backgroundColor: "#486142",
     padding: 10,
     borderRadius: 25,
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonUserText: {
-    color : "#FFFFFF",
+    color: "#FFFFFF",
     textAlign: "center",
     margin: "auto",
     fontSize: 20,

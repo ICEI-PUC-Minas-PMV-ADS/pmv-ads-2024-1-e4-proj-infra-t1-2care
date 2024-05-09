@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
   Image,
   KeyboardAvoidingView,
@@ -11,9 +10,8 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import theme from "../../theme/theme.js";
-import "../AppMobile.css";
 import { useNavigation } from "@react-navigation/native";
+import "../AppMobile.css";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -22,28 +20,45 @@ export default function Login() {
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    //Adicionar a validação do formulário
+    setErrors({ ...errors, [name]: validateField(name, value) });
   };
 
-  const handleSubmit = () => {
-    //Adicionar a lógica de submissão do formulário
+  const handleSubmit = async () => {
+    const validationErrors = {};
+  
+    if (!formData.email || !validateEmail(formData.email)) {
+      validationErrors.email = "Por favor, insira o e-mail cadastro.";
+    }
+  
+    if (!formData.password || formData.password.length < 6) {
+      validationErrors.password = "Por favor, confira sua senha.";
+    }
+  
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+  
+    // Lógica de submissão do formulário 
+    try {
+      await loginUser(formData);
+      console.log("Usuário logado com sucesso");
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Erro ao fazer login:", error.message);
+      setLoginError("Erro ao fazer login. Verifique E-mail e Senha e tente novamente.");
+    }
   };
-
-  const handleTextPress = () => {
-    navigation.navigate('Register');
-  };
-
-
+  
 
   return (
     <View style={styles.containerLogin}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+        behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.containerLogin}>
           <View style={styles.logo}>
             <Image
-              source={require("../../assets/logo.png")}
+              source={require("../../assets/logo2care.png")}
               style={styles.logoImg}
             />
           </View>
@@ -81,15 +96,38 @@ export default function Login() {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
 
-            <Pressable onPress={handleTextPress}>
-              <Text style={styles.linkText}>Crie a sua conta aqui</Text>
+            <Pressable
+              onPress={() => navigation.navigate("Register")}
+              style={({ pressed }) => [
+                styles.linkContainer,
+                pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
+              ]}
+            >
+              <Text style={styles.linkText}>
+                Crie a sua conta clicando aqui
+              </Text>
             </Pressable>
 
-            <Pressable onPress={handleSubmit} style={styles.buttonLogin}>
+            <Pressable
+              onPress={handleSubmit}
+              style={({ pressed }) => [
+                styles.buttonLogin,
+                pressed && { transform: [{ scale: 1.1 }] },
+              ]}
+            >
               <Text style={styles.buttonLoginText}>Entrar</Text>
             </Pressable>
 
-            <Pressable onPress={handleTextPress}>
+            <Pressable
+              onPress={() => {
+                console.log("Você será redirecionado para a nova Tela.");
+                navigation.navigate("Home");
+              }}
+              style={({ pressed }) => [
+                styles.linkContainer,
+                pressed && { transform: [{ scale: 1.05 }], fontWeight: "bold" },
+              ]}
+            >
               <Text style={styles.linkText}>Continuar como visitante</Text>
             </Pressable>
           </View>
@@ -150,11 +188,10 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
-    marginBottom: 10,
+    marginTop: -20,
   },
   linkText: {
     color: "#ED8733",
-    //textDecorationLine: "underline",
     marginBottom: 20,
     alignContent: "flex-start",
     fontSize: 16,
@@ -169,7 +206,6 @@ const styles = StyleSheet.create({
   },
   buttonLoginText: {
     color: "black",
-    //fontWeight: "bold",
     fontSize: 25,
   },
 });

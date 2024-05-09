@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
-import theme from "../../theme/theme.js";
-import "../AppMobile.css";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import CaregiverFormMob from "../../components/Forms/CaregiverFormMob.js";
 import CarereceiverFormMob from "../../components/Forms/CarereceiverFormMob.js";
+import '../AppMobile.css';
 
 export default function RegisterUsers({ route }) {
   const { type } = route.params;
   const navigation = useNavigation();
 
   return (
-    <View style={styles.content}>
+    <View style={styles.ContainerAllForm}>
       <View>
         <Text style={styles.title}>
           {type === "carereceiver" ? "Olá, cliente!" : "Olá, cuidador!"}
@@ -26,17 +25,14 @@ export default function RegisterUsers({ route }) {
 }
 
 const styles = StyleSheet.create({
-  content: {
+  containerRegister: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    width: "80%",
-    margin: "auto",
   },
   title: {
-    fontSize: 24,
-    marginBottom: 10,
+    fontSize: 30,
+    marginTop: "15%",
     textAlign: "left",
     color: "#486142",
+    paddingHorizontal: "10%",
   },
 });
