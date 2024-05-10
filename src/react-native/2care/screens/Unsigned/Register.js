@@ -2,19 +2,24 @@ import React, { useState } from "react";
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Register() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.containerRegister}>
+      {/*Botão provisório*/}
+      <Pressable onPress={() => navigation.goBack()} style={styles.goBackButton}>
+        <Ionicons name="arrow-back" size={24} color="#486142" />
+      </Pressable>
+      {/*Fim Botão provisório*/}
       <View style={styles.logo}>
         <Image
           source={require("../../assets/logo2care.png")}
           style={styles.logoImg}
         />
       </View>
-
       <View style={styles.description}>
         <Text style={styles.title}>Você é</Text>
         <Pressable
@@ -32,7 +37,6 @@ export default function Register() {
           Familiares ou pessoas que buscam por cuidadores para assistência
           personalizada.
         </Text>
-
         <Pressable
           onPress={() =>
             navigation.navigate("RegisterUsers", { type: "caregiver" })
@@ -102,4 +106,14 @@ const styles = StyleSheet.create({
     margin: "auto",
     fontSize: 20,
   },
+
+//Style IconButton "Provisório"
+  goBackButton: {
+    position: "absolute",
+    top: 20,
+    left: 0,
+    zIndex: 1,
+  },
+
+
 });

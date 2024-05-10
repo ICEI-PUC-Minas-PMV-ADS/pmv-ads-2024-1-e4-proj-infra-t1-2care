@@ -7,9 +7,8 @@ import {
   Picker,
   StyleSheet,
 } from "react-native";
-import theme from "../../theme/theme.js";
 import { useNavigation } from "@react-navigation/native";
-import { TextInputMask } from "react-native-masked-text";
+import { registerUser } from "../../services/userServiceMob";
 
 const CarereceiverFormMob = () => {
   const navigation = useNavigation();
@@ -30,7 +29,44 @@ const CarereceiverFormMob = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
+    let updatedValue = value;
+
+    if (name === "post_code") {
+      updatedValue = value.replace(/\D/g, "");
+      updatedValue = updatedValue.slice(0, 8);
+      if (updatedValue.length > 5) {
+        updatedValue = updatedValue.replace(/^(\d{5})(\d{3})$/, "$1-$2");
+      }
+    }
+
+    if (name === "birth_date") {
+      updatedValue = value.replace(/\D/g, "");
+
+      if (updatedValue.length > 2) {
+        updatedValue = `${updatedValue.slice(0, 2)}/${updatedValue.slice(2)}`;
+      }
+      if (updatedValue.length > 5) {
+        updatedValue = `${updatedValue.slice(0, 5)}/${updatedValue.slice(
+          5,
+          9
+        )}`;
+      }
+      if (updatedValue.length > 10) {
+        updatedValue = updatedValue.slice(0, 10);
+      }
+    }
+
+    if (name === "phone") {
+      updatedValue = value.replace(/\D/g, "");
+      updatedValue = updatedValue.slice(0, 11);
+      // Formata o telefone para o padrão (00) 99999-0000 ou (00) 3333-0000
+      updatedValue = updatedValue.replace(
+        /^(\d{2})(\d{4,5})(\d{4})$/,
+        "($1) $2-$3"
+      );
+    }
+
+    setFormData({ ...formData, [name]: updatedValue });
     setErrors({ ...errors, [name]: "" });
   };
 
@@ -43,23 +79,22 @@ const CarereceiverFormMob = () => {
     return password.length >= 6;
   };
 
-  const validateBirthDate = (birthDate) => {
-    const re = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-    return re.test(birthDate); 
+  const validatePasswordConfirmation = (password, confirmPassword) => {
+    return password === confirmPassword;
   };
 
   const validateGender = (gender) => {
-    return gender !== "";
+    return gender !== "Selecione";
+  };
+
+  const validatePhone = (phone) => {
+    const re = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+    return re.test(phone);
   };
 
   const validateCEP = (cep) => {
     const re = /^\d{5}-\d{3}$/;
     return re.test(cep);
-  };
-
-  const validatePhone = (phone) => {
-    const re = /^\(\d{2}\)\s?\d?\d{4}-\d{4}$/;
-    return re.test(phone);
   };
 
   const handleBlur = (name, value) => {
@@ -77,7 +112,43 @@ const CarereceiverFormMob = () => {
             "A senha deve ter no mínimo 6 caracteres.";
         }
         break;
-
+      case "confirm_password":
+        if (value !== formData.password) {
+          validationErrors.confirm_password = "As senhas não coincidem.";
+        }
+        break;
+      case "birth_date":
+        if (!value || value.length !== 10) {
+          validationErrors.birth_date =
+            "Por favor, insira sua data de nascimento.";
+        }
+        break;
+      case "name":
+        if (!value) {
+          validationErrors.name = "Por favor, preencha seu nome completo.";
+        }
+        break;
+      case "phone":
+        if (!validatePhone(value)) {
+          validationErrors.phone =
+            "Por favor, insira um número de telefone válido.";
+        }
+        break;
+      case "gender":
+        if (!value) {
+          validationErrors.gender = "Por favor, selecione seu gênero.";
+        }
+        break;
+      case "address":
+        if (!value) {
+          validationErrors.address = "Por favor, insira seu endereço.";
+        }
+        break;
+      case "post_code":
+        if (!value) {
+          validationErrors.post_code = "Por favor, insira um CEP válido.";
+        }
+        break;
       default:
         break;
     }
@@ -157,6 +228,7 @@ const CarereceiverFormMob = () => {
   return (
     <View style={styles.container}>
       <View style={styles.formRegister}>
+        
         <View style={styles.inputContainer}>
           <CustomLabel text="E-mail" />
           <TextInput
@@ -165,10 +237,11 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("email", text)}
             onBlur={() => handleBlur("email", formData.email)}
           />
-           {errors.email && (
-            <Text style={styles.errorText}>{errors.email}</Text>
-          )}
+            {errors.email ? (
+             <Text style={styles.errorText}>{errors.email}</Text>
+            ) : null}          
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Senha" />
           <TextInput
@@ -178,10 +251,11 @@ const CarereceiverFormMob = () => {
             onBlur={() => handleBlur("password", formData.password)}
             secureTextEntry={true}
           />
-          {errors.password && (
-            <Text style={styles.errorText}>{errors.password}</Text>
-          )}
-        </View>
+            {errors.password ? (
+              <Text style={styles.errorText}>{errors.password}</Text>
+              ) : null}
+            </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Confirmar Senha" />
           <TextInput
@@ -193,10 +267,11 @@ const CarereceiverFormMob = () => {
             }
             secureTextEntry={true}
           />
-          {errors.confirm_password && (
+          {errors.confirm_password ? (
             <Text style={styles.errorText}>{errors.confirm_password}</Text>
-          )}
+          ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Nome completo" />
           <TextInput
@@ -205,8 +280,11 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("name", text)}
             onBlur={() => handleBlur("name", formData.name)}
           />
-          {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+          {errors.name ? (
+            <Text style={styles.errorText}>{errors.name}</Text>
+          ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Data de Nascimento" />
           <TextInput
@@ -215,10 +293,11 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("birth_date", text)}
             onBlur={() => handleBlur("birth_date", formData.birth_date)}
           />
-          {errors.birth_date && (
+          {errors.birth_date ? (
             <Text style={styles.errorText}>{errors.birth_date}</Text>
-          )}
+          ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Telefone/Celular" />
           <TextInput
@@ -227,8 +306,11 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("phone", text)}
             onBlur={() => handleBlur("phone", formData.phone)}
           />
-          {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
+          {errors.phone ? (
+          <Text style={styles.errorText}>{errors.phone}</Text>
+        ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Gênero" />
           <Picker
@@ -241,8 +323,11 @@ const CarereceiverFormMob = () => {
             <Picker.Item label="Feminino" value="2" />
             <Picker.Item label="Não especificado" value="0" />
           </Picker>
-          {errors.gender && <Text style={styles.errorText}>{errors.gender}</Text>}
+          {errors.gender ? (
+          <Text style={styles.errorText}>{errors.gender}</Text>
+        ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="Endereço" />
           <TextInput
@@ -251,8 +336,11 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("address", text)}
             onBlur={() => handleBlur("address", formData.address)}
           />
-          {errors.address && <Text style={styles.errorText}>{errors.address}</Text>}
+          {errors.address ? (
+          <Text style={styles.errorText}>{errors.address}</Text>
+        ) : null}
         </View>
+
         <View style={styles.inputContainer}>
           <CustomLabel text="CEP" />
           <TextInput
@@ -261,9 +349,9 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("post_code", text)}
             onBlur={() => handleBlur("post_code", formData.post_code)}
           />
-          {errors.post_code && (
-            <Text style={styles.errorText}>{errors.post_code}</Text>
-          )}
+          {errors.post_code ? (
+          <Text style={styles.errorText}>{errors.post_code}</Text>
+        ) : null}
         </View>
       </View>
 
@@ -299,7 +387,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingTop: 2,
     paddingBottom: 8,
-    top: -10, // Ajuste conforme necessário
+    top: -10,
     left: 10,
     opacity: 0.7,
     height: "auto",
@@ -324,7 +412,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
     backgroundColor: "white",
-    fontSize: 20,
+    fontSize: 17,
   },
   inputContainer: {
     marginBottom: 20,
@@ -338,7 +426,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
     backgroundColor: "white",
-    fontSize: 20,
+    fontSize: 15,
   },
   errorBorder: {
     borderColor: "red",

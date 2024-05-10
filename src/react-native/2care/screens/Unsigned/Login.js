@@ -12,44 +12,74 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
+import { signIn } from "../../services/authServiceMob";
 
-export default function Login() {
+
+export default function Login({ setIsLogged }) {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: validateField(name, value) });
-  };
+
+  if (name === "email" && !value) {
+    setErrors({ ...errors, email: "Por favor, insira o e-mail cadastrado." });
+  } else {
+    setErrors({ ...errors, email: "" });
+  }
+
+  if (name === "password" && (!value || value.length < 6)) {
+    setErrors({ ...errors, password: "Por favor, confira sua senha." });
+  } else {
+    setErrors({ ...errors, password: "" });
+  }
+};
+
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+
+const handleBlur = (name, value) => {
+  if (name === 'email' && !validateEmail(value)) {
+    setErrors({ ...errors, email: "Por favor, insira um e-mail válido." });
+  } else {
+    setErrors({ ...errors, email: "" });
+  }
+};
+
+
 
   const handleSubmit = async () => {
+
     const validationErrors = {};
-  
-    if (!formData.email || !validateEmail(formData.email)) {
-      validationErrors.email = "Por favor, insira o e-mail cadastro.";
-    }
-  
-    if (!formData.password || formData.password.length < 6) {
-      validationErrors.password = "Por favor, confira sua senha.";
-    }
-  
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+
+    if (!formData.email || !formData.password || formData.password.length < 6) { 
+        validationErrors.email = !formData.email ? "Por favor, insira o e-mail cadastrado." : "",
+        validationErrors.password = !formData.password || formData.password.length < 6
+          ? "Por favor, confira sua senha."
+          : "",
+
+        setErrors(validationErrors);
       return;
     }
   
     // Lógica de submissão do formulário 
     try {
-      await loginUser(formData);
+      await signIn(formData);
       console.log("Usuário logado com sucesso");
-      navigation.navigate("Home");
+      navigation.navigate("HomeTest");
+      setIsLogged(true);
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
-      setLoginError("Erro ao fazer login. Verifique E-mail e Senha e tente novamente.");
+      Alert.alert(
+        "Não foi possível realizar seu login. Por gentileza, confira seus dados!",
+        [{ text: "OK", onPress: () => console.log("Alerta fechado") }]
+      )
     }
   };
-  
 
   return (
     <View style={styles.containerLogin}>
@@ -75,26 +105,34 @@ export default function Login() {
           </View>
 
           <View style={styles.formLogin}>
-            <TextInput
-              placeholder="E-mail"
-              value={formData.email}
-              onChangeText={(text) => handleChange("email", text)}
-              style={[styles.input, errors.email && styles.errorBorder]}
-            />
-            {errors.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
-            )}
-
-            <TextInput
-              placeholder="Senha"
-              value={formData.password}
-              onChangeText={(text) => handleChange("password", text)}
-              secureTextEntry={true}
-              style={[styles.input, errors.password && styles.errorBorder]}
-            />
-            {errors.password && (
+            <View>
+              <TextInput
+                placeholder="E-mail"
+                value={formData.email}
+                onChangeText={(text) => {
+                  handleChange("email", text);
+                  handleBlur("email", text);
+                }}
+                style={[styles.input, errors.email && styles.errorBorder]}
+                onSubmitEditing={handleSubmit}
+              />
+                {errors.email ? (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                ) : null}
+            </View>
+            <View>
+              <TextInput
+                placeholder="Senha"
+                value={formData.password}
+                onChangeText={(text) => handleChange("password", text)}
+                secureTextEntry={true}
+                style={[styles.input, errors.password && styles.errorBorder]}
+                onSubmitEditing={handleSubmit}
+              />
+              {errors.password ? (
               <Text style={styles.errorText}>{errors.password}</Text>
-            )}
+              ) : null}
+            </View>
 
             <Pressable
               onPress={() => navigation.navigate("Register")}
@@ -103,11 +141,8 @@ export default function Login() {
                 pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
               ]}
             >
-              <Text style={styles.linkText}>
-                Crie a sua conta clicando aqui
-              </Text>
+              <Text style={styles.linkText}>Crie a sua conta clicando aqui</Text>
             </Pressable>
-
             <Pressable
               onPress={handleSubmit}
               style={({ pressed }) => [
@@ -117,17 +152,15 @@ export default function Login() {
             >
               <Text style={styles.buttonLoginText}>Entrar</Text>
             </Pressable>
-
             <Pressable
               onPress={() => {
                 console.log("Você será redirecionado para a nova Tela.");
-                navigation.navigate("Home");
+                navigation.navigate("HomeTest");
               }}
               style={({ pressed }) => [
                 styles.linkContainer,
                 pressed && { transform: [{ scale: 1.05 }], fontWeight: "bold" },
-              ]}
-            >
+              ]}>
               <Text style={styles.linkText}>Continuar como visitante</Text>
             </Pressable>
           </View>
@@ -145,7 +178,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignItems: "center",
-    marginTop: 70,
+    marginTop: 40,
     marginBottom: 0,
   },
   logoImg: {
@@ -181,7 +214,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     backgroundColor: "white",
-    fontSize: 20,
+    fontSize: 17,
   },
   errorBorder: {
     borderColor: "red",
