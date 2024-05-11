@@ -6,6 +6,10 @@ import Register from '../screens/Unsigned/Register';
 import RegisterUsers from '../screens/Unsigned/RegisterUsers';
 import HomeTest from '../screens/Unsigned/HomeTest';
 
+import SendRequest from '../screens/Unsigned/SendRequest';
+import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
+import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
@@ -35,6 +39,27 @@ const UnsignedViews = () => {
             <stack.Screen
                 name="HomeTest"
                 component={HomeTest}
+                options={{
+                    header: () => null,
+                }}
+            />
+                <stack.Screen
+                name="RequestsCaregiver"
+                component={RequestsCaregiver}
+                options={{
+                    header: () => null,
+                }}
+            />
+                <stack.Screen
+                name="RequestsCareReceiver"
+                component={RequestsCareReceiver}
+                options={{
+                    header: () => null,
+                }}
+            />
+                <stack.Screen
+                name="SendRequest"
+                component={SendRequest}
                 options={{
                     header: () => null,
                 }}

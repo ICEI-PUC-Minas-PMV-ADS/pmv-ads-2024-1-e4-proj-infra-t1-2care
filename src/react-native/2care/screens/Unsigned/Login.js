@@ -164,6 +164,36 @@ const handleBlur = (name, value) => {
               <Text style={styles.linkText}>Continuar como visitante</Text>
             </Pressable>
           </View>
+          {/* somente para desenvolvimento até que tenhamos mais telas */}
+          <View style={styles.bottomButtons}>
+          <Pressable
+            onPress={() => navigation.navigate("RequestsCaregiver")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>RequestsCaregiver</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("RequestsCareReceiver")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>RequestsCareReceiver</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("SendRequest")}
+              style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>SendRequest</Text>
+          </Pressable>
+        </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
@@ -241,4 +271,23 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 25,
   },
+  bottomButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+    width: "80%",
+    alignSelf: "center",
+  },
+  button: {
+    backgroundColor: "#799275",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: "30%",
+  },
+  buttonText: {
+    color: "black",
+    fontSize: 16,
+  },
+  
 });
