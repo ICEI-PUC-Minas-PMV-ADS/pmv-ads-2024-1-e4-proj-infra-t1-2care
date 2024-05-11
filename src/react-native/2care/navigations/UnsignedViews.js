@@ -2,12 +2,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../screens/Unsigned/Home';
+import ProfileCareGiver from '../screens/Unsigned/ProfileCareGiver';
 
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
     return (
-        <stack.Navigator initialRouteName="Home">
+        <stack.Navigator initialRouteName="ProfileCareGiver">
             <stack.Screen
                 name="Home"
                 component={Home}
@@ -15,7 +16,14 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
-        </stack.Navigator>
+           <stack.Screen
+           name="ProfileCareGiver"
+           component={ProfileCareGiver}
+           options={{
+               header: () => null,
+           }}
+       />
+       </stack.Navigator>
     );
 };
 
