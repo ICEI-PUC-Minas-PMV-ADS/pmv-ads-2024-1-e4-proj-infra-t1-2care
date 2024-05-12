@@ -1,17 +1,20 @@
-import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 
-const TopNavOptions = () => {
+const TopNavOptions = ({ onSelect, selectedOption }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.option}>
-        <Text style={styles.optionText}>Pendentes</Text>
+      <TouchableOpacity style={styles.option} onPress={() => onSelect('Pendentes')}>
+        <Text style={[styles.optionText, selectedOption === 'Pendentes' && styles.selectedText]}>Pendentes</Text>
+        {selectedOption === 'Pendentes' && <View style={styles.selectedIndicator} />}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.option}>
-        <Text style={styles.optionText}>Aceitas</Text>
+      <TouchableOpacity style={styles.option} onPress={() => onSelect('Aceitas')}>
+        <Text style={[styles.optionText, selectedOption === 'Aceitas' && styles.selectedText]}>Aceitas</Text>
+        {selectedOption === 'Aceitas' && <View style={styles.selectedIndicator} />}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.option}>
-        <Text style={styles.optionText}>Recusadas</Text>
+      <TouchableOpacity style={styles.option} onPress={() => onSelect('Recusadas')}>
+        <Text style={[styles.optionText, selectedOption === 'Recusadas' && styles.selectedText]}>Recusadas</Text>
+        {selectedOption === 'Recusadas' && <View style={styles.selectedIndicator} />}
       </TouchableOpacity>
     </View>
   );
@@ -31,10 +34,23 @@ const styles = StyleSheet.create({
   },
   option: {
     marginLeft: 20,
+    position: 'relative',
   },
   optionText: {
     color: '#333333',
     fontSize: 16,
+  },
+  selectedText: {
+    color: '#333333',
+    fontWeight: 'bold',
+  },
+  selectedIndicator: {
+    position: 'absolute',
+    bottom: -11,
+    left: 0,
+    right: 0,
+    height: 3,
+    backgroundColor: '#ed8733',
   },
 });
 

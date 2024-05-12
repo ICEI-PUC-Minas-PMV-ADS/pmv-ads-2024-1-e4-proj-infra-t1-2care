@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   leftContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
