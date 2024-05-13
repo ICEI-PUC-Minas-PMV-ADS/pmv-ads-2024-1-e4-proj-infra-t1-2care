@@ -173,7 +173,7 @@ const handleBlur = (name, value) => {
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>RequestsCaregiver</Text>
+            <Text style={styles.buttonText}>Propostas Cuidador</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("RequestsCareReceiver")}
@@ -182,7 +182,7 @@ const handleBlur = (name, value) => {
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>RequestsCareReceiver</Text>
+            <Text style={styles.buttonText}>Propostas Cliente</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("SendRequest")}
@@ -191,7 +191,7 @@ const handleBlur = (name, value) => {
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>SendRequest</Text>
+            <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
         </View>
         </ScrollView>
