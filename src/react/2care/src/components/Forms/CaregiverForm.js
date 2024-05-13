@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 import Inputmask from "inputmask";
+import { toast } from 'react-toastify';
 
 const CaregiverForm = () => {
   const navigate = useNavigate();
@@ -127,13 +128,8 @@ const CaregiverForm = () => {
       return;
     }
 
-    try {
-      await registerUser(formData);
-      console.log("Usuário registrado com sucesso");
-      navigate("/");
-    } catch (error) {
-      console.error("Erro ao cadastrar os dados:", error.message);
-    }
+    await registerUser(formData).then(i => i ? toast.success('Conta criada com sucesso',{onClose: () => {navigate("/");}}) : "");
+ 
   };
 
   return (

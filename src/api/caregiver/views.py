@@ -93,12 +93,12 @@ class CaregiverEditView(APIView):
 
 
 class CaregiverSelfCalendarView(generics.RetrieveAPIView):
-    queryset = CaregiverModel.objects.all()
+    model = CaregiverModel
     serializer_class = CaregiverSerializer
     authentication_classes = [JWTAuthentication]
 
     def retrieve(self, request, *args, **kwargs):
-        instance = self.queryset.first()  # fixme
+        instance = get_object_or_404(self.model, user=self.request.user)
         serializer = self.get_serializer(instance)
 
         calendar = {
@@ -176,7 +176,7 @@ class QualificationListCreateView(generics.ListCreateAPIView):
             try:
                 with transaction.atomic():
                     qualification = serializer.save()
-                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
                     caregiver.qualifications.add(qualification)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
@@ -220,7 +220,7 @@ class AddSpecialization(APIView):
             return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
         
         specialization = get_object_or_404(SpecializationModel, name=data)
-        caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+        caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
         caregiver.specializations.add(specialization)
         
         return Response({"status": "success", "specialization": specialization.get_name_display()}, status=200)
@@ -383,7 +383,7 @@ class WorkExperienceListCreateView(generics.ListCreateAPIView):
             try:
                 with transaction.atomic():
                     work_exp = serializer.save()
-                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, hour_price=0)
+                    caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
                     caregiver.work_exp.add(work_exp)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:

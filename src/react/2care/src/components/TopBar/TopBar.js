@@ -5,6 +5,9 @@ import { isLoggedIn } from "../../services/authService";
 import { getUserPicture, getUserType } from "../../services/userService";
 import "./TopBar.css";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const TopBar = () => {
   const [searchText, setSearchText] = useState("");
   const [isLogged, setIsLogged] = useState(false);
@@ -27,6 +30,18 @@ const TopBar = () => {
 
   return (
     <div className="topBar">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="logo">
         <a href="/home">
           <img className="logoImg" src="../../logo.png" alt="Logo" />
@@ -49,7 +64,7 @@ const TopBar = () => {
                   height: "3.5em",
                   objectFit: "cover"
               }}
-              src={userPicture ? userPicture : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s"}
+              src={userPicture && userPicture != "null" ? userPicture : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s"}
             />
        </Link>
         ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useTheme, Box, Typography, Tabs, Tab, Grid, Button } from '@mui/material';
+import { toast } from 'react-toastify';
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
 import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
@@ -8,6 +9,7 @@ import CaregiverProfileForm from '../../components/Profile/ProfileForm/Caregiver
 import SpecializationList from '../../components/ListSelection/SpecializationListSelection';
 import QualificationList from '../../components/ListSelection/QualificationList';
 import WorkExperienceList from '../../components/ListSelection/WorkExperienceList';
+import AvailabilityList from '../../components/ListSelection/AvailabilityList';
 import { getUserData } from '../../services/userService';
 import { getCaregiverData } from '../../services/caregiverService';
 import '../App.css';
@@ -69,20 +71,12 @@ function ProfileCaregiver(props) {
     // navegar entre as abass
   const handleChange = (event, newValue) => {
     if (newValue !== 0 && !isProfileComplete) {
-      alert("Complete o perfil antes de prosseguir para as outras abas.");
+      getCaregiverData().then((result) => {
+        result ? setValue(newValue) : toast.warn("Complete o perfil antes de prosseguir para as outras abas.");
+      })
     } else {
       setValue(newValue);
     }
-  };
-
-  const handleSaveSpecializations = () => {
-    //salvar spec aqui
-    alert("Especializações salvas com sucesso!");
-  };
-
-  const handleSaveQualifications = () => {
-    //salvar quali aqui
-    alert("Qualificações salvas com sucesso!");
   };
 
   return (
@@ -98,9 +92,10 @@ function ProfileCaregiver(props) {
           <Box sx={{ width: '100%' }}>
             <Tabs value={value} onChange={handleChange} aria-label="edit profile tabs">
               <Tab label="Informações Pessoais" {...a11yProps(0)} />
-              <Tab label="Especializações" {...a11yProps(1)} disabled={!isProfileComplete} />
-              <Tab label="Qualificações" {...a11yProps(2)} disabled={!isProfileComplete} />
-              <Tab label="Experiência de trabalho" {...a11yProps(2)} disabled={!isProfileComplete} />
+              <Tab label="Especializações" {...a11yProps(1)}/>
+              <Tab label="Qualificações" {...a11yProps(2)}/>
+              <Tab label="Experiência de trabalho" {...a11yProps(3)} />
+              <Tab label="Horários Disponíveis" {...a11yProps(4)} />
             </Tabs>
             <TabPanel value={value} index={0}>
               <CaregiverProfileForm userData={userData} caregiverData={caregiverData} />
@@ -113,6 +108,9 @@ function ProfileCaregiver(props) {
             </TabPanel>
             <TabPanel value={value} index={3}>
               <WorkExperienceList caregiverData={caregiverData} />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <AvailabilityList caregiverData={caregiverData} />
             </TabPanel>
           </Box>
         </Grid>

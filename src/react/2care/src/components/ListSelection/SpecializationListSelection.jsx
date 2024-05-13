@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { addSpecialization, removeSpecialization, getSpecializationList } from '../../services/caregiverService';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { toast } from 'react-toastify';
 
 const specializations = [
   "Cuidados Básicos de Saúde",
@@ -30,10 +31,10 @@ function SpecializationList(props) {
 
   const handleAddClick = () => {
     if(currentSelection.value && !selectedSpecializations.includes(currentSelection.options[currentSelection.selectedIndex].textContent)){
-        setCurrentSelection({"value": ""});
-        enviarEspecializacao()
+      setCurrentSelection({"value": ""});
+      enviarEspecializacao()
     }else{
-      //retornar um erro massa
+      toast.warn('Está especialização já existe');
       setCurrentSelection({"value": ""});  
     }
   };
@@ -75,36 +76,36 @@ function SpecializationList(props) {
   return (
     <div>
       <Card sx={{ borderRadius: '1.5em', boxShadow: "0px 4px 4px 0px #00000040;" }}>
-      <CardContent>
-      <h1>Lista das Especializações</h1>
-      <div className="select-add-container">
-        <div className="select-container">
-          <select 
-            value={currentSelection.value} 
-            onChange={e => setCurrentSelection(e.target)}
-            className="input-style-spec"
-          >
-            <option key="-" value="Selecione uma especialização">Selecione uma especialização</option>
-            {specializations.map((spec, index) => (
-              <option key={index} value={index}>{spec}</option>
+        <CardContent>
+          <h1>Lista das Especializações</h1>
+          <div className="select-add-container">
+            <div className="select-container">
+              <select
+                value={currentSelection.value}
+                onChange={e => setCurrentSelection(e.target)}
+                className="input-style-spec"
+              >
+                <option key="-" value="Selecione uma especialização">Selecione uma especialização</option>
+                {specializations.map((spec, index) => (
+                  <option key={index} value={index}>{spec}</option>
+                ))}
+              </select>
+              <button onClick={handleAddClick} className="add-button">
+                Adicionar
+              </button>
+            </div>
+          </div>
+          <ul className="specialization-list">
+            {selectedSpecializations.map((spec, index) => (
+              <li key={index} className="list-item">
+                <span className="item-text">{spec}</span>
+                <button onClick={() => handleDeleteClick(spec)} className="delete-button">
+                  Excluir
+                </button>
+              </li>
             ))}
-          </select>
-            <button onClick={handleAddClick} className="add-button">
-          Adicionar
-            </button>
-        </div>
-      </div>
-      <ul className="specialization-list">
-        {selectedSpecializations.map((spec, index) => (
-          <li key={index} className="list-item">
-            <span className="item-text">{spec}</span>
-            <button onClick={() => handleDeleteClick(spec)} className="delete-button">
-              Excluir
-            </button>
-          </li>
-        ))}
-      </ul>
-      </CardContent>
+          </ul>
+        </CardContent>
       </Card>
     </div>
   );

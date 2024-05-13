@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { updateCaregiver } from '../../../services/caregiverService';
 import { useNavigate } from "react-router-dom";
-
+import { toast } from 'react-toastify';
 
 const CaregiverProfileForm = (props) => {
   const [formDataUser, setFormDataUser] = useState({
@@ -13,6 +13,7 @@ const CaregiverProfileForm = (props) => {
     birth_date: '',
     address: '', //required
     post_code: '', //required
+    picture: '',
   });
   const [formDataCaregiver, setFormDataCaregiver] = useState({
     //caregiver info
@@ -106,11 +107,9 @@ const CaregiverProfileForm = (props) => {
 
     if (hasError) {
       setErrors(newErrors);
-      console.log('Por favor, preencha todos os campos obrigatórios.');
+      toast.error('Por favor, preencha todos os campos obrigatórios.');
     } else {
-      await updateCaregiver(formDataUser, formDataCaregiver).then((reponse) =>{//da pra jogar um if dps e descer uma badge pra dar os resultados
-        reponse ? window.location.reload() : alert("Erro ao atualizar dados.")
-      })
+      await updateCaregiver(formDataUser, formDataCaregiver)
     }
   };
 
@@ -254,6 +253,19 @@ const CaregiverProfileForm = (props) => {
                 name="additional_info"
                 value={formDataCaregiver.additional_info}
                 onChange={handleChangeCaregiver}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <div className="field">
+              <label htmlFor="picture">Foto de perfil (Link):</label>
+              <textarea
+                type="text"
+                id="picture"
+                name="picture"
+                style={{width:"97%"}}
+                value={formDataUser.picture}
+                onChange={handleChangeUser}
               />
             </div>
           </Grid>

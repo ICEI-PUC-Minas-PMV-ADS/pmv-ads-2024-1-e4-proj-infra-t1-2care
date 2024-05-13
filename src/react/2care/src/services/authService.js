@@ -1,11 +1,13 @@
 import Cookies from 'js-cookie';
 import { getGeolocationApi } from './otherService';
 import { API_URL } from './apiService';
+import { toast } from 'react-toastify';
+import { logout } from './userService';
+
 
 const SERVICE_URL = "/user";
 
 export const signIn = async ({ email, password }) => {
-
     try {
         const response = await fetch(`${API_URL}${SERVICE_URL}/login/`, {
             method: 'POST',
@@ -13,12 +15,6 @@ export const signIn = async ({ email, password }) => {
             body: JSON.stringify({ email, password })
         });
        
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail || 'Erro ao fazer login' );
-        }
-
         const result = await response.json();
         Cookies.set('access', result["access"], { expires: 1, secure: true, sameSite: 'strict' });
         Cookies.set('refresh', result["refresh"], { expires: 1, secure: true, sameSite: 'strict' });
@@ -28,8 +24,7 @@ export const signIn = async ({ email, password }) => {
         Cookies.set('user_type', result["user"]["user_type"], { expires: 1, secure: true, sameSite: 'strict' });
         return true;
     } catch (error) {
-        alert('Usuário ou senha inválidos!');
-        throw new Error(error.message);
+        toast.error('Email ou senha invalidos');
     }
 }
 
@@ -43,9 +38,7 @@ export const tokenRefresh = async () => {
         });
         const result = await response.json();
         if (!response.ok) {
-            //logout TODO
-            Cookies.remove('access', { secure: true, sameSite: 'strict' });
-            Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+            logout()
             throw new Error(JSON.stringify(result));
         }
         const token = result['access']
@@ -84,9 +77,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
             response = await fetch(`${url}`, requestOptions);
             if (response.status === 401 || response.status === 403) {
-                // logout TODO
-                Cookies.remove('access', { secure: true, sameSite: 'strict' });
-                Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
+                logout()
             }
         }
         
@@ -106,9 +97,6 @@ export const isLoggedIn = () => {
     if( Cookies.get('access') &&  Cookies.get('refresh')){
         return true;
     }else{
-        //logout TODO
-        Cookies.remove('access', { secure: true, sameSite: 'strict' });
-        Cookies.remove('refresh', { secure: true, sameSite: 'strict' });
         return false
     }
 };

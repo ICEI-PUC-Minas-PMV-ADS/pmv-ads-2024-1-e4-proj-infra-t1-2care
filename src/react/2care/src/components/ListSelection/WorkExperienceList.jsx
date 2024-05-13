@@ -13,7 +13,6 @@ function WorkExperienceList() {
   useEffect(() => {
     //alterar com props aqui ringu
     getWorkExperienceList().then((result) => {
-      console.log(result)
       const workExperience = result ? result["work_experience"] : []
       setWorkExperience(workExperience)
     })

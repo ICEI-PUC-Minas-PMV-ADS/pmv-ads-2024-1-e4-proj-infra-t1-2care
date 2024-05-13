@@ -1,6 +1,7 @@
 import { Grid, Typography  } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { addQualification, getQualificationList, removeQualification } from '../../services/caregiverService';
+import { toast } from 'react-toastify';
 
 
 function QualificationList() {
@@ -22,7 +23,7 @@ function QualificationList() {
     if(!currentFileText || urlRegex.test(currentFileText)){
       enviarQualificacao();
     }else{
-      alert("Link invalido")
+      toast.error("Por favor, utilize um URL valida")
       //retornar um erro massa
     }
   };

@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { updateCareReceiver } from '../../../services/careReceiverService';
+import { toast } from 'react-toastify';
 
 const CareReceiverProfileForm = (props) => {
   const [formDataUser, setFormDataUser] = useState({
@@ -13,6 +14,7 @@ const CareReceiverProfileForm = (props) => {
     birth_date: '',
     address: '', //required
     post_code: '', //required
+    picture: '',
   });
   const [formDataCareReceiver, setFormDataCareReceiver] = useState({
     //Care receiver info
@@ -126,11 +128,9 @@ const CareReceiverProfileForm = (props) => {
 
     if (hasError) {
       setErrors(newErrors);
-      console.log('Por favor, preencha todos os campos obrigatórios.');
+      toast.error('Por favor, preencha todos os campos obrigatórios.');
     } else {
-      updateCareReceiver(formDataUser, formDataCareReceiver).then((reponse) =>{//da pra jogar um if dps e descer uma badge pra dar os resultados
-        reponse ? window.location.reload() :  alert("Erro ao atualizar dados.")
-      })
+      updateCareReceiver(formDataUser, formDataCareReceiver)
     }
   };
 
@@ -233,7 +233,7 @@ const CareReceiverProfileForm = (props) => {
                   onChange={handleChangeCareReceiver}
                 />
               }
-              label="Share special care"
+              label="Compartilhar cuidados especiais?"
             />
             <div className="">
               <label htmlFor="additional_info">Informações adicionais:</label>
@@ -243,6 +243,19 @@ const CareReceiverProfileForm = (props) => {
                 name="additional_info"
                 value={formDataCareReceiver.additional_info}
                 onChange={handleChangeCareReceiver}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <div className="field">
+              <label htmlFor="picture">Foto de perfil (Link):</label>
+              <textarea
+                type="text"
+                id="picture"
+                name="picture"
+                style={{width:"97%"}}
+                value={formDataUser.picture}
+                onChange={handleChangeUser}
               />
             </div>
           </Grid>

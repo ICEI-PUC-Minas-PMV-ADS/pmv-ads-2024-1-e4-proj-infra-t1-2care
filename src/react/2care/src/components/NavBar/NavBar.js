@@ -1,22 +1,28 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
+import { isLoggedIn } from "../../services/authService";
 
-const NavBar = ({ isLogged, userName }) => {
+const NavBar = () => {
+    const location = useLocation();
     
-      return (
+    return (
         <div className='navBar'>
-            <span>
-                <a href="/home">Navegue pelo 2Care</a>
-            </span>
-            
-            {isLogged && (
-                <span>    
-                    <a href="/requests">Filtros</a>
-                    <a href="/requests">Proposta</a>
+            {location.pathname !== "/home" ? (
+                <span>
+                    <a href="/home">Navegue pelo 2Care</a>
                 </span>
-            )};
+            ) : (
+                <span>
+                    <span>    
+                        <a>Filtros</a>
+                        {isLoggedIn() && (
+                            <a href="/requests">Proposta</a>
+                        )}
+                    </span>
+                </span>
+            )}
         </div>
     )
 }
