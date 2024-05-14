@@ -39,23 +39,6 @@ const CarereceiverFormMob = () => {
       }
     }
 
-    if (name === "birth_date") {
-      updatedValue = value.replace(/\D/g, "");
-
-      if (updatedValue.length > 2) {
-        updatedValue = `${updatedValue.slice(0, 2)}/${updatedValue.slice(2)}`;
-      }
-      if (updatedValue.length > 5) {
-        updatedValue = `${updatedValue.slice(0, 5)}/${updatedValue.slice(
-          5,
-          9
-        )}`;
-      }
-      if (updatedValue.length > 10) {
-        updatedValue = updatedValue.slice(0, 10);
-      }
-    }
-
     if (name === "phone") {
       updatedValue = value.replace(/\D/g, "");
       updatedValue = updatedValue.slice(0, 11);
@@ -64,6 +47,10 @@ const CarereceiverFormMob = () => {
         /^(\d{2})(\d{4,5})(\d{4})$/,
         "($1) $2-$3"
       );
+    }
+
+    if (name === "birth_date") {
+      updatedValue = value.slice(0, 8);
     }
 
     setFormData({ ...formData, [name]: updatedValue });
@@ -84,7 +71,7 @@ const CarereceiverFormMob = () => {
   };
 
   const validateGender = (gender) => {
-    return gender !== "Selecione";
+    return gender !== "";
   };
 
   const validatePhone = (phone) => {
@@ -118,16 +105,27 @@ const CarereceiverFormMob = () => {
         }
         break;
       case "birth_date":
-        if (!value || value.length !== 10) {
+        if (!value || value.length > 10) {
           validationErrors.birth_date =
-            "Por favor, insira sua data de nascimento.";
+            "Por favor, insira uma data de nascimento válida.";
+        } else {
+          let formattedDate = value.replace(/\D/g, "");
+          if (formattedDate.length > 2) {
+            formattedDate = `${formattedDate.slice(0, 2)}/${formattedDate.slice(
+              2
+            )}`;
+          }
+          if (formattedDate.length > 5) {
+            formattedDate = `${formattedDate.slice(0, 5)}/${formattedDate.slice(
+              5,
+              9
+            )}`;
+          }
+          console.log("Data formatada:", formattedDate);
+          setFormData({ ...formData, [name]: formattedDate });
         }
         break;
-      case "name":
-        if (!value) {
-          validationErrors.name = "Por favor, preencha seu nome completo.";
-        }
-        break;
+
       case "phone":
         if (!validatePhone(value)) {
           validationErrors.phone =
@@ -146,7 +144,9 @@ const CarereceiverFormMob = () => {
         break;
       case "post_code":
         if (!value) {
-          validationErrors.post_code = "Por favor, insira um CEP válido.";
+          validationErrors.post_code = "Por favor, esse é obrigatório!"
+        } else if (!validateCEP(value)) {
+          validationErrors.post_code = "Por favor, confira a validade do CEP.";
         }
         break;
       default:
@@ -228,7 +228,6 @@ const CarereceiverFormMob = () => {
   return (
     <View style={styles.container}>
       <View style={styles.formRegister}>
-        
         <View style={styles.inputContainer}>
           <CustomLabel text="E-mail" />
           <TextInput
@@ -237,9 +236,9 @@ const CarereceiverFormMob = () => {
             onChangeText={(text) => handleChange("email", text)}
             onBlur={() => handleBlur("email", formData.email)}
           />
-            {errors.email ? (
-             <Text style={styles.errorText}>{errors.email}</Text>
-            ) : null}          
+          {errors.email ? (
+            <Text style={styles.errorText}>{errors.email}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -251,10 +250,10 @@ const CarereceiverFormMob = () => {
             onBlur={() => handleBlur("password", formData.password)}
             secureTextEntry={true}
           />
-            {errors.password ? (
-              <Text style={styles.errorText}>{errors.password}</Text>
-              ) : null}
-            </View>
+          {errors.password ? (
+            <Text style={styles.errorText}>{errors.password}</Text>
+          ) : null}
+        </View>
 
         <View style={styles.inputContainer}>
           <CustomLabel text="Confirmar Senha" />
@@ -307,8 +306,8 @@ const CarereceiverFormMob = () => {
             onBlur={() => handleBlur("phone", formData.phone)}
           />
           {errors.phone ? (
-          <Text style={styles.errorText}>{errors.phone}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.phone}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -324,8 +323,8 @@ const CarereceiverFormMob = () => {
             <Picker.Item label="Não especificado" value="0" />
           </Picker>
           {errors.gender ? (
-          <Text style={styles.errorText}>{errors.gender}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.gender}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -337,8 +336,8 @@ const CarereceiverFormMob = () => {
             onBlur={() => handleBlur("address", formData.address)}
           />
           {errors.address ? (
-          <Text style={styles.errorText}>{errors.address}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.address}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -350,15 +349,15 @@ const CarereceiverFormMob = () => {
             onBlur={() => handleBlur("post_code", formData.post_code)}
           />
           {errors.post_code ? (
-          <Text style={styles.errorText}>{errors.post_code}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.post_code}</Text>
+          ) : null}
         </View>
-      </View>
 
-      <View style={styles.buttonContainer}>
-        <Pressable onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Criar conta</Text>
-        </Pressable>
+        <View style={styles.buttonContainer}>
+          <Pressable onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Criar conta</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
