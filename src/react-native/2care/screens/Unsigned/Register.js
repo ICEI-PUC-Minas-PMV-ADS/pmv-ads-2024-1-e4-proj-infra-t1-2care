@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
-import { Ionicons } from '@expo/vector-icons';
 
 export default function Register() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.containerRegister}>
-      {/*Botão provisório*/}
-      <Pressable onPress={() => navigation.goBack()} style={styles.goBackButton}>
-        <Ionicons name="arrow-back" size={24} color="#486142" />
-      </Pressable>
-      {/*Fim Botão provisório*/}
       <View style={styles.logo}>
         <Image
           source={require("../../assets/logo2care.png")}
@@ -90,7 +84,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 10,
   },
-
   buttonUser: {
     backgroundColor: "#486142",
     padding: 10,
@@ -106,14 +99,4 @@ const styles = StyleSheet.create({
     margin: "auto",
     fontSize: 20,
   },
-
-//Style IconButton "Provisório"
-  goBackButton: {
-    position: "absolute",
-    top: 20,
-    left: 0,
-    zIndex: 1,
-  },
-
-
 });

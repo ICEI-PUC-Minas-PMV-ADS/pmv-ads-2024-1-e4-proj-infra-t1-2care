@@ -18,6 +18,9 @@ export const signIn = async ({ email, password }) => {
 
         if (!response.ok) {
             const errorData = await response.json();
+            if (errorData.detail.includes('longitude')) {
+                throw new Error("CEP inválido. Por favor, verifique o CEP digitado.");
+            } else
             throw new Error(errorData.detail || 'Erro ao fazer login' );
         }
 
@@ -139,20 +142,18 @@ export const isLoggedIn = () => {
     }
 };*/}
 
-export const isLoggedIn = async () => {
+export const isLogged = async () => {
     const access = await AsyncStorage.getItem('access');
     const refresh = await AsyncStorage.getItem('refresh');
     return access && refresh;
 };
 
-export const logout = async () => {
-    const navigation = useNavigation();
-  
+export const logout = async (navigateToLogin) => {
     try {
       await AsyncStorage.removeItem('access');
       await AsyncStorage.removeItem('refresh');
   
-      navigation.navigate('Login');
+      navigateToLogin();
     } catch (error) {
       console.error('Erro ao fazer logout:', error.message);
     }

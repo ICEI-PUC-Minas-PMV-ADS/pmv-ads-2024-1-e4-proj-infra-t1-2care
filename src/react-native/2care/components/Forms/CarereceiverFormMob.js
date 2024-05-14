@@ -85,7 +85,7 @@ const CarereceiverFormMob = () => {
   };
 
   const handleBlur = (name, value) => {
-    const validationErrors = {};
+    let validationErrors = { ...errors };
 
     switch (name) {
       case "email":
@@ -121,7 +121,6 @@ const CarereceiverFormMob = () => {
               9
             )}`;
           }
-          console.log("Data formatada:", formattedDate);
           setFormData({ ...formData, [name]: formattedDate });
         }
         break;
@@ -132,11 +131,15 @@ const CarereceiverFormMob = () => {
             "Por favor, insira um número de telefone válido.";
         }
         break;
-      case "gender":
-        if (!value) {
-          validationErrors.gender = "Por favor, selecione seu gênero.";
-        }
-        break;
+        case "gender":
+          if (value === "") {
+            console.log("Gênero vazio. Definindo mensagem de erro.");
+            validationErrors.gender = "Por favor, selecione seu gênero.";
+          } else {
+            console.log("Gênero selecionado. Removendo mensagem de erro.");
+            validationErrors.gender = "";
+          }
+          break;
       case "address":
         if (!value) {
           validationErrors.address = "Por favor, insira seu endereço.";
@@ -144,9 +147,11 @@ const CarereceiverFormMob = () => {
         break;
       case "post_code":
         if (!value) {
-          validationErrors.post_code = "Por favor, esse é obrigatório!"
+          validationErrors.post_code = "Por favor, esse é obrigatório!";
         } else if (!validateCEP(value)) {
-          validationErrors.post_code = "Por favor, confira a validade do CEP.";
+          validationErrors.post_code = "Por favor, complete o CEP.";
+        } else {
+          validationErrors.post_code = ""; 
         }
         break;
       default:
@@ -213,7 +218,11 @@ const CarereceiverFormMob = () => {
       console.log("Usuário registrado com sucesso");
       navigation.navigate("Login");
     } catch (error) {
-      console.error("Erro ao cadastrar o Cliente:", error.message);
+      if (error.message.includes("CEP")) {
+        setErrors({ post_code: "CEP inválido. Por favor, verifique o CEP digitado." });
+      } else {
+        console.error("Erro ao cadastrar o Cliente:", error.message);
+      }
     }
   };
 
@@ -353,9 +362,15 @@ const CarereceiverFormMob = () => {
           ) : null}
         </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Criar conta</Text>
+        <View>
+          <Pressable
+            onPress={handleSubmit}
+            style={({ pressed }) => [
+              styles.buttonContainer,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Criar Conta</Text>
           </Pressable>
         </View>
       </View>
@@ -433,19 +448,18 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
   },
-  buttonContainer: {
-    width: "100%",
+   buttonContainer: {
     backgroundColor: "#ED8733",
     padding: 10,
     borderRadius: 25,
     alignItems: "center",
     width: 170,
-    marginBottom: 10,
+    marginBottom: 20,
     justifyContent: "center",
   },
   buttonText: {
     color: "#FFFFFF",
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "center"
   },
 });

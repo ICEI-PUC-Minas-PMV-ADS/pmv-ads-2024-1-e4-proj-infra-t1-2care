@@ -1,27 +1,21 @@
 import React, { createContent, useContext, useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import theme from "../../theme/theme.js";
-import ResponsiveAppBar from "../../components/layout/ResponsiveAppBar.js";
-import { logout } from '../../services/authServiceMob';
+import { logout } from "../../services/authServiceMob.js";
 
 export default function HomeTest({ navigation }) {
+
   
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigation.navigate('Login');
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error.message);
-    }
+    const navigateToLogin = () => {
+      console.log("Usuário deslogado");
+      navigation.navigate('Login'); 
+    };
+    await logout(navigateToLogin);
   };
 
   return (
-    <View>
-      <ResponsiveAppBar />
-      <Text style={{ backgroundColor: theme.palette.back_ground.light }}>
-        Teste 2 Care
-      </Text>
-
+    <View>    
       <View style={styles.logo}>
         <Image
           source={require("../../assets/logo2care.png")}

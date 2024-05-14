@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,11 +13,18 @@ import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css"; 
 import { signIn } from "../../services/authServiceMob";
 
-export default function Login({setIsLogged}) {
+export default function Login() {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
  
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setFormData({ email: "", password: "" });
+      setErrors({ email: "", password: "" });
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
@@ -63,18 +70,13 @@ export default function Login({setIsLogged}) {
       return;
     }
 
-    // Lógica de submissão do formulário
     try {
       await signIn(formData);
       console.log("Usuário logado com sucesso");
       navigation.navigate("HomeTest");
-      setIsLogged(true);
+      //setIsLogged(true);
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
-      Alert.alert(
-        "Não foi possível realizar seu login. Por gentileza, confira seus dados!",
-        [{ text: "OK", onPress: () => console.log("Alerta fechado") }]
-      );
     }
   };
 

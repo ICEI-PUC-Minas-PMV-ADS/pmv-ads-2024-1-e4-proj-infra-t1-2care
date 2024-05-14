@@ -20,6 +20,7 @@ export const getGeolocationApi = async (post_code) => {
 
     return {"latitude": Number(result["results"][0]["geometry"]["location"]["lat"].toFixed(6)), "longitude": Number(result["results"][0]["geometry"]["location"]["lng"].toFixed(6))};
 } catch (error) {
-    throw new Error(error.message);
+    console.error("Erro ao buscar latitude e longitude:", error);
+    throw new Error("CEP não pode ser validado, gentileza verificar o número.");
 }
 };

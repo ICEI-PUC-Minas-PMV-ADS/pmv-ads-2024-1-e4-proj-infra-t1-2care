@@ -16,13 +16,13 @@ export const registerUser = async (userForm) => {
   const mes = partes[1];
   const ano = partes[2];
 
-  const X = `${ano}-${mes}-${dia}`;
+  const formattedDate = `${ano}-${mes}-${dia}`;
 
   try {
     const response = await fetch(`${API_URL}${SERVICE_URL}/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userForm),
+      body: JSON.stringify({ ...userForm, birth_date: formattedDate }),
     });
     const result = await response.json();
     if (!response.ok) {
