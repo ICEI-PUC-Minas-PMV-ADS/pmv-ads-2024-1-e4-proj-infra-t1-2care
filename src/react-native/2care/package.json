@@ -11,16 +11,16 @@
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
     "@expo/vector-icons": "^14.0.1",
+    "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
-    "@expo/vector-icons": "^14.0.1",
-    "@react-native-picker/picker": "2.6.1",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
-    "expo": "^51.0.2",
+    "date-and-time": "^3.2.0",
+    "expo": "^51.0.5",
     "expo-status-bar": "1.12.1",
-    "node": "20.5.0",
     "inputmask": "^5.0.8",
     "moment": "^2.30.1",
+    "node": "20.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
@@ -28,9 +28,12 @@
     "react-native-masked-text": "^1.13.0",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-pulse": "^1.0.7",
+    "react-native-star-rating": "^1.0.8",
+    "react-native-star-rating-widget": "^1.7.3",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.6",
-    "react-router-native": "^6.23.1"
+    "react-router-native": "^6.23.1",
+    "react-simple-star-rating": "^5.1.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

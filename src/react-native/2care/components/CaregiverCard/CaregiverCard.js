@@ -1,27 +1,61 @@
 import React from 'react';
 import './CaregiverCard.css';
+import RatingStars from '../Ratings/RatingStars';
+import { View, Image, Text, StyleSheet } from 'react-native';
+
+import StarRating from 'react-simple-star-rating';
 
 const CaregiverCard = () => {
     return (
-        <div className="profile-card">
-            <div className="profile-image">
-                <img src="caminho/para/sua/imagem.jpg" alt="Foto de perfil" />
-            </div>
-            <div className="profile-info">
-                <h2>Maria Silva</h2>
-                <p>2 km de distância</p>
-                <p>2 anos de experiência</p>
-                <p>R$ 500,00</p>
-                <div className="rating">
-                    <span className="filled"></span>
-                    <span className="filled"></span>
-                    <span className="filled"></span>
-                    <span className="filled"></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
+        <View style={styles.card}>
+            <View style={styles.imageview}>
+                <Image source={{ uri: 'https://www.designi.com.br/images/preview/11401409.jpg', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
+            </View>
+            <View style={styles.info}>
+                <h4 style={styles.infoText}>Maria Silvas</h4>
+                <p style={styles.infoText}>2 km de distância</p>
+                <p style={styles.infoText}>2 anos de experiência</p>
+                <p style={styles.infoText}>R$ 500,00</p>
+                {/* <RatingStars stars={4} size={25} /> */}
+                {/* <StarRating
+                    rating={4.5}
+                /> */}
+            </View>
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    imageview: {
+        width: '50%',
+        height: '50%',
+        borderRadius: '50%',
+        overflow: 'hidden',
+    },
+    image: {
+        width: ' 100%',
+        height: '100%',
+        objectFit: 'cover',
+    },
+    card: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '1em',
+        border: '0.5px solid #D2DAC3',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '6%',
+        width: '10em',
+        height: '12em',
+        margin: '0.5em',
+    },
+    infoText: {
+        textAlign: 'center',
+        display: 'block',
+        marginBlockStart: '0',
+        marginBlockEnd: '0',
+        lineHeight: '1em',
+    },
+});
 
 export default CaregiverCard;
