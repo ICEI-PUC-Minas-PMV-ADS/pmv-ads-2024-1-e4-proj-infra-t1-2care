@@ -1,9 +1,6 @@
 import React from 'react';
 import './CaregiverCard.css';
-import RatingStars from '../Ratings/RatingStars';
 import { View, Image, Text, StyleSheet } from 'react-native';
-
-import StarRating from 'react-simple-star-rating';
 
 const CaregiverCard = () => {
     return (
@@ -12,14 +9,10 @@ const CaregiverCard = () => {
                 <Image source={{ uri: 'https://www.designi.com.br/images/preview/11401409.jpg', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
             </View>
             <View style={styles.info}>
-                <h4 style={styles.infoText}>Maria Silvas</h4>
-                <p style={styles.infoText}>2 km de distância</p>
-                <p style={styles.infoText}>2 anos de experiência</p>
-                <p style={styles.infoText}>R$ 500,00</p>
-                {/* <RatingStars stars={4} size={25} /> */}
-                {/* <StarRating
-                    rating={4.5}
-                /> */}
+                <Text style={styles.infoText}>Maria Silvas</Text>
+                <Text style={styles.infoText}>2 km de distância</Text>
+                <Text style={styles.infoText}>2 anos de experiência</Text>
+                <Text style={styles.infoText}>R$ 500,00</Text>
             </View>
         </View>
     );
@@ -29,7 +22,7 @@ const styles = StyleSheet.create({
     imageview: {
         width: '50%',
         height: '50%',
-        borderRadius: '50%',
+        borderRadius: 200,
         overflow: 'hidden',
     },
     image: {
@@ -44,7 +37,7 @@ const styles = StyleSheet.create({
         padding: '1em',
         border: '0.5px solid #D2DAC3',
         backgroundColor: '#FFFFFF',
-        borderRadius: '6%',
+        borderRadius: 6,
         width: '10em',
         height: '12em',
         margin: '0.5em',
@@ -54,7 +47,7 @@ const styles = StyleSheet.create({
         display: 'block',
         marginBlockStart: '0',
         marginBlockEnd: '0',
-        lineHeight: '1em',
+        // lineHeight: '1em',
     },
 });
 
