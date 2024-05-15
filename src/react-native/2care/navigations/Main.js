@@ -15,56 +15,74 @@ import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
 
 const Tab = createBottomTabNavigator();
-const stack = createNativeStackNavigator();
+const Stack1 = createNativeStackNavigator();
+const Stack2 = createNativeStackNavigator();
+const Stack3 = createNativeStackNavigator();
 
 const HomeStack = () => {
   return (
-    <stack.Navigator initialRouteName="Login">
-      <stack.Screen
+    <Stack1.Navigator initialRouteName="Login">
+      <Stack1.Screen
         name="Home"
         component={Home}
         options={{
+          headerShown: true,
           header: () => null,
         }}
       />
-      {/* <stack.Screen
+      {/* <Stack1.Screen
               name="Login"
               component={Homepage}
               options={{
                   header: () => null,
               }}
           /> */}
-    </stack.Navigator>
+    </Stack1.Navigator>
   );
 };
 
 const RequestStack = () => {
   return (
-    <stack.Navigator initialRouteName="RequestsCaregiver">
-      <stack.Screen
+    <Stack2.Navigator initialRouteName="RequestsCaregiver">
+      <Stack2.Screen
         name="RequestsCaregiver"
         component={RequestsCaregiver}
         options={{
+          headerShown: false,
           header: () => null,
         }}
       />
-      <stack.Screen
+      <Stack2.Screen
         name="RequestsCareReceiver"
         component={RequestsCareReceiver}
         options={{
           header: () => null,
         }}
       />
-      <stack.Screen
+      <Stack2.Screen
         name="SendRequest"
         component={SendRequest}
         options={{
           header: () => null,
         }}
       />
-    </stack.Navigator>
-  )
-}
+    </Stack2.Navigator>
+  );
+};
+
+const SearchStack = () => {
+  return (
+    <Stack3.Navigator initialRouteName="Search">
+      <Stack3.Screen
+        name="Search"
+        component={Search}
+        options={{
+          header: () => null,
+        }}
+      />
+    </Stack3.Navigator>
+  );
+};
 
 const MainNav = () => {
   return (
@@ -75,7 +93,7 @@ const MainNav = () => {
       }}
     >
       <Tab.Screen
-        name="HomeStack"
+        name="Home"
         component={HomeStack}
         options={{
           tabBarLabel: 'início',
@@ -85,7 +103,7 @@ const MainNav = () => {
         }}
       />
       <Tab.Screen
-        name="Propostas"
+        name="Requests"
         component={RequestStack}
         options={{
           tabBarLabel: 'Propostas',
@@ -96,8 +114,8 @@ const MainNav = () => {
         }}
       />
       <Tab.Screen
-        name="Buscar"
-        component={Search}
+        name="Search"
+        component={SearchStack}
         options={{
           tabBarLabel: 'Buscar',
           tabBarIcon: ({ color, size }) => (
