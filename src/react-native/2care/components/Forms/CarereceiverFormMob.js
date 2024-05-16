@@ -4,11 +4,11 @@ import {
   Text,
   TextInput,
   Pressable,
-  Picker,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { registerUser } from "../../services/userServiceMob";
+import { Picker } from "@react-native-picker/picker";
 
 const CarereceiverFormMob = () => {
   const navigation = useNavigation();
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     color: "#486142",
     fontSize: 13,
     lineHeight: 2,
-    fontWeight: 400,
+    fontWeight: 'medium',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 6,

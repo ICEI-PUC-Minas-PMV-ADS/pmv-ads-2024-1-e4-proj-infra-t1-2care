@@ -171,7 +171,6 @@ export default function Login() {
 
           {/* somente para desenvolvimento até que tenhamos mais telas */}
           <View style={styles.bottomButtons}>
-<<<<<<< HEAD
           <Pressable
             onPress={() => navigation.navigate("RequestsCaregiver")}
             style={({ pressed }) => [
@@ -200,36 +199,6 @@ export default function Login() {
             <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
         </View>
-=======
-            <Pressable
-              onPress={() => navigation.navigate("RequestsCaregiver")}
-              style={({ pressed }) => [
-                styles.button,
-                pressed && { transform: [{ scale: 1.1 }] },
-              ]}
-            >
-              <Text style={styles.buttonText}>Requests Caregiver</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => navigation.navigate("RequestsCareReceiver")}
-              style={({ pressed }) => [
-                styles.button,
-                pressed && { transform: [{ scale: 1.1 }] },
-              ]}
-            >
-              <Text style={styles.buttonText}>Requests CareReceiver</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => navigation.navigate("SendRequest")}
-              style={({ pressed }) => [
-                styles.button,
-                pressed && { transform: [{ scale: 1.1 }] },
-              ]}
-            >
-              <Text style={styles.buttonText}>Send Request</Text>
-            </Pressable>
-          </View>
->>>>>>> 91dc367 ([feature] Update RegisterUsers/Login.)
         </ScrollView>
       {/*</KeyboardAvoidingView>*/}
     </View>

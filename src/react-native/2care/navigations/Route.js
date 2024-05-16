@@ -8,7 +8,7 @@ import { isLogged } from '../services/authServiceMob';
 const Main = () => {
 
     //const { signed } = useUser();       quando o context de user for implementado, isso volta.
-    const signed = true
+    const signed = false
     return (
         <>
             {
