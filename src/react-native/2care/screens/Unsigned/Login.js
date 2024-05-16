@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,86 +6,86 @@ import {
   StyleSheet,
   Image,
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import "../AppMobile.css";
+import "../AppMobile.css"; 
 import { signIn } from "../../services/authServiceMob";
 
-
-export default function Login({ setIsLogged }) {
+export default function Login() {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
+ 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setFormData({ email: "", password: "" });
+      setErrors({ email: "", password: "" });
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
 
-  if (name === "email" && !value) {
-    setErrors({ ...errors, email: "Por favor, insira o e-mail cadastrado." });
-  } else {
-    setErrors({ ...errors, email: "" });
-  }
+    if (name === "email" && !value) {
+      setErrors({ ...errors, [name]: "Por favor, insira seu e-mail cadastrado." });
+    } else {
+      setErrors({ ...errors, [name]: "" });
+    }
 
-  if (name === "password" && (!value || value.length < 6)) {
-    setErrors({ ...errors, password: "Por favor, confira sua senha." });
-  } else {
-    setErrors({ ...errors, password: "" });
-  }
-};
+    if (name === "password" && !value) {
+      setErrors({ ...errors, [name]: "Por favor, verifique sua senha." });
+    } else {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
 
-const validateEmail = (email) => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-};
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
-
-const handleBlur = (name, value) => {
-  if (name === 'email' && !validateEmail(value)) {
-    setErrors({ ...errors, email: "Por favor, insira um e-mail válido." });
-  } else {
-    setErrors({ ...errors, email: "" });
-  }
-};
-
-
+  const handleBlur = (name, value) => {
+    if (name === "email" && !validateEmail(value)) {
+      setErrors({ ...errors, [name]: "Por favor, insira o e-mail válido." });
+    } else {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
 
   const handleSubmit = async () => {
-
     const validationErrors = {};
 
-    if (!formData.email || !formData.password || formData.password.length < 6) { 
-        validationErrors.email = !formData.email ? "Por favor, insira o e-mail cadastrado." : "",
-        validationErrors.password = !formData.password || formData.password.length < 6
-          ? "Por favor, confira sua senha."
-          : "",
-
+    if (!formData.email || !formData.password || formData.password.length < 6) {
+      (validationErrors.email = !formData.email
+        ? "Por favor, insira o e-mail cadastrado."
+        : ""),
+        (validationErrors.password =
+          !formData.password || formData.password.length < 6
+            ? "Por favor, confira sua senha."
+            : ""),
         setErrors(validationErrors);
       return;
     }
-  
-    // Lógica de submissão do formulário 
+
     try {
       await signIn(formData);
       console.log("Usuário logado com sucesso");
       navigation.navigate("HomeTest");
-      setIsLogged(true);
+      //setIsLogged(true);
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
-      Alert.alert(
-        "Não foi possível realizar seu login. Por gentileza, confira seus dados!",
-        [{ text: "OK", onPress: () => console.log("Alerta fechado") }]
-      )
     }
   };
 
   return (
     <View style={styles.containerLogin}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}>
-        <ScrollView contentContainerStyle={styles.containerLogin}>
+      {/*<KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+  >*/}
+        <ScrollView>
           <View style={styles.logo}>
             <Image
               source={require("../../assets/logo2care.png")}
@@ -109,40 +109,30 @@ const handleBlur = (name, value) => {
               <TextInput
                 placeholder="E-mail"
                 value={formData.email}
-                onChangeText={(text) => {
-                  handleChange("email", text);
-                  handleBlur("email", text);
-                }}
+                onChangeText={(text) => handleChange("email", text)}
+                onBlur={() => handleBlur("email", formData.email)}
                 style={[styles.input, errors.email && styles.errorBorder]}
                 onSubmitEditing={handleSubmit}
               />
-                {errors.email ? (
-                  <Text style={styles.errorText}>{errors.email}</Text>
-                ) : null}
+              {errors.email ? (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              ) : null}
             </View>
             <View>
               <TextInput
                 placeholder="Senha"
                 value={formData.password}
                 onChangeText={(text) => handleChange("password", text)}
+                onBlur={() => handleBlur("password", formData.password)}
                 secureTextEntry={true}
                 style={[styles.input, errors.password && styles.errorBorder]}
                 onSubmitEditing={handleSubmit}
               />
               {errors.password ? (
-              <Text style={styles.errorText}>{errors.password}</Text>
+                <Text style={styles.errorText}>{errors.password}</Text>
               ) : null}
             </View>
 
-            <Pressable
-              onPress={() => navigation.navigate("Register")}
-              style={({ pressed }) => [
-                styles.linkContainer,
-                pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
-              ]}
-            >
-              <Text style={styles.linkText}>Crie a sua conta clicando aqui</Text>
-            </Pressable>
             <Pressable
               onPress={handleSubmit}
               style={({ pressed }) => [
@@ -152,6 +142,19 @@ const handleBlur = (name, value) => {
             >
               <Text style={styles.buttonLoginText}>Entrar</Text>
             </Pressable>
+
+            <Pressable
+              onPress={() => navigation.navigate("Register")}
+              style={({ pressed }) => [
+                styles.linkContainer,
+                pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
+              ]}
+            >
+              <Text style={styles.linkText}>
+                Crie a sua conta clicando aqui
+              </Text>
+            </Pressable>
+
             <Pressable
               onPress={() => {
                 console.log("Você será redirecionado para a nova Tela.");
@@ -160,10 +163,12 @@ const handleBlur = (name, value) => {
               style={({ pressed }) => [
                 styles.linkContainer,
                 pressed && { transform: [{ scale: 1.05 }], fontWeight: "bold" },
-              ]}>
+              ]}
+            >
               <Text style={styles.linkText}>Continuar como visitante</Text>
             </Pressable>
           </View>
+
           {/* somente para desenvolvimento até que tenhamos mais telas */}
           <View style={styles.bottomButtons}>
           <Pressable
@@ -195,7 +200,7 @@ const handleBlur = (name, value) => {
           </Pressable>
         </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      {/*</KeyboardAvoidingView>*/}
     </View>
   );
 }
@@ -203,7 +208,6 @@ const handleBlur = (name, value) => {
 const styles = StyleSheet.create({
   containerLogin: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
   },
   logo: {
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     width: "100%",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   buttonLoginText: {
     color: "black",
@@ -289,5 +293,4 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 16,
   },
-  
 });

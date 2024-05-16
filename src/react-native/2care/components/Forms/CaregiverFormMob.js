@@ -4,11 +4,11 @@ import {
   Text,
   TextInput,
   Pressable,
-  Picker,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { registerUser } from "../../services/userServiceMob";
+import { Picker } from "@react-native-picker/picker";
 
 const CaregiverFormMob = () => {
   const navigation = useNavigation();
@@ -39,23 +39,6 @@ const CaregiverFormMob = () => {
       }
     }
 
-    if (name === "birth_date") {
-      updatedValue = value.replace(/\D/g, "");
-
-      if (updatedValue.length > 2) {
-        updatedValue = `${updatedValue.slice(0, 2)}/${updatedValue.slice(2)}`;
-      }
-      if (updatedValue.length > 5) {
-        updatedValue = `${updatedValue.slice(0, 5)}/${updatedValue.slice(
-          5,
-          9
-        )}`;
-      }
-      if (updatedValue.length > 10) {
-        updatedValue = updatedValue.slice(0, 10);
-      }
-    }
-
     if (name === "phone") {
       updatedValue = value.replace(/\D/g, "");
       updatedValue = updatedValue.slice(0, 11);
@@ -64,6 +47,10 @@ const CaregiverFormMob = () => {
         /^(\d{2})(\d{4,5})(\d{4})$/,
         "($1) $2-$3"
       );
+    }
+
+    if (name === "birth_date") {
+      updatedValue = value.slice(0, 8);
     }
 
     setFormData({ ...formData, [name]: updatedValue });
@@ -84,7 +71,7 @@ const CaregiverFormMob = () => {
   };
 
   const validateGender = (gender) => {
-    return gender !== "Selecione";
+    return gender !== "";
   };
 
   const validatePhone = (phone) => {
@@ -98,7 +85,7 @@ const CaregiverFormMob = () => {
   };
 
   const handleBlur = (name, value) => {
-    const validationErrors = {};
+    let validationErrors = { ...errors };
 
     switch (name) {
       case "email":
@@ -118,27 +105,41 @@ const CaregiverFormMob = () => {
         }
         break;
       case "birth_date":
-        if (!value || value.length !== 10) {
+        if (!value || value.length > 10) {
           validationErrors.birth_date =
-            "Por favor, insira sua data de nascimento.";
+            "Por favor, insira uma data de nascimento válida.";
+        } else {
+          let formattedDate = value.replace(/\D/g, "");
+          if (formattedDate.length > 2) {
+            formattedDate = `${formattedDate.slice(0, 2)}/${formattedDate.slice(
+              2
+            )}`;
+          }
+          if (formattedDate.length > 5) {
+            formattedDate = `${formattedDate.slice(0, 5)}/${formattedDate.slice(
+              5,
+              9
+            )}`;
+          }
+          setFormData({ ...formData, [name]: formattedDate });
         }
         break;
-      case "name":
-        if (!value) {
-          validationErrors.name = "Por favor, preencha seu nome completo.";
-        }
-        break;
+
       case "phone":
         if (!validatePhone(value)) {
           validationErrors.phone =
             "Por favor, insira um número de telefone válido.";
         }
         break;
-      case "gender":
-        if (!value) {
-          validationErrors.gender = "Por favor, selecione seu gênero.";
-        }
-        break;
+        case "gender":
+          if (value === "") {
+            console.log("Gênero vazio. Definindo mensagem de erro.");
+            validationErrors.gender = "Por favor, selecione seu gênero.";
+          } else {
+            console.log("Gênero selecionado. Removendo mensagem de erro.");
+            validationErrors.gender = "";
+          }
+          break;
       case "address":
         if (!value) {
           validationErrors.address = "Por favor, insira seu endereço.";
@@ -146,7 +147,11 @@ const CaregiverFormMob = () => {
         break;
       case "post_code":
         if (!value) {
-          validationErrors.post_code = "Por favor, insira um CEP válido.";
+          validationErrors.post_code = "Por favor, esse é obrigatório!";
+        } else if (!validateCEP(value)) {
+          validationErrors.post_code = "Por favor, complete o CEP.";
+        } else {
+          validationErrors.post_code = ""; 
         }
         break;
       default:
@@ -213,7 +218,11 @@ const CaregiverFormMob = () => {
       console.log("Usuário registrado com sucesso");
       navigation.navigate("Login");
     } catch (error) {
-      console.error("Erro ao cadastrar o Cliente:", error.message);
+      if (error.message.includes("CEP")) {
+        setErrors({ post_code: "CEP inválido. Por favor, verifique o CEP digitado." });
+      } else {
+        console.error("Erro ao cadastrar o Cliente:", error.message);
+      }
     }
   };
 
@@ -228,7 +237,6 @@ const CaregiverFormMob = () => {
   return (
     <View style={styles.container}>
       <View style={styles.formRegister}>
-
         <View style={styles.inputContainer}>
           <CustomLabel text="E-mail" />
           <TextInput
@@ -237,9 +245,9 @@ const CaregiverFormMob = () => {
             onChangeText={(text) => handleChange("email", text)}
             onBlur={() => handleBlur("email", formData.email)}
           />
-            {errors.email ? (
-             <Text style={styles.errorText}>{errors.email}</Text>
-            ) : null}          
+          {errors.email ? (
+            <Text style={styles.errorText}>{errors.email}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -251,10 +259,10 @@ const CaregiverFormMob = () => {
             onBlur={() => handleBlur("password", formData.password)}
             secureTextEntry={true}
           />
-            {errors.password ? (
-              <Text style={styles.errorText}>{errors.password}</Text>
-              ) : null}
-            </View>
+          {errors.password ? (
+            <Text style={styles.errorText}>{errors.password}</Text>
+          ) : null}
+        </View>
 
         <View style={styles.inputContainer}>
           <CustomLabel text="Confirmar Senha" />
@@ -307,8 +315,8 @@ const CaregiverFormMob = () => {
             onBlur={() => handleBlur("phone", formData.phone)}
           />
           {errors.phone ? (
-          <Text style={styles.errorText}>{errors.phone}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.phone}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -324,8 +332,8 @@ const CaregiverFormMob = () => {
             <Picker.Item label="Não especificado" value="0" />
           </Picker>
           {errors.gender ? (
-          <Text style={styles.errorText}>{errors.gender}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.gender}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -337,8 +345,8 @@ const CaregiverFormMob = () => {
             onBlur={() => handleBlur("address", formData.address)}
           />
           {errors.address ? (
-          <Text style={styles.errorText}>{errors.address}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.address}</Text>
+          ) : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -350,16 +358,22 @@ const CaregiverFormMob = () => {
             onBlur={() => handleBlur("post_code", formData.post_code)}
           />
           {errors.post_code ? (
-          <Text style={styles.errorText}>{errors.post_code}</Text>
-        ) : null}
+            <Text style={styles.errorText}>{errors.post_code}</Text>
+          ) : null}
+        </View>
+
+        <View>
+          <Pressable
+            onPress={handleSubmit}
+            style={({ pressed }) => [
+              styles.buttonContainer,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Criar Conta</Text>
+          </Pressable>
         </View>
       </View>
-
-      <View style={styles.buttonContainer}>
-        <Pressable onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Criar conta</Text>
-        </Pressable>
-      </View>        
     </View>
   );
 };
@@ -399,7 +413,7 @@ const styles = StyleSheet.create({
     color: "#486142",
     fontSize: 13,
     lineHeight: 2,
-    fontWeight: 400,
+    fontWeight: 'medium',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 6,
@@ -434,19 +448,23 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
   },
-  buttonContainer: {
-    width: "100%",
+   buttonContainer: {
     backgroundColor: "#ED8733",
     padding: 10,
     borderRadius: 25,
     alignItems: "center",
     width: 170,
-    marginBottom: 10,
+    marginBottom: 20,
     justifyContent: "center",
   },
   buttonText: {
     color: "#FFFFFF",
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "center"
   },
+
+
+
+
+  
 });

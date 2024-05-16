@@ -1,16 +1,21 @@
-import React from "react";
+import React, { createContent, useContext, useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import theme from "../../theme/theme.js";
-import ResponsiveAppBar from "../../components/layout/ResponsiveAppBar.js";
+import { logout } from "../../services/authServiceMob.js";
 
 export default function HomeTest({ navigation }) {
-  return (
-    <View>
-      <ResponsiveAppBar />
-      <Text style={{ backgroundColor: theme.palette.back_ground.light }}>
-        Teste 2 Care
-      </Text>
 
+  
+  const handleLogout = async () => {
+    const navigateToLogin = () => {
+      console.log("Usuário deslogado");
+      navigation.navigate('Login'); 
+    };
+    await logout(navigateToLogin);
+  };
+
+  return (
+    <View>    
       <View style={styles.logo}>
         <Image
           source={require("../../assets/logo2care.png")}
@@ -24,13 +29,13 @@ export default function HomeTest({ navigation }) {
       </View>
 
       <Pressable
-        onPress={() => navigation.navigate("Login")}
+        onPress={handleLogout} 
         style={({ pressed }) => [
           styles.buttonUser,
           pressed && { transform: [{ scale: 1.1 }] },
         ]}
       >
-        <Text style={styles.buttonUserText}>Login</Text>
+        <Text style={styles.buttonUserText}>Logout</Text>
       </Pressable>
     </View>
   );
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   buttonUser: {
-    backgroundColor: "#486142",
+    backgroundColor: "#FF5733",
     padding: 10,
     borderRadius: 25,
     width: 170,
