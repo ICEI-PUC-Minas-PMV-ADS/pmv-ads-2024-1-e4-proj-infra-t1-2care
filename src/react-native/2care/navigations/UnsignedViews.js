@@ -64,7 +64,6 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
-
         </stack.Navigator>
     );
 };

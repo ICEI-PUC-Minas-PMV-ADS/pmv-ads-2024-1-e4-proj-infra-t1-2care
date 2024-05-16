@@ -7,7 +7,7 @@ import UnsignedViews from './UnsignedViews';
 const Main = () => {
 
     //const { signed } = useUser();       quando o context de user for implementado, isso volta.
-    const { signed }  = false
+    const signed = true
     return (
         <>
             {
