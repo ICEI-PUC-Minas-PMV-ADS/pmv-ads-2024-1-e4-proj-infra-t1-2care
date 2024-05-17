@@ -14,6 +14,7 @@ from .models import (
 )
 from user.models import CustomUserModel
 from careReceiver.serializers import CareReceiverSerializer
+from datetime import datetime
 
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -114,3 +115,44 @@ class RatingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatingModel
         fields = ["id", "rating", "description", "care_receiver"]
+
+    
+class CalendarSerializer(serializers.ModelSerializer):
+    fixed_unavailable_days = serializers.ListField(
+        child=serializers.IntegerField(), write_only=True
+    )
+    fixed_unavailable_hours = serializers.ListField(
+        child=serializers.IntegerField(), write_only=True
+    )
+    custom_unavailable_days = serializers.ListField(
+        child=serializers.DateField(), write_only=True
+    )
+
+    class Meta:
+        model = CaregiverModel
+        fields = ['id', 'user', 'fixed_unavailable_days', 'fixed_unavailable_hours', 'custom_unavailable_days']
+
+    def update(self, instance, validated_data):
+        fixed_unavailable_days_data = validated_data.pop('fixed_unavailable_days', [])
+        fixed_unavailable_hours_data = validated_data.pop('fixed_unavailable_hours', [])
+        custom_unavailable_days_data = validated_data.pop('custom_unavailable_days', [])
+        today = datetime.now()
+
+        instance.fixed_unavailable_days.clear()
+        day_list = [FixedUnavailableDayModel(day=d) for d in fixed_unavailable_days_data]
+        fixed_days = FixedUnavailableDayModel.objects.bulk_create(day_list, ignore_conflicts=True)
+        instance.fixed_unavailable_days.add(*fixed_days)
+
+
+        instance.fixed_unavailable_hours.clear()
+        hour_list = [FixedUnavailableHourModel(hour=h) for h in fixed_unavailable_hours_data]
+        fixed_hours = FixedUnavailableHourModel.objects.bulk_create(hour_list, ignore_conflicts=True)
+        instance.fixed_unavailable_hours.add(*fixed_hours)
+
+        instance.custom_unavailable_days.filter(day__gte=today).delete()
+        custom_day_list = [CustomUnavailableDayModel(day=d) for d in custom_unavailable_days_data]
+        custom_days = CustomUnavailableDayModel.objects.bulk_create(custom_day_list, ignore_conflicts=True)
+        instance.custom_unavailable_days.add(*custom_days)
+
+        instance.save()
+        return instance

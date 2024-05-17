@@ -147,6 +147,7 @@ class FixedUnavailableHourModel(models.Model):
         (9, "9 horas"),
         (10, "10 horas"),
         (11, "11 horas"),
+        (12, "12 horas"),
         (13, "13 horas"),
         (14, "14 horas"),
         (15, "15 horas"),
@@ -157,14 +158,14 @@ class FixedUnavailableHourModel(models.Model):
         (20, "20 horas"),
         (21, "21 horas"),
         (22, "22 horas"),
-        (23, "23 horas"),
+        (23, "23 horas")
     )
 
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     hour = models.SmallIntegerField("Horario indisponivel", choices=HOURS)
 
     def __str__(self):
-        return self.get_hour_display()
+        return f"{self.get_hour_display()}"
 
     class Meta:
         ordering = ["hour"]

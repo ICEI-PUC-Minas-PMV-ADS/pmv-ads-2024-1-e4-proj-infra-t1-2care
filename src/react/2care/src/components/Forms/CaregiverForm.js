@@ -128,7 +128,7 @@ const CaregiverForm = () => {
       return;
     }
 
-    await registerUser(formData).then(i => i ? toast.success('Conta criada com sucesso',{onClose: () => {navigate("/");}}) : "");
+    await registerUser(formData).then(i => i ? toast.success('Conta criada com sucesso',{onClose: () => {navigate("/");}, autoClose:1000}) : "");
  
   };
 

@@ -9,6 +9,7 @@ import { Grid, Box, Tab, Tabs, Typography } from '@mui/material';
 import CareReceiverProfileForm from '../../components/Profile/ProfileForm/CarereceiverProfileForm';
 import { getUserData } from '../../services/userService';
 import { getCareReceiverData } from '../../services/careReceiverService';
+import TabPanel from '../../components/TabPanel';
 import { toast } from 'react-toastify';
 
 import SpecialCareList from '../../components/ListSelection/SpecialCareListSelection';
@@ -35,25 +36,6 @@ function ProfileCareReceiver() {
     })
 
   }, []);
-
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
   
   function a11yProps(index) {
     return {

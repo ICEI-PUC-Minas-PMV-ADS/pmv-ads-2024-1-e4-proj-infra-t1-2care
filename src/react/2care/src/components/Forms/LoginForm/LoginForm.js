@@ -49,7 +49,7 @@ const LoginForm = ({ setIsLogged }) => {
       return;
     }
 
-    await signIn(formData).then((i) => i ?  toast.success('Login efetuado com sucesso',{onClose: () => {navigate("/home");}, autoClose:2000}) : "")
+    await signIn(formData).then((i) => i ?  toast.success('Login efetuado com sucesso',{onClose: () => {navigate("/home");}, autoClose:1000}) : "")
     
   };
 

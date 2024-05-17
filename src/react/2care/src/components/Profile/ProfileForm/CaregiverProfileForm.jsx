@@ -113,7 +113,7 @@ const CaregiverProfileForm = (props) => {
     }
   };
 
-  const navigate = useNavigate() 
+  const navigate = useNavigate()
 
   return (
     <form onSubmit={handleSubmit}>
@@ -205,7 +205,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="hour_price">Preço da hora:</label>
               <input
                 required
-                type="number" 
+                type="number"
                 step="0.01"
                 id="hour_price"
                 name="hour_price"
@@ -216,7 +216,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="day_price">Preço da diaria:</label>
               <input
-                type="number" 
+                type="number"
                 step="0.01"
                 id="day_price"
                 name="day_price"
@@ -228,7 +228,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="max_request_km">Distancia maxima de atendimento(Km):</label>
               <input
                 required
-                type="number" 
+                type="number"
                 id="max_request_km"
                 name="max_request_km"
                 value={formDataCaregiver.max_request_km}
@@ -238,7 +238,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="career_time">Tempo de carreira(Anos):</label>
               <input
-                type="number" 
+                type="number"
                 id="career_time"
                 name="career_time"
                 value={formDataCaregiver.career_time}
@@ -248,7 +248,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="additional_info">Informações adicionais:</label>
               <textarea
-                type="text" 
+                type="text"
                 id="additional_info"
                 name="additional_info"
                 value={formDataCaregiver.additional_info}
@@ -263,7 +263,7 @@ const CaregiverProfileForm = (props) => {
                 type="text"
                 id="picture"
                 name="picture"
-                style={{width:"97%"}}
+                style={{ width: "97%" }}
                 value={formDataUser.picture}
                 onChange={handleChangeUser}
               />
@@ -275,7 +275,7 @@ const CaregiverProfileForm = (props) => {
         <button onClick={handleSubmit}>Salvar Alterações</button>
       </Grid>
     </form >
-    );
-  };
+  );
+};
 
 export default CaregiverProfileForm;

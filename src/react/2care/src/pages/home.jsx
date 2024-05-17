@@ -4,12 +4,14 @@ import NavBar from '../components/NavBar/NavBar';
 import TopBar from '../components/TopBar/TopBar';
 import CaregiverList from '../components/CaregiverList/CaregiverList';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import { getCaregiverList } from '../services/caregiverService';
 import './App.css';
 
 function Home() {
   const theme = useTheme();
 
   const [loading, setLoading] = useState(false);
+  const [caregiverList, setCaregiverList] = useState([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -19,6 +21,7 @@ function Home() {
 
   useEffect(() => {
     document.title = 'Home';
+    getCaregiverList().then((CaregiverList) => setCaregiverList(caregiverList ? CaregiverList : []))
   }, []);
 
   return (
@@ -33,7 +36,7 @@ function Home() {
 
       <header className='App-header'>
         <h1>Veja alguns cuidadores cadastrados: </h1>
-        <CaregiverList></CaregiverList>
+        <CaregiverList caregiverList={caregiverList}></CaregiverList>
       </header>
 
     </div>

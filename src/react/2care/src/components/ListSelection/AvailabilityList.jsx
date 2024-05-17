@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Grid, Typography } from '@mui/material';
-import { addSpecialCare, removeSpecialCare, getSpecialCareList } from '../../services/careReceiverService';
+import { FormControl, InputLabel, Select, MenuItem, Grid } from '@mui/material';
+import { editSelfCalendar, getSelfCalendar } from '../../services/caregiverService';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import startOfDay from "date-fns/startOfDay";
 import Calendar from "react-multi-date-picker";
+import { toast } from 'react-toastify';
 
 function AvailabilityList(props) {
   const [selectedHours, setSelectedHours] = useState([]);
   const [selectedDays, setSelectedDays] = useState([]);
   const [customDays, setCustomDays] =  useState([]);
 
-  const weekDays = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  const weekDays = {0:"Domingo", 1:"Segunda", 2:"Terça", 3:"Quarta", 4:"Quinta", 5:"Sexta", 6:"Sábado"};
 
   const hours = [...Array(24).keys()].map((hour) => ({
     value: hour,
@@ -20,41 +20,23 @@ function AvailabilityList(props) {
 
   useEffect(() => {
     //alterar com props aqui ringu
-    /* getSpecialCareList().then((result) => {
-      const specialCare = result ? result["specialCare"] : []
-      setSelectedSpecialiCare(specialCare)
-    }) */
+    getSelfCalendar().then((result) => {
+      if(result){
+        setCustomDays(result["custom_unavailable_days"].map((day) => day.day))
+        setSelectedDays(result["fixed_unavailable_days"].map((day) => day.day))
+        setSelectedHours(result["fixed_unavailable_hours"].map((hour) => hour.hour))
+      }
+    })
   }, []);
-  const handleAddClick = () => { }
-
-  /*   const handleDeleteClick = async (specialCare) => {
-      await removeSpecialCare(specialCare).then((result) => {
-        if (result) {
-          setSelectedSpecialiCare(prev => prev.filter(item => item.id !== specialCare));
-        } else {
-          //retornar um erro massa
-        }
-      })
-    };
   
     async function enviarAgenda() {
-      const specialCare = {"care_type": currentSelection.value, "description": currentDescription}
-  
-      if (!Number.isInteger(parseInt(specialCare["care_type"], 10))) {
-        //retornar um erro massa
-        return false
-      }
-  
-      await addSpecialCare(specialCare).then((result) => {
-        if (result) {
-          setCurrentSelection({ "value": "" });
-          setSelectedSpecialiCare(prev =>  [...prev, result])
-        } else {
-          //retornar um erro massa
-        }
+      const calendar = {"fixed_unavailable_hours": selectedHours, "fixed_unavailable_days": selectedDays, "custom_unavailable_days": customDays}
+      
+      await editSelfCalendar(calendar).then((result) => {
+        result ? toast.success("Agenda atualizada com sucesso!") : toast.error("Um erro ocorreu ao atualizar agenda, por favor tente novamente")
       })
   
-    } */
+    }
 
   return (
     <div>
@@ -91,11 +73,11 @@ function AvailabilityList(props) {
                   multiple
                   value={selectedDays}
                   onChange={(e) => setSelectedDays(e.target.value)}
-                  renderValue={(selected) => selected.join(', ')}
+                  renderValue={(selected) => selected.map((day) => weekDays[day]).join(', ')}
                 >
-                  {weekDays.map((day) => (
-                    <MenuItem key={day} value={day} style={selectedDays.includes(day) ? { backgroundColor: "#D2DAC3" } : {}}>
-                      {day}
+                  {Object.keys(weekDays).map((key) => (
+                    <MenuItem key={key} value={key} style={selectedDays.includes(parseInt(key)) ? { backgroundColor: "#D2DAC3" } : {}}>
+                      {weekDays[key]}
                     </MenuItem>
                   ))}
                 </Select>
@@ -103,13 +85,14 @@ function AvailabilityList(props) {
             </Grid>
             <Grid item xs={12} sm={12} style={{marginTop: "2em", marginBottom: "2em"}}>
               <InputLabel>Selecione os dias que não deseja trabalhar.</InputLabel>
-              <Calendar 
-                value={customDays}
-                onChange={setCustomDays}
-                multiple
-              />
+                <Calendar 
+                style={{display: "hidden"}}
+                  value={customDays}
+                  onChange={(e) => setCustomDays(e.map(dt => `${dt.year}-${dt.monthIndex+1}-${dt.day}`))}
+                  multiple
+                ></Calendar>
             </Grid>
-            <button onClick={handleAddClick} className="add-button">
+            <button onClick={enviarAgenda} className="add-button">
               Salvar
             </button>
           </Grid>
@@ -118,6 +101,5 @@ function AvailabilityList(props) {
     </div>
   );
 }
-
 
 export default AvailabilityList;

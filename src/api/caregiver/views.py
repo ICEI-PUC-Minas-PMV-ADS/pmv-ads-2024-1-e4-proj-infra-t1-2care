@@ -25,12 +25,18 @@ from .serializers import (
     RatingSerializer,
     RatingListSerializer,
     SpecializationSerializer,
-    WorkExperienceSerializer
+    WorkExperienceSerializer,
+    CalendarSerializer
 )
+
 
 class MongoCaregiverListView(APIView):
     permission_classes = (AllowAny,) 
     def get(self, request):
+        #cs = CaregiverModel.objects.all()
+        #for vl in cs:
+        #    MongoConnection().set_caregiver_data_on_mongo(vl, False)
+
         return Response(MongoConnection().get_data_on_mongo(), 200)
 
 class CaregiverEditView(APIView):
@@ -413,3 +419,17 @@ class WorkExperienceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIV
                 return Response("Experiencia de trabalho não encontrada", status=status.HTTP_404_NOT_FOUND)  
         else:
             return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CalendarUpdateAPIView(APIView):
+    serializer_class = CalendarSerializer
+    def put(self, request):
+    
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        serializer = self.serializer_class(caregiver, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

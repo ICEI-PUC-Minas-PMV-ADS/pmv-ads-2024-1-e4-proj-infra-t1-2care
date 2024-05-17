@@ -12,26 +12,8 @@ import WorkExperienceList from '../../components/ListSelection/WorkExperienceLis
 import AvailabilityList from '../../components/ListSelection/AvailabilityList';
 import { getUserData } from '../../services/userService';
 import { getCaregiverData } from '../../services/caregiverService';
+import TabPanel from '../../components/TabPanel';
 import '../App.css';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
 function a11yProps(index) {
   return {
@@ -68,7 +50,7 @@ function ProfileCaregiver(props) {
     });
   }, []);
 
-    // navegar entre as abass
+  // navegar entre as abass
   const handleChange = (event, newValue) => {
     if (newValue !== 0 && !isProfileComplete) {
       getCaregiverData().then((result) => {
@@ -92,8 +74,8 @@ function ProfileCaregiver(props) {
           <Box sx={{ width: '100%' }}>
             <Tabs value={value} onChange={handleChange} aria-label="edit profile tabs">
               <Tab label="Informações Pessoais" {...a11yProps(0)} />
-              <Tab label="Especializações" {...a11yProps(1)}/>
-              <Tab label="Qualificações" {...a11yProps(2)}/>
+              <Tab label="Especializações" {...a11yProps(1)} />
+              <Tab label="Qualificações" {...a11yProps(2)} />
               <Tab label="Experiência de trabalho" {...a11yProps(3)} />
               <Tab label="Horários Disponíveis" {...a11yProps(4)} />
             </Tabs>

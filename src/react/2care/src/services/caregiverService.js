@@ -163,3 +163,27 @@ export const getSelfCalendar = async () => {
     }
 };
 
+export const editSelfCalendar = async (calendar) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/calendar/update/`, "PUT", calendar)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao receber informações de calendario');
+        return false
+    }
+};
+
+export const getCaregiverList = async () => {
+    try {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/list`)
+        
+        if (!response.ok) {
+            throw new Error(JSON.stringify(response));
+        }
+
+        return await response.json();
+    } catch (error) {
+        toast.error('Falha ao receber lista de cuidadores');
+        return false
+    }
+};
