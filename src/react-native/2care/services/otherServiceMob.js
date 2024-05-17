@@ -1,4 +1,4 @@
-import { sendAuthenticatedRequest } from "./authServiceMob.js";
+//import { sendAuthenticatedRequest } from "./authServiceMob.js";
 import { API_URL } from './apiServiceMob.js';
 
 const SERVICE_URL = "/core";

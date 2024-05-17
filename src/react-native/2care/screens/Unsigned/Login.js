@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Pressable,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css"; 
@@ -81,11 +82,10 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.containerLogin}>
-      {/*<KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-  >*/}
-        <ScrollView>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.containerLogin}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.logo}>
             <Image
               source={require("../../assets/logo2care.png")}
@@ -200,8 +200,7 @@ export default function Login() {
           </Pressable>
         </View>
         </ScrollView>
-      {/*</KeyboardAvoidingView>*/}
-    </View>
+      </KeyboardAvoidingView>
   );
 }
 
@@ -209,6 +208,10 @@ const styles = StyleSheet.create({
   containerLogin: {
     flex: 1,
     alignItems: "center",
+  },
+  scrollContent: {
+    alignItems: 'center',
+    paddingBottom: 20,
   },
   logo: {
     alignItems: "center",
