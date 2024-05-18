@@ -1,57 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams  } from 'react-router-dom';
 import CaregiverCard from '../CaregiverCard/CaregiverCard'
+import Grid from '@mui/material/Grid';
 import './CaregiverList.css'
 
 
-const CaregiverList = ({ caregiver }) => {
+const CaregiverList = (props) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [caregiverFilteredList, setCaregiverFilteredList] = React.useState([]);
+    const allParams = Object.fromEntries(searchParams.entries());
 
-    const caregivers = [
-        { 
-            name: 'Maria Fontes',
-            especialization: 'Enfermagem', 
-            distance: '10 km', 
-            rating: 4.5, 
-            image: 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' 
-        },
-        { 
-            name: 'Antônia Santos',
-            especialization: 'Terapeuta', 
-            distance: '10 km', 
-            rating: 4.5, 
-            image: 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' 
-        },
-        { 
-            name: 'Joana Soares',
-            especialization: 'Fonoaudióloga', 
-            distance: '10 km', 
-            rating: 4.5, 
-            image: 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' 
-        },
-        { 
-            name: 'Leila Souza',
-            especialization: 'Fisioterapeuta', 
-            distance: '10 km', 
-            rating: 4.5, 
-            image: 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' 
-        },
+    useEffect(() => {
+        const distanceFilter = (allParams.distance || null)
+        const specializationFilter = (allParams.specialization || null)
+        const qualificationFilter = (allParams.qualification || null)
+        const experienceFilter = (allParams.experience || null)
+        const ratingFilter = (allParams.rating || null)
+        
+        const filteredList = props.caregiverList.filter((e) =>{
 
-    ]
+            if(distanceFilter && distanceFilter != 0 && Math.ceil(e.distance) > distanceFilter){
+                return false;
+            }
+            if(specializationFilter && !e.specializations.includes(specializationFilter)){
+                return false;
+            }
+            if(qualificationFilter && !e.qualifications.flatMap((q) => q.name).includes(qualificationFilter)){
+                return false;
+            }
+            if(experienceFilter && e.work_exp_years < experienceFilter){
+                return false;
+            }
+            if(e?.evaluations?.length > 0 ){
+                e.final_rating = Math.round((e.evaluations.reduce((sum, item) => sum + item.rating, 0) / e.evaluations.length))
+            }else{
+                e.final_rating = 0
+            }
+            if(ratingFilter && ratingFilter != 0 && e.final_rating != ratingFilter){
+                return false
+            }
+            
+            return true
+        })
+        setCaregiverFilteredList(filteredList ? filteredList : [])
+        
+    }, [searchParams, props.caregiverList]); 
 
 
     return (
-        <div className='caregiverList'>             
-            <div className='cards'>
-            {caregivers.map(caregiver => (
-                    <CaregiverCard
-                        key={caregiver.name}
-                        name={caregiver.name}
-                        especialization={caregiver.especialization}
-                        distance={caregiver.distance}
-                        rating={caregiver.rating}
-                        image={caregiver.image}
-                    />
+        <div className=''>
+            <Grid container justifyContent="start" >
+                {caregiverFilteredList.map(caregiver => (
+                    <Grid item xs={4} key={caregiver._id}>
+                        <div className=''>
+                            <CaregiverCard
+                                caregiver={caregiver}
+                            />
+                        </div>
+                    </Grid>
                 ))}
-            </div>
+            </Grid>
         </div>
     )
 }

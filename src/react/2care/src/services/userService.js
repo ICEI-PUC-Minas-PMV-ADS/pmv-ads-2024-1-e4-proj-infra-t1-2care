@@ -67,3 +67,9 @@ export const logout = () => {
     }); 
     window.location.href ="/"
 }
+
+export const getUserPosition = () => {
+    const lat = Cookies.get('latitude')
+    const long = Cookies.get('longitude')
+    return lat && long ?  {"latitude": parseFloat(lat) , "longitude": parseFloat(long)} : null
+}

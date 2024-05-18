@@ -90,7 +90,7 @@ export const getSpecializationList = async () => {
 
 export const addQualification = async (qualification) => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/`, "POST", qualification)
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/self/`, "POST", qualification)
         toast.success('Qualificação adicionada com sucesso');
         return response;
     } catch (error) {
@@ -112,7 +112,7 @@ export const removeQualification = async (qualification) => {
 
 export const getQualificationList = async () => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification`)
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/`)
         return response;
     } catch (error) {
         toast.error('Falha ao receber lista de qualificações');

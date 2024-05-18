@@ -189,6 +189,23 @@ class QualificationListCreateView(generics.ListCreateAPIView):
                 return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class QualificationSelfList(generics.ListAPIView):
+    queryset = QualificationModel.objects.all()
+    serializer_class = QualificationSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        if caregiver:
+            return Response({"status": "success", "qualifications": self.serializer_class(caregiver.qualifications.all(), many=True).data}, status=200)
+
+        return SpecializationModel.objects.none()
 
 class QualificationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = QualificationModel.objects.all()
