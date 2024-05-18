@@ -10,6 +10,9 @@ import SendRequest from '../screens/Unsigned/SendRequest';
 import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
 
+import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
+import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
+
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
@@ -60,6 +63,20 @@ const UnsignedViews = () => {
                 <stack.Screen
                 name="SendRequest"
                 component={SendRequest}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="CaregiverEvaluations"
+                component={CaregiverEvaluations}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="CareReceiverReview"
+                component={CareReceiverReview}
                 options={{
                     header: () => null,
                 }}
