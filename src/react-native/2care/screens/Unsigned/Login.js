@@ -207,6 +207,15 @@ export default function Login() {
           >
             <Text style={styles.buttonText}>Agenda</Text>
           </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("ProfileCaregiverMob")}
+              style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Profile Caregiver</Text>
+          </Pressable>
         </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -299,7 +308,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: "20%",
+    width: "15%",
   },
   buttonText: {
     color: "black",
