@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../screens/Unsigned/Home';
 import ProfileCareGiver from '../screens/Unsigned/ProfileCareGiver';
+import ProfileCareReceiver from '../screens/Unsigned/ProfileCareReceiver';
 
 const stack = createNativeStackNavigator();
 
@@ -23,6 +24,13 @@ const UnsignedViews = () => {
                header: () => null,
            }}
        />
+           <stack.Screen
+           name="ProfileCareReceiver"
+           component={ProfileCareReceiver}
+           options={{
+               header: () => null,
+           }}
+       />       
        </stack.Navigator>
     );
 };

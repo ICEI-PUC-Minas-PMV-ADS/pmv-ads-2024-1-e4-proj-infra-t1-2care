@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
-import { SafeAreaView } from 'react-native';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import Icon from 'react-native-vector-icons/MaterialIcons';  // Importando ícones do MaterialIcons
 
-const EditProfileScreen = () => {
+
+const EditProfileScreenCareGiver = () => {
   const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
@@ -20,11 +22,26 @@ const EditProfileScreen = () => {
     qualifications: "",
     workexperience: "",
     yearsexperience: "",
-    unavailableDays: "", // Dias Fixos Indisponíveis
-    dailyRate: "",       // Preço por Dia
-    hourlyRate: "",      // Preço por Hora
-    additionalInfo: ""   // Informações Adicionais
+    unavailableDays: "",
+    dailyRate: "",
+    hourlyRate: "",
+    additionalInfo: ""
   });
+
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const items = [
+    { id: '1', name: "Cuidados Básicos de Saúde"},
+    { id: '2', name: "Apoio à Mobilidade"},
+    { id: '3', name: "Higiene e Cuidados Pessoais"},
+    { id: '4', name: "Nutrição e Preparo de Refeições"},
+    { id: '5', name: "Estimulação Cognitiva e Emocional"},
+    { id: '6', name: "Acompanhamento e Transporte"},
+    { id: '7', name: "Gestão de Rotinas e Medicamentos"},
+    { id: '8', name: "Cuidados com o Ambiente Doméstico"},
+    { id: '9', name: "Suporte em Cuidados Paliativos"},
+    { id: '10', name: "Formação em Demência e Alzheimer"},
+  ];
 
   const [errors, setErrors] = useState({});
 
@@ -49,7 +66,6 @@ const EditProfileScreen = () => {
 
   const handleChange = (name, value) => {
     if (['dailyRate', 'hourlyRate'].includes(name)) {
-      // Formatar a entrada como moeda
       const formattedValue = formatCurrency(value);
       setFormData({ ...formData, [name]: formattedValue });
     } else if (['birth_date', 'post_code', 'phone'].includes(name)) {
@@ -69,18 +85,15 @@ const EditProfileScreen = () => {
   };
 
   const formatCurrency = (value) => {
-    // Remover tudo que não é número ou ponto
-    value = value.replace(/[^0-9.]/g, '');
+    value = value.replace(/\D/g, '');
   
-    // Converter para float
-    const num = parseFloat(value);
+    const intValue = parseInt(value, 10);
   
-    // Checar se é um número válido para evitar NaN
-    if (!isNaN(num)) {
-      // Formatar como moeda
-      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (!isNaN(intValue)) {
+      return (intValue / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
-    return ''; // Caso não seja um número válido, retornar string vazia
+  
+    return '';
   };
 
   const handleSubmit = () => {
@@ -140,7 +153,8 @@ const EditProfileScreen = () => {
         ))}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['gender']}</Text>
-            <Picker
+            <View style={styles.pickerContainer}>
+            <Picker 
               selectedValue={formData.gender}
               style={styles.picker}
               itemStyle={styles.pickerItem}
@@ -152,21 +166,23 @@ const EditProfileScreen = () => {
               <Picker.Item label="Outro" value="Outro" />
             </Picker>
           </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Especialização</Text>
-            <Picker
-              selectedValue={formData.specialization}
-              style={styles.picker}
-              itemStyle={styles.pickerItem}
-              onValueChange={(itemValue) => handleChange('specialization', itemValue)}
-            >
-              <Picker.Item label="Selecione a especialização" value="" />
-              <Picker.Item label="Especialização A" value="A" />
-              <Picker.Item label="Especialização B" value="B" />
-              <Picker.Item label="Especialização C" value="C" />
-              <Picker.Item label="Especialização D" value="D" />
-            </Picker>
           </View>
+          <View>
+          <Text style={styles.label}>{fieldLabels['specialization']}</Text>
+          <View style={styles.pickerContainer}>
+          <SectionedMultiSelect
+            items={items}
+            IconRenderer={Icon} 
+            uniqueKey="id"
+            subKey="children"
+            selectText="Escolha alguma opção"
+            showDropDowns={true}
+            readOnlyHeadings={true}
+            onSelectedItemsChange={setSelectedItems}
+            selectedItems={selectedItems}
+          />
+          </View>
+        </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Qualificações</Text>
             <TextInput
@@ -262,7 +278,7 @@ const EditProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 2,
     paddingHorizontal: 30,
     backgroundColor: "#ffffff"
   },
@@ -290,6 +306,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
+    flexDirection: 'row',
     position: "relative",
   },
   label: {
@@ -300,7 +317,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     fontSize: 12,
     color: "#64785d",
-    borderRadius: 10
+    borderRadius: 10,
+    zIndex: 1,
   },
   input: {
     borderWidth: 1,
@@ -326,23 +344,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red"
   },
-  picker: {
-    width: '100%',
-    backgroundColor: '#ffffff',
-    color: '#64785d',
+  pickerContainer: {
     borderWidth: 1,
+    flex: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    padding: 10,
-    fontSize: 16,
+    padding: 10, 
+    width: '100%',
+    marginBottom: 20,
+    backgroundColor: '#ffffff', 
+  },
+  picker: {
+    color: '#64785d',
+    backgroundColor: '#ffffff', 
+    width: '100%',
   },
   pickerItem: {
-    color: 'red'
+    color: '#64785d',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20
+    marginTop: 10,
+    marginBottom: 20
   },
   button: {
     backgroundColor: "#0066cc",
@@ -370,8 +394,10 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "white"
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: Platform.OS === 'android' ? 40 : 20
   }
 });
 
-export default EditProfileScreen;
+export default EditProfileScreenCareGiver;
