@@ -32,7 +32,7 @@ const theme = StyleSheet.create({   // Tudo aqui precisa de um update pra seguir
             dark: "#22bb33",
         },
         back_ground: { // não entendo o porque, mas ele se recusou a funcionar com background. teve que ser back_ground para aparecer
-            light: '#BEA69F',
+            light: '#D2DAC3',
             main: '#f2f6fa !important',
         },
     },

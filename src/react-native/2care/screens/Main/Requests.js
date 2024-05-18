@@ -7,11 +7,11 @@ import {
 import theme from '../../theme/theme.js'; 
 import ResponsiveAppBar from '../../components/layout/ResponsiveAppBar.js';
 
-export default function Home({ navigation }) {
+export default function Requests({ navigation }) {
+  const css = { backgroundColor: theme.palette.back_ground.light};
   return (
     <View> 
-        <ResponsiveAppBar/>
-        <Text style={{ backgroundColor: theme.palette.back_ground.light}}>2 Care</Text>
+        <Text style={css}>Propostas</Text>
     </View>
   )
 }

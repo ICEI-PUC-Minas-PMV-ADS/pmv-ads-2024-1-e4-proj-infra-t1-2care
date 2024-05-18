@@ -7,11 +7,10 @@ import {
 import theme from '../../theme/theme.js'; 
 import ResponsiveAppBar from '../../components/layout/ResponsiveAppBar.js';
 
-export default function Home({ navigation }) {
+export default function Search({ navigation }) {
   return (
     <View> 
-        <ResponsiveAppBar/>
-        <Text style={{ backgroundColor: theme.palette.back_ground.light}}>2 Care</Text>
+        <Text style={{ backgroundColor: theme.palette.back_ground.light}}>Busca</Text>
     </View>
   )
 }

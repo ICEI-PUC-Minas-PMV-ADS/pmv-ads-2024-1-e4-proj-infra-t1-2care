@@ -3,15 +3,15 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
 } from 'react-native';
 import theme from '../../theme/theme.js'; 
 import ResponsiveAppBar from '../../components/layout/ResponsiveAppBar.js';
 
-export default function Home({ navigation }) {
+export default function Profile({ navigation }) {
   return (
     <View> 
-        <ResponsiveAppBar/>
-        <Text style={{ backgroundColor: theme.palette.back_ground.light}}>2 Care</Text>
+        <Text style={{ backgroundColor: theme.palette.back_ground.light}}>Perfil</Text>
     </View>
   )
-}
+};
