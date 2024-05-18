@@ -198,6 +198,15 @@ export default function Login() {
           >
             <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("AgendaMob")}
+              style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Agenda</Text>
+          </Pressable>
         </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -290,7 +299,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: "30%",
+    width: "20%",
   },
   buttonText: {
     color: "black",

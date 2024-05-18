@@ -9,6 +9,7 @@ import HomeTest from '../screens/Unsigned/HomeTest';
 import SendRequest from '../screens/Unsigned/SendRequest';
 import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+import AgendaMob from '../screens/Unsigned/AgendaMob';
 
 const stack = createNativeStackNavigator();
 
@@ -60,6 +61,13 @@ const UnsignedViews = () => {
                 <stack.Screen
                 name="SendRequest"
                 component={SendRequest}
+                options={{
+                    header: () => null,
+                }}
+            />
+             <stack.Screen
+                name="AgendaMob"
+                component={AgendaMob}
                 options={{
                     header: () => null,
                 }}
