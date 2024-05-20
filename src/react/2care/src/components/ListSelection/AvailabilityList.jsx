@@ -23,7 +23,7 @@ function AvailabilityList(props) {
     getSelfCalendar().then((result) => {
       if(result){
         setCustomDays(result["custom_unavailable_days"].map((day) => day.day))
-        setSelectedDays(result["fixed_unavailable_days"].map((day) => day.day))
+        setSelectedDays(result["fixed_unavailable_days"].map((day) => String(day.day)))
         setSelectedHours(result["fixed_unavailable_hours"].map((hour) => hour.hour))
       }
     })
@@ -65,18 +65,17 @@ function AvailabilityList(props) {
             </Grid>
 
             <hr />
-
+            
             <Grid item xs={12} sm={12}>
               <FormControl fullWidth>
                 <InputLabel>Selecione os dias da semana que não deseja trabalhar.</InputLabel>
                 <Select
                   multiple
                   value={selectedDays}
-                  onChange={(e) => setSelectedDays(e.target.value)}
-                  renderValue={(selected) => selected.map((day) => weekDays[day]).join(', ')}
+                  onChange={(e) => setSelectedDays(e.target.value) }
                 >
                   {Object.keys(weekDays).map((key) => (
-                    <MenuItem key={key} value={key} style={selectedDays.includes(parseInt(key)) ? { backgroundColor: "#D2DAC3" } : {}}>
+                    <MenuItem key={key} value={key} style={selectedDays.includes(key) ? { backgroundColor: "#D2DAC3" } : {}}>
                       {weekDays[key]}
                     </MenuItem>
                   ))}

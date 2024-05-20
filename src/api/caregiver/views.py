@@ -183,6 +183,7 @@ class QualificationListCreateView(generics.ListCreateAPIView):
                     qualification = serializer.save()
                     caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
                     caregiver.qualifications.add(qualification)
+                    MongoConnection().set_caregiver_data_on_mongo(caregiver, update=True)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
                 return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -244,6 +245,7 @@ class AddSpecialization(APIView):
         specialization = get_object_or_404(SpecializationModel, name=data)
         caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
         caregiver.specializations.add(specialization)
+        MongoConnection().set_caregiver_data_on_mongo(caregiver, update=True)
         
         return Response({"status": "success", "specialization": specialization.get_name_display()}, status=200)
     
@@ -426,7 +428,7 @@ class RatingCreateView(generics.CreateAPIView):
 
         if serializer.is_valid():
             serializer.save()
-
+            MongoConnection().set_caregiver_data_on_mongo(caregiver, update=True)
             return Response(serializer.data)
         
         return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -468,6 +470,7 @@ class WorkExperienceListCreateView(generics.ListCreateAPIView):
                     work_exp = serializer.save()
                     caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
                     caregiver.work_exp.add(work_exp)
+                    MongoConnection().set_caregiver_data_on_mongo(caregiver, update=True)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
                 return Response("Something went wrong.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -508,5 +511,6 @@ class CalendarUpdateAPIView(APIView):
         serializer = self.serializer_class(caregiver, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
+            MongoConnection().set_caregiver_data_on_mongo(caregiver, update=True)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

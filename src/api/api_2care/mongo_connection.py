@@ -26,17 +26,22 @@ class MongoConnection(object):
                 "latitude": float(caregiver_instance.user.latitude),
                 "longitude": float(caregiver_instance.user.longitude),
                 "gender": caregiver_instance.user.gender,
+                "preferred_contact": caregiver_instance.user.preferred_contact,
+                "email": caregiver_instance.user.email,
+                "phone": caregiver_instance.user.phone,
                 "birth_date": str(caregiver_instance.user.birth_date),
+                "date_joined": str(caregiver_instance.user.created_date),
                 "hour_price": float(caregiver_instance.hour_price),
                 "day_price": float(caregiver_instance.day_price) if caregiver_instance.day_price else None,
                 "max_request_km": caregiver_instance.max_request_km,
-                "work_exp_years": caregiver_instance.career_time,
+                "career_time": caregiver_instance.career_time,
                 "additional_info": caregiver_instance.additional_info,
                 "evaluations": [
                     {
+                        "id": str(rating.id),
                         "rating":rating.rating,
                         "description": rating.description,
-                        "name": rating.care_request.carereceiver.user.name
+                        "care_receiver": {"name": rating.care_request.carereceiver.user.name, "picture":rating.care_request.carereceiver.user.picture}
                     } 
                     for rating in RatingModel.objects.select_related('care_request__carereceiver').filter(care_request__caregiver=caregiver_instance)],
                 "care_requests_dates": [],
@@ -62,13 +67,13 @@ class MongoConnection(object):
                     for specialization in caregiver_instance.specializations.all()
                 ],
                 "fixed_unavailable_days": [
-                    day.day for day in caregiver_instance.fixed_unavailable_days.all()
+                    {"id":str(day.id), "day":day.day} for day in caregiver_instance.fixed_unavailable_days.all()
                 ],
                 "fixed_unavailable_hours": [
-                    hour.hour for hour in caregiver_instance.fixed_unavailable_hours.all()
+                    {"id":str(hour.id), "hour":hour.hour} for hour in caregiver_instance.fixed_unavailable_hours.all()
                 ],
                 "custom_unavailable_days": [
-                    str(day.day) for day in caregiver_instance.custom_unavailable_days.all()
+                    {"id":str(day.id), "day":str(day.day)} for day in caregiver_instance.custom_unavailable_days.all()
                 ],
             }
             if update: #cabou que o upsert faz todo o trabalho e eu não precisava ter implementado esse sistema de update......

@@ -7,7 +7,7 @@ const ProfileCardCareReceiver = (props) => {
         <div>
             <div className="profileCard">
                 <h2>{props.userData.name}</h2>
-                <h3>{props.userData.user_type === "Caregiver" ? "Cuidador" : "Cliente"}</h3>
+                <h3>Cliente</h3>
 
                 <img 
                     alt={props.userData.name} 

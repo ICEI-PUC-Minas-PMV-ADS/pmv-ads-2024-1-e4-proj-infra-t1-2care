@@ -15,6 +15,7 @@ const CareReceiverProfileForm = (props) => {
     address: '', //required
     post_code: '', //required
     picture: '',
+    preferred_contact: ''
   });
   const [formDataCareReceiver, setFormDataCareReceiver] = useState({
     //Care receiver info
@@ -190,6 +191,19 @@ const CareReceiverProfileForm = (props) => {
               />
             </div>
 
+            <div className="field">
+              <label htmlFor="preferred_contact">Contato preferencial:</label>
+              <select
+                id="preferred_contact"
+                disabled={!props.isSelf ? true : false}
+                name="preferred_contact"
+                value={formDataUser.preferred_contact}
+                onChange={handleChangeUser}
+              >
+                <option value="0">E-mail</option>
+                <option value="1">Telefone</option>
+              </select>
+            </div>
 
             <div className="field">
               <label htmlFor="address">Endereço:</label>

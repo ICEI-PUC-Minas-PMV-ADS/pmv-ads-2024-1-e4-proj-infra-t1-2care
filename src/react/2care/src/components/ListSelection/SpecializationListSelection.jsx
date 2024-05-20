@@ -19,31 +19,37 @@ const specializations = [
 
 function SpecializationList(props) {
   const [selectedSpecializations, setSelectedSpecializations] = useState([]);
-  const [currentSelection, setCurrentSelection] = useState({"value": ""});
+  const [currentSelection, setCurrentSelection] = useState({ "value": "" });
 
   useEffect(() => {
-    //alterar com props aqui ringu
-    getSpecializationList().then((result) => {
-      const specializations = result ? result["specializations"] : []
-      setSelectedSpecializations(specializations)
-    })
+
+    if (props?.caregiverData?.specializations) {
+
+      setSelectedSpecializations(props.caregiverData.specializations || [])
+    } else {
+      
+      getSpecializationList().then((result) => {
+        const specializations = result ? result["specializations"] : []
+        setSelectedSpecializations(specializations)
+      })
+    }
   }, []);
 
   const handleAddClick = () => {
-    if(currentSelection.value && !selectedSpecializations.includes(currentSelection.options[currentSelection.selectedIndex].textContent)){
-      setCurrentSelection({"value": ""});
+    if (currentSelection.value && !selectedSpecializations.includes(currentSelection.options[currentSelection.selectedIndex].textContent)) {
+      setCurrentSelection({ "value": "" });
       enviarEspecializacao()
-    }else{
+    } else {
       toast.warn('Está especialização já existe');
-      setCurrentSelection({"value": ""});  
+      setCurrentSelection({ "value": "" });
     }
   };
 
   const handleDeleteClick = async (specialization) => {
-    await removeSpecialization(specialization).then((result) =>{
-      if(result){
+    await removeSpecialization(specialization).then((result) => {
+      if (result) {
         setSelectedSpecializations(prev => prev.filter(item => item !== specialization));
-      }else{
+      } else {
         //retornar um erro massa
       }
     })
@@ -52,7 +58,7 @@ function SpecializationList(props) {
   async function enviarEspecializacao() {
     const especializacao = currentSelection.value
 
-    if(!Number.isInteger(parseInt(especializacao, 10))){
+    if (!Number.isInteger(parseInt(especializacao, 10))) {
       //retornar um erro massa
       return false
     }
@@ -70,7 +76,7 @@ function SpecializationList(props) {
         //retornar um erro massa
       }
     })
-   
+
   }
 
   return (
@@ -79,29 +85,33 @@ function SpecializationList(props) {
         <CardContent>
           <h1>Lista das Especializações</h1>
           <div className="select-add-container">
-            <div className="select-container">
-              <select
-                value={currentSelection.value}
-                onChange={e => setCurrentSelection(e.target)}
-                className="input-style-spec"
-              >
-                <option key="-" value="Selecione uma especialização">Selecione uma especialização</option>
-                {specializations.map((spec, index) => (
-                  <option key={index} value={index}>{spec}</option>
-                ))}
-              </select>
-              <button onClick={handleAddClick} className="add-button">
-                Adicionar
-              </button>
-            </div>
+            {props.isSelf &&
+              <div className="select-container">
+                <select
+                  value={currentSelection.value}
+                  onChange={e => setCurrentSelection(e.target)}
+                  className="input-style-spec"
+                >
+                  <option key="-" value="Selecione uma especialização">Selecione uma especialização</option>
+                  {specializations.map((spec, index) => (
+                    <option key={index} value={index}>{spec}</option>
+                  ))}
+                </select>
+                <button onClick={handleAddClick} className="add-button">
+                  Adicionar
+                </button>
+              </div>
+            }
           </div>
           <ul className="specialization-list">
             {selectedSpecializations.map((spec, index) => (
               <li key={index} className="list-item">
                 <span className="item-text">{spec}</span>
-                <button onClick={() => handleDeleteClick(spec)} className="delete-button">
-                  Excluir
-                </button>
+                {props.isSelf &&
+                  <button onClick={() => handleDeleteClick(spec)} className="delete-button">
+                    Excluir
+                  </button>
+                }
               </li>
             ))}
           </ul>

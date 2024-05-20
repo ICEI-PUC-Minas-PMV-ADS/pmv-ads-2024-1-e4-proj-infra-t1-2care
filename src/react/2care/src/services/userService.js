@@ -36,6 +36,8 @@ export const updateUser = async (userForm) => {
 
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/edit/`, "PATCH", userForm)
+        Cookies.set('latitude', geo['latitude'], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('longitude', geo['longitude'], { expires: 1, secure: true, sameSite: 'strict' });
         return response;
     } catch (error) {
         throw new Error(error.message);

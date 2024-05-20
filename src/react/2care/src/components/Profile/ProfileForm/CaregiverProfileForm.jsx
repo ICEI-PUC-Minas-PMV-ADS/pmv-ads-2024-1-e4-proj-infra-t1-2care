@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 const CaregiverProfileForm = (props) => {
+
   const [formDataUser, setFormDataUser] = useState({
     //user info
     name: '', //required
@@ -14,7 +15,10 @@ const CaregiverProfileForm = (props) => {
     address: '', //required
     post_code: '', //required
     picture: '',
+    preferred_contact: '',
+    email: '',
   });
+
   const [formDataCaregiver, setFormDataCaregiver] = useState({
     //caregiver info
     hour_price: '', //required
@@ -128,6 +132,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="name">Nome Completo:</label>
               <input
                 required
+                disabled={!props.isSelf ? true : false}
                 type="text"
                 id="name"
                 name="name"
@@ -140,6 +145,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="birth_date">Data de Nascimento:</label>
               <input
                 type="date"
+                disabled={!props.isSelf ? true : false}
                 id="birth_date"
                 name="birth_date"
                 value={formDataUser.birth_date}
@@ -151,6 +157,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="gender">Gênero:</label>
               <select
                 id="gender"
+                disabled={!props.isSelf ? true : false}
                 name="gender"
                 value={formDataUser.gender}
                 onChange={handleChangeUser}
@@ -162,11 +169,25 @@ const CaregiverProfileForm = (props) => {
               </select>
             </div>
 
+            <div className="field">
+              <label htmlFor="preferred_contact">Contato preferencial:</label>
+              <select
+                id="preferred_contact"
+                disabled={!props.isSelf ? true : false}
+                name="preferred_contact"
+                value={formDataUser.preferred_contact}
+                onChange={handleChangeUser}
+              >
+                <option value="0">E-mail</option>
+                <option value="1">Telefone</option>
+              </select>
+            </div>
 
             <div className="field">
               <label htmlFor="phone">Telefone:</label>
               <input
                 required
+                disabled={!props.isSelf ? true : false}
                 type="text"
                 id="phone"
                 name="phone"
@@ -175,29 +196,50 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
 
-            <div className="field">
-              <label htmlFor="address">Endereço:</label>
+            {!props.isSelf &&
+              <div className="field">
+              <label htmlFor="email">Email:</label>
               <input
                 required
+                disabled={!props.isSelf ? true : false}
                 type="text"
-                id="address"
-                name="address"
-                value={formDataUser.address}
+                id="email"
+                name="email"
+                value={formDataUser.email}
                 onChange={handleChangeUser}
               />
             </div>
+            }
 
-            <div className="field">
-              <label htmlFor="post_code">CEP:</label>
-              <input
-                required
-                type="text"
-                id="post_code"
-                name="post_code"
-                value={formDataUser.post_code}
-                onChange={handleChangeUser}
-              />
-            </div>
+            {props.isSelf &&
+              <div>
+                <div className="field">
+                  <label htmlFor="address">Endereço:</label>
+                  <input
+                    required
+                    disabled={!props.isSelf ? true : false}
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formDataUser.address}
+                    onChange={handleChangeUser}
+                  />
+                </div>
+
+                <div className="field">
+                  <label htmlFor="post_code">CEP:</label>
+                  <input
+                    required
+                    disabled={!props.isSelf ? true : false}
+                    type="text"
+                    id="post_code"
+                    name="post_code"
+                    value={formDataUser.post_code}
+                    onChange={handleChangeUser}
+                  />
+                </div>
+              </div>
+            }
 
           </Grid>
           <Grid item xs={6}>
@@ -205,6 +247,7 @@ const CaregiverProfileForm = (props) => {
               <label htmlFor="hour_price">Preço da hora:</label>
               <input
                 required
+                disabled={!props.isSelf ? true : false}
                 type="number"
                 step="0.01"
                 id="hour_price"
@@ -216,6 +259,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="day_price">Preço da diaria:</label>
               <input
+                disabled={!props.isSelf ? true : false}
                 type="number"
                 step="0.01"
                 id="day_price"
@@ -225,8 +269,9 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
             <div className="field">
-              <label htmlFor="max_request_km">Distancia maxima de atendimento(Km):</label>
+              <label htmlFor="max_request_km">Distancia maxima de atendimento (km):</label>
               <input
+                disabled={!props.isSelf ? true : false}
                 required
                 type="number"
                 id="max_request_km"
@@ -238,6 +283,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="career_time">Tempo de carreira(Anos):</label>
               <input
+                disabled={!props.isSelf ? true : false}
                 type="number"
                 id="career_time"
                 name="career_time"
@@ -248,6 +294,7 @@ const CaregiverProfileForm = (props) => {
             <div className="field">
               <label htmlFor="additional_info">Informações adicionais:</label>
               <textarea
+                disabled={!props.isSelf ? true : false}
                 type="text"
                 id="additional_info"
                 name="additional_info"
@@ -256,24 +303,29 @@ const CaregiverProfileForm = (props) => {
               />
             </div>
           </Grid>
-          <Grid item xs={12}>
-            <div className="field">
-              <label htmlFor="picture">Foto de perfil (Link):</label>
-              <textarea
-                type="text"
-                id="picture"
-                name="picture"
-                style={{ width: "97%" }}
-                value={formDataUser.picture}
-                onChange={handleChangeUser}
-              />
-            </div>
-          </Grid>
+          { props.isSelf &&
+            <Grid item xs={12}>
+              <div className="field">
+                <label htmlFor="picture">Foto de perfil (Link):</label>
+                <textarea
+                  disabled={!props.isSelf ? true : false}
+                  type="text"
+                  id="picture"
+                  name="picture"
+                  style={{ width: "97%" }}
+                  value={formDataUser.picture}
+                  onChange={handleChangeUser}
+                />
+              </div>
+            </Grid>
+          }
         </Grid>
       </div>
-      <Grid container justifyContent="center">
-        <button onClick={handleSubmit}>Salvar Alterações</button>
-      </Grid>
+      { props.isSelf &&
+        <Grid container justifyContent="center">
+          <button onClick={handleSubmit}>Salvar Alterações</button>
+        </Grid>
+      }
     </form >
   );
 };

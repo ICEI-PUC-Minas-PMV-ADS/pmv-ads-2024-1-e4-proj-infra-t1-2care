@@ -52,15 +52,13 @@ const CaregiverList = (props) => {
 
 
     return (
-        <div className=''>
-            <Grid container justifyContent="start" >
+        <div style={{marginRight:"3em"}}>
+            <Grid container justifyContent="" spacing={5    }>
                 {caregiverFilteredList.map(caregiver => (
-                    <Grid item xs={4} key={caregiver._id}>
-                        <div className=''>
-                            <CaregiverCard
-                                caregiver={caregiver}
-                            />
-                        </div>
+                    <Grid item xs={12} md={4}  key={caregiver._id}>
+                        <CaregiverCard
+                            caregiver={caregiver}
+                        />
                     </Grid>
                 ))}
             </Grid>

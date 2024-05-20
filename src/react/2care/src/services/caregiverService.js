@@ -90,7 +90,7 @@ export const getSpecializationList = async () => {
 
 export const addQualification = async (qualification) => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/self/`, "POST", qualification)
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/qualification/`, "POST", qualification)
         toast.success('Qualificação adicionada com sucesso');
         return response;
     } catch (error) {

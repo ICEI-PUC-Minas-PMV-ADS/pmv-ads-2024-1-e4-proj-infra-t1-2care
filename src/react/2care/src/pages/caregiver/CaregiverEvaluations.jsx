@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
@@ -15,29 +15,42 @@ import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCa
 
 import EvaluationModal from '../../components/Profile/EvaluationModal';
 
-function CaregiverEvaluations() {
+function CaregiverEvaluations(props) {
   const theme = useTheme();
   const [userData, setUserData] = useState({});
+  const [caregiverData, setCaregiverData] = useState({});
   const [evaluationData, setEvaluationData] = useState({});
   const [canEvaluate, setCanEvaluate] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const caregiverProps = location.state.caregiver
 
   useEffect(() => {
     document.title = 'Avaliações';
 
-    //da pra receber props e não fazer o request caso necessario, mas tem que parar de entrar em getUserData pq vai redirecionar.
-    getUserData().then((result) => {
-      result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
-      if(result["id"]){
-        getAllowedToEvaluate(result["id"]).then((result) => {
-          setCanEvaluate(result)
-        })
-      }
-    })
-    getEvaluationData().then((result) => {
-      setEvaluationData(result)
-    })
+    if(caregiverProps){
+
+      setUserData(caregiverProps.userData)
+      setEvaluationData(caregiverProps.caregiverData.evaluations)
+
+      setCaregiverData(caregiverProps.caregiverData);
+
+    }else{
+
+      getUserData().then((result) => {
+        result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+        if(result["id"]){
+          getAllowedToEvaluate(result["id"]).then((result) => {
+            setCanEvaluate(result)
+          })
+        }
+      })
+
+      getEvaluationData().then((result) => {
+        setEvaluationData(result)
+      })
+    }
 
   }, []);
 
@@ -56,7 +69,7 @@ function CaregiverEvaluations() {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-          <ProfileCardCaregiver  userData={userData}/>
+        <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
         </Grid>
         <Grid item xs={8}>
           <Card sx={{ borderRadius: 4 }} style={{ height: '80vh', overflowY: 'auto' }}>

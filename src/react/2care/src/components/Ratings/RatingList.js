@@ -10,7 +10,7 @@ const RatingList = (props) => {
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
-        setFilteredData(props.evaluationdata);
+        setFilteredData(props.evaluationdata || {});
     }, [props.evaluationdata]);
 
     const handleRadioChange = (value) => {

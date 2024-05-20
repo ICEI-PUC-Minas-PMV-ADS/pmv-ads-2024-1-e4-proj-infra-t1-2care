@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ptBR } from '@mui/x-date-pickers/locales';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Card from '@mui/material/Card';
@@ -24,20 +24,37 @@ import '../App.css';
 function CaregiverCalendar() {
   const theme = useTheme();
   const [userData, setUserData] = useState({});
+  const [caregiverData, setCaregiverData] = useState({});
   const [showFirstCalendar, setShowFirstCalendar] = useState(true);
   const [focusedDate, setFocusedDate] = useState(new Date());
   const [unavailable, setUnavailable] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
+  const caregiverProps = location.state.caregiver
 
   useEffect(() => {
-    //da pra receber props e não fazer o request caso necessario, mas tem que parar de entrar em getUserData pq vai redirecionar.
-    getUserData().then((result) => {
-      result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
-    })
-    
-    getSelfCalendar().then((result) => {
-      setUnavailable(result ? result : {})
-    })
+    if(caregiverProps){
+
+      setUserData(caregiverProps.userData)
+      setUnavailable({
+        "custom_unavailable_days": caregiverProps.caregiverData.custom_unavailable_days,
+        "fixed_unavailable_days": caregiverProps.caregiverData.fixed_unavailable_days,
+        "fixed_unavailable_hours": caregiverProps.caregiverData.fixed_unavailable_hours,
+      })
+
+      setCaregiverData(caregiverProps.caregiverData);
+
+    }else{
+
+      getUserData().then((result) => {
+        result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+      })
+      
+      getSelfCalendar().then((result) => {
+        setUnavailable(result ? result : {})
+      })
+
+    }
   }, []);
 
   const isHourDisabled = (hour) => {
@@ -52,7 +69,7 @@ function CaregiverCalendar() {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-        <ProfileCardCaregiver  userData={userData}/>
+          <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
         </Grid>
         <Grid item xs={8}>
           <Card>
