@@ -28,17 +28,6 @@ export const getCareReceiverData = async () => {
     }
 };
 
-export const sendProposalToCaregiver = async (proposalData) => { 
-    try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${CAREGIVER_REQUESTS_SERVICE_URL}`, "POST", proposalData);
-        toast.success("Proposta enviada com sucesso!");
-        return response;
-    } catch (error) {
-        toast.error('Erro ao enviar proposta para o cuidador:', error);
-        throw error;
-    } 
-};
-
 export const addSpecialCare = async (specialCare) => {
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/special-care-user/`, "POST", specialCare)

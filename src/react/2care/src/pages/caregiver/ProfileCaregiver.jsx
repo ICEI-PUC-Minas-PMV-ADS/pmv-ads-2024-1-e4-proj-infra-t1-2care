@@ -52,6 +52,7 @@ function ProfileCaregiver(props) {
       });
 
       setCaregiverData({
+        id: caregiverProps._id,
         hour_price: caregiverProps.hour_price,
         day_price: caregiverProps.day_price,
         max_request_km: caregiverProps.max_request_km,

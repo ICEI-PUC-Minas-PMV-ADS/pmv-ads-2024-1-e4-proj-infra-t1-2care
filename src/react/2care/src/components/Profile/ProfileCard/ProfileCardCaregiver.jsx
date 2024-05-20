@@ -28,7 +28,9 @@ const ProfileCardCaregiver = (props) => {
                     ? 
                         <NavigationButton to="/requests" text="Propostas Recebidas" />
                     :
-                        <NavigationButton to="/requests" text="Enviar proposta" />
+                        <Link to="/request" state={{ caregiver: !props.isSelf ? props : undefined }} >
+                            <button className='nav-button'>Enviar proposta</button>
+                        </Link>
                 }
 
                 <p>Membro(a) desde {props.userData.date_joined ? props.userData.date_joined.slice(0,10) : "-"}</p>

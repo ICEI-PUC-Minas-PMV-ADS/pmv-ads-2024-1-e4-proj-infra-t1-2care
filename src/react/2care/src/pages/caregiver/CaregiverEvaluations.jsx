@@ -29,22 +29,21 @@ function CaregiverEvaluations(props) {
   useEffect(() => {
     document.title = 'Avaliações';
 
-    if(caregiverProps){
+    if(caregiverProps?.caregiverData?.evaluations){
 
       setUserData(caregiverProps.userData)
       setEvaluationData(caregiverProps.caregiverData.evaluations)
 
       setCaregiverData(caregiverProps.caregiverData);
 
+      getAllowedToEvaluate(caregiverProps.caregiverData.id).then((result) => {
+        setCanEvaluate(result)
+      })
+
     }else{
 
       getUserData().then((result) => {
         result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
-        if(result["id"]){
-          getAllowedToEvaluate(result["id"]).then((result) => {
-            setCanEvaluate(result)
-          })
-        }
       })
 
       getEvaluationData().then((result) => {
@@ -69,7 +68,7 @@ function CaregiverEvaluations(props) {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-        <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
+          <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
         </Grid>
         <Grid item xs={8}>
           <Card sx={{ borderRadius: 4 }} style={{ height: '80vh', overflowY: 'auto' }}>
@@ -108,7 +107,7 @@ function CaregiverEvaluations(props) {
           </Card>
         </Grid>
       </Grid>
-      <EvaluationModal caregiverId={userData["id"]} open={openModal} handleClose={handleCloseModal} />
+      <EvaluationModal caregiverId={caregiverProps?.caregiverData?.id} open={openModal} handleClose={handleCloseModal} />
     </div>
   );
 }

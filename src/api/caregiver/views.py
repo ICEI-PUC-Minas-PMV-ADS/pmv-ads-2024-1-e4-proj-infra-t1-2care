@@ -319,6 +319,42 @@ class CareRequestListCreateView(generics.ListCreateAPIView):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+
+        if not request.data:
+            return Response("Invalid data", status=status.HTTP_400_BAD_REQUEST)
+        
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not request.user.get_user_type_display() == "CareReceiver":
+            return Response("This user is not a Care Receiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        careReceiver = get_object_or_404(CareReceiverModel, user=user)
+        caregiver = get_object_or_404(CaregiverModel, id=self.request.data.get('caregiver', None))
+
+        start_time_obj = datetime.strptime(request.data.get('startTime'), '%H:%M').time()
+        end_time_obj = datetime.strptime(request.data.get('endTime'), '%H:%M').time()
+        start_datetime = datetime.combine(datetime.today(), start_time_obj)
+        end_datetime = datetime.combine(datetime.today(), end_time_obj)
+        total_hours = (end_datetime - start_datetime).seconds // 3600
+
+        final_price = total_hours * caregiver.hour_price
+
+        care_request = CareRequestModel(
+            date=request.data.get('date'),
+            start_time=start_time_obj,
+            end_time=end_time_obj,
+            total_hours=total_hours,
+            final_price=final_price,
+            status=0,
+            caregiver=caregiver,
+            carereceiver=careReceiver
+        )
+        care_request.save()
+
+        serializer = CareRequestSerializer(care_request)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 class CareRequestDetailView(generics.RetrieveAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = CareRequestModel.objects.all()
@@ -391,11 +427,13 @@ class RatingAllowCountView(APIView):
     authentication_classes = [JWTAuthentication]
 
     def post(self, request):
+
         if not self.request.data:
             return Response("False", status=status.HTTP_200_OK)
-        care_requests = CareRequestModel.objects.filter(caregiver__user=self.request.data, status=2, carereceiver__user=request.user)
+        care_requests = CareRequestModel.objects.filter(caregiver=request.data, status=2, carereceiver__user=self.request.user.id)
+ 
         ratings_count = care_requests.exclude(ratingmodel__id=None).values_list("ratingmodel__id", flat=True).count()
-        
+
         return Response(True if care_requests.count() > ratings_count else False, status=status.HTTP_200_OK)
 
 
@@ -405,7 +443,7 @@ class RatingListView(generics.ListAPIView):
 
     def get_queryset(self):
         caregiver = CaregiverModel.objects.get(user=self.request.user)
-        return RatingModel.objects.filter(care_request__caregiver=caregiver.pk)
+        return RatingModel.objects.filter(care_request__caregiver=caregiver)
 
 class RatingCreateView(generics.CreateAPIView):
     queryset = RatingModel.objects.all()
@@ -413,11 +451,13 @@ class RatingCreateView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     def post(self, request):
+
         if not self.request.data.get("caregiverId", None):
             return Response("Cuidador não encontrado", status=status.HTTP_404_NOT_FOUND)
         
-        caregiver = self.request.data.pop("caregiverId")
-        care_request = CareRequestModel.objects.filter(caregiver__user=caregiver, status=2, carereceiver__user=request.user, ratingmodel__id=None).order_by("date").first()
+        careReceiver = get_object_or_404(CareReceiverModel, user=self.request.user)
+        caregiver = get_object_or_404(CaregiverModel, pk=self.request.data.pop("caregiverId"))
+        care_request = CareRequestModel.objects.filter(caregiver=caregiver, status=2, carereceiver=careReceiver, ratingmodel__id=None).order_by("date").first()
 
         if not care_request:
             return Response("Registro de cuidado não encontrado", status=status.HTTP_404_NOT_FOUND)

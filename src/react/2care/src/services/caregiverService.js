@@ -48,7 +48,6 @@ export const getAllowedToEvaluate = async (caregiverId) => {
 export const createEvaluation = async (evaluation) => {
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings/`, "POST", evaluation)
-        toast.success('Avaliação criada com sucesso');
         return response;
     } catch (error) {
         toast.error('Falha ao criar avaliação');
@@ -226,4 +225,14 @@ export const cancelRequest = async (requestId) => {
         toast.error('Falha ao cancelar proposta');
         return false
     }
+};
+
+export const sendProposalToCaregiver = async (proposalData) => { 
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/`, "POST", proposalData);
+        return response;
+    } catch (error) {
+        toast.error('Erro ao enviar proposta para o cuidador:', error);
+        throw error;
+    } 
 };

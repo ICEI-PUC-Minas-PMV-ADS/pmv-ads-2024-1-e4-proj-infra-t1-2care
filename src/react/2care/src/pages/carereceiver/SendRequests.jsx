@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
+import { toast } from 'react-toastify';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
-import { sendProposalToCaregiver } from '../../services/careReceiverService';
-import CaregiverCard from '../../components/CaregiverCard/CaregiverCard';
+import { sendProposalToCaregiver } from '../../services/caregiverService';
+import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver';
 import '../../components/CaregiverCard/CaregiverCard.css';
 
 function SendRequests() {
   const theme = useTheme();
+  const [caregiverData, setCaregiverData] = useState({});
+  const [userData, setUserData] = useState({});
   const [selectedDate, setSelectedDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -19,27 +24,29 @@ function SendRequests() {
   const [totalPayment, setTotalPayment] = useState(0);
   const [error, setError] = useState('');
 
-  // Função para lidar com a mudança de data
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
+  const caregiverProps = location.state?.caregiver
 
-  // Função para lidar com a mudança de hora inicial
-  const handleStartTimeChange = (event) => {
-    setStartTime(event.target.value);
-  };
+  useEffect(() => {
+    document.title = 'Perfil';
 
-  // Função para lidar com a mudança de hora final
-  const handleEndTimeChange = (event) => {
-    setEndTime(event.target.value);
-  };
+    if (caregiverProps) {
+
+      setUserData(caregiverProps.userData);
+      setCaregiverData(caregiverProps.caregiverData);
+
+    } else {
+      navigate('/');
+    }
+  }, []);
 
   // Função para calcular o total de horas com base nas horas de início e fim
   const calculateTotalHours = () => {
     const start = new Date(`2000-01-01T${startTime}`);
     const end = new Date(`2000-01-01T${endTime}`);
     const hours = (end - start) / (1000 * 60 * 60);
-    setTotalHours(parseFloat(hours.toFixed(2)) || 0); 
+    setTotalHours(parseFloat(hours.toFixed(2)) || 0);
   };
 
   // Efeito para recalcular as horas totais sempre que as horas de início ou fim mudarem
@@ -49,7 +56,7 @@ function SendRequests() {
 
   // Efeito para recalcular o pagamento total com base nas horas totais
   useEffect(() => {
-    setTotalPayment(parseFloat((totalHours * 20).toFixed(2)) || 0);
+    setTotalPayment(parseFloat((totalHours * caregiverProps.caregiverData.hour_price).toFixed(2)) || 0);
   }, [totalHours]);
 
   // Função para lidar com o envio do formulário
@@ -68,14 +75,12 @@ function SendRequests() {
       date: selectedDate,
       startTime: startTime,
       endTime: endTime,
+      caregiver: caregiverProps.caregiverData.id
     };
 
     try {
-      // Envia a proposta para o serviço do cuidador
-      const response = await sendProposalToCaregiver(proposalData);
-      console.log("Resposta da API:", response);
-      console.log("Proposta enviada com sucesso!");
-      // Adicione aqui qualquer manipulação de sucesso necessária, como redirecionar o usuário ou exibir uma mensagem de sucesso.
+      sendProposalToCaregiver(proposalData).then(result => result ? toast.success('Proposta enviada com sucesso!',{onClose: () => {navigate("/requests");}, autoClose:1000}) : "");
+
     } catch (error) {
       console.error("Erro ao enviar proposta:", error);
       setError('Erro ao enviar proposta. Por favor, tente novamente mais tarde.');
@@ -88,26 +93,27 @@ function SendRequests() {
       <NavBar />
 
       <Grid container justifyContent="center" style={{ marginTop: '5vh' }}>
-        <Grid item xs={12} md={10} lg={8}>
+        <Grid item xs={12}>
           <Typography variant="h5" gutterBottom>
             Envie uma proposta
           </Typography>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-            <CaregiverCard
-              image="https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg"
-              name="Nome do Cuidador"
-              showDescription={false}
-              showName={true}
-              especialization="Especialização do Cuidador"
-            />
-            <form onSubmit={handleSubmit} style={{ width: '50%' }}>
+        </Grid>
+        <Grid item xs={3}>
+          <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
+        </Grid>
+        <Grid item xs={8}>
+          
+            <form onSubmit={handleSubmit}>
               <TextField
                 label="Data"
                 type="date"
                 value={selectedDate}
-                onChange={handleDateChange}
+                onChange={(e) => setSelectedDate(e.target.value)}
                 InputLabelProps={{
                   shrink: true,
+                }}
+                inputProps={{
+                  min: new Date().toISOString().split("T")[0], // Sets min date to today
                 }}
                 fullWidth
                 margin="normal"
@@ -117,13 +123,13 @@ function SendRequests() {
                 label="Hora Inicial"
                 type="time"
                 value={startTime}
-                onChange={handleStartTimeChange}
+                onChange={(e) => setStartTime(e.target.value)}
                 onBlur={calculateTotalHours}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 inputProps={{
-                  step: 300,
+                  step: 3600,
                 }}
                 fullWidth
                 margin="normal"
@@ -133,33 +139,17 @@ function SendRequests() {
                 label="Hora Final"
                 type="time"
                 value={endTime}
-                onChange={handleEndTimeChange}
+                onChange={(e) => setEndTime(e.target.value)}
                 onBlur={calculateTotalHours}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 inputProps={{
-                  step: 300,
+                  step: 3600,
                 }}
                 fullWidth
                 margin="normal"
                 required
-              />
-              <TextField
-                label="Total de Horas"
-                type="number"
-                value={totalHours}
-                InputProps={{ readOnly: true }}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Valor da Hora"
-                type="number"
-                value={20} // Valor fixo de R$20,00 que será mudado quando eu conseguir pegar do cuidador
-                InputProps={{ readOnly: true }}
-                fullWidth
-                margin="normal"
               />
               <TextField
                 label="Valor Total a Pagar"
@@ -170,12 +160,14 @@ function SendRequests() {
                 margin="normal"
               />
               {/* Mensagem de erro, se houver */}
-              {error && <Typography color="error">{error}</Typography>}
-              <Button variant="contained" color="primary" type="submit" style={{ borderRadius: '50px', height: '30px'}}>
-                Enviar Proposta
-              </Button>
+   
+
+              <Box display="flex" justifyContent="flex-end" mt={2}>
+                <Button variant="contained" color="primary" type="submit">
+                  Enviar Proposta
+                </Button>
+              </Box>
             </form>
-          </div>
         </Grid>
       </Grid>
     </div>
