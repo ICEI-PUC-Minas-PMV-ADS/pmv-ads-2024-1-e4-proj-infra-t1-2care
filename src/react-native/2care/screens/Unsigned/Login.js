@@ -201,21 +201,33 @@ export default function Login() {
             <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
           <Pressable
+
             onPress={() => navigation.navigate("AgendaMob")}
+
+            onPress={() => navigation.navigate("CaregiverEvaluations")}
+
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
+
             <Text style={styles.buttonText}>Agenda</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("ProfileCaregiverMob")}
+
+            <Text style={styles.buttonText}>Avaliações cuidador</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("CareReceiverReview")}
+
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
+
             <Text style={styles.buttonText}>Profile Caregiver</Text>
           </Pressable>
           <Pressable
@@ -226,6 +238,9 @@ export default function Login() {
             ]}
           >
             <Text style={styles.buttonText}>Profile Caregiver</Text>
+
+            <Text style={styles.buttonText}>Avaliações cliente</Text>
+
           </Pressable>
         </View>
       </ScrollView>
@@ -321,6 +336,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     width: "12%",
+    width: "18%",
+
   },
   buttonText: {
     color: "black",

@@ -14,6 +14,9 @@ import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
 
 
+import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
+import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
+
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
@@ -68,6 +71,7 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
+
              <stack.Screen
                 name="AgendaMob"
                 component={AgendaMob}
@@ -88,6 +92,21 @@ const UnsignedViews = () => {
                 options={{
                     header: () => null,
             }}
+
+            <stack.Screen
+                name="CaregiverEvaluations"
+                component={CaregiverEvaluations}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="CareReceiverReview"
+                component={CareReceiverReview}
+                options={{
+                    header: () => null,
+                }}
+
             />
         </stack.Navigator>
     );
