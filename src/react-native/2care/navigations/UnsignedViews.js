@@ -11,6 +11,8 @@ import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
+import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
+
 
 const stack = createNativeStackNavigator();
 
@@ -72,13 +74,21 @@ const UnsignedViews = () => {
                 options={{
                     header: () => null,
                 }}
-            /><stack.Screen
-            name="ProfileCaregiverMob"
-            component={ProfileCaregiverMob}
-            options={{
-                header: () => null,
+            />
+            <stack.Screen
+                name="ProfileCaregiverMob"
+                component={ProfileCaregiverMob}
+                options={{
+                    header: () => null,
             }}
-        />
+            />
+            <stack.Screen
+                name="ProfileCarereceiverMob"
+                component={ProfileCarereceiverMob}
+                options={{
+                    header: () => null,
+            }}
+            />
         </stack.Navigator>
     );
 };

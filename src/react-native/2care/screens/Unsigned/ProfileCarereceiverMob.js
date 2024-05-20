@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
 
-export default function ProfileCaregiverMob({ userData }) {
+export default function ProfileCarereceiverMob({ userData }) {
   const navigation = useNavigation();
 
   const handleAgendaPress = () => {
@@ -44,8 +44,9 @@ export default function ProfileCaregiverMob({ userData }) {
       <ScrollView>
         <View style={styles.innerContainer}>
           {/*<Text style={styles.info}>{userData.name}</Text>*/}
-          <Text style={styles.name}>Carlos Alberto Mansur</Text>
-          <Text style={styles.role}>Cuidador</Text>
+          <Text style={styles.name}>Maria Clara Brandão</Text>
+          {/*<Text style={styles.info}>{userData.???}</Text>*/}
+          <Text style={styles.role}>80 anos</Text>
 
           <View style={styles.imageContainer}>
             <Image
@@ -63,10 +64,10 @@ export default function ProfileCaregiverMob({ userData }) {
           <View style={styles.buttonsProfile}>
             {/*<Pressable onPress={handleAvaliationMov} style={styles.button}> */}
             <Pressable onPress={handleHomeTestPress} style={styles.button}>
-              <Text style={styles.buttonText}>Avaliações</Text>
+              <Text style={styles.buttonText}>Propostas enviadas</Text>
             </Pressable>
             <Pressable onPress={handleAgendaPress} style={styles.button}>
-              <Text style={styles.buttonText}>Agenda</Text>
+              <Text style={styles.buttonText}>Avaliações feitas</Text>
             </Pressable>
           </View>
 
@@ -102,92 +103,34 @@ export default function ProfileCaregiverMob({ userData }) {
           </View>
 
           <View style={styles.section}>
-            <Icon name="graduation-cap" size={20} style={styles.icon} />
-            <Text style={styles.label}>QUALIFICAÇÕES</Text>
+            <Icon name="heart" size={20} style={styles.icon} />
+            <Text style={styles.label}>CUIDADOS ESPECIAIS</Text>
           </View>
-          <View style={styles.qualifications}>
-            {/*<Text>{userData.qualifications}</Text>*/}
-            <Text>Graduado em Phonoudiologia</Text>
-            <Text>Graduado em Enfermagem</Text>
-          </View>
-
-          <View style={styles.section}>
-            <Icon name="briefcase" size={20} style={styles.icon} />
-            <Text style={styles.label}>ESPECIALIZAÇÕES</Text>
-          </View>
-          <View style={styles.qualifications}>
-            {/*<Text>{userData.specializations}</Text>*/}
-            <Text> . Cuidados com pessoas da terceira idade</Text>
-          </View>
-
-          <View style={styles.section}>
-            <Icon name="book" size={20} style={styles.icon} />
-            <Text style={styles.label}>EXPERIÊNCIAS DE TRABALHO</Text>
-          </View>
-          <View style={styles.experiences}>
-            {/*{userData.experiences.map((experience, index) => (
-            <View key={index} style={styles.experienceCard}>
-              <Text>{experience}</Text>
-            </View>
-          ))}*/}
-            <View style={styles.experienceCard}>
-              <Text>Trabalho como cuidador em Belo Horinte...</Text>
-            </View>
-            <View style={styles.experienceCard}>
-              <Text>Trabalho como cuidador em Rio de Janeiro...</Text>
-            </View>
+          <View style={styles.cuidadosEspeciais}>
+            {/*<Text>{userData.cuidadosEspeciais????}</Text>*/}
+            <Text> . Alimentação balanceada</Text>
+            <Text> . Prática de atividades físicas</Text>
           </View>
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {/*<Text style={styles.years}> {new Date().getFullYear() - new Date(userData.date_joined).getFullYear()} </Text>*/}
-              <Text style={styles.years}>5 </Text>
-              <Text style={styles.label}>ANOS DE EXPERIÊNCIA</Text>
+              <Icon name="phone" size={20} style={styles.icon} />
+              <Text style={styles.label}>CONTATOS DE EMERGÊNCIA</Text>
             </View>
+            {/*<Text style={styles.info}>{userData.emergenceContact????}</Text>*/}
+            <Text style={styles.info}> . 31 99999-9999</Text>
+            <Text style={styles.info}> . 31 88888-8888</Text>
           </View>
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="calendar" size={20} style={styles.icon} />
-              <Text style={styles.label}>DIAS FIXOS INDISPONÍVEIS</Text>
+              <Icon name="map-marker" size={20} style={styles.icon} />
+              <Text style={styles.label}>CEP</Text>
             </View>
           </View>
-          <View style={styles.fixedDays}>
-            {/* <Text>{userData.fixedDaysUnavailable}</Text> */}
-            <Text>Segunda-feira, Quarta-feira</Text>
-          </View>
-
-          <View style={styles.infoContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="clock-o" size={20} style={styles.icon} />
-              <Text style={styles.label}>HORÁRIOS FIXOS INDISPONÍVEIS</Text>
-            </View>
-          </View>
-          <View style={styles.fixedHours}>
-            {/* <Text>{userData.fixedHoursUnavailable}</Text> */}
-            <Text>09:00 - 12:00, 15:00 - 18:00</Text>
-          </View>
-
-          <View style={styles.infoContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="dollar" size={20} style={styles.icon} />
-              <Text style={styles.label}>PREÇO POR DIA</Text>
-            </View>
-          </View>
-          <View style={styles.pricing}>
-            {/* <Text>{userData.pricePerDay}</Text> */}
-            <Text>R$ 300,00</Text>
-          </View>
-
-          <View style={styles.infoContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="dollar" size={20} style={styles.icon} />
-              <Text style={styles.label}>PREÇO POR HORA</Text>
-            </View>
-          </View>
-          <View style={styles.pricing}>
-            {/* <Text>{userData.pricePerHour}</Text> */}
-            <Text>R$ 50,00</Text>
+          <View style={styles.cep}>
+            {/* <Text>{userData.cep??????}</Text> */}
+            <Text>55555-888</Text>
           </View>
 
           <View style={styles.infoContainer}>
@@ -198,7 +141,7 @@ export default function ProfileCaregiverMob({ userData }) {
           </View>
           <View style={styles.additionalInfo}>
             {/* <Text>{userData.additionalInfo}</Text> */}
-            <Text>Disponível para viagens curtas e emergências.</Text>
+            <Text>Busco um acompanhante que seja responsável e que me auxilie nas atividades cotidianas.</Text>
           </View>
 
           <View style={styles.buttonsProfile}>
@@ -254,9 +197,10 @@ const styles = StyleSheet.create({
   editIcon: {
     position: "absolute",
     right: "30%",
+    borderRadius: 10,
     bottom: 0,
     backgroundColor: "#ED8733",
-    borderRadius: 10,
+    //borderRadius: 10,
     padding: 5,
   },
   buttonsProfile: {
@@ -269,7 +213,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 25,
     alignItems: "center",
-    width: 130,
+    width: 150,
     marginBottom: 20,
     justifyContent: "center",
   },
@@ -299,38 +243,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 10,
   },
-  qualifications: {
-    borderWidth: 1,
-    borderColor: "#486142",
-    padding: 10,
-    borderRadius: 5,
-  },
-  experiences: {
-    borderWidth: 1,
-    borderColor: "#486142",
-    padding: 10,
-    borderRadius: 5,
-  },
-  experienceCard: {
-    borderWidth: 1,
-    borderColor: "#486142",
-    padding: 10,
-    borderRadius: 5,
-    marginVertical: 5,
-  },
-  years: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  fixedDays: {
+  cuidadosEspeciais: {
     paddingLeft: 30,
     marginBottom: 5,
   },
-  fixedHours: {
-    paddingLeft: 30,
-    marginBottom: 5,
-  },
-  pricing: {
+  cep: {
     paddingLeft: 30,
     marginBottom: 5,
   },
