@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView, Switch } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
+import SearchBar from '../../components/SearchBar.jsx';
 
 const EditProfileScreenCareReceiver = () => {
   const navigation = useNavigation();
@@ -72,6 +73,9 @@ const EditProfileScreenCareReceiver = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.searchBarContainer}>
+        <SearchBar></SearchBar>
+      </View>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.profileName}>Maria Augusta Oliveira</Text>
@@ -145,6 +149,10 @@ const styles = StyleSheet.create({
     padding: 2,
     paddingHorizontal: 30,
     backgroundColor: "#ffffff"
+  },
+  searchBarContainer: {
+    width: '100%', 
+    backgroundColor: "#fff",
   },
   header: {
     alignItems: 'center',
@@ -220,11 +228,11 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     marginLeft: 10,
-    backgroundColor: "#f4bc8c",
+    backgroundColor: "#ED8733",
   },
   cancelButton: {
     marginRight: 10,
-    backgroundColor: "#d06d39",
+    backgroundColor: "#B65138",
   },
   buttonText: {
     color: "white",

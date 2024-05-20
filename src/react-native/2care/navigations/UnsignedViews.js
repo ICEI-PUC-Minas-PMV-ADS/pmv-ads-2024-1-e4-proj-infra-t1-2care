@@ -16,7 +16,7 @@ const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
     return (
-        <stack.Navigator initialRouteName="Login">
+        <stack.Navigator initialRouteName="ProfileCareGiver">
             <stack.Screen
                 name="Login"
                 component={Login}
@@ -66,20 +66,20 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
-           <stack.Screen
-           name="ProfileCareGiver"
-           component={ProfileCareGiver}
-           options={{
-               header: () => null,
-           }}
-       />
-           <stack.Screen
-           name="ProfileCareReceiver"
-           component={ProfileCareReceiver}
-           options={{
-               header: () => null,
-           }}
-       />       
+                <stack.Screen
+                name="ProfileCareGiver"
+                component={ProfileCareGiver}
+                options={{
+                    header: () => null,
+                }}
+            />
+                <stack.Screen
+                name="ProfileCareReceiver"
+                component={ProfileCareReceiver}
+                options={{
+                    header: () => null,
+                }}
+            />       
        </stack.Navigator>
     );
 };

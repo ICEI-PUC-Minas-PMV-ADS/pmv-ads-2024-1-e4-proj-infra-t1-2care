@@ -3,8 +3,10 @@ import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platfo
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import Icon from 'react-native-vector-icons/MaterialIcons';  // Importando ícones do MaterialIcons
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import SearchBar from '../../components/SearchBar.jsx';
+import { updateCaregiver } from "../../services/caregiverServiceMob.js";
+import QualificationsModal from "../../components/Modal/QualificationsModal.jsx";
 
 const EditProfileScreenCareGiver = () => {
   const navigation = useNavigation();
@@ -64,6 +66,7 @@ const EditProfileScreenCareGiver = () => {
     additionalInfo: "Informações Adicionais"
   };
 
+
   const handleChange = (name, value) => {
     if (['dailyRate', 'hourlyRate'].includes(name)) {
       const formattedValue = formatCurrency(value);
@@ -96,7 +99,7 @@ const EditProfileScreenCareGiver = () => {
     return '';
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let hasError = false;
     Object.entries(formData).forEach(([key, value]) => {
       if (!value) {
@@ -104,9 +107,33 @@ const EditProfileScreenCareGiver = () => {
         hasError = true;
       }
     });
+
     if (!hasError) {
-      console.log("Formulário submetido com sucesso", formData);
-      navigation.goBack();
+      try {
+        const user = {
+          email: formData.email,
+          name: formData.name,
+          // add outros campos
+        };
+        const caregiver = {
+          gender: formData.gender,
+          qualifications: formData.qualifications,
+          specialization: selectedItems,
+          workexperience: formData.workexperience,
+          unavailableDays: formData.unavailableDays,
+          dailyRate: formData.dailyRate,
+          hourlyRate: formData.hourlyRate,
+          additionalInfo: formData.additionalInfo,
+          // add outros campos de caregiver
+        };
+
+        const response = await updateCaregiver(user, caregiver);
+        console.log("Atualização bem-sucedida", response);
+        navigation.goBack();
+      } catch (error) {
+        console.error("Erro na atualização", error);
+        alert('Erro ao atualizar dados. Por favor, tente novamente.');
+      }
     }
   };
 
@@ -116,6 +143,9 @@ const EditProfileScreenCareGiver = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.searchBarContainer}>
+        <SearchBar></SearchBar>
+      </View>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.profileName}>João Silva</Text>
@@ -282,6 +312,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     backgroundColor: "#ffffff"
   },
+  searchBarContainer: {
+    width: '100%', 
+    backgroundColor: "#fff",
+  },
   header: {
     alignItems: 'center',
     marginBottom: 20
@@ -316,7 +350,7 @@ const styles = StyleSheet.create({
     top: -10,
     paddingHorizontal: 5,
     fontSize: 12,
-    color: "#64785d",
+    color: "#486142",
     borderRadius: 10,
     zIndex: 1,
   },
@@ -378,11 +412,11 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     marginLeft: 10,
-    backgroundColor: "#f4bc8c",
+    backgroundColor: "#ED8733",
   },
   cancelButton: {
     marginRight: 10,
-    backgroundColor: "#d06d39",
+    backgroundColor: "#B65138",
   },
   buttonText: {
     color: "white",
