@@ -207,6 +207,7 @@ class CareRequestModel(models.Model):
         (0, "Pendente"),
         (1, "Recusado"),
         (2, "Autorizado"),
+        (3, "Cancelado"),
     ]
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField()
@@ -215,7 +216,7 @@ class CareRequestModel(models.Model):
     total_hours = models.SmallIntegerField()
     final_price = models.DecimalField(max_digits=6, decimal_places=2)
     status = models.IntegerField(choices=STATUS_CHOICES)
-    response_date = models.DateTimeField()
+    response_date = models.DateTimeField(null=True, blank=True)
 
     caregiver = models.ForeignKey("caregiver.CaregiverModel", on_delete=models.CASCADE)
     carereceiver = models.ForeignKey("careReceiver.CareReceiverModel", on_delete=models.CASCADE)

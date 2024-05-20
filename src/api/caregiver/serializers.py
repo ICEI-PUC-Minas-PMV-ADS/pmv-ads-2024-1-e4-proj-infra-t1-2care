@@ -14,6 +14,7 @@ from .models import (
 )
 from user.models import CustomUserModel
 from careReceiver.serializers import CareReceiverSerializer
+from user.serializers import UserPendingRequestsSerializer, UserAcceptedRequestsSerializer
 from datetime import datetime
 
 class QualificationSerializer(serializers.ModelSerializer):
@@ -89,11 +90,36 @@ class CaregiverSerializer(serializers.ModelSerializer):
         model = CaregiverModel
         fields = "__all__"
 
+class UserRequestsSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    class Meta:
+        model = CaregiverModel
+        fields = ["user"]
+
+    def get_user_serializer(self, instance):
+        if self.context.get('status', None) == 2:
+            return UserAcceptedRequestsSerializer
+        else:
+            return UserPendingRequestsSerializer
+     
+    def get_user(self, instance):
+        UserSerializer = self.get_user_serializer(instance)
+        return UserSerializer(instance.user).data
+
 class CareRequestSerializer(serializers.ModelSerializer):
-    carereceiver = CareReceiverSerializer()
+    caregiver = serializers.SerializerMethodField()
+    carereceiver = serializers.SerializerMethodField()
     class Meta:
         model = CareRequestModel
         fields = "__all__"
+    
+    def get_caregiver(self, instance):
+        caregiver_serializer = UserRequestsSerializer(instance.caregiver, context={"status": instance.status})
+        return caregiver_serializer.data
+    
+    def get_carereceiver(self, instance):
+        caregiver_serializer = UserRequestsSerializer(instance.carereceiver, context={"status": instance.status})
+        return caregiver_serializer.data
 
 
 class RatingSerializer(serializers.ModelSerializer):

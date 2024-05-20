@@ -8,8 +8,7 @@ import Login from '../pages/Login.js'
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme/theme.js';
 import SendRequests from '../pages/carereceiver/SendRequests.jsx';
-import RequestsCareReceiver from '../pages/carereceiver/RequestsCareReceiver.jsx';
-import RequestsCaregiver from '../pages/caregiver/RequestsCaregiver.jsx';
+import Requests from '../pages/Requests.jsx';
 import Register from '../pages/Register.js';
 import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.jsx';
 import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.jsx';
@@ -28,8 +27,7 @@ export default (props) => (
                 <Route exact path='/' element={<PrivateRouteWrapper/>}>
                     <Route path="profile/carereceiver" element={<ProfileCareReceiver />} />
                     <Route path="request" element={<SendRequests />} />
-                    <Route path="requestsCareReceiver" element={<RequestsCareReceiver />} />
-                    <Route path="requestsCaregiver" element={<RequestsCaregiver />} />
+                    <Route path="requests" element={<Requests />} />
                 </Route>
             </Routes>
         </BrowserRouter >

@@ -15,3 +15,18 @@ export const calcDistanceKm = (lat1, lon1, lat2, lon2) => {
 function toRad(Value) {
     return Value * Math.PI / 180;
 }
+
+export function calculateAge(dateString) {
+    const birthDate = new Date(dateString);
+    const today = new Date();
+  
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+  
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+  
+    return age;
+  }

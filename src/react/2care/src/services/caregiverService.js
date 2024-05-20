@@ -187,3 +187,43 @@ export const getCaregiverList = async () => {
         return false
     }
 };
+
+export const getRequestsList = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao receber lista de propostas');
+        return false
+    }
+};
+
+export const acceptRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/accept`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao aceitar proposta');
+        return false
+    }
+};
+
+export const declineRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/decline`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao recusar proposta');
+        return false
+    }
+};
+
+export const cancelRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/cancel`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao cancelar proposta');
+        return false
+    }
+};

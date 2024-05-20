@@ -15,6 +15,7 @@ const CaregiverList = (props) => {
         const specializationFilter = (allParams.specialization || null)
         const qualificationFilter = (allParams.qualification || null)
         const experienceFilter = (allParams.experience || null)
+        const priceFilter = (allParams.price || null)
         const ratingFilter = (allParams.rating || null)
         
         const filteredList = props.caregiverList.filter((e) =>{
@@ -29,6 +30,9 @@ const CaregiverList = (props) => {
                 return false;
             }
             if(experienceFilter && e.work_exp_years < experienceFilter){
+                return false;
+            }
+            if(priceFilter && priceFilter !=0 && e.hour_price < priceFilter){
                 return false;
             }
             if(e?.evaluations?.length > 0 ){

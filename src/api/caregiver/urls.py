@@ -23,6 +23,7 @@ from .views import (
     WorkExperienceListCreateView,
     WorkExperienceRetrieveUpdateDestroyView,
     CalendarUpdateAPIView,
+    CareRequestCancelView
 )
 
 urlpatterns = [
@@ -78,6 +79,11 @@ urlpatterns = [
         "requests/<uuid:pk>/decline/",
         CareRequestDeclineView.as_view(),
         name="care-request-decline",
+    ),
+     path(
+        "requests/<uuid:pk>/cancel/",
+        CareRequestCancelView.as_view(),
+        name="care-request-cancel",
     ),
     
     path("ratings", RatingListView.as_view(), name="rating-list"),

@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from datetime import datetime
 
 from .models import (
     CareRequestModel,
@@ -17,6 +18,8 @@ from .models import (
     WorkExperienceModel
 )
 from user.models import CustomUserModel
+
+from careReceiver.models import CareReceiverModel
 
 from .serializers import (
     CareRequestSerializer,
@@ -33,10 +36,6 @@ from .serializers import (
 class MongoCaregiverListView(APIView):
     permission_classes = (AllowAny,) 
     def get(self, request):
-        #cs = CaregiverModel.objects.all()
-        #for vl in cs:
-        #    MongoConnection().set_caregiver_data_on_mongo(vl, False)
-
         return Response(MongoConnection().get_data_on_mongo(), 200)
 
 class CaregiverEditView(APIView):
@@ -297,8 +296,26 @@ class SpecializationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIV
     
 class CareRequestListCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    queryset = CareRequestModel.objects.all()
+    model = CareRequestModel
     serializer_class = CareRequestSerializer
+
+    def get(self, request):
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+        queryset = self.model.objects.all()
+        caregiver, careReceiver = None, None
+
+        if user.get_user_type_display() == "Caregiver":
+            caregiver = get_object_or_404(CaregiverModel, user=user)
+        else:
+            careReceiver = get_object_or_404(CareReceiverModel, user=user)
+
+        if caregiver:
+            queryset = queryset.filter(caregiver=caregiver)
+        else:
+            queryset = queryset.filter(carereceiver=careReceiver)
+
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
 class CareRequestDetailView(generics.RetrieveAPIView):
     authentication_classes = [JWTAuthentication]
@@ -306,24 +323,67 @@ class CareRequestDetailView(generics.RetrieveAPIView):
     serializer_class = CareRequestSerializer
 
 
-class CareRequestAcceptView(APIView):
-    authentication_classes = [JWTAuthentication]
-
-    def post(self, request, pk):
-        care_request = CareRequestModel.objects.get(pk=pk)
-        care_request.status = 2  # Autorizado
-        care_request.save()
-        return Response({"status": "accepted"}, status=status.HTTP_200_OK)
-
-
 class CareRequestDeclineView(APIView):
     authentication_classes = [JWTAuthentication]
 
-    def post(self, request, pk):
-        care_request = CareRequestModel.objects.get(pk=pk)
-        care_request.status = 1  # Recusado
-        care_request.save()
-        return Response({"status": "declined"}, status=status.HTTP_200_OK)
+    def get(self, request, pk):
+        today = datetime.now()
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        care_request = get_object_or_404(CareRequestModel, pk=pk)
+        if care_request.caregiver == caregiver:
+            care_request.status = 1  # Recusado
+            care_request.response_date = today
+            care_request.save()
+            return Response({"status": "Declined"}, status=status.HTTP_200_OK)
+        else:
+            return Response("This user is not the Caregiver nor the Care receiver of this request", status=status.HTTP_400_BAD_REQUEST)
+
+
+class CareRequestAcceptView(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request, pk):
+        today = datetime.now()
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "Caregiver":
+            return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        caregiver = get_object_or_404(CaregiverModel, user=user)
+        care_request = get_object_or_404(CareRequestModel, pk=pk)
+        if care_request.caregiver == caregiver:
+            care_request.status = 2  # Autorizado
+            care_request.response_date = today
+            care_request.save()
+            return Response({"status": "accepted"}, status=status.HTTP_200_OK)
+        else:
+            return Response("This user is not the Caregiver of this request", status=status.HTTP_400_BAD_REQUEST)
+        
+class CareRequestCancelView(APIView):
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request, pk):
+        today = datetime.now()
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if not user.get_user_type_display() == "CareReceiver":
+            return Response("This user is not a CareReceiver", status=status.HTTP_400_BAD_REQUEST)
+        
+        careReceiver = get_object_or_404(CareReceiverModel, user=user)
+        care_request = get_object_or_404(CareRequestModel, pk=pk)
+        if care_request.carereceiver == careReceiver:
+            care_request.status = 3  # Cancelada
+            care_request.response_date = today
+            care_request.save()
+            return Response({"status": "cancelled"}, status=status.HTTP_200_OK)
+        else:
+            return Response("This user is not the Care Receiver of this request", status=status.HTTP_400_BAD_REQUEST)
+
     
 class RatingAllowCountView(APIView):
     authentication_classes = [JWTAuthentication]
