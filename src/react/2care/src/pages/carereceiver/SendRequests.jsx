@@ -113,7 +113,7 @@ function SendRequests() {
                   shrink: true,
                 }}
                 inputProps={{
-                  min: new Date().toISOString().split("T")[0], // Sets min date to today
+                  min: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0],
                 }}
                 fullWidth
                 margin="normal"

@@ -6,7 +6,8 @@ import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { getUserData } from '../../services/userService';
+import { getUserData, lo } from '../../services/userService';
+import { isLoggedIn } from '../../services/authService';
 import { getEvaluationData, getAllowedToEvaluate } from '../../services/caregiverService';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
@@ -35,10 +36,11 @@ function CaregiverEvaluations(props) {
       setEvaluationData(caregiverProps.caregiverData.evaluations)
 
       setCaregiverData(caregiverProps.caregiverData);
-
-      getAllowedToEvaluate(caregiverProps.caregiverData.id).then((result) => {
-        setCanEvaluate(result)
-      })
+      if(isLoggedIn()){
+        getAllowedToEvaluate(caregiverProps.caregiverData.id).then((result) => {
+          setCanEvaluate(result)
+        })
+      }
 
     }else{
 

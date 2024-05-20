@@ -41,7 +41,8 @@ class MongoConnection(object):
                         "id": str(rating.id),
                         "rating":rating.rating,
                         "description": rating.description,
-                        "care_receiver": {"name": rating.care_request.carereceiver.user.name, "picture":rating.care_request.carereceiver.user.picture}
+                        "care_receiver": {"name": rating.care_request.carereceiver.user.name, "picture":rating.care_request.carereceiver.user.picture},
+                        "caregiver": {"name": rating.care_request.caregiver.user.name, "picture":rating.care_request.caregiver.user.picture}
                     } 
                     for rating in RatingModel.objects.select_related('care_request__carereceiver').filter(care_request__caregiver=caregiver_instance)],
                 "care_requests_dates": [],

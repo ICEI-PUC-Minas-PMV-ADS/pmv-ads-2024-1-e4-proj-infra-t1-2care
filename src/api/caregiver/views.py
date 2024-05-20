@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .models import (
     CareRequestModel,
@@ -238,10 +238,8 @@ class AddSpecialization(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         user = get_object_or_404(CustomUserModel, id=self.request.user.id)
-
         if not user.get_user_type_display() == "Caregiver":
             return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
-        
         specialization = get_object_or_404(SpecializationModel, name=data)
         caregiver, created = CaregiverModel.objects.get_or_create(user=user, defaults={'hour_price': 0})
         caregiver.specializations.add(specialization)
@@ -305,6 +303,7 @@ class CareRequestListCreateView(generics.ListCreateAPIView):
         user = get_object_or_404(CustomUserModel, id=self.request.user.id)
         queryset = self.model.objects.all()
         caregiver, careReceiver = None, None
+        today = datetime.today()
 
         if user.get_user_type_display() == "Caregiver":
             caregiver = get_object_or_404(CaregiverModel, user=user)
@@ -316,11 +315,13 @@ class CareRequestListCreateView(generics.ListCreateAPIView):
         else:
             queryset = queryset.filter(carereceiver=careReceiver)
 
+        queryset.filter(status=0, date=today.date()).update(status=3)
+
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-
+        today = datetime.today()
         if not request.data:
             return Response("Invalid data", status=status.HTTP_400_BAD_REQUEST)
         
@@ -333,6 +334,9 @@ class CareRequestListCreateView(generics.ListCreateAPIView):
         caregiver = get_object_or_404(CaregiverModel, id=self.request.data.get('caregiver', None))
 
         start_time_obj = datetime.strptime(request.data.get('startTime'), '%H:%M').time()
+        if start_time_obj == today.date():
+            return Response("You can't make requests for the same day", status=status.HTTP_400_BAD_REQUEST)
+
         end_time_obj = datetime.strptime(request.data.get('endTime'), '%H:%M').time()
         start_datetime = datetime.combine(datetime.today(), start_time_obj)
         end_datetime = datetime.combine(datetime.today(), end_time_obj)

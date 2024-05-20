@@ -233,6 +233,6 @@ export const sendProposalToCaregiver = async (proposalData) => {
         return response;
     } catch (error) {
         toast.error('Erro ao enviar proposta para o cuidador:', error);
-        throw error;
+        toast.error('Por favor, complete seu cadastro e tente novamente:', error);
     } 
 };

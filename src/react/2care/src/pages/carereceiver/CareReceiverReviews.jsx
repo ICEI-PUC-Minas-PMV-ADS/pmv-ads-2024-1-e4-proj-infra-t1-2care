@@ -11,7 +11,7 @@ import { getEvaluationData } from '../../services/caregiverService';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
 import RatingList from '../../components/Ratings/RatingList';
-import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver'
+import ProfileCardCareReceiver from '../../components/Profile/ProfileCard/ProfileCardCareReceiver';
 
 import EvaluationModal from '../../components/Profile/EvaluationModal';
 
@@ -42,7 +42,7 @@ function CareReceiverReviews(props) {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-          <ProfileCardCaregiver userData={userData}/>
+          <ProfileCardCareReceiver userData={userData}/>
         </Grid>
         <Grid item xs={8}>
           <Card sx={{ borderRadius: 4 }} style={{ height: '80vh', overflowY: 'auto' }}>
