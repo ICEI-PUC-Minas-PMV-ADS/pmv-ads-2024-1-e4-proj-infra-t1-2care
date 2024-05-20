@@ -14,6 +14,7 @@ from .models import (
 )
 from user.models import CustomUserModel
 from careReceiver.serializers import CareReceiverSerializer
+from careReceiver.models import SpecialCareUserModel
 from user.serializers import UserPendingRequestsSerializer, UserAcceptedRequestsSerializer
 from datetime import datetime
 
@@ -90,7 +91,7 @@ class CaregiverSerializer(serializers.ModelSerializer):
         model = CaregiverModel
         fields = "__all__"
 
-class UserRequestsSerializer(serializers.ModelSerializer):
+class UserCaregiverRequestsSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     class Meta:
         model = CaregiverModel
@@ -106,6 +107,31 @@ class UserRequestsSerializer(serializers.ModelSerializer):
         UserSerializer = self.get_user_serializer(instance)
         return UserSerializer(instance.user).data
 
+class UserCareReceiverRequestsSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    special_care = serializers.SerializerMethodField()
+    class Meta:
+        model = CaregiverModel
+        fields = ["user", "special_care"]
+
+    def get_user_serializer(self, instance):
+        if self.context.get('status', None) == 2:
+            return UserAcceptedRequestsSerializer
+        else:
+            return UserPendingRequestsSerializer
+     
+    def get_user(self, instance):
+        UserSerializer = self.get_user_serializer(instance)
+        return UserSerializer(instance.user).data
+
+    def get_special_care(self, instance):
+ 
+        if instance.share_special_care:
+            return [{"type": care.care_type.get_name_display(), "description": care.description } for care in SpecialCareUserModel.objects.filter(care_receiver=instance)]
+        
+        else:
+            return []
+
 class CareRequestSerializer(serializers.ModelSerializer):
     caregiver = serializers.SerializerMethodField()
     carereceiver = serializers.SerializerMethodField()
@@ -114,11 +140,11 @@ class CareRequestSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def get_caregiver(self, instance):
-        caregiver_serializer = UserRequestsSerializer(instance.caregiver, context={"status": instance.status})
+        caregiver_serializer = UserCaregiverRequestsSerializer(instance.caregiver, context={"status": instance.status})
         return caregiver_serializer.data
     
     def get_carereceiver(self, instance):
-        caregiver_serializer = UserRequestsSerializer(instance.carereceiver, context={"status": instance.status})
+        caregiver_serializer = UserCareReceiverRequestsSerializer(instance.carereceiver, context={"status": instance.status})
         return caregiver_serializer.data
 
 
@@ -130,6 +156,7 @@ class RatingSerializer(serializers.ModelSerializer):
 class RatingListSerializer(serializers.ModelSerializer):
 
     care_receiver = serializers.SerializerMethodField()
+    caregiver = serializers.SerializerMethodField()
     
     def get_care_receiver(self, instance):
         carereceiver = instance.care_request.carereceiver.user
@@ -137,10 +164,17 @@ class RatingListSerializer(serializers.ModelSerializer):
             return {"name": carereceiver.name, "picture": carereceiver.picture}
         else:
             return {}
+        
+    def get_caregiver(self, instance):
+        caregiver = instance.care_request.caregiver.user
+        if caregiver:
+            return {"name": caregiver.name, "picture": caregiver.picture}
+        else:
+            return {}
 
     class Meta:
         model = RatingModel
-        fields = ["id", "rating", "description", "care_receiver"]
+        fields = ["id", "rating", "description", "care_receiver", "caregiver"]
 
     
 class CalendarSerializer(serializers.ModelSerializer):

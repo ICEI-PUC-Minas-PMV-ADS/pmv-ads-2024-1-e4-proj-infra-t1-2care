@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Typography, Grid, Box, Divider } from '@mui/material';
+import { Button, Typography, Grid, Box, Divider, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getUserType } from '../../services/userService';
 import { calculateAge } from '../../utils/utils';
 import { acceptRequest, declineRequest, cancelRequest } from '../../services/caregiverService';
@@ -80,6 +81,25 @@ const RequestList = (props) => {
                                     <Typography variant="body1"><strong>Hora Final:</strong> {request.end_time}</Typography>
                                     <Typography variant="body1"><strong>Total de Horas:</strong> {request.total_hours}</Typography>
                                     <Typography variant="body1"><strong>Valor Total a Pagar: R$</strong>{request.final_price}</Typography>
+                                    { request.carereceiver.special_care.length > 0 &&
+                                        <Accordion>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="special-care-content"
+                                                id="special-care-header"
+                                            >
+                                                <Typography variant="body1"><strong>Informações de cuidados especiais</strong></Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                {request.carereceiver.special_care.map((care, index) => (
+                                                        <Box key={index} sx={{ mb: 2 }}>
+                                                        <Typography variant="body1"><strong>{care.type}</strong> </Typography>
+                                                        <Typography variant="body1"> {care.description}</Typography>
+                                                    </Box>
+                                                ))}
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    }
                                 </Box>
                                 :
                                 <Grid container spacing={2}>
@@ -103,6 +123,25 @@ const RequestList = (props) => {
                                                 <Typography variant="body1"><strong>Telefone:</strong> {request.carereceiver.user.phone}</Typography>
                                                 <Typography variant="body1"><strong>Genêro:</strong> {request.carereceiver.user.gender}</Typography>
                                                 <Typography variant="body1"><strong>Idade:</strong> {calculateAge(request.carereceiver.user.birth_date)}</Typography>
+                                                { request.carereceiver.special_care.length > 0 &&
+                                                    <Accordion>
+                                                        <AccordionSummary
+                                                            expandIcon={<ExpandMoreIcon />}
+                                                            aria-controls="special-care-content"
+                                                            id="special-care-header"
+                                                        >
+                                                            <Typography variant="body1"><strong>Informações de cuidados especiais</strong></Typography>
+                                                        </AccordionSummary>
+                                                        <AccordionDetails>
+                                                            {request.carereceiver.special_care.map((care, index) => (
+                                                                 <Box key={index} sx={{ mb: 2 }}>
+                                                                    <Typography variant="body1"><strong>{care.type}</strong> </Typography>
+                                                                    <Typography variant="body1"> {care.description}</Typography>
+                                                                </Box>
+                                                            ))}
+                                                        </AccordionDetails>
+                                                    </Accordion>
+                                                }
                                             </Box>
                                             :
                                             <Box>

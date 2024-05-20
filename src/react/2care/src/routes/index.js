@@ -12,6 +12,7 @@ import Requests from '../pages/Requests.jsx';
 import Register from '../pages/Register.js';
 import CaregiverCalendar from '../pages/caregiver/CaregiverCalendar.jsx';
 import CaregiverEvaluations from '../pages/caregiver/CaregiverEvaluations.jsx';
+import CareReceiverReviews from '../pages/carereceiver/CareReceiverReviews.jsx'; 
 
 export default (props) => (
     <ThemeProvider theme={theme}>
@@ -28,6 +29,7 @@ export default (props) => (
                     <Route path="profile/carereceiver" element={<ProfileCareReceiver />} />
                     <Route path="request" element={<SendRequests />} />
                     <Route path="requests" element={<Requests />} />
+                    <Route path="reviews" element={<CareReceiverReviews />} />
                 </Route>
             </Routes>
         </BrowserRouter >

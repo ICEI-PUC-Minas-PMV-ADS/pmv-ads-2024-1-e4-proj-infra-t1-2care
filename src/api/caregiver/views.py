@@ -442,8 +442,15 @@ class RatingListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
-        caregiver = CaregiverModel.objects.get(user=self.request.user)
-        return RatingModel.objects.filter(care_request__caregiver=caregiver)
+        user = get_object_or_404(CustomUserModel, id=self.request.user.id)
+
+        if user.get_user_type_display() == "CareReceiver":
+            careReceiver = get_object_or_404(CareReceiverModel, user=user)
+            return RatingModel.objects.filter(care_request__carereceiver=careReceiver)
+        
+        else:
+            caregiver = get_object_or_404(CaregiverModel, user=user)
+            return RatingModel.objects.filter(care_request__caregiver=caregiver)
 
 class RatingCreateView(generics.CreateAPIView):
     queryset = RatingModel.objects.all()
