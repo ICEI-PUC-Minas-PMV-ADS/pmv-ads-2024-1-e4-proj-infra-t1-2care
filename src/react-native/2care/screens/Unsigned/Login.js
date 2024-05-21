@@ -201,35 +201,46 @@ export default function Login() {
             <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
           <Pressable
-
-            onPress={() => navigation.navigate("AgendaMob")}
-
             onPress={() => navigation.navigate("CaregiverEvaluations")}
-
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-
-            <Text style={styles.buttonText}>Agenda</Text>
+            <Text style={styles.buttonText}>Avaliações cuidador</Text>
+          </Pressable>            
+                     
+            <Pressable
+            onPress={() => navigation.navigate("CareReceiverReview")}
+            
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Carereceiver Review</Text>
           </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("AgendaMob")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Agenda</Text> 
+          </Pressable>
+
           <Pressable
             onPress={() => navigation.navigate("ProfileCaregiverMob")}
-
-            <Text style={styles.buttonText}>Avaliações cuidador</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => navigation.navigate("CareReceiverReview")}
-
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-
-            <Text style={styles.buttonText}>Profile Caregiver</Text>
+            <Text style={styles.buttonText}>Perfil Cuidador</Text> 
           </Pressable>
+
           <Pressable
             onPress={() => navigation.navigate("ProfileCarereceiverMob")}
             style={({ pressed }) => [
@@ -237,10 +248,7 @@ export default function Login() {
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>Profile Caregiver</Text>
-
-            <Text style={styles.buttonText}>Avaliações cliente</Text>
-
+            <Text style={styles.buttonText}>Perfil Cliente</Text>      
           </Pressable>
         </View>
       </ScrollView>
@@ -252,7 +260,7 @@ const styles = StyleSheet.create({
   containerLogin: {
     flex: 1,
     alignItems: "center",
-     margin: "auto",
+    margin: "auto",
   },
   scrollContent: {
     alignItems: "center",
@@ -324,8 +332,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   bottomButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    //justifyContent: "center",
     marginTop: 20,
     width: "80%",
     alignSelf: "center",
@@ -335,9 +343,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: "12%",
-    width: "18%",
-
+    margin: "auto",
+    width: "30%",
+    marginBottom: 10,
+    width: 200,
+    justifyContent: "center",
   },
   buttonText: {
     color: "black",

@@ -92,7 +92,7 @@ const UnsignedViews = () => {
                 options={{
                     header: () => null,
             }}
-
+            />
             <stack.Screen
                 name="CaregiverEvaluations"
                 component={CaregiverEvaluations}
