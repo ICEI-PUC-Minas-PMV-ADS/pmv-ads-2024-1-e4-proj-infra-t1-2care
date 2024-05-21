@@ -77,7 +77,7 @@ export default function ProfileCarereceiverMob({ userData }) {
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             {/*<Text style={styles.info}>{userData.email}</Text>*/}
-            <Text style={styles.info}>carlos.alberto@gmail.com</Text>
+            <Text style={styles.info}>maria.brandao@@gmail.com</Text>
           </View>
 
           <View style={styles.infoContainer}>
@@ -86,7 +86,7 @@ export default function ProfileCarereceiverMob({ userData }) {
               <Text style={styles.label}>TELEFONE</Text>
             </View>
             {/*<Text style={styles.info}>{userData.phone}</Text>*/}
-            <Text style={styles.info}>31 99999-9999</Text>
+            <Text style={styles.info}>31 93333-4444</Text>
           </View>
 
           <View style={styles.infoContainer}>
@@ -99,7 +99,7 @@ export default function ProfileCarereceiverMob({ userData }) {
               <Text style={styles.label}>GÊNERO</Text>
             </View>
             {/*<Text style={styles.info}>{userData.gender}</Text>*/}
-            <Text style={styles.info}>Masculino</Text>
+            <Text style={styles.info}>Feminino</Text>
           </View>
 
           <View style={styles.section}>
