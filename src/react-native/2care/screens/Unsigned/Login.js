@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Pressable,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css"; 
@@ -81,11 +82,10 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.containerLogin}>
-      {/*<KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-  >*/}
-        <ScrollView>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.containerLogin}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.logo}>
             <Image
               source={require("../../assets/logo2care.png")}
@@ -207,19 +207,50 @@ export default function Login() {
           >
             <Text style={styles.buttonText}>Avaliações cuidador</Text>
           </Pressable>
-          <Pressable
+
+            <Pressable
             onPress={() => navigation.navigate("CareReceiverReview")}
+
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>Avaliações cliente</Text>
+            <Text style={styles.buttonText}>Carereceiver Review</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("AgendaMob")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Agenda</Text> 
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("ProfileCaregiverMob")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Perfil Cuidador</Text> 
+          </Pressable>
+
+          <Pressable
+            onPress={() => navigation.navigate("ProfileCarereceiverMob")}
+            style={({ pressed }) => [
+              styles.button,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonText}>Perfil Cliente</Text>
           </Pressable>
         </View>
-        </ScrollView>
-      {/*</KeyboardAvoidingView>*/}
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -227,6 +258,10 @@ const styles = StyleSheet.create({
   containerLogin: {
     flex: 1,
     alignItems: "center",
+  },
+  scrollContent: {
+    alignItems: 'center',
+    paddingBottom: 20,
   },
   logo: {
     alignItems: "center",

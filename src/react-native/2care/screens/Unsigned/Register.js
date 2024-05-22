@@ -2,12 +2,16 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default function Register() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.containerRegister}>
+      <Pressable style={styles.goBackButton} onPress={() => navigation.goBack()}>
+      <Icon name="arrow-back" size={24} color="#486142" />
+      </Pressable>
       <View style={styles.logo}>
         <Image
           source={require("../../assets/logo2care.png")}
@@ -60,6 +64,12 @@ const styles = StyleSheet.create({
     width: "80%",
     marginLeft: "10%",
     marginRight: "10%",
+  },
+  goBackButton: {
+    position: "absolute",
+    top: 20, 
+    left: -9, 
+    zIndex: 1, 
   },
   logo: {
     alignItems: "center",

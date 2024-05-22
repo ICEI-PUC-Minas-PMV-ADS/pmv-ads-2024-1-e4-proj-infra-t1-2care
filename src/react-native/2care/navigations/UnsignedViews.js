@@ -9,6 +9,7 @@ import HomeTest from '../screens/Unsigned/HomeTest';
 import SendRequest from '../screens/Unsigned/SendRequest';
 import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+import AgendaMob from '../screens/Unsigned/AgendaMob';
 
 import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
 import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
@@ -46,7 +47,7 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
-                <stack.Screen
+             <stack.Screen
                 name="RequestsCaregiver"
                 component={RequestsCaregiver}
                 options={{
@@ -67,6 +68,28 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
+
+             <stack.Screen
+                name="AgendaMob"
+                component={AgendaMob}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="ProfileCaregiverMob"
+                component={ProfileCaregiverMob}
+                options={{
+                    header: () => null,
+            }}
+            />
+            <stack.Screen
+                name="ProfileCarereceiverMob"
+                component={ProfileCarereceiverMob}
+                options={{
+                    header: () => null,
+            }}
+            />
             <stack.Screen
                 name="CaregiverEvaluations"
                 component={CaregiverEvaluations}
@@ -80,6 +103,7 @@ const UnsignedViews = () => {
                 options={{
                     header: () => null,
                 }}
+
             />
         </stack.Navigator>
     );
