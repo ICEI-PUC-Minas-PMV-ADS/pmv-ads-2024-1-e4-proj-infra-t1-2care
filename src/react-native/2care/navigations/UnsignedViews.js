@@ -5,20 +5,15 @@ import Login from '../screens/Unsigned/Login';
 import Register from '../screens/Unsigned/Register';
 import RegisterUsers from '../screens/Unsigned/RegisterUsers';
 import HomeTest from '../screens/Unsigned/HomeTest';
-
 import SendRequest from '../screens/Unsigned/SendRequest';
 import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
-
-
 import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
 import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
 
-import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
-import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
 
 const stack = createNativeStackNavigator();
 
