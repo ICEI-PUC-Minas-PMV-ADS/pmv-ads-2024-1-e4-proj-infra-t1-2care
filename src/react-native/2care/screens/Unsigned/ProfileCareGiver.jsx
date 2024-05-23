@@ -88,6 +88,9 @@ const EditProfileScreenCareGiver = () => {
         value = value.slice(0, 11).replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
       }
       setFormData({ ...formData, [name]: value });
+    } else if (name === 'yearsexperience') {
+      value = value.replace(/[^0-9]/g, '');
+      setFormData({ ...formData, [name]: value });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -127,6 +130,7 @@ const EditProfileScreenCareGiver = () => {
           qualifications: qualifications.join(', '), // Certifique-se de que qualificações estejam aqui
           specialization: selectedItems,
           workexperience: experiences.map(exp => `${exp.experience} (${exp.link})`).join(', '), // Formate a experiência de trabalho
+          yearsexperience: formData.yearsexperience, // Envie apenas o número inteiro para o backend
           unavailableDays: formData.unavailableDays,
           dailyRate: formData.dailyRate,
           hourlyRate: formData.hourlyRate,
@@ -179,6 +183,12 @@ const EditProfileScreenCareGiver = () => {
       handleChange('gender', '');
     }
     setSelectedGender(selectedItems);
+  };
+
+  const formatYearsExperience = (value) => {
+    if (!value) return '';
+    const intValue = parseInt(value, 10);
+    return intValue === 1 ? `${intValue} ano` : `${intValue} anos`;
   };
 
   return (
@@ -247,10 +257,9 @@ const EditProfileScreenCareGiver = () => {
             <Text style={styles.label}>Anos de experiência</Text>
             <TextInput
               style={styles.input}
-              value={formData.yearsexperience}
+              value={formatYearsExperience(formData.yearsexperience)}
               onChangeText={(text) => handleChange('yearsexperience', text)}
-              multiline={true}
-              numberOfLines={1}
+              keyboardType="numeric"
             />
           </View>
           <View style={styles.inputContainer}>
