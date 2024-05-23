@@ -11,14 +11,14 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import "../AppMobile.css"; 
+//import "../AppMobile.css";
 import { signIn } from "../../services/authServiceMob";
 
 export default function Login() {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
- 
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setFormData({ email: "", password: "" });
@@ -31,7 +31,10 @@ export default function Login() {
     setFormData({ ...formData, [name]: value });
 
     if (name === "email" && !value) {
-      setErrors({ ...errors, [name]: "Por favor, insira seu e-mail cadastrado." });
+      setErrors({
+        ...errors,
+        [name]: "Por favor, insira seu e-mail cadastrado.",
+      });
     } else {
       setErrors({ ...errors, [name]: "" });
     }
@@ -82,95 +85,94 @@ export default function Login() {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.containerLogin}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <View style={styles.logo}>
-            <Image
-              source={require("../../assets/logo2care.png")}
-              style={styles.logoImg}
+      style={styles.containerLogin}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.logo}>
+          <Image
+            source={require("../../assets/logo2care.png")}
+            style={styles.logoImg}
+          />
+        </View>
+
+        <View style={styles.description}>
+          <Text style={styles.title}>
+            Bem-vindos ao <Text style={{ color: "#ED8733" }}>2Care!</Text>
+          </Text>
+          <Text style={styles.subtitle}>
+            Conectamos famílias a cuidadores de idosos de maneira ágil e
+            eficiente, facilitando a busca pelo profissional que melhor atenda
+            às suas necessidades.
+          </Text>
+        </View>
+
+        <View style={styles.formLogin}>
+          <View>
+            <TextInput
+              placeholder="E-mail"
+              value={formData.email}
+              onChangeText={(text) => handleChange("email", text)}
+              onBlur={() => handleBlur("email", formData.email)}
+              style={[styles.input, errors.email && styles.errorBorder]}
+              onSubmitEditing={handleSubmit}
             />
+            {errors.email ? (
+              <Text style={styles.errorText}>{errors.email}</Text>
+            ) : null}
+          </View>
+          <View>
+            <TextInput
+              placeholder="Senha"
+              value={formData.password}
+              onChangeText={(text) => handleChange("password", text)}
+              onBlur={() => handleBlur("password", formData.password)}
+              secureTextEntry={true}
+              style={[styles.input, errors.password && styles.errorBorder]}
+              onSubmitEditing={handleSubmit}
+            />
+            {errors.password ? (
+              <Text style={styles.errorText}>{errors.password}</Text>
+            ) : null}
           </View>
 
-          <View style={styles.description}>
-            <Text style={styles.title}>
-              Bem-vindos ao <Text style={{ color: "#ED8733" }}>2Care!</Text>
-            </Text>
-            <Text style={styles.subtitle}>
-              Conectamos famílias a cuidadores de idosos de maneira ágil e
-              eficiente, facilitando a busca pelo profissional que melhor atenda
-              às suas necessidades.
-            </Text>
-          </View>
+          <Pressable
+            onPress={handleSubmit}
+            style={({ pressed }) => [
+              styles.buttonLogin,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Text style={styles.buttonLoginText}>Entrar</Text>
+          </Pressable>
 
-          <View style={styles.formLogin}>
-            <View>
-              <TextInput
-                placeholder="E-mail"
-                value={formData.email}
-                onChangeText={(text) => handleChange("email", text)}
-                onBlur={() => handleBlur("email", formData.email)}
-                style={[styles.input, errors.email && styles.errorBorder]}
-                onSubmitEditing={handleSubmit}
-              />
-              {errors.email ? (
-                <Text style={styles.errorText}>{errors.email}</Text>
-              ) : null}
-            </View>
-            <View>
-              <TextInput
-                placeholder="Senha"
-                value={formData.password}
-                onChangeText={(text) => handleChange("password", text)}
-                onBlur={() => handleBlur("password", formData.password)}
-                secureTextEntry={true}
-                style={[styles.input, errors.password && styles.errorBorder]}
-                onSubmitEditing={handleSubmit}
-              />
-              {errors.password ? (
-                <Text style={styles.errorText}>{errors.password}</Text>
-              ) : null}
-            </View>
+          <Pressable
+            onPress={() => navigation.navigate("Register")}
+            style={({ pressed }) => [
+              styles.linkContainer,
+              pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
+            ]}
+          >
+            <Text style={styles.linkText}>Crie a sua conta clicando aqui</Text>
+          </Pressable>
 
-            <Pressable
-              onPress={handleSubmit}
-              style={({ pressed }) => [
-                styles.buttonLogin,
-                pressed && { transform: [{ scale: 1.1 }] },
-              ]}
-            >
-              <Text style={styles.buttonLoginText}>Entrar</Text>
-            </Pressable>
+          <Pressable
+            onPress={() => {
+              console.log("Você será redirecionado para a nova Tela.");
+              navigation.navigate("HomeTest");
+            }}
+            style={({ pressed }) => [
+              styles.linkContainer,
+              pressed && { transform: [{ scale: 1.05 }], fontWeight: "bold" },
+            ]}
+          >
+            <Text style={styles.linkText}>Continuar como visitante</Text>
+          </Pressable>
+        </View>
 
-            <Pressable
-              onPress={() => navigation.navigate("Register")}
-              style={({ pressed }) => [
-                styles.linkContainer,
-                pressed && { transform: [{ scale: 1.1 }], fontWeight: "bold" },
-              ]}
-            >
-              <Text style={styles.linkText}>
-                Crie a sua conta clicando aqui
-              </Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => {
-                console.log("Você será redirecionado para a nova Tela.");
-                navigation.navigate("HomeTest");
-              }}
-              style={({ pressed }) => [
-                styles.linkContainer,
-                pressed && { transform: [{ scale: 1.05 }], fontWeight: "bold" },
-              ]}
-            >
-              <Text style={styles.linkText}>Continuar como visitante</Text>
-            </Pressable>
-          </View>
-
-          {/* somente para desenvolvimento até que tenhamos mais telas */}
-          <View style={styles.bottomButtons}>
+         {/* somente para desenvolvimento até que tenhamos mais telas */}
+        <View style={styles.bottomButtons}>
           <Pressable
             onPress={() => navigation.navigate("RequestsCaregiver")}
             style={({ pressed }) => [
@@ -191,7 +193,7 @@ export default function Login() {
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("SendRequest")}
-              style={({ pressed }) => [
+            style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
@@ -206,11 +208,11 @@ export default function Login() {
             ]}
           >
             <Text style={styles.buttonText}>Avaliações cuidador</Text>
-          </Pressable>
-
+          </Pressable>            
+                     
             <Pressable
             onPress={() => navigation.navigate("CareReceiverReview")}
-
+            
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
@@ -246,7 +248,7 @@ export default function Login() {
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>Perfil Cliente</Text>
+            <Text style={styles.buttonText}>Perfil Cliente</Text>      
           </Pressable>
         </View>
       </ScrollView>
@@ -258,9 +260,10 @@ const styles = StyleSheet.create({
   containerLogin: {
     flex: 1,
     alignItems: "center",
+    margin: "auto",
   },
   scrollContent: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingBottom: 20,
   },
   logo: {
@@ -329,8 +332,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   bottomButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    //justifyContent: "center",
     marginTop: 20,
     width: "80%",
     alignSelf: "center",
@@ -340,10 +343,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: "18%",
+    margin: "auto",
+    width: "30%",
+    marginBottom: 10,
+    width: 200,
+    justifyContent: "center",
   },
   buttonText: {
     color: "black",
-    fontSize: 16,
+    fontSize: 13,
   },
 });

@@ -10,6 +10,12 @@ import SendRequest from '../screens/Unsigned/SendRequest';
 import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
 import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
+import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
+import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
+
+
+import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
+import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
 
 import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
 import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
