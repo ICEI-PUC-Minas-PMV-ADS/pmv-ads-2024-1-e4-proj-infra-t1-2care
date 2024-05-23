@@ -171,7 +171,7 @@ export default function Login() {
           </Pressable>
         </View>
 
-        {/* somente para desenvolvimento até que tenhamos mais telas */}
+         {/* somente para desenvolvimento até que tenhamos mais telas */}
         <View style={styles.bottomButtons}>
           <Pressable
             onPress={() => navigation.navigate("RequestsCaregiver")}
