@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Picker } from '@react-native-picker/picker';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SearchBar from '../../components/SearchBar.jsx';
 import { updateCaregiver } from "../../services/caregiverServiceMob.js";
 import QualificationsModal from "../../components/Modal/QualificationsModal.jsx";
+import WorkExperienceModal from "../../components/Modal/WorkExperienceModal.jsx";
+import SpecializationPicker from "../../components/Picker/SpecializationPicker.jsx";
+import GenderPicker from "../../components/Picker/GenderPicker.jsx";
+
+const screenWidth = Dimensions.get('window').width;
 
 const EditProfileScreenCareGiver = () => {
   const navigation = useNavigation();
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [experienceModalVisible, setExperienceModalVisible] = useState(false);
+  const [qualifications, setQualifications] = useState([]);
+  const [experiences, setExperiences] = useState([]);
+  const [selectedGender, setSelectedGender] = useState([]);
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -66,7 +74,6 @@ const EditProfileScreenCareGiver = () => {
     additionalInfo: "Informações Adicionais"
   };
 
-
   const handleChange = (name, value) => {
     if (['dailyRate', 'hourlyRate'].includes(name)) {
       const formattedValue = formatCurrency(value);
@@ -117,9 +124,9 @@ const EditProfileScreenCareGiver = () => {
         };
         const caregiver = {
           gender: formData.gender,
-          qualifications: formData.qualifications,
+          qualifications: qualifications.join(', '), // Certifique-se de que qualificações estejam aqui
           specialization: selectedItems,
-          workexperience: formData.workexperience,
+          workexperience: experiences.map(exp => `${exp.experience} (${exp.link})`).join(', '), // Formate a experiência de trabalho
           unavailableDays: formData.unavailableDays,
           dailyRate: formData.dailyRate,
           hourlyRate: formData.hourlyRate,
@@ -139,6 +146,39 @@ const EditProfileScreenCareGiver = () => {
 
   const handleCancel = () => {
     navigation.goBack();
+  };
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleAddQualification = (qualification) => {
+    setQualifications([...qualifications, qualification]);
+  };
+
+  const handleOpenExperienceModal = () => {
+    setExperienceModalVisible(true);
+  };
+
+  const handleCloseExperienceModal = () => {
+    setExperienceModalVisible(false);
+  };
+
+  const handleAddExperience = (experience) => {
+    setExperiences([...experiences, experience]);
+  };
+
+  const handleGenderChange = (selectedItems) => {
+    if (selectedItems.length > 0) {
+      handleChange('gender', selectedItems[0]);
+    } else {
+      handleChange('gender', '');
+    }
+    setSelectedGender(selectedItems);
   };
 
   return (
@@ -166,7 +206,7 @@ const EditProfileScreenCareGiver = () => {
             key !== 'dailyRate' &&
             key !== 'hourlyRate' &&
             key !== 'additionalInfo'
-        ).map((key) => (
+          ).map((key) => (
             <View key={key} style={styles.inputContainer}>
                 <Text style={styles.label}>{fieldLabels[key]}</Text>
                 <TextInput
@@ -175,132 +215,102 @@ const EditProfileScreenCareGiver = () => {
                     onChangeText={(text) => handleChange(key, text)}
                     onBlur={() => handleChange(key, formData[key])}
                     secureTextEntry={key.includes("password")}
-                    placeholder={`${fieldLabels[key].toLowerCase()}`}
-                    keyboardType={['birth_date', 'post_code', 'phone', 'dailyRate', 'hourlyRate'].includes(key) ? 'numeric' : 'default'}
                 />
                 {errors[key] && <Text style={styles.errorText}>{errors[key]}</Text>}
             </View>
-        ))}
+          ))}
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>{fieldLabels['gender']}</Text>
-            <View style={styles.pickerContainer}>
-            <Picker 
-              selectedValue={formData.gender}
-              style={styles.picker}
-              itemStyle={styles.pickerItem}
-              onValueChange={(itemValue) => handleChange('gender', itemValue)}
-            >
-              <Picker.Item label="Selecione o gênero" value="" />
-              <Picker.Item label="Masculino" value="Masculino" />
-              <Picker.Item label="Feminino" value="Feminino" />
-              <Picker.Item label="Outro" value="Outro" />
-            </Picker>
+            <GenderPicker
+              selectedItems={selectedGender}
+              onSelectedItemsChange={handleGenderChange}
+            />
           </View>
+          <View style={styles.inputContainer}>
+            <SpecializationPicker
+              selectedItems={selectedItems}
+              onSelectedItemsChange={setSelectedItems}
+            />
           </View>
-          <View>
-          <Text style={styles.label}>{fieldLabels['specialization']}</Text>
-          <View style={styles.pickerContainer}>
-          <SectionedMultiSelect
-            items={items}
-            IconRenderer={Icon} 
-            uniqueKey="id"
-            subKey="children"
-            selectText="Escolha alguma opção"
-            showDropDowns={true}
-            readOnlyHeadings={true}
-            onSelectedItemsChange={setSelectedItems}
-            selectedItems={selectedItems}
-          />
-          </View>
-        </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Qualificações</Text>
-            <TextInput
-              style={styles.input}
-              value={formData.qualifications}
-              onChangeText={(text) => handleChange('qualifications', text)}
-              placeholder="Digite suas qualificações"
-              multiline={true}
-              numberOfLines={3}
-            />
+            <TouchableOpacity style={styles.openModalButton} onPress={handleOpenModal}>
+              <Text style={styles.openModalButtonText}>Adicionar Qualificações</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
-          <Text style={styles.label}>Experiência de trabalho</Text>
-            <TextInput
-              style={styles.input}
-              value={formData.workexperience}
-              onChangeText={(text) => handleChange('workexperience', text)}
-              placeholder="Digite suas experiências de trabalho"
-              multiline={true}
-              numberOfLines={4}
-            />
+            <Text style={styles.label}>Experiência de trabalho</Text>
+            <TouchableOpacity style={styles.openModalButton} onPress={handleOpenExperienceModal}>
+              <Text style={styles.openModalButtonText}>Adicionar Experiência de Trabalho</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
-          <Text style={styles.label}>Anos de experiência</Text>
+            <Text style={styles.label}>Anos de experiência</Text>
             <TextInput
               style={styles.input}
               value={formData.yearsexperience}
               onChangeText={(text) => handleChange('yearsexperience', text)}
-              placeholder="Digite seus anos de experiências"
               multiline={true}
               numberOfLines={1}
             />
           </View>
-            <View style={styles.inputContainer}>
+          <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['unavailableDays']}</Text>
             <TextInput
               style={styles.input}
               value={formData.unavailableDays}
               onChangeText={(text) => handleChange('unavailableDays', text)}
-              placeholder="Informe os dias indisponíveis"
               multiline={true}
               numberOfLines={1}
             />
           </View>
-
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['dailyRate']}</Text>
             <TextInput
               style={styles.input}
               value={formData.dailyRate}
               onChangeText={(text) => handleChange('dailyRate', text)}
-              placeholder="Informe o preço por dia"
               keyboardType="numeric"
             />
           </View>
-
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['hourlyRate']}</Text>
             <TextInput
               style={styles.input}
               value={formData.hourlyRate}
               onChangeText={(text) => handleChange('hourlyRate', text)}
-              placeholder="Informe o preço por hora"
               keyboardType="numeric"
             />
           </View>
-
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['additionalInfo']}</Text>
             <TextInput
               style={styles.input}
               value={formData.additionalInfo}
               onChangeText={(text) => handleChange('additionalInfo', text)}
-              placeholder="Digite informações adicionais"
               multiline={true}
               numberOfLines={3}
             />
           </View>
           <View style={styles.buttonContainer}>
-          <Pressable style={[styles.button, styles.cancelButton]} onPress={handleCancel}>
-            <Text style={styles.buttonText}>Cancelar</Text>
-          </Pressable>
-          <Pressable style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Salvar</Text>
-          </Pressable>
+            <Pressable style={[styles.button, styles.cancelButton]} onPress={handleCancel}>
+              <Text style={styles.buttonText}>Cancelar</Text>
+            </Pressable>
+            <Pressable style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Salvar</Text>
+            </Pressable>
           </View>
         </View>
       </ScrollView>
+      <QualificationsModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        addQualification={handleAddQualification}
+      />
+      <WorkExperienceModal
+        visible={experienceModalVisible}
+        onClose={handleCloseExperienceModal}
+        addExperience={handleAddExperience}
+      />
     </SafeAreaView>
   );
 };
@@ -340,12 +350,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
-    flexDirection: 'row',
     position: "relative",
   },
   label: {
     position: "absolute",
-    backgroundColor: "#a9b7a6",
+    backgroundColor: "#D2DAC3",
     left: 10,
     top: -10,
     paddingHorizontal: 5,
@@ -356,45 +365,12 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#799275",
     borderRadius: 5,
     padding: 10,
     fontSize: 16,
     width: '100%',
-    color: '#64785d',
-  },
-  button: {
-    backgroundColor: "#0066cc",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    marginTop: 20
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16
-  },
-  errorText: {
-    fontSize: 12,
-    color: "red"
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    flex: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10, 
-    width: '100%',
-    marginBottom: 20,
-    backgroundColor: '#ffffff', 
-  },
-  picker: {
-    color: '#64785d',
-    backgroundColor: '#ffffff', 
-    width: '100%',
-  },
-  pickerItem: {
-    color: '#64785d',
+    color: '#486142',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -426,11 +402,40 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red"
   },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: "#799275",
+    borderRadius: 5,
+    padding: 10, 
+    width: '100%',
+    marginBottom: 20,
+    backgroundColor: '#ffffff', 
+  },
+  picker: {
+    color: '#486142',
+    backgroundColor: '#ffffff', 
+    width: '100%',
+  },
+  pickerItem: {
+    color: '#486142',
+  },
   safeArea: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: Platform.OS === 'android' ? 40 : 20
+  },
+  openModalButton: {
+    backgroundColor: "#ED8733",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+    width: '100%'
+  },
+  openModalButtonText: {
+    color: "white",
+    fontSize: 16
   }
 });
 

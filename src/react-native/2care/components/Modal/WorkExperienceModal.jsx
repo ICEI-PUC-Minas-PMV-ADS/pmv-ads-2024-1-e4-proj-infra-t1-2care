@@ -3,22 +3,24 @@ import { Modal, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, D
 
 const screenWidth = Dimensions.get('window').width;
 
-const QualificationsModal = ({ visible, onClose, addQualification }) => {
-  const [inputValue, setInputValue] = useState('');
-  const [qualifications, setQualifications] = useState([]);
+const WorkExperienceModal = ({ visible, onClose, addExperience }) => {
+  const [experience, setExperience] = useState('');
+  const [link, setLink] = useState('');
+  const [experiences, setExperiences] = useState([]);
 
-  const handleAddQualification = () => {
-    if (inputValue.trim()) {
-      const newQualification = inputValue.trim();
-      setQualifications([...qualifications, newQualification]);
-      addQualification(newQualification);
-      setInputValue('');
+  const handleAddExperience = () => {
+    if (experience.trim() && link.trim()) {
+      const newExperience = { experience: experience.trim(), link: link.trim() };
+      setExperiences([...experiences, newExperience]);
+      addExperience(newExperience);
+      setExperience('');
+      setLink('');
     }
   };
 
-  const handleDeleteQualification = (index) => {
-    const updatedQualifications = qualifications.filter((_, i) => i !== index);
-    setQualifications(updatedQualifications);
+  const handleDeleteExperience = (index) => {
+    const updatedExperiences = experiences.filter((_, i) => i !== index);
+    setExperiences(updatedExperiences);
   };
 
   return (
@@ -30,23 +32,30 @@ const QualificationsModal = ({ visible, onClose, addQualification }) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Adicionar Qualificação</Text>
+          <Text style={styles.modalText}>Adicionar Experiência de Trabalho</Text>
           <TextInput
-            placeholder="Adicione uma qualificação"
-            value={inputValue}
-            onChangeText={setInputValue}
+            placeholder="Descreva a experiência"
+            value={experience}
+            onChangeText={setExperience}
             style={styles.input}
           />
-          <TouchableOpacity style={styles.button} onPress={handleAddQualification}>
+          <TextInput
+            placeholder="Link de documento ou foto"
+            value={link}
+            onChangeText={setLink}
+            style={styles.input}
+          />
+          <TouchableOpacity style={styles.button} onPress={handleAddExperience}>
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity>
           <FlatList
-            data={qualifications}
+            data={experiences}
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View style={styles.qualificationItem}>
-                <Text style={styles.qualificationText}>{item}</Text>
-                <TouchableOpacity onPress={() => handleDeleteQualification(index)}>
+              <View style={styles.experienceItem}>
+                <Text style={styles.experienceText}>{item.experience}</Text>
+                <Text style={styles.linkText}>{item.link}</Text>
+                <TouchableOpacity onPress={() => handleDeleteExperience(index)}>
                   <Text style={styles.deleteText}>X</Text>
                 </TouchableOpacity>
               </View>
@@ -117,9 +126,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
-  qualificationItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  experienceItem: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     marginTop: 10,
     borderColor: '#799275',
     borderWidth: 1,
@@ -128,13 +137,17 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'white'
   },
-  qualificationText: {
-    flex: 1,
+  experienceText: {
+    color: '#486142',
+    fontWeight: 'bold'
+  },
+  linkText: {
     color: '#486142'
   },
   deleteText: {
     color: '#B65138',
-    marginLeft: 10
+    marginTop: 5,
+    alignSelf: 'flex-end'
   },
   list: {
     width: '100%',
@@ -142,4 +155,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default QualificationsModal;
+export default WorkExperienceModal;
