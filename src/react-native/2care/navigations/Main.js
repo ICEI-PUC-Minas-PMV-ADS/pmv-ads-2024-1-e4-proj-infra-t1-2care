@@ -4,11 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import Homepage from '../screens/Unsigned/Login';
+
 import Home from '../screens/Main/Home';
 import Search from '../screens/Main/Search';
 import Profile from '../screens/Main/Profile';
-import { useAuth } from '../contexts/AuthContext';
-import UnsignedViews from './UnsignedViews';
+
+import SendRequest from '../screens/Unsigned/SendRequest';
+import Requests from '../screens/Unsigned/Requests';
 
 const Tab = createBottomTabNavigator();
 const Stack1 = createNativeStackNavigator();
@@ -17,7 +20,7 @@ const Stack3 = createNativeStackNavigator();
 
 const HomeStack = () => {
   return (
-    <Stack1.Navigator initialRouteName="Home">
+    <Stack1.Navigator initialRouteName="Login">
       <Stack1.Screen
         name="Home"
         component={Home}
@@ -26,6 +29,13 @@ const HomeStack = () => {
           header: () => null,
         }}
       />
+      {/* <Stack1.Screen
+              name="Login"
+              component={Homepage}
+              options={{
+                  header: () => null,
+              }}
+          /> */}
     </Stack1.Navigator>
   );
 };
@@ -52,14 +62,13 @@ const RequestStack = () => {
   );
 };
 
-const ProfileStack = () => {
+const SearchStack = () => {
   return (
-    <Stack3.Navigator initialRouteName="Profile">
+    <Stack3.Navigator initialRouteName="Search">
       <Stack3.Screen
-        name="Profile"
-        component={Profile}
+        name="Search"
+        component={Search}
         options={{
-          headerShown: false,
           header: () => null,
         }}
       />
@@ -67,35 +76,40 @@ const ProfileStack = () => {
   );
 };
 
-const Main = () => {
-  const { user } = useAuth();
-
-  if (!user) {
-    return <UnsignedViews />;
-  }
-
+const MainNav = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarInactiveTintColor: '#799275',
+        tabBarActiveTintColor: '#ED8733',
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeStack}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'início',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialIcons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="Requests"
+        component={RequestStack}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Propostas',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="mail-outline" color={color} size={size} />
+          ),
+          tabBarBadge: 3,
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchStack}
+        options={{
+          tabBarLabel: 'Buscar',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="search" color={color} size={size} />
           ),
@@ -103,9 +117,9 @@ const Main = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileStack}
+        component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
@@ -113,6 +127,7 @@ const Main = () => {
       />
     </Tab.Navigator>
   );
-};
+}
 
-export default Main;
+
+export default MainNav;
