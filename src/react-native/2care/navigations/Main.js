@@ -139,7 +139,8 @@ const ProfileStack = () => {
 };
 
 const Main = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = true;
 
   if (!user) {
     return <UnsignedViews />;
@@ -149,7 +150,7 @@ const Main = () => {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#ED8733',
       }}
     >
       <Tab.Screen
