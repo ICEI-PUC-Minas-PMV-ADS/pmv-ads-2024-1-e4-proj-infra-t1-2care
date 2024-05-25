@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import "../AppMobile.css";
+import { getSelfCalendar } from "../../services/caregiverServiceMob";
 
 LocaleConfig.locales["pt-br"] = {
   monthNames: [
@@ -63,6 +64,15 @@ export default function AgendaMob() {
   const [selectedDayForDetails, setSelectedDayForDetails] = useState(null);
   const [appointments, setAppointments] = useState({});
   const [tempSelectedTimeSlots, setTempSelectedTimeSlots] = useState([]);
+  const [unavailable, setUnavailable] = useState();
+
+  useEffect(() => {
+      // usar props quando vier pela lista.
+      getSelfCalendar().then((result) => {
+        setUnavailable(result ? result : {})
+      })
+
+  }, []);
 
   const handleDayPress = (day) => {
     setSelectedDay(day.dateString);
@@ -165,9 +175,26 @@ export default function AgendaMob() {
       </View>
       <View style={styles.calendarContainer}>
         <Calendar
-          onDayPress={handleDayPress}
           style={styles.calendar}
           markedDates={getMarkedDates()}
+          disabledDaysIndexes={unavailable?.fixed_unavailable_days.flatMap((d) => d.day)}
+          dayComponent={({date, state}) => {
+            const dateObject = new Date(date.dateString + 'GMT-0400');
+            const isDisabled = unavailable?.fixed_unavailable_days.flatMap((d) => d.day).includes(dateObject.getDay()) || unavailable?.custom_unavailable_days.flatMap((d) => d.day).includes(date.dateString) ? true : false;
+            
+            const handlePress = () => {
+              handleDayPress(date);
+            };
+            return isDisabled ?(
+              <View>
+                <Text style={{textAlign: 'center', color:'#DCDCDC'}}>{date.day}</Text>
+              </View>
+            ) : (
+              <View>
+                <Text onPress={handlePress} style={{textAlign: 'center', color:'black'}}>{date.day}</Text>
+              </View>
+            )
+          }}
           theme={{
             todayTextColor: "#ED8733",
             //todayBackgroundColor: "#ED8733",
@@ -193,45 +220,31 @@ export default function AgendaMob() {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Horários de {selectedDay}</Text>
             <ScrollView contentContainerStyle={styles.timeSlotsContainer}>
-              {[
-                "01:00",
-                "02:00",
-                "03:00",
-                "04:00",
-                "05:00",
-                "06:00",
-                "07:00",
-                "08:00",
-                "09:00",
-                "10:00",
-                "11:00",
-                "12:00",
-                "13:00",
-                "14:00",
-                "15:00",
-                "16:00",
-                "17:00",
-                "18:00",
-                "19:00",
-                "20:00",
-                "21:00",
-                "22:00",
-                "23:00",
-                "24:00",
-              ].map((timeSlot, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => handleTimeSelection(timeSlot)}
-                  style={[
-                    styles.timeSlot,
-                    selectedTimeSlotsByDay[selectedDay]?.includes(timeSlot) && {
-                      backgroundColor: "#ED8733",
-                    },
-                  ]}
-                >
-                  <Text style={styles.timeSlotText}>{timeSlot}</Text>
-                </Pressable>
-              ))}
+              {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map((timeSlot, index) => {
+                if(unavailable?.fixed_unavailable_hours.flatMap((e) => e.hour).includes(parseInt(timeSlot))){
+                  return( <Pressable
+                    key={index}
+                    style={[
+                      styles.timeSlotDisabled,
+                    ]}
+                  >
+                    <Text style={styles.timeSlotText}>{timeSlot > 9 ? `${timeSlot}:00` : `0${timeSlot}:00`}</Text>
+                  </Pressable>)
+                }else{
+                  return( <Pressable
+                    key={index}
+                    onPress={() => handleTimeSelection(timeSlot)}
+                    style={[
+                      styles.timeSlot,
+                      selectedTimeSlotsByDay[selectedDay]?.includes(timeSlot) && {
+                        backgroundColor: "#ED8733",
+                      },
+                    ]}
+                  >
+                    <Text style={styles.timeSlotText}>{timeSlot > 9 ? `${timeSlot}:00` : `0${timeSlot}:00`}</Text>
+                  </Pressable>)
+                }
+            })}
             </ScrollView>
 
             <View style={styles.selectedDayDetailsContainer}>
@@ -356,6 +369,14 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     backgroundColor: "#799275",
+    borderRadius: 5,
+    marginVertical: 5,
+    alignItems: "center",
+  },
+  timeSlotDisabled: {
+    width: "100%",
+    padding: 10,
+    backgroundColor: "#DCDCDC",
     borderRadius: 5,
     marginVertical: 5,
     alignItems: "center",
