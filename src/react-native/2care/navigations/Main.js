@@ -7,8 +7,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Home from '../screens/Main/Home';
 import Search from '../screens/Main/Search';
 import Profile from '../screens/Main/Profile';
+import SendRequest from '../screens/Unsigned/SendRequest';
+import Requests from '../screens/Unsigned/Requests';
 import { useAuth } from '../contexts/AuthContext';
 import UnsignedViews from './UnsignedViews';
+
 
 const Tab = createBottomTabNavigator();
 const Stack1 = createNativeStackNavigator();
@@ -32,19 +35,12 @@ const HomeStack = () => {
 
 const RequestStack = () => {
   return (
-    <Stack2.Navigator initialRouteName="RequestsCaregiver">
+    <Stack2.Navigator initialRouteName="Requests">
       <Stack2.Screen
-        name="RequestsCaregiver"
-        component={RequestsCaregiver}
+        name="Requests"
+        component={Requests}
         options={{
           headerShown: false,
-          header: () => null,
-        }}
-      />
-      <Stack2.Screen
-        name="RequestsCareReceiver"
-        component={RequestsCareReceiver}
-        options={{
           header: () => null,
         }}
       />

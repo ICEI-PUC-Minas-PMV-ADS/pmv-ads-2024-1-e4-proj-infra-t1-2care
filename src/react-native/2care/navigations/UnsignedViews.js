@@ -6,13 +6,11 @@ import Register from '../screens/Unsigned/Register';
 import RegisterUsers from '../screens/Unsigned/RegisterUsers';
 import HomeTest from '../screens/Unsigned/HomeTest';
 import SendRequest from '../screens/Unsigned/SendRequest';
-import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
-import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+import Requests from '../screens/Unsigned/Requests';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
-import CaregiverEvaluations from '../screens/Unsigned/CaregiverEvaluations';
-import CareReceiverReview from '../screens/Unsigned/CareReceiverReviews';
+import Reviews from '../screens/Unsigned/Reviews';
 import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
 import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
 
@@ -50,15 +48,8 @@ const UnsignedViews = () => {
                 }}
             />
              <stack.Screen
-                name="RequestsCaregiver"
-                component={RequestsCaregiver}
-                options={{
-                    header: () => null,
-                }}
-            />
-                <stack.Screen
-                name="RequestsCareReceiver"
-                component={RequestsCareReceiver}
+                name="Requests"
+                component={Requests}
                 options={{
                     header: () => null,
                 }}
@@ -107,22 +98,13 @@ const UnsignedViews = () => {
             }}
             />
             <stack.Screen
-                name="CaregiverEvaluations"
-                component={CaregiverEvaluations}
+                name="Reviews"
+                component={Reviews}
                 options={{
                     header: () => null,
                 }}
             />
-            <stack.Screen
-                name="CareReceiverReview"
-                component={CareReceiverReview}
-                options={{
-                    header: () => null,
-                }}
-
-            />
-       </stack.Navigator>
-    );
+        </stack.Navigator>
 };
 
 export default UnsignedViews;
