@@ -118,6 +118,20 @@ const Main = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="ProfileCareGiver"
+        component={ProfileCareGiver}
+        options={{
+           header: () => null,
+            }}
+            />
+      <Tab.Screen
+         name="ProfileCareReceiver"
+         component={ProfileCareReceiver}
+         options={{
+           header: () => null,
+            }}
+            />       
     </Tab.Navigator>
   );
 };
