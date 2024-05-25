@@ -192,25 +192,14 @@ export default function Login() {
             <Text style={styles.buttonText}>Enviar proposta</Text>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate("CaregiverEvaluations")}
+            onPress={() => navigation.navigate("Reviews")}
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>Avaliações cuidador</Text>
+            <Text style={styles.buttonText}>Avaliações gerais</Text>
           </Pressable>            
-                     
-            <Pressable
-            onPress={() => navigation.navigate("CareReceiverReview")}
-            
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Carereceiver Review</Text>
-          </Pressable>
 
           <Pressable
             onPress={() => navigation.navigate("AgendaMob")}

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native'; // Importe o Text do react-native
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import TopNav from '../../components/TopNav/TopNav';
 import CardCaregiver from '../../components/Evaluation/CardCaregiver';
 import ReviewStars from '../../components/Evaluation/ReviewStars';
 import StarFilterOption from '../../components/Evaluation/StarFilterOption';
-// import CardEvaluation from '../../components/Evaluation/CardEvaluation';
 
-const CaregiverEvaluations = () => {
+const Reviews = ({ imageUri, title }) => {
   const navigation = useNavigation();
   const [selectedStars, setSelectedStars] = useState([]);
 
@@ -40,7 +39,6 @@ const CaregiverEvaluations = () => {
             />
           ))}
         </View>
-        {/* <CardEvaluation /> */}
       </View>
     </View>
   );
@@ -70,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CaregiverEvaluations;
+export default Reviews;
