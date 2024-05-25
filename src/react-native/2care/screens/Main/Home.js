@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,50 @@ import {
   Pressable
 } from 'react-native';
 import theme from '../../theme/theme.js';
-import CaregiverCard from '../../components/CaregiverCard/CaregiverCard.js';
 import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
+import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
+import { getCaregiverList } from '../../services/filterCaregiver.js';
 
 const ScreenHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
+
+  const [caregiverList, setCaregiverList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const fetchData = async () => {
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setLoading(false);
+  };
+  
+  useEffect(() =>  {
+    if (isLoggedIn) {
+      getCaregiverList().then((CaregiverList) => {
+        if(CaregiverList){
+          const user_pos = getUserPosition();
+          let remove_list = [];
+          CaregiverList.forEach((c) => {
+            const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
+            c["distance"] = dist
+            if (c.max_request_km < dist) {
+                remove_list.push(c._id);
+            }
+        });
+        const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
+        setCaregiverList(filteredList);
+
+        } else{
+          setCaregiverList([])
+        }       
+
+      })
+    }else{
+      getCaregiverList().then((CaregiverList) => setCaregiverList(CaregiverList ? CaregiverList : []))
+    }
+  }, []);
+
+
   return (
     <ScrollView>
       <View>
@@ -33,11 +70,7 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
           </View>
         </ScrollView>
       </View>
@@ -50,11 +83,7 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
           </View>
         </ScrollView>
       </View>
@@ -67,11 +96,7 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
-            <CaregiverCard></CaregiverCard>
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
           </View>
         </ScrollView>
       </View>
