@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import { getGeolocationApi } from './otherService';
 import { sendAuthenticatedRequest } from './authService';
 import { API_URL } from './apiService';
+import { toast } from 'react-toastify';
 
 const SERVICE_URL = "/user";
 
@@ -22,8 +23,9 @@ export const registerUser = async (userForm) => {
         }
         return result;
     } catch (error) {
-        alert('Dados inválidos, gentileza verifique o preenchimento!');
-        throw new Error(error.message);
+        toast.error('Falha ao registrar, verifique o preenchimento');
+        if(error.message.includes("email"))
+            toast.error('Este email já está em uso');
     }
 };
 
@@ -34,9 +36,10 @@ export const updateUser = async (userForm) => {
 
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/edit/`, "PATCH", userForm)
+        Cookies.set('latitude', geo['latitude'], { expires: 1, secure: true, sameSite: 'strict' });
+        Cookies.set('longitude', geo['longitude'], { expires: 1, secure: true, sameSite: 'strict' });
         return response;
     } catch (error) {
-        alert('Dados inválidos, gentileza verifique o preenchimento!');
         throw new Error(error.message);
     }
 };
@@ -59,3 +62,16 @@ export const getUserType = () => {
 };
 
 
+export const logout = () => {
+    var cookieNames = Object.keys(Cookies.get());   
+    cookieNames.forEach(function(cookieName) {
+        Cookies.remove(cookieName);
+    }); 
+    window.location.href ="/"
+}
+
+export const getUserPosition = () => {
+    const lat = Cookies.get('latitude')
+    const long = Cookies.get('longitude')
+    return lat && long ?  {"latitude": parseFloat(lat) , "longitude": parseFloat(long)} : null
+}

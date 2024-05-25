@@ -22,6 +22,8 @@ from .views import (
     RemoveSpecialization,
     WorkExperienceListCreateView,
     WorkExperienceRetrieveUpdateDestroyView,
+    CalendarUpdateAPIView,
+    CareRequestCancelView
 )
 
 urlpatterns = [
@@ -39,6 +41,7 @@ urlpatterns = [
         CaregiverCalendarView.as_view(),
         name="caregiver-calendar-view",
     ),
+    path('calendar/update/', CalendarUpdateAPIView.as_view(), name='caregiver-calendar-update'),
     # path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
     path("qualification/", QualificationListCreateView.as_view(), name="qualification-list-create"),
     path(
@@ -76,6 +79,11 @@ urlpatterns = [
         "requests/<uuid:pk>/decline/",
         CareRequestDeclineView.as_view(),
         name="care-request-decline",
+    ),
+     path(
+        "requests/<uuid:pk>/cancel/",
+        CareRequestCancelView.as_view(),
+        name="care-request-cancel",
     ),
     
     path("ratings", RatingListView.as_view(), name="rating-list"),

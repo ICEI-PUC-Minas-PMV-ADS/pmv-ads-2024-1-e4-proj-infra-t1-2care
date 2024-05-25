@@ -26,7 +26,7 @@ const RatingCard = (props) => {
                         <Grid item xs container direction="column" spacing={2} justifyContent="flex-start" alignItems="flex-start" >
                             <Grid item>
                                 <Typography variant="h5" component="div" style={{marginLeft: "5px", color:theme.palette.primary.dark}}>
-                                    <strong>{props.evaluation.care_receiver.name}</strong>
+                                    <strong>{props.evaluation.care_receiver.name} {"  >>  "} {props.evaluation.caregiver.name}</strong>
                                 </Typography>
                             </Grid>
                             <Grid item>

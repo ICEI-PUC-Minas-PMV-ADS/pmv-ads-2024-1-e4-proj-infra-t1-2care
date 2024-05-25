@@ -142,3 +142,87 @@ export const getWorkExperienceList = async () => {
 };
 
 
+export const getSelfCalendar = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/my-calendar`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao receber informações de calendario');
+        return false
+    }
+};
+
+export const editSelfCalendar = async (calendar) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/calendar/update/`, "PUT", calendar)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao receber informações de calendario');
+        return false
+    }
+};
+
+export const getCaregiverList = async () => {
+    try {
+        const response = await fetch(`${API_URL}${SERVICE_URL}/list`)
+        
+        if (!response.ok) {
+            throw new Error(JSON.stringify(response));
+        }
+
+        return await response.json();
+    } catch (error) {
+        toast.error('Falha ao receber lista de cuidadores');
+        return false
+    }
+};
+
+export const getRequestsList = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao receber lista de propostas');
+        return false
+    }
+};
+
+export const acceptRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/accept`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao aceitar proposta');
+        return false
+    }
+};
+
+export const declineRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/decline`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao recusar proposta');
+        return false
+    }
+};
+
+export const cancelRequest = async (requestId) => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/cancel`)
+        return response;
+    } catch (error) {
+        toast.error('Falha ao cancelar proposta');
+        return false
+    }
+};
+
+export const sendProposalToCaregiver = async (proposalData) => { 
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/`, "POST", proposalData);
+        return response;
+    } catch (error) {
+        toast.error('Erro ao enviar proposta para o cuidador:', error);
+        toast.error('Por favor, complete seu cadastro e tente novamente:', error);
+    } 
+};

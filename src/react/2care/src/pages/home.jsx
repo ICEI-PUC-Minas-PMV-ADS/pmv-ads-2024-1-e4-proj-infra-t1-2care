@@ -4,12 +4,17 @@ import NavBar from '../components/NavBar/NavBar';
 import TopBar from '../components/TopBar/TopBar';
 import CaregiverList from '../components/CaregiverList/CaregiverList';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import { getCaregiverList } from '../services/caregiverService';
+import { getUserPosition } from '../services/userService';
+import { calcDistanceKm } from '../utils/utils';
+import { isLoggedIn } from '../services/authService';
 import './App.css';
 
 function Home() {
   const theme = useTheme();
 
   const [loading, setLoading] = useState(false);
+  const [caregiverList, setCaregiverList] = useState([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -19,21 +24,54 @@ function Home() {
 
   useEffect(() => {
     document.title = 'Home';
+
+    if (isLoggedIn()) {
+
+      getCaregiverList().then((CaregiverList) => {
+
+        if (CaregiverList) {
+          const user_pos = getUserPosition();
+          let remove_list = [];
+
+          CaregiverList.forEach((c) => {
+
+            const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
+            c["distance"] = dist
+
+            if (c.max_request_km < dist) {
+
+              remove_list.push(c._id);
+            }
+
+          });
+
+          const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
+          setCaregiverList(filteredList);
+
+        } else {
+
+          setCaregiverList([])
+
+        }
+
+      })
+    } else {
+
+      getCaregiverList().then((CaregiverList) => setCaregiverList(caregiverList ? CaregiverList : []))
+
+    }
   }, []);
 
   return (
-    // <div style={{ backgroundColor: theme.palette.background.light  }}>
-    //   <h1> 2Care</h1>
-    // </div>
     <div className='App'>
       {loading && <LoadingSpinner />}
 
       <TopBar></TopBar>
-      <NavBar></NavBar>
+      <NavBar caregiverList={caregiverList}></NavBar>
 
       <header className='App-header'>
         <h1>Veja alguns cuidadores cadastrados: </h1>
-        <CaregiverList></CaregiverList>
+        <CaregiverList caregiverList={caregiverList}></CaregiverList>
       </header>
 
     </div>

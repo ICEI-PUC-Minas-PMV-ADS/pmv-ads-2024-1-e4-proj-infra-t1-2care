@@ -1,5 +1,6 @@
 import { sendAuthenticatedRequest } from "./authService.js";
 import { API_URL } from './apiService';
+import { toast } from 'react-toastify';
 
 const SERVICE_URL = "/core";
 
@@ -20,6 +21,7 @@ export const getGeolocationApi = async (post_code) => {
 
     return {"latitude": Number(result["results"][0]["geometry"]["location"]["lat"].toFixed(6)), "longitude": Number(result["results"][0]["geometry"]["location"]["lng"].toFixed(6))};
 } catch (error) {
+    toast.error('CEP não encontrado');
     throw new Error(error.message);
 }
 };

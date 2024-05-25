@@ -147,6 +147,7 @@ class FixedUnavailableHourModel(models.Model):
         (9, "9 horas"),
         (10, "10 horas"),
         (11, "11 horas"),
+        (12, "12 horas"),
         (13, "13 horas"),
         (14, "14 horas"),
         (15, "15 horas"),
@@ -157,14 +158,14 @@ class FixedUnavailableHourModel(models.Model):
         (20, "20 horas"),
         (21, "21 horas"),
         (22, "22 horas"),
-        (23, "23 horas"),
+        (23, "23 horas")
     )
 
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     hour = models.SmallIntegerField("Horario indisponivel", choices=HOURS)
 
     def __str__(self):
-        return self.get_hour_display()
+        return f"{self.get_hour_display()}"
 
     class Meta:
         ordering = ["hour"]
@@ -206,6 +207,7 @@ class CareRequestModel(models.Model):
         (0, "Pendente"),
         (1, "Recusado"),
         (2, "Autorizado"),
+        (3, "Cancelado"),
     ]
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField()
@@ -214,7 +216,7 @@ class CareRequestModel(models.Model):
     total_hours = models.SmallIntegerField()
     final_price = models.DecimalField(max_digits=6, decimal_places=2)
     status = models.IntegerField(choices=STATUS_CHOICES)
-    response_date = models.DateTimeField()
+    response_date = models.DateTimeField(null=True, blank=True)
 
     caregiver = models.ForeignKey("caregiver.CaregiverModel", on_delete=models.CASCADE)
     carereceiver = models.ForeignKey("careReceiver.CareReceiverModel", on_delete=models.CASCADE)
