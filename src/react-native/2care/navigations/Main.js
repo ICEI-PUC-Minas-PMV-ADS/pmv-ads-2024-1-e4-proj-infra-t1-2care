@@ -11,8 +11,7 @@ import Search from '../screens/Main/Search';
 import Profile from '../screens/Main/Profile';
 
 import SendRequest from '../screens/Unsigned/SendRequest';
-import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
-import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+import Requests from '../screens/Unsigned/Requests';
 
 const Tab = createBottomTabNavigator();
 const Stack1 = createNativeStackNavigator();
@@ -43,19 +42,12 @@ const HomeStack = () => {
 
 const RequestStack = () => {
   return (
-    <Stack2.Navigator initialRouteName="RequestsCaregiver">
+    <Stack2.Navigator initialRouteName="Requests">
       <Stack2.Screen
-        name="RequestsCaregiver"
-        component={RequestsCaregiver}
+        name="Requests"
+        component={Requests}
         options={{
           headerShown: false,
-          header: () => null,
-        }}
-      />
-      <Stack2.Screen
-        name="RequestsCareReceiver"
-        component={RequestsCareReceiver}
-        options={{
           header: () => null,
         }}
       />

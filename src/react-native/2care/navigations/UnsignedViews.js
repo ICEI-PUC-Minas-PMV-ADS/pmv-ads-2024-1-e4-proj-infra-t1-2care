@@ -6,8 +6,7 @@ import Register from '../screens/Unsigned/Register';
 import RegisterUsers from '../screens/Unsigned/RegisterUsers';
 import HomeTest from '../screens/Unsigned/HomeTest';
 import SendRequest from '../screens/Unsigned/SendRequest';
-import RequestsCaregiver from '../screens/Unsigned/RequestsCaregiver';
-import RequestsCareReceiver from '../screens/Unsigned/RequestsCareReceiver';
+import Requests from '../screens/Unsigned/Requests';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
@@ -49,15 +48,8 @@ const UnsignedViews = () => {
                 }}
             />
              <stack.Screen
-                name="RequestsCaregiver"
-                component={RequestsCaregiver}
-                options={{
-                    header: () => null,
-                }}
-            />
-                <stack.Screen
-                name="RequestsCareReceiver"
-                component={RequestsCareReceiver}
+                name="Requests"
+                component={Requests}
                 options={{
                     header: () => null,
                 }}

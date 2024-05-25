@@ -8,7 +8,7 @@ import Pending from "../../components/ProposalCard/Pending";
 import Accepted from "../../components/ProposalCard/Accepted";
 import Rejected from "../../components/ProposalCard/Rejected";
 
-export default function RequestsCareReceiver() {
+export default function Requests({ userType }) {
   const [selectedOption, setSelectedOption] = useState('Pendentes');
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const navigation = useNavigation();

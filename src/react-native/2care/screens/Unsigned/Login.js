@@ -174,22 +174,13 @@ export default function Login() {
          {/* somente para desenvolvimento até que tenhamos mais telas */}
         <View style={styles.bottomButtons}>
           <Pressable
-            onPress={() => navigation.navigate("RequestsCaregiver")}
+            onPress={() => navigation.navigate("Requests")}
             style={({ pressed }) => [
               styles.button,
               pressed && { transform: [{ scale: 1.1 }] },
             ]}
           >
-            <Text style={styles.buttonText}>Propostas Cuidador</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => navigation.navigate("RequestsCareReceiver")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Propostas Cliente</Text>
+            <Text style={styles.buttonText}>Propostas gerais</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("SendRequest")}
