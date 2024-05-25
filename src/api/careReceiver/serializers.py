@@ -24,12 +24,15 @@ class CareReceiverSerializer(serializers.ModelSerializer):
         return value"""
 
 class SpecialCareSerializer(serializers.ModelSerializer):
+    name_display = serializers.CharField(source='get_name_display', read_only=True)
+
     class Meta:
         model = SpecialCareModel
         fields = "__all__"
 
 
 class SpecialCareUserSerializer(serializers.ModelSerializer):
+    care_type_display = SpecialCareSerializer(source='care_type', read_only=True)
     class Meta:
         model = SpecialCareUserModel
         fields = "__all__"

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { getUserData } from '../../services/userService';
+import { getUserData, lo } from '../../services/userService';
+import { isLoggedIn } from '../../services/authService';
 import { getEvaluationData, getAllowedToEvaluate } from '../../services/caregiverService';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
@@ -15,29 +16,42 @@ import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCa
 
 import EvaluationModal from '../../components/Profile/EvaluationModal';
 
-function CaregiverEvaluations() {
+function CaregiverEvaluations(props) {
   const theme = useTheme();
   const [userData, setUserData] = useState({});
+  const [caregiverData, setCaregiverData] = useState({});
   const [evaluationData, setEvaluationData] = useState({});
   const [canEvaluate, setCanEvaluate] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const caregiverProps = location.state.caregiver
 
   useEffect(() => {
     document.title = 'Avaliações';
 
-    //da pra receber props e não fazer o request caso necessario, mas tem que parar de entrar em getUserData pq vai redirecionar.
-    getUserData().then((result) => {
-      result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
-      if(result["id"]){
-        getAllowedToEvaluate(result["id"]).then((result) => {
+    if(caregiverProps?.caregiverData?.evaluations){
+
+      setUserData(caregiverProps.userData)
+      setEvaluationData(caregiverProps.caregiverData.evaluations)
+
+      setCaregiverData(caregiverProps.caregiverData);
+      if(isLoggedIn()){
+        getAllowedToEvaluate(caregiverProps.caregiverData.id).then((result) => {
           setCanEvaluate(result)
         })
       }
-    })
-    getEvaluationData().then((result) => {
-      setEvaluationData(result)
-    })
+
+    }else{
+
+      getUserData().then((result) => {
+        result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+      })
+
+      getEvaluationData().then((result) => {
+        setEvaluationData(result)
+      })
+    }
 
   }, []);
 
@@ -56,7 +70,7 @@ function CaregiverEvaluations() {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-          <ProfileCardCaregiver  userData={userData}/>
+          <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
         </Grid>
         <Grid item xs={8}>
           <Card sx={{ borderRadius: 4 }} style={{ height: '80vh', overflowY: 'auto' }}>
@@ -95,7 +109,7 @@ function CaregiverEvaluations() {
           </Card>
         </Grid>
       </Grid>
-      <EvaluationModal caregiverId={userData["id"]} open={openModal} handleClose={handleCloseModal} />
+      <EvaluationModal caregiverId={caregiverProps?.caregiverData?.id} open={openModal} handleClose={handleCloseModal} />
     </div>
   );
 }

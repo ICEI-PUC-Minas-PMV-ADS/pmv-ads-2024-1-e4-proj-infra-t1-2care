@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import { Rating } from 'react-simple-star-rating'
 import { createEvaluation } from '../../services/caregiverService';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 const EvaluationModal = ({caregiverId, open, handleClose }) => {
@@ -25,12 +26,12 @@ const EvaluationModal = ({caregiverId, open, handleClose }) => {
       "description": comment,
       "caregiverId":caregiverId,
     }
-    await createEvaluation(evaluation).then(() => {
-      navigate("/home"); 
-    })
+    createEvaluation(evaluation).then((result) => 
+      result ? toast.success('Avaliação criada com sucesso!',{onClose: () => {navigate("/home");}, autoClose:1000}) : ""
+    )
+
     handleClose();
-    
-  };
+  }
 
   return (
     <Modal

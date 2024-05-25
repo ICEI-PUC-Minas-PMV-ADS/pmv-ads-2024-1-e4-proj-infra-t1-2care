@@ -14,6 +14,9 @@ from .models import (
 )
 from user.models import CustomUserModel
 from careReceiver.serializers import CareReceiverSerializer
+from careReceiver.models import SpecialCareUserModel
+from user.serializers import UserPendingRequestsSerializer, UserAcceptedRequestsSerializer
+from datetime import datetime
 
 class QualificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,11 +91,61 @@ class CaregiverSerializer(serializers.ModelSerializer):
         model = CaregiverModel
         fields = "__all__"
 
+class UserCaregiverRequestsSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    class Meta:
+        model = CaregiverModel
+        fields = ["user"]
+
+    def get_user_serializer(self, instance):
+        if self.context.get('status', None) == 2:
+            return UserAcceptedRequestsSerializer
+        else:
+            return UserPendingRequestsSerializer
+     
+    def get_user(self, instance):
+        UserSerializer = self.get_user_serializer(instance)
+        return UserSerializer(instance.user).data
+
+class UserCareReceiverRequestsSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    special_care = serializers.SerializerMethodField()
+    class Meta:
+        model = CaregiverModel
+        fields = ["user", "special_care"]
+
+    def get_user_serializer(self, instance):
+        if self.context.get('status', None) == 2:
+            return UserAcceptedRequestsSerializer
+        else:
+            return UserPendingRequestsSerializer
+     
+    def get_user(self, instance):
+        UserSerializer = self.get_user_serializer(instance)
+        return UserSerializer(instance.user).data
+
+    def get_special_care(self, instance):
+ 
+        if instance.share_special_care:
+            return [{"type": care.care_type.get_name_display(), "description": care.description } for care in SpecialCareUserModel.objects.filter(care_receiver=instance)]
+        
+        else:
+            return []
+
 class CareRequestSerializer(serializers.ModelSerializer):
-    carereceiver = CareReceiverSerializer()
+    caregiver = serializers.SerializerMethodField()
+    carereceiver = serializers.SerializerMethodField()
     class Meta:
         model = CareRequestModel
         fields = "__all__"
+    
+    def get_caregiver(self, instance):
+        caregiver_serializer = UserCaregiverRequestsSerializer(instance.caregiver, context={"status": instance.status})
+        return caregiver_serializer.data
+    
+    def get_carereceiver(self, instance):
+        caregiver_serializer = UserCareReceiverRequestsSerializer(instance.carereceiver, context={"status": instance.status})
+        return caregiver_serializer.data
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -103,6 +156,7 @@ class RatingSerializer(serializers.ModelSerializer):
 class RatingListSerializer(serializers.ModelSerializer):
 
     care_receiver = serializers.SerializerMethodField()
+    caregiver = serializers.SerializerMethodField()
     
     def get_care_receiver(self, instance):
         carereceiver = instance.care_request.carereceiver.user
@@ -110,7 +164,55 @@ class RatingListSerializer(serializers.ModelSerializer):
             return {"name": carereceiver.name, "picture": carereceiver.picture}
         else:
             return {}
+        
+    def get_caregiver(self, instance):
+        caregiver = instance.care_request.caregiver.user
+        if caregiver:
+            return {"name": caregiver.name, "picture": caregiver.picture}
+        else:
+            return {}
 
     class Meta:
         model = RatingModel
-        fields = ["id", "rating", "description", "care_receiver"]
+        fields = ["id", "rating", "description", "care_receiver", "caregiver"]
+
+    
+class CalendarSerializer(serializers.ModelSerializer):
+    fixed_unavailable_days = serializers.ListField(
+        child=serializers.IntegerField(), write_only=True
+    )
+    fixed_unavailable_hours = serializers.ListField(
+        child=serializers.IntegerField(), write_only=True
+    )
+    custom_unavailable_days = serializers.ListField(
+        child=serializers.DateField(), write_only=True
+    )
+
+    class Meta:
+        model = CaregiverModel
+        fields = ['id', 'user', 'fixed_unavailable_days', 'fixed_unavailable_hours', 'custom_unavailable_days']
+
+    def update(self, instance, validated_data):
+        fixed_unavailable_days_data = validated_data.pop('fixed_unavailable_days', [])
+        fixed_unavailable_hours_data = validated_data.pop('fixed_unavailable_hours', [])
+        custom_unavailable_days_data = validated_data.pop('custom_unavailable_days', [])
+        today = datetime.now()
+
+        instance.fixed_unavailable_days.clear()
+        day_list = [FixedUnavailableDayModel(day=d) for d in fixed_unavailable_days_data]
+        fixed_days = FixedUnavailableDayModel.objects.bulk_create(day_list, ignore_conflicts=True)
+        instance.fixed_unavailable_days.add(*fixed_days)
+
+
+        instance.fixed_unavailable_hours.clear()
+        hour_list = [FixedUnavailableHourModel(hour=h) for h in fixed_unavailable_hours_data]
+        fixed_hours = FixedUnavailableHourModel.objects.bulk_create(hour_list, ignore_conflicts=True)
+        instance.fixed_unavailable_hours.add(*fixed_hours)
+
+        instance.custom_unavailable_days.filter(day__gte=today).delete()
+        custom_day_list = [CustomUnavailableDayModel(day=d) for d in custom_unavailable_days_data]
+        custom_days = CustomUnavailableDayModel.objects.bulk_create(custom_day_list, ignore_conflicts=True)
+        instance.custom_unavailable_days.add(*custom_days)
+
+        instance.save()
+        return instance
