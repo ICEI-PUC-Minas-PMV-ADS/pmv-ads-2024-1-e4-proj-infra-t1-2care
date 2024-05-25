@@ -52,13 +52,16 @@ export const signIn = async ({ email, password }) => {
 
 export const tokenRefresh = async () => {
     try {
-        {/*const refresh = Cookies.get("refresh")*/}
+        
+        const refresh = await AsyncStorage.getItem('refresh');
         const response = await fetch(`${API_URL}${SERVICE_URL}/token/refresh/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh })
         });
+
         const result = await response.json();
+        
         if (!response.ok) {
             //logout TODO
             
