@@ -1,20 +1,24 @@
 import { Grid, Typography  } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { addQualification, getQualificationList, removeQualification } from '../../services/caregiverService';
+import { toast } from 'react-toastify';
 
 
-function QualificationList() {
+function QualificationList(props) {
   const [qualifications, setQualifications] = useState([]);
   const [currentQualification, setCurrentQualification] = useState('');
   const [currentConclusionDate, setCurrentConclusionDate] = useState('');
   const [currentFileText, setCurrentFileText] = useState('');
 
   useEffect(() => {
-    //alterar com props aqui ringu
-    getQualificationList().then((result) => {
-      const qualifications = result ? result["qualifications"] : []
-      setQualifications(qualifications)
-    })
+    if(props?.caregiverData?.qualifications){
+      setQualifications(props.caregiverData.qualifications || [])
+    }else{
+      getQualificationList().then((result) => {
+        const qualifications = result ? result["qualifications"] : []
+        setQualifications(qualifications)
+      })
+    }
   }, []);
 
   const handleAddClick = () => {
@@ -22,7 +26,7 @@ function QualificationList() {
     if(!currentFileText || urlRegex.test(currentFileText)){
       enviarQualificacao();
     }else{
-      alert("Link invalido")
+      toast.error("Por favor, utilize um URL valida")
       //retornar um erro massa
     }
   };
@@ -51,48 +55,50 @@ function QualificationList() {
     <div>
       <h1>Lista de Qualificações</h1>
       <div className="select-add-container">
-        <div className="select-container">
-          <Grid container justifyContent="center">
-            <Grid item xs={6}>
-            <label htmlFor="qualification">Qualificação</label>
-              <input
-                type="text"
-                value={currentQualification}
-                id="qualification"
-                name="qualification"
-                onChange={e => setCurrentQualification(e.target.value)}
-                placeholder="Digite uma qualificação"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <div className="field">
-                <label htmlFor="conclusion_date ">Data de conclusão:</label>
+        {props.isSelf &&
+          <div className="select-container">
+            <Grid container justifyContent="center">
+              <Grid item xs={6}>
+              <label htmlFor="qualification">Qualificação</label>
                 <input
-                  value={currentConclusionDate}
-                  onChange={e => setCurrentConclusionDate(e.target.value)}
-                  type="date"
-                  id="conclusion_date "
-                  name="conclusion_date "
-                ></input>
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className="field" style={{"marginTop": "1em"}}>
-                <label htmlFor="additional_info">Link do comprovante de conclusão:</label>
-                <textarea
-                  value={currentFileText}
-                  onChange={e => setCurrentFileText(e.target.value)}
-                  type="text" 
-                  id="additional_info"
-                  name="additional_info"
+                  type="text"
+                  value={currentQualification}
+                  id="qualification"
+                  name="qualification"
+                  onChange={e => setCurrentQualification(e.target.value)}
+                  placeholder="Digite uma qualificação"
                 />
-              </div>
+              </Grid>
+              <Grid item xs={4}>
+                <div className="field">
+                  <label htmlFor="conclusion_date ">Data de conclusão:</label>
+                  <input
+                    value={currentConclusionDate}
+                    onChange={e => setCurrentConclusionDate(e.target.value)}
+                    type="date"
+                    id="conclusion_date "
+                    name="conclusion_date "
+                  ></input>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div className="field" style={{"marginTop": "1em"}}>
+                  <label htmlFor="additional_info">Link do comprovante de conclusão:</label>
+                  <textarea
+                    value={currentFileText}
+                    onChange={e => setCurrentFileText(e.target.value)}
+                    type="text" 
+                    id="additional_info"
+                    name="additional_info"
+                  />
+                </div>
+              </Grid>
+            <button onClick={handleAddClick} className="add-button">
+              Adicionar
+            </button>
             </Grid>
-          <button onClick={handleAddClick} className="add-button">
-            Adicionar
-          </button>
-          </Grid>
-        </div>
+          </div>
+        }
       </div>
       <ul className="qualification-list">
         {qualifications.map((qual, index) => (
@@ -101,7 +107,7 @@ function QualificationList() {
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6}>
                 <Typography variant="body1" className="qualification-label">
-                  Name:
+                  Nome:
                 </Typography>
                 <Typography variant="body1" className="qualification-value">
                   {qual.name}
@@ -109,7 +115,7 @@ function QualificationList() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="body1" className="qualification-label">
-                  Conclusion Date:
+                  Data de conclusão:
                 </Typography>
                 <Typography variant="body1" className="qualification-value">
                   {qual.conclusion_date}
@@ -118,18 +124,20 @@ function QualificationList() {
               {qual.file ? 
                 <Grid item xs={12}>
                   <Typography variant="body1" className="qualification-label">
-                    File:
+                    Arquivo:
                   </Typography>
                   <Typography variant="body1" className="qualification-value">
-                    <a href={qual.file}>File link</a>
+                    <a href={qual.file}>Link do arquivo</a>
                   </Typography>
                 </Grid>
               : ""}
               
             </Grid>
-            <button onClick={() => handleDeleteClick(qual.id)} className="delete-button">
-              Excluir
-            </button>
+            {props.isSelf &&
+              <button onClick={() => handleDeleteClick(qual.id)} className="delete-button">
+                Excluir
+              </button>
+            }
           </li>
         ))}
       </ul>

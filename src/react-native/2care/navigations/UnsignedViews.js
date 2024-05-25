@@ -11,12 +11,14 @@ import AgendaMob from '../screens/Unsigned/AgendaMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
 import Reviews from '../screens/Unsigned/Reviews';
+import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
+import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
 
 const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
     return (
-        <stack.Navigator initialRouteName="Login">
+        <stack.Navigator initialRouteName="EditProfileScreenCareGiver">
             <stack.Screen
                 name="Login"
                 component={Login}
@@ -59,6 +61,20 @@ const UnsignedViews = () => {
                     header: () => null,
                 }}
             />
+                <stack.Screen
+                name="EditProfileScreenCareGiver"
+                component={EditProfileScreenCareGiver}
+                options={{
+                    header: () => null,
+                }}
+            />
+                <stack.Screen
+                name="EditProfileScreenCareReceiver"
+                component={EditProfileScreenCareReceiver}
+                options={{
+                    header: () => null,
+                }}
+            />       
 
              <stack.Screen
                 name="AgendaMob"
@@ -89,7 +105,6 @@ const UnsignedViews = () => {
                 }}
             />
         </stack.Navigator>
-    );
 };
 
 export default UnsignedViews;

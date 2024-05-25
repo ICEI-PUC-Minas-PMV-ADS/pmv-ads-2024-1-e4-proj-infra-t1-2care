@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ptBR } from '@mui/x-date-pickers/locales';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Card from '@mui/material/Card';
@@ -15,60 +15,52 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { getUserData } from '../../services/userService';
+import { getSelfCalendar } from '../../services/caregiverService';
 import NavBar from '../../components/NavBar/NavBar'
 import TopBar from '../../components/TopBar/TopBar'
 import ProfileCardCaregiver from '../../components/Profile/ProfileCard/ProfileCardCaregiver'
+import '../App.css';
 
 function CaregiverCalendar() {
   const theme = useTheme();
-  const [events, setEvents] = useState([]);
   const [userData, setUserData] = useState({});
+  const [caregiverData, setCaregiverData] = useState({});
   const [showFirstCalendar, setShowFirstCalendar] = useState(true);
   const [focusedDate, setFocusedDate] = useState(new Date());
+  const [unavailable, setUnavailable] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
+  const caregiverProps = location.state.caregiver
 
   useEffect(() => {
+    if(caregiverProps){
 
-    //da pra receber props e não fazer o request caso necessario, mas tem que parar de entrar em getUserData pq vai redirecionar.
-    getUserData().then((result) => {
-      result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
-    })
-    
+      setUserData(caregiverProps.userData)
+      setUnavailable({
+        "custom_unavailable_days": caregiverProps.caregiverData.custom_unavailable_days,
+        "fixed_unavailable_days": caregiverProps.caregiverData.fixed_unavailable_days,
+        "fixed_unavailable_hours": caregiverProps.caregiverData.fixed_unavailable_hours,
+      })
 
+      setCaregiverData(caregiverProps.caregiverData);
+
+    }else{
+
+      getUserData().then((result) => {
+        result.user_type_display === "Caregiver" ? setUserData(result) : navigate('/')
+      })
+      
+      getSelfCalendar().then((result) => {
+        setUnavailable(result ? result : {})
+      })
+
+    }
   }, []);
 
-  useEffect(() => {
-    document.title = 'Calendar';
-
-    const dummyEvents = [ 
-      {
-        title: 'Unavilable',
-        start: '2024-04-01',
-        end: '2024-04-03',
-        color: 'grey',
-      },
-      {
-        title: 'Unavilable',
-        start: '2024-04-05',
-        end: '2024-04-07',
-        color: 'grey',
-      },
-      {
-        title: 'Unavilable',
-        start: '2024-04-12T10:00:00',
-        end: '2024-04-12T12:00:00',
-        color: 'grey',
-      },
-      {
-        title: 'Unavilable',
-        start: '2024-04-13T13:00:00',
-        end: '2024-04-13T15:00:00',
-        color: 'grey',
-      },
-    ];
-
-    setEvents(dummyEvents);
-  }, []);
+  const isHourDisabled = (hour) => {
+    const disableHours = (unavailable["fixed_unavailable_hours"] || [])
+    return disableHours.some((h) => hour === h.hour);
+  };
 
   return (
     <div className='App'>
@@ -77,7 +69,7 @@ function CaregiverCalendar() {
 
       <Grid container justifyContent="center" style={{'marginTop': '5vh'}}>
         <Grid item xs={3}>
-        <ProfileCardCaregiver  userData={userData}/>
+          <ProfileCardCaregiver userData={userData} caregiverData={caregiverData}  isSelf={caregiverProps ? false : true}/>
         </Grid>
         <Grid item xs={8}>
           <Card>
@@ -101,12 +93,26 @@ function CaregiverCalendar() {
                     initialView='timeGridWeek'
                     selectable={false}
                     businessHours={{
-                      daysOfWeek: [1, 2, 3, 4, 5],
-                      startTime: '08:00',
-                      endTime: '18:00'
+                      daysOfWeek: [0, 1, 2, 3, 4, 5, 6].filter(i => {
+                        return !(unavailable["fixed_unavailable_days"] || []).some(day => day.day === i);
+                      }),
+                      startTime: null,
+                      endTime: null
+                    }} 
+                    slotLaneClassNames={(slotInfo) => {
+                      //Gambiarra detected. 
+                      const hour = slotInfo.date.getHours();
+                      return isHourDisabled(hour) ? 'disabled-hour' : '';
                     }}
                     //select={handleDateSelect}
-                    events={events}
+                    events={(unavailable["custom_unavailable_days"] || []).map(day => {
+                      return {
+                        title: 'Unavilable',
+                        start: day.day+ "T00:00:00",
+                        end: day.day + "T23:59:59", 
+                        color: 'grey',
+                      }
+                    })}
                     slotLabelFormat={{
                       hour: 'numeric',
                       minute: '2-digit',
@@ -124,16 +130,28 @@ function CaregiverCalendar() {
       </Grid>
     </div>
   );
+
   function handleDateChange(newDate) {
     setFocusedDate(new Date(newDate))
     setShowFirstCalendar(!showFirstCalendar);
   };
+
   //#function handleDateSelect(info) {
   //  console.log('Selected date:', info.startStr);
   //}
+
   function disableDates(date) {
-    return date.toDate().getDay() === 0 || date.toDate().getDay() === 6;
-  }
+    if (!unavailable) return false;
+
+    const weekDayUnavailable = unavailable["fixed_unavailable_days"] || [];
+    const customDayUnavailable = unavailable["custom_unavailable_days"] || [];
+    const dayOfWeek = date.toDate().getDay();
+    
+    const isWeekDayUnavailable = weekDayUnavailable.some(day => day.day === dayOfWeek);
+    const isCustomDayUnavailable = customDayUnavailable.some(day => day.day === date.toDate().toISOString().split('T')[0])
+    
+    return isWeekDayUnavailable || isCustomDayUnavailable;
+}
 }
 
 export default CaregiverCalendar;
