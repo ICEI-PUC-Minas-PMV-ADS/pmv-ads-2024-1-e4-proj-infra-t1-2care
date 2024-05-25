@@ -16,7 +16,7 @@ const CaregiverCard = (props) => {
                 <div className='description'>
                     <h2><strong>{props.caregiver.name} </strong></h2>
                     <p><strong>Distância:</strong> {props.caregiver.distance >= 0 ? `${props.caregiver.distance} km de distância` : 'cadastre-se para descobrir!'}</p>
-                    <p><strong>Experiência:</strong> {props.caregiver.work_exp_years} Anos de experiência</p>
+                    <p><strong>Experiência:</strong> {props.caregiver.career_time} Anos de experiência</p>
                     <p><strong>Custo da diária:</strong> R$ {props.caregiver.day_price ? props.caregiver.day_price : "---"} </p>
                     <p><strong>Custo da hora:</strong> R$ {props.caregiver.hour_price} </p>
                     <p><strong>Avaliações:</strong></p>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../services/authService";
 import { getUserPicture, getUserType } from "../../services/userService";
 import "./TopBar.css";
@@ -13,10 +13,13 @@ const TopBar = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [userPicture, setUserPicture] = useState("");
   const [userType, setUserType] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
-    const searchText = event.target.value;
-    setSearchText(searchText);
+    if (event.key === 'Enter') {
+      const searchText = event.target.value.trim();
+      navigate(`/home/?search=${searchText}`);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +51,7 @@ const TopBar = () => {
         </a>
       </div>
       <div className="search">
-        <input type="text" className="searchInput" placeholder="Buscar" value={searchText} onChange={handleSearchChange}></input>
+        <input type="text" className="searchInput" placeholder="Buscar" value={searchText} onChange={(e) => setSearchText(e.target.value)} onKeyDown={handleSearchChange}/>
       
          {/* Aqui você pode adicionar lógica para enviar a consulta de pesquisa */}
         

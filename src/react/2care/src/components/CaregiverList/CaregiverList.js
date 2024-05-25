@@ -11,6 +11,8 @@ const CaregiverList = (props) => {
     const allParams = Object.fromEntries(searchParams.entries());
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchText = urlParams.get("search");
         const distanceFilter = (allParams.distance || null)
         const specializationFilter = (allParams.specialization || null)
         const qualificationFilter = (allParams.qualification || null)
@@ -32,7 +34,10 @@ const CaregiverList = (props) => {
             if(experienceFilter && e.work_exp_years < experienceFilter){
                 return false;
             }
-            if(priceFilter && priceFilter !=0 && e.hour_price < priceFilter){
+            if(priceFilter && priceFilter !=0 && e.hour_price > priceFilter){
+                return false;
+            }
+            if(searchText && !e.name.toLowerCase().includes(searchText.toLowerCase())){
                 return false;
             }
             if(e?.evaluations?.length > 0 ){
@@ -53,7 +58,7 @@ const CaregiverList = (props) => {
 
     return (
         <div style={{marginRight:"3em"}}>
-            <Grid container justifyContent="" spacing={5    }>
+            <Grid container justifyContent="" spacing={5}>
                 {caregiverFilteredList.map(caregiver => (
                     <Grid item xs={12} md={4}  key={caregiver._id}>
                         <CaregiverCard

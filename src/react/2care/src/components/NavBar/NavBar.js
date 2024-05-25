@@ -69,7 +69,7 @@ const NavBar = (props) => {
     }
 
     React.useEffect(() => {
-        if (location.pathname === "/home") {
+        if (location.pathname.includes("/home")) {
             let specializations = props.caregiverList.flatMap(obj => obj.specializations);
             let qualifications = props.caregiverList.flatMap(obj => obj.qualifications);
             if (specializations.length > 0) {
@@ -83,7 +83,7 @@ const NavBar = (props) => {
 
     return (
         <div className='navBar'>
-            {location.pathname !== "/home" ? (
+            {!location.pathname.includes("/home") ? (
                 <span>
                     <a className='navBarLink' href="/home">Navegue pelo 2Care</a>
                 </span>

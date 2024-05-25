@@ -24,28 +24,41 @@ function Home() {
 
   useEffect(() => {
     document.title = 'Home';
+
     if (isLoggedIn()) {
+
       getCaregiverList().then((CaregiverList) => {
-        if(CaregiverList){
+
+        if (CaregiverList) {
           const user_pos = getUserPosition();
           let remove_list = [];
+
           CaregiverList.forEach((c) => {
+
             const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
             c["distance"] = dist
-            if (c.max_request_km < dist) {
-                remove_list.push(c._id);
-            }
-        });
-        const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
-        setCaregiverList(filteredList);
 
-        } else{
+            if (c.max_request_km < dist) {
+
+              remove_list.push(c._id);
+            }
+
+          });
+
+          const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
+          setCaregiverList(filteredList);
+
+        } else {
+
           setCaregiverList([])
-        }       
+
+        }
 
       })
-    }else{
+    } else {
+
       getCaregiverList().then((CaregiverList) => setCaregiverList(caregiverList ? CaregiverList : []))
+
     }
   }, []);
 
