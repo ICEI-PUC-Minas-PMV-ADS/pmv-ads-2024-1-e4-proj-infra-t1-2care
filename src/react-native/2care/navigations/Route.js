@@ -1,24 +1,20 @@
 import React from 'react';
 import MainNav from './Main';
 import UnsignedViews from './UnsignedViews';
-import { isLogged } from '../services/authServiceMob';
-
-//import { useUser } from '../contexts/UserContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Main = () => {
+  const { user } = useAuth();
 
-    //const { signed } = useUser();       quando o context de user for implementado, isso volta.
-    const signed = false
-    return (
-        <>
-            {
-                signed
-                    ? <MainNav />
-                    : <UnsignedViews />
-            }
-        </>
-    )
-
-}
+  return (
+    <>
+      {
+        user
+          ? <MainNav />
+          : <UnsignedViews />
+      }
+    </>
+  );
+};
 
 export default Main;
