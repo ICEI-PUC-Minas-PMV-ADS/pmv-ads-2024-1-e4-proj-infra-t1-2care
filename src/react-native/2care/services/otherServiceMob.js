@@ -1,3 +1,4 @@
+//import { sendAuthenticatedRequest } from "./authServiceMob.js";
 import { API_URL } from './apiServiceMob.js';
 import { sendAuthenticatedRequest } from './commonServiceMob'; // Importar apenas de commonServiceMob
 

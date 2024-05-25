@@ -400,10 +400,11 @@ const styles = StyleSheet.create({
     paddingLeft: 2,
     paddingRight: 8,
     paddingTop: 2,
-    paddingBottom: 8,
+    paddingBottom: 2,
+    paddingHorizontal: 3,
     top: -10,
-    left: 10,
-    opacity: 0.7,
+    left: 12,
+    zIndex: 1,
     height: "auto",
     textAlign: "center",
     width: "auto",
@@ -411,13 +412,8 @@ const styles = StyleSheet.create({
   },
   labelText: {
     color: "#486142",
-    fontSize: 13,
-    lineHeight: 2,
-    fontWeight: 'medium',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 6,
-    paddingBottom: 3,
+    fontSize: 12,
+    marginLeft: 5,
   },
   input: {
     width: "100%",
@@ -425,7 +421,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 5,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     fontSize: 17,
   },
   inputContainer: {
@@ -462,9 +458,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center"
   },
-
-
-
-
-  
 });

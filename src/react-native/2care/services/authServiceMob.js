@@ -1,4 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import Cookies from 'js-cookie';
+//import { getGeolocationApi } from './otherServiceMob';
 import { API_URL } from './apiServiceMob';
 import { sendAuthenticatedRequest } from './commonServiceMob';  //commonServiceMob
 
