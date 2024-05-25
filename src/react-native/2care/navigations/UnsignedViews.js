@@ -18,7 +18,7 @@ const stack = createNativeStackNavigator();
 
 const UnsignedViews = () => {
     return (
-        <stack.Navigator initialRouteName="EditProfileScreenCareGiver">
+        <stack.Navigator initialRouteName="Login">
             <stack.Screen
                 name="Login"
                 component={Login}
@@ -105,6 +105,7 @@ const UnsignedViews = () => {
                 }}
             />
         </stack.Navigator>
+    )
 };
 
 export default UnsignedViews;
