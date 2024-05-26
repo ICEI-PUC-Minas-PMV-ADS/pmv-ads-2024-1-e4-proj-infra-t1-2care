@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from "react";
+
 import {
   View,
   Text,
@@ -12,6 +13,8 @@ import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
 import { getCaregiverList } from '../../services/filterCaregiver.js';
+import { getCaregiverList } from '../../services/caregiverServiceMob.js';
+
 
 const ScreenHeight = Dimensions.get('window').height;
 
@@ -51,7 +54,6 @@ export default function Home({ navigation }) {
     }
   }, []);
 
-
   return (
     <ScrollView>
       <View>
@@ -71,6 +73,7 @@ export default function Home({ navigation }) {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
             <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_next_to_you`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>
@@ -84,6 +87,7 @@ export default function Home({ navigation }) {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
             <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_rating`} caregiver={caregiver}></CaregiverCard>)} 
           </View>
         </ScrollView>
       </View>
@@ -97,6 +101,7 @@ export default function Home({ navigation }) {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
             <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_exp`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>
