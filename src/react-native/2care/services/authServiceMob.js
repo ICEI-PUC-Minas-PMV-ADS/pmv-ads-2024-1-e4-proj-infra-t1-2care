@@ -2,7 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //import Cookies from 'js-cookie';
 //import { getGeolocationApi } from './otherServiceMob';
 import { API_URL } from './apiServiceMob';
-import { sendAuthenticatedRequest } from './commonServiceMob';  //commonServiceMob
+//import { sendAuthenticatedRequest } from './commonServiceMob';  //commonServiceMob
+import { useNavigation } from '@react-navigation/native';
 
 const SERVICE_URL = "/user";
 
@@ -42,6 +43,8 @@ export const tokenRefresh = async () => {
     try {
         
         const refresh = await AsyncStorage.getItem('refresh');
+
+
         const response = await fetch(`${API_URL}${SERVICE_URL}/token/refresh/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -75,8 +78,18 @@ export const logout = async (navigateToLogin) => {
     try {
       await AsyncStorage.removeItem('access');
       await AsyncStorage.removeItem('refresh');
+
+      const accessItem = await AsyncStorage.getItem('access');
+      const refreshItem = await AsyncStorage.getItem('refresh');
+
+      if (!accessItem && !refreshItem) {
+        console.log('Logout realizado com sucesso!!');
+      } else {
+        console.log('Erro: Os itens de armazenamento local não foram removidos corretamente após o logout.');
+      }
+      
       navigateToLogin();
     } catch (error) {
       console.error('Erro ao fazer logout:', error.message);
     }
-};
+  };

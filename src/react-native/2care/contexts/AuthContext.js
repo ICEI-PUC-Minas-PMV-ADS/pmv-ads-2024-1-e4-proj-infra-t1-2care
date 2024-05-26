@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
         };
         setUser(user);
         console.log(user)
+      } else {
+        setUser(null);
       }
     };
 
@@ -43,10 +45,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
+{/*}  const logout = async () => {
     await authLogout(() => {});
     setUser(null);
+  };*/}
+
+  const logout = async () => {
+    const navigateToLogin = () => {
+      console.log("Usuário deslogado HomeTest");
+      navigation.navigate("Login");
+    };
+    await authLogout(navigateToLogin);
+    setUser(null);
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, signIn, logout }}>

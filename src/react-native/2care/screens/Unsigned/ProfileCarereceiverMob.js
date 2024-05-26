@@ -15,20 +15,16 @@ import { logout } from "../../services/authServiceMob.js";
 export default function ProfileCarereceiverMob({ userData }) {
   const navigation = useNavigation();
 
-  const handleAgendaPress = () => {
-    navigation.navigate("AgendaMob");
+  const handleSendRequest = () => {
+    navigation.navigate("SendRequest");
   };
 
-  //const handleAvaliationMov = () => {}
-  const handleHomeTestPress = () => {
-    //navigation.navigate('AvaliationMob')
-    navigation.navigate("HomeTest");
+  const handleReviews = () => {
+    navigation.navigate("Reviews");
   };
 
-  //const handleProfileEditMov = () => {}
-  const handleHomeTestPressPress = () => {
-    //navigation.navigate('ProfileEditMob')
-    navigation.navigate("HomeTest");
+  const handleEditProfileScreenCareReceiver = () => {
+    navigation.navigate("EditProfileScreenCareReceiver");
   };
 
   const handleLogout = async () => {
@@ -62,11 +58,10 @@ export default function ProfileCarereceiverMob({ userData }) {
           </View>
 
           <View style={styles.buttonsProfile}>
-            {/*<Pressable onPress={handleAvaliationMov} style={styles.button}> */}
-            <Pressable onPress={handleHomeTestPress} style={styles.button}>
+            <Pressable onPress={handleSendRequest} style={styles.button}>
               <Text style={styles.buttonText}>Propostas enviadas</Text>
             </Pressable>
-            <Pressable onPress={handleAgendaPress} style={styles.button}>
+            <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações feitas</Text>
             </Pressable>
           </View>
@@ -146,7 +141,7 @@ export default function ProfileCarereceiverMob({ userData }) {
 
           <View style={styles.buttonsProfile}>
             <Pressable
-              onPress={handleHomeTestPressPress}
+              onPress={handleEditProfileScreenCareReceiver}
               style={[styles.button, styles.editButton]}
             >
               <Text style={styles.buttonText}>Editar</Text>

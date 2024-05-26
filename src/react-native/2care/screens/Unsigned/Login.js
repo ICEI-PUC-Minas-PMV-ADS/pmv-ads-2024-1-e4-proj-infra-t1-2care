@@ -13,6 +13,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 //import "../AppMobile.css";
 import { signIn } from "../../services/authServiceMob";
+//import { signIn } from "../../contexts/AuthContext";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -74,14 +75,28 @@ export default function Login() {
       return;
     }
 
-    try {
+     {/*try {
       await signIn(formData);
       console.log("Usuário logado com sucesso");
       navigation.navigate("HomeTest");
       //setIsLogged(true);
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
+    }*/}
+
+   try {
+      const success = await signIn(formData);
+      if (success) {
+        console.log("Usuário logado com sucesso");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "HomeTest" }],
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error.message);
     }
+
   };
 
   return (

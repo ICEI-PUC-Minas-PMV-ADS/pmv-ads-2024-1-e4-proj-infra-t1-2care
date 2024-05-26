@@ -19,16 +19,12 @@ export default function ProfileCaregiverMob({ userData }) {
     navigation.navigate("AgendaMob");
   };
 
-  //const handleAvaliationMov = () => {}
-  const handleHomeTestPress = () => {
-    //navigation.navigate('AvaliationMob')
-    navigation.navigate("HomeTest");
+  const handleReviews = () => {
+    navigation.navigate('Reviews')
   };
 
-  //const handleProfileEditMov = () => {}
-  const handleHomeTestPressPress = () => {
-    //navigation.navigate('ProfileEditMob')
-    navigation.navigate("HomeTest");
+  const handleEditProfileScreenCareGiver = () => {
+    navigation.navigate('EditProfileScreenCareGiver')
   };
 
   const handleLogout = async () => {
@@ -62,7 +58,7 @@ export default function ProfileCaregiverMob({ userData }) {
 
           <View style={styles.buttonsProfile}>
             {/*<Pressable onPress={handleAvaliationMov} style={styles.button}> */}
-            <Pressable onPress={handleHomeTestPress} style={styles.button}>
+            <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações</Text>
             </Pressable>
             <Pressable onPress={handleAgendaPress} style={styles.button}>
@@ -203,7 +199,7 @@ export default function ProfileCaregiverMob({ userData }) {
 
           <View style={styles.buttonsProfile}>
             <Pressable
-              onPress={handleHomeTestPressPress}
+              onPress={handleEditProfileScreenCareGiver}
               style={[styles.button, styles.editButton]}
             >
               <Text style={styles.buttonText}>Editar</Text>

@@ -1,13 +1,19 @@
 //import { sendAuthenticatedRequest } from "./authServiceMob.js";
 import { API_URL } from './apiServiceMob.js';
-import { sendAuthenticatedRequest } from './commonServiceMob'; // Importar apenas de commonServiceMob
+//import { sendAuthenticatedRequest } from './commonServiceMob'; // Importar apenas de commonServiceMob
 
 const SERVICE_URL = "/core";
 
 export const getGeolocationApi = async (post_code) => {
     try {
-        const url = `${API_URL}${SERVICE_URL}/get/location/${post_code}`;
-        const response = await sendAuthenticatedRequest(url);
+        //const url = `${API_URL}${SERVICE_URL}/get/location/${post_code}`;
+        //const response = await sendAuthenticatedRequest(url);
+
+        const response = await fetch(`${API_URL}${SERVICE_URL}/get/location/${post_code}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
 
         if (!response.ok) {
             const result = await response.json();
