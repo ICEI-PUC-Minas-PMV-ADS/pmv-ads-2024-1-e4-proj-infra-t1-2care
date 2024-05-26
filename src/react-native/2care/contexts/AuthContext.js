@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
           picture: await AsyncStorage.getItem('picture'),  
         };
         setUser(user);
-        console.log(user)
       }
     };
 
@@ -39,7 +38,6 @@ export const AuthProvider = ({ children }) => {
         picture: await AsyncStorage.getItem('picture'),
       };
       setUser(user);
-      console.log(user)
     }
   };
 
