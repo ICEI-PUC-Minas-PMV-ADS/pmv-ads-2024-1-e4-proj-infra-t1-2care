@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, TextInput, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Specializations from './specializations';
+import StarFilterOption from './Evaluation/StarFilterOption';
 
 
 const ScreenWidth = Dimensions.get('window').width;
@@ -130,15 +131,15 @@ const FilterContainer = (props) => {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Avaliação</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="5"
-          value={values.rating}
-          onChangeText={(value) => handleInputChange('rating', value)}
-        />
+        {[1, 2, 3, 4, 5].map((number) => (
+            <StarFilterOption
+              key={number}
+              number={number}
+              selected={values.rating == number}
+              onPress={() => handleInputChange('rating', number)}
+            />
+          ))}
       </View>
-      
       <Text style={styles.header}>Especializações</Text>
       {/* <View style={styles.checkboxGrid}> */}
       <View style={styles.checkboxContainer}>
