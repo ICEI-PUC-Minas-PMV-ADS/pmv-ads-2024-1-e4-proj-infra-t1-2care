@@ -11,6 +11,8 @@ import SendRequest from '../screens/Main/SendRequest';
 import Requests from '../screens/Main/Requests';
 import { useAuth } from '../contexts/AuthContext';
 import UnsignedViews from './UnsignedViews';
+import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
+import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
 
 
 const Tab = createBottomTabNavigator();
@@ -115,16 +117,16 @@ const MainNav = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="ProfileCareGiver"
-        component={ProfileCareGiver}
+      <Tab.Screen
+        name="ProfileCaregiverMob"
+        component={ProfileCaregiverMob}
         options={{
            header: () => null,
             }}
             />
       <Tab.Screen
-         name="ProfileCareReceiver"
-         component={ProfileCareReceiver}
+         name="ProfileCarereceiverMob"
+         component={ProfileCarereceiverMob}
          options={{
            header: () => null,
             }}
