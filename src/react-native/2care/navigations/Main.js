@@ -130,7 +130,7 @@ const MainNav = () => {
          options={{
            header: () => null,
             }}
-            />        */}
+            />
     </Tab.Navigator>
   );
 };
