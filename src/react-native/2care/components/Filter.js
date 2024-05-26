@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Specializations from './specializations';
@@ -6,7 +6,23 @@ import Specializations from './specializations';
 
 const ScreenWidth = Dimensions.get('window').width;
 
-const FilterContainer = () => {
+const FilterContainer = (props) => {
+  const [filter, setFilter] = useState(props.filter || null);
+
+  useEffect(() => {
+    setFilter(props.filter || null);
+    if (props.filter) {
+      setCheckboxes(clearCheckbox);
+      handleCheckTrue(props.filter);
+    }
+  }, [props.filter]);
+
+  const clearCheckbox = {
+    check1: false, check2: false, check3: false, 
+    check4: false, check5: false, check6: false, 
+    check7: false, check8: false, check9: false 
+  };
+
   const [values, setValues] = useState({
     distance: '',
     experience: '',
@@ -14,11 +30,7 @@ const FilterContainer = () => {
     day_price: '',
     hour_price: '',
   });
-  const [checkboxes, setCheckboxes] = useState({
-    check1: false, check2: false, check3: false, 
-    check4: false, check5: false, check6: false, 
-    check7: false, check8: false, check9: false 
-  });
+  const [checkboxes, setCheckboxes] = useState(clearCheckbox);
 
   const specializations = [
     { id: 1, text: 'Cuidados básicos de saúde' },
@@ -35,8 +47,41 @@ const FilterContainer = () => {
     setValues({ ...values, [name]: value });
   };
 
+  
+
+  // const handleCheckboxTrue = (name, value) => {
+  //   setCheckboxes((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const handleCheckTrue = (id) => {
+    let check = 'check' + id;
+    setCheckboxes((prevState) => ({
+      ...prevState,
+      [check]: true,
+    }));
+    // handleCheckboxChange(check, true);
+  };
+
   const handleCheckboxChange = (name) => {
-    setCheckboxes({ ...checkboxes, [name]: !checkboxes[name] });
+    setCheckboxes((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name]
+    }));
+  };
+
+  const renderCheckboxes = () => {
+    return specializations.map((specialization) => (
+      <CheckBox
+        key={specialization.id}
+        checked={checkboxes[`check${specialization.id}`]}
+        onPress={() => handleCheckboxChange(`check${specialization.id}`)}
+        title={specialization.text}
+        containerStyle={styles.checkbox}
+      />
+    ));
   };
 
   return (
@@ -94,17 +139,14 @@ const FilterContainer = () => {
       </View>
 
       <Text style={styles.header}>Especializações</Text>
-      <View style={styles.checkboxGrid}>
-      {specializations.map((specialization) => (
-          <View key={specialization.id} style={styles.checkboxContainer}>
-            <CheckBox
-              checked={values[`check${specialization.id}`]}
-              onPress={() => handleInputAndCheckboxChange(`check${specialization.id}`)}
-              title={specialization.text}
-              containerStyle={styles.checkbox}
-            />
-          </View>
-        ))}
+      {/* <View style={styles.checkboxGrid}> */}
+      <View style={styles.checkboxContainer}>
+        <View style={styles.column}>
+            {renderCheckboxes().slice(0, 4)}
+        </View>
+        <View style={styles.column}>
+            {renderCheckboxes().slice(4)}
+        </View>
       </View>
     </ScrollView>
   );
@@ -141,7 +183,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  checkboxContainer: {
+  checkboxContainer2: {
     width: '48%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -150,6 +192,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderWidth: 0,
   },
+  checkboxContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    marginTop: 20,
+},
+  column: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    margin: 5,
+},
 });
 
 export default FilterContainer;

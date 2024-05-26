@@ -9,10 +9,10 @@ const CaregiverCard = (propsprops) => {
                 <Image source={{ uri: props?.caregiver?.picture ? props.caregiver.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
             </View>
             <View style={styles.info}>
-                <Text style={styles.infoText}>{props.name}</Text>
-                <Text style={styles.infoText}>{props.distance ? props.distance : 'cadastre-se para descobrir!'}</Text>
-                {/* <Text style={styles.infoText}>{props.especialization}</Text> */}
-                <Text style={styles.infoText}>R$ {props.hour_value},00</Text>
+                <Text style={styles.infoText}>{props?.name}</Text>
+                <Text style={styles.infoText}>2 km de distância</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
+                <Text style={styles.infoText}>{props?.career_time} anos de experiência</Text>
+                <Text style={styles.infoText}>R$ {props?.hour_price}</Text>
             </View>
         </View>
     );

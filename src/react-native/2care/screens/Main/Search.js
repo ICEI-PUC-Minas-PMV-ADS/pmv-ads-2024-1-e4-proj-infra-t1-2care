@@ -11,11 +11,13 @@ import CaregiverCard from '../../components/CaregiverCard/CaregiverCard.js';
 
 const ScreenHeight = Dimensions.get('window').height;
 
-export default function Search({ navigation }) {
+export default function Search({route}) {
+  const filter = route.params?.filter ?? null;
+
   return (
     <View> 
       <View style={styles.filter}>
-        <FilterContainer></FilterContainer>
+        <FilterContainer filter={filter}></FilterContainer>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>

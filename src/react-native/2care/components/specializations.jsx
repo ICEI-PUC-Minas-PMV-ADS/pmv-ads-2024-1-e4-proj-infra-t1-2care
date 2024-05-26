@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet, Pressable } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 const Specializations = () => {
+    const navigation = useNavigation();
     const buttons = [
         { id: 1, imageSource: require('../assets/Specializations/specialization-1.png'), text: 'Cuidados básicos de saúde' },
         { id: 2, imageSource: require('../assets/Specializations/specialization-2.png'), text: 'Apoio à mobilidade' },
@@ -13,9 +15,14 @@ const Specializations = () => {
         { id: 8, imageSource: require('../assets/Specializations/specialization-8.png'), text: 'Demência e Alzheimer' },
     ];
 
+    const handleSelectSpecialization = (index) => {
+        navigation.navigate('Search', {filter: index})
+      };
+    
+
     const renderButtons = () => {
         return buttons.map((button, index) => (
-            <Pressable key={button.id} style={styles.buttonContainer}>
+            <Pressable key={button.id} style={styles.buttonContainer}  onPress={() => handleSelectSpecialization(index + 1)}>
                 <Image source={button.imageSource} style={styles.buttonImage} />
                 <Text style={styles.buttonText}>{button.text}</Text>
             </Pressable>
