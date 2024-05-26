@@ -4,8 +4,8 @@ import UnsignedViews from './UnsignedViews';
 import { useAuth } from '../contexts/AuthContext';
 
 const Main = () => {
-  // const { user } = useAuth();
-  const user = true;
+  const { user } = useAuth();
+  // const user = false;
 
   return (
     <>

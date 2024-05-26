@@ -12,10 +12,13 @@ import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
 import { getCaregiverList } from '../../services/filterCaregiver.js';
+import { useNavigation } from "@react-navigation/native";
 
 const ScreenHeight = Dimensions.get('window').height;
 
-export default function Home({ navigation }) {
+export default function Home() {
+
+  const navigation = useNavigation();
 
   const [caregiverList, setCaregiverList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +74,7 @@ export default function Home({ navigation }) {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
             <CaregiverList caregiverList={caregiverList}></CaregiverList>
+          {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_next_to_you`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>
