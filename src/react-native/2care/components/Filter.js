@@ -8,76 +8,77 @@ const ScreenWidth = Dimensions.get('window').width;
 
 const FilterContainer = (props) => {
   const [filter, setFilter] = useState(props.filter || null);
-
-  useEffect(() => {
-    setFilter(props.filter || null);
-    if (props.filter) {
-      setCheckboxes(clearCheckbox);
-      handleCheckTrue(props.filter);
-    }
-  }, [props.filter]);
-
-  const clearCheckbox = {
-    check1: false, check2: false, check3: false, 
-    check4: false, check5: false, check6: false, 
-    check7: false, check8: false, check9: false 
-  };
-
   const [values, setValues] = useState({
     distance: '',
     experience: '',
     rating: '',
     day_price: '',
     hour_price: '',
+    specializations: [],
   });
-  const [checkboxes, setCheckboxes] = useState(clearCheckbox);
 
+  const clearCheckbox = {
+    1: false, 2: false, 3: false,
+    4: false, 5: false, 6: false,
+    7: false, 8: false, 9: false
+  };
+  const [checkboxes, setCheckboxes] = useState(clearCheckbox);
+ 
   const specializations = [
-    { id: 1, text: 'Cuidados básicos de saúde' },
-    { id: 2, text: 'Apoio à mobilidade' },
-    { id: 3, text: 'Higiene e cuidados especiais' },
-    { id: 4, text: 'Nutrição e preparo de refeições' },
-    { id: 5, text: 'Acompanhamento e transporte' },
-    { id: 6, text: 'Gestão e rotina de medicamentos' },
-    { id: 7, text: 'Suporte em cuidados paliativos' },
-    { id: 8, text: 'Demência e Alzheimer' },
-];
+    { id: 1, text: 'Cuidados Básicos de Saúde' },
+    { id: 2, text: 'Apoio à Mobilidade' },
+    { id: 3, text: 'Higiene e Cuidados Pessoais' },
+    { id: 4, text: 'Nutrição e Preparo de Refeições' },
+    { id: 5, text: 'Acompanhamento e Transporte' },
+    { id: 6, text: 'Gestão de Rotinas e Medicamentos' },
+    { id: 7, text: 'Suporte em Cuidados Paliativos' },
+    { id: 8, text: 'Formação em Demência e Alzheimer' },
+  ];
+
+  useEffect(() => {
+    setFilter(props.filter || null);
+    if (props.filter) {
+      handleCheckTrue(props.filter);
+    }
+  }, [props.filter]);
 
   const handleInputChange = (name, value) => {
-    setValues({ ...values, [name]: value });
+    const updatedValues = { ...values, [name]: value }
+    setValues(updatedValues);
+    applyFilter(updatedValues, checkboxes);
   };
-
   
-
-  // const handleCheckboxTrue = (name, value) => {
-  //   setCheckboxes((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleCheckboxChange = (name) => {
+    const updatedCheckboxes = {
+      ...checkboxes,
+      [name]: !checkboxes[name],
+    };
+    setCheckboxes(updatedCheckboxes);
+    applyFilter(values, updatedCheckboxes);
+  };
 
   const handleCheckTrue = (id) => {
-    let check = 'check' + id;
-    setCheckboxes((prevState) => ({
-      ...prevState,
-      [check]: true,
-    }));
-    // handleCheckboxChange(check, true);
+    const updatedCheckboxes = {
+      ...clearCheckbox,
+      [id]: true,
+    };
+    setCheckboxes(updatedCheckboxes);
+    applyFilter(values, updatedCheckboxes);
   };
 
-  const handleCheckboxChange = (name) => {
-    setCheckboxes((prevState) => ({
-      ...prevState,
-      [name]: !prevState[name]
-    }));
-  };
+  const applyFilter = (values, checkboxes) => {
+    const textList = specializations.filter(specialization => checkboxes[specialization.id]).map(specialization => specialization.text);
+    const selectedSpecializations = { specializations: textList };
+    const appliedFilters = { ...values, ...selectedSpecializations }
+    props.onAppliedFilters(appliedFilters);
+  }
 
   const renderCheckboxes = () => {
     return specializations.map((specialization) => (
       <CheckBox
         key={specialization.id}
-        checked={checkboxes[`check${specialization.id}`]}
-        onPress={() => handleCheckboxChange(`check${specialization.id}`)}
+        checked={checkboxes[specialization.id]}
+        onPress={() => handleCheckboxChange(specialization.id)}
         title={specialization.text}
         containerStyle={styles.checkbox}
       />
@@ -108,17 +109,7 @@ const FilterContainer = (props) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Avaliação</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="5"
-          value={values.rating}
-          onChangeText={(value) => handleInputChange('rating', value)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Valor por dia</Text>
+        <Text style={styles.label}>Valor máximo por dia</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -128,7 +119,7 @@ const FilterContainer = (props) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Valor por hora</Text>
+        <Text style={styles.label}>Valor máximo por hora</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -137,15 +128,25 @@ const FilterContainer = (props) => {
           onChangeText={(value) => handleInputChange('hour_price', value)}
         />
       </View>
-
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Avaliação</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="5"
+          value={values.rating}
+          onChangeText={(value) => handleInputChange('rating', value)}
+        />
+      </View>
+      
       <Text style={styles.header}>Especializações</Text>
       {/* <View style={styles.checkboxGrid}> */}
       <View style={styles.checkboxContainer}>
         <View style={styles.column}>
-            {renderCheckboxes().slice(0, 4)}
+          {renderCheckboxes().slice(0, 4)}
         </View>
         <View style={styles.column}>
-            {renderCheckboxes().slice(4)}
+          {renderCheckboxes().slice(4)}
         </View>
       </View>
     </ScrollView>
@@ -199,14 +200,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     marginTop: 20,
-},
+  },
   column: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '50%',
     margin: 5,
-},
+  },
 });
 
 export default FilterContainer;

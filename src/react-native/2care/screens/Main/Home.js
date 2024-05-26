@@ -14,6 +14,7 @@ import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
 import { getCaregiverList } from '../../services/filterCaregiver.js';
 import { useNavigation } from "@react-navigation/native";
 
+
 const ScreenHeight = Dimensions.get('window').height;
 
 export default function Home() {
@@ -88,6 +89,7 @@ export default function Home() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
             <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_rating`} caregiver={caregiver}></CaregiverCard>)} 
           </View>
         </ScrollView>
       </View>
