@@ -3,9 +3,9 @@ import MainNav from './Main';
 import UnsignedViews from './UnsignedViews';
 import { useAuth } from '../contexts/AuthContext';
 
-const Main = () => {
+const Route = () => {
   const { user } = useAuth();
-
+  console.log(user)
   return (
     <>
       {
@@ -17,4 +17,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Route;

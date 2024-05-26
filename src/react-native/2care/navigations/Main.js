@@ -6,12 +6,16 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Home from '../screens/Main/Home';
 import Search from '../screens/Main/Search';
-import Profile from '../screens/Main/Profile';
 import SendRequest from '../screens/Unsigned/SendRequest';
 import Requests from '../screens/Unsigned/Requests';
 import { useAuth } from '../contexts/AuthContext';
 import UnsignedViews from './UnsignedViews';
-
+import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
+import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
+import Reviews from '../screens/Unsigned/Reviews';
+import AgendaMob from '../screens/Unsigned/AgendaMob';
+import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
+import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
 
 const Tab = createBottomTabNavigator();
 const Stack1 = createNativeStackNavigator();
@@ -56,23 +60,77 @@ const RequestStack = () => {
 };
 
 const ProfileStack = () => {
+  const { user } = useAuth();
   return (
     <Stack3.Navigator initialRouteName="Profile">
+      {user?.user_type === 'CareReceiver' ? (
+        <Stack3.Screen
+          name="Profile"
+          component={ProfileCarereceiverMob}
+          options={{
+            headerShown: false,
+            header: () => null,
+          }}
+        />
+      ) : (
+        <Stack3.Screen
+          name="Profile"
+          component={ProfileCaregiverMob}
+          options={{
+            headerShown: false,
+            header: () => null,
+          }}
+        />
+      )}
+    
       <Stack3.Screen
-        name="Profile"
-        component={Profile}
+        name="Reviews"
+        component={Reviews}
         options={{
           headerShown: false,
           header: () => null,
         }}
       />
+      <Stack3.Screen
+        name="AgendaMob"
+        component={AgendaMob}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack3.Screen
+        name="EditProfileScreenCareGiver"
+        component={EditProfileScreenCareGiver}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack3.Screen
+        name="SendRequest"
+        component={SendRequest}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack3.Screen
+        name="EditProfileScreenCareReceiver"
+        component={EditProfileScreenCareReceiver}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+
     </Stack3.Navigator>
   );
 };
 
 const Main = () => {
   const { user } = useAuth();
-
+  console.log(user?.user_type )
   if (!user) {
     return <UnsignedViews />;
   }
@@ -114,20 +172,6 @@ const Main = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="ProfileCareGiver"
-        component={ProfileCareGiver}
-        options={{
-           header: () => null,
-            }}
-            />
-      <Tab.Screen
-         name="ProfileCareReceiver"
-         component={ProfileCareReceiver}
-         options={{
-           header: () => null,
-            }}
-            />       
     </Tab.Navigator>
   );
 };
