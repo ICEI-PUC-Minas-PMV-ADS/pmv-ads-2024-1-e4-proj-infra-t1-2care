@@ -23,6 +23,7 @@ export default function Home() {
   const navigation = useNavigation();
 
   const [caregiverList, setCaregiverList] = useState([]);
+  const [highRatingcaregiverList, setHighRatingCaregiverList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const fetchData = async () => {
     setLoading(true);
@@ -81,7 +82,7 @@ export default function Home() {
       </View>
       <View style={styles.container}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Bem avaliados em sua cidade</Text>
+          <Text style={styles.sectionTitle}>Bem avaliados</Text>
           <Pressable style={styles.button}>
             <Text style={{color: '#FFFFFF', fontWeight: '200', fontSize: 12}}>Ver mais</Text>
           </Pressable>

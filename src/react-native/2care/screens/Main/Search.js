@@ -34,13 +34,13 @@ export default function Search({route}) {
     const filterCaregivers = () => {
       return caregiverList.filter(caregiver => {
         // const filterDistance = appliedFilters.distance ? caregiver.max_request_km <= appliedFilters.distance : true;
-        const filterExperience = appliedFilters.experience ? caregiver.career_time >= appliedFilters.experience : true;
-        // const filterRating = appliedFilters.rating ? caregiver.evaluations.length > 0 && caregiver.evaluations.reduce((acc, eval) => acc + eval.rating, 0) / caregiver.evaluations.length >= appliedFilters.rating : true;
-        const filterDayPrice = appliedFilters.day_price ? caregiver.day_price <= appliedFilters.day_price : true;
-        const filterHourPrice = appliedFilters.hour_price ? caregiver.hour_price <= appliedFilters.hour_price : true; 
-        const filterSpecializations = appliedFilters.specializations.length > 0 ? appliedFilters.specializations.every(spec => caregiver.specializations.includes(spec)) : true;
-
-        return filterExperience && filterDayPrice && filterHourPrice && filterSpecializations ;
+        const filterExperience = appliedFilters?.experience ? caregiver.career_time >= appliedFilters.experience : true;
+        const filterRating = appliedFilters?.rating ? caregiver.evaluations.length > 0 && Math.round(caregiver.evaluations.reduce((sum, item) => sum + item.rating, 0) / caregiver.evaluations.length) >= appliedFilters.rating : true;
+        const filterDayPrice = appliedFilters?.day_price ? caregiver.day_price <= appliedFilters.day_price : true;
+        const filterHourPrice = appliedFilters?.hour_price ? caregiver.hour_price <= appliedFilters.hour_price : true; 
+        const filterSpecializations = appliedFilters?.specializations?.length > 0 ? appliedFilters.specializations.every(spec => caregiver.specializations.includes(spec)) : true;
+        
+        return filterExperience && filterRating && filterDayPrice && filterHourPrice && filterSpecializations ;
       });
     };
 
