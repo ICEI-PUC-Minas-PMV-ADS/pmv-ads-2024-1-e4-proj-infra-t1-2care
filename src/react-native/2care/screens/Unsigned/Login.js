@@ -74,15 +74,18 @@ export default function Login() {
       return;
     }
 
-    try {
-      await signIn(formData);
-      console.log("Usuário logado com sucesso");
-      navigation.navigate("HomeTest");
-      //setIsLogged(true);
+   try {
+      const success = await signIn(formData);
+      if (success) {
+        console.log("Usuário logado com sucesso");
+        window.location.reload()
+      }
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
-    }
+    }  
   };
+
+
 
   return (
     <KeyboardAvoidingView
@@ -160,7 +163,8 @@ export default function Login() {
           <Pressable
             onPress={() => {
               console.log("Você será redirecionado para a nova Tela.");
-              navigation.navigate("HomeTest");
+              window.location.reload()
+              //navigation.navigate("Home");
             }}
             style={({ pressed }) => [
               styles.linkContainer,
@@ -201,7 +205,7 @@ export default function Login() {
             <Text style={styles.buttonText}>Avaliações gerais</Text>
           </Pressable>            
 
-          <Pressable
+          {/*<Pressable
             onPress={() => navigation.navigate("AgendaMob")}
             style={({ pressed }) => [
               styles.button,
@@ -229,7 +233,7 @@ export default function Login() {
             ]}
           >
             <Text style={styles.buttonText}>Perfil Cliente</Text>      
-          </Pressable>
+          </Pressable>*/}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -3,7 +3,7 @@ import MainNav from './Main';
 import UnsignedViews from './UnsignedViews';
 import { useAuth } from '../contexts/AuthContext';
 
-const Main = () => {
+const Route = () => {
   const { user } = useAuth();
 
   return (
@@ -17,4 +17,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Route;

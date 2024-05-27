@@ -42,9 +42,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await authLogout(() => {});
+    const navigateToLogin = () => {
+      console.log("Usuário deslogado");
+      navigation.navigate("Login");
+    };
+    await authLogout(navigateToLogin);
     setUser(null);
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, signIn, logout }}>
