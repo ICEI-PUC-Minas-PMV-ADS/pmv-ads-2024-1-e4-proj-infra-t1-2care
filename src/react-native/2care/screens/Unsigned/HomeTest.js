@@ -1,9 +1,13 @@
-import React, { createContent, useContext, useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import theme from "../../theme/theme.js";
+import { useAuth } from "../../contexts/AuthContext.js";
 import { logout } from "../../services/authServiceMob.js";
 
 export default function HomeTest({ navigation }) {
+  const { user } = useAuth();
+
+  console.log("Usuário na HomeTest:", user);
+
   const handleLogout = async () => {
     const navigateToLogin = () => {
       console.log("Usuário deslogado");
@@ -20,6 +24,14 @@ export default function HomeTest({ navigation }) {
     navigation.navigate("ProfileCarereceiverMob");
   };
 
+   if (!user) {
+    return (
+      <View style={styles.containerHomeTest}>
+        <Text style={styles.textUserLogged}>Carregando...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.containerHomeTest}>
       <View style={styles.logo}>
@@ -35,37 +47,48 @@ export default function HomeTest({ navigation }) {
       </View>
 
       <View style={styles.usersContainer}>
-        <Pressable
-          onPress={navigateToProfileCarereceiver}
-          style={({ pressed }) => [
-            styles.userImageContainer,
-            pressed && { transform: [{ scale: 1.1 }] },
-          ]}
-        >
-          <Image
-            source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
-            }}
-            style={styles.profileImage}
-          />
-          <Text style={styles.userText}>Cliente</Text>
-        </Pressable>
+        {user && user.user_type === "CareReceiver" && (
+          <Pressable
+            onPress={navigateToProfileCarereceiver}
+            style={({ pressed }) => [
+              styles.userImageContainer,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Image
+              source={{
+                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
+              }}
+              style={styles.profileImage}
+            />
+            <Text style={styles.userText}>
+              {user ? user.user_type : "Usuário não encontrado"}
+            </Text>
+            <Text style={styles.userText}>Cliente</Text>
+          </Pressable>
+        )}
 
-        <Pressable
-          onPress={navigateToProfileCaregiver}
-          style={({ pressed }) => [
-            styles.userImageContainer,
-            pressed && { transform: [{ scale: 1.1 }] },
-          ]}
-        >
-          <Image
-            source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
-            }}
-            style={styles.profileImage}
-          />
-          <Text style={styles.userText}>Cuidador</Text>
-        </Pressable>
+        {user && user.user_type === "Caregiver" && (
+          <Pressable
+            onPress={navigateToProfileCaregiver}
+            style={({ pressed }) => [
+              styles.userImageContainer,
+              pressed && { transform: [{ scale: 1.1 }] },
+            ]}
+          >
+            <Image
+              source={{
+                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
+              }}
+              style={styles.profileImage}
+            />
+            <Text style={styles.userText}>
+              {user ? user.user_type : "Usuário não encontrado"}
+            </Text>
+
+            <Text style={styles.userText}>Cuidador</Text>
+          </Pressable>
+        )}
       </View>
 
       <Pressable
@@ -129,8 +152,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     fontSize: 16,
+    color: "blue",
   },
-
 
   usersLogged: {
     justifyContent: "center",

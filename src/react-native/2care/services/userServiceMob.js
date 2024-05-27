@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import Cookies from 'js-cookie';
 import { getGeolocationApi } from "./otherServiceMob";
 import { sendAuthenticatedRequest } from "./authServiceMob";
 import { API_URL } from "./apiServiceMob";
+import { logout } from "./authServiceMob";
 
 const SERVICE_URL = "/user";
 
@@ -36,20 +36,15 @@ export const registerUser = async (userForm) => {
 };
 
 export const updateUser = async (userForm) => {
-  let geo = await getGeolocationApi(userForm["post_code"]);
-  userForm["latitude"] = geo["latitude"];
-  userForm["longitude"] = geo["longitude"];
+  let geo = await getGeolocationApi(userForm["post_code"])
+  userForm["latitude"] = geo['latitude']
+  userForm["longitude"] = geo['longitude']
 
   try {
-    const response = await sendAuthenticatedRequest(
-      `${API_URL}${SERVICE_URL}/edit/`,
-      "PATCH",
-      userForm
-    );
-    return response;
+      const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/edit/`, "PATCH", userForm)
+      return response;
   } catch (error) {
-    alert("Dados inválidos, gentileza verifique o preenchimento!");
-    throw new Error(error.message);
+      throw new Error(error.message);
   }
 };
 
@@ -63,12 +58,6 @@ export const getUserData = async () => {
   }
 };
 
-{
-  /*export const getUserPicture = () => {
-    return Cookies.get('picture') ? Cookies.get('picture') : null;
-};*/
-}
-
 export const getUserPicture = async () => {
   try {
     const userPicture = await AsyncStorage.getItem("picture");
@@ -79,11 +68,6 @@ export const getUserPicture = async () => {
   }
 };
 
-{
-  /*export const getUserType = () => {
-    return Cookies.get('user_type') ? Cookies.get('user_type') : null;
-};*/
-}
 
 export const getUserType = async () => {
   try {
@@ -94,3 +78,5 @@ export const getUserType = async () => {
     return null;
   }
 };
+
+
