@@ -182,6 +182,20 @@ const Main = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="ProfileCaregiverMob"
+        component={ProfileCaregiverMob}
+        options={{
+           header: () => null,
+            }}
+            />
+      <Tab.Screen
+         name="ProfileCarereceiverMob"
+         component={ProfileCarereceiverMob}
+         options={{
+           header: () => null,
+            }}
+            />       
     </Tab.Navigator>
   );
 };

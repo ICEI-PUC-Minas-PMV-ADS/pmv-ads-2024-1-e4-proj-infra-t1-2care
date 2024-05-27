@@ -2,17 +2,17 @@ import React from 'react';
 import './CaregiverCard.css';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
-const CaregiverCard = () => {
+const CaregiverCard = (props) => {
     return (
         <View style={styles.card}>
             <View style={styles.imageview}>
-                <Image source={{ uri: 'https://www.designi.com.br/images/preview/11401409.jpg', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
+                <Image source={{ uri: props?.caregiver?.picture ? props.caregiver.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
             </View>
             <View style={styles.info}>
-                <Text style={styles.infoText}>Maria Silvas</Text>
-                <Text style={styles.infoText}>2 km de distância</Text>
-                <Text style={styles.infoText}>2 anos de experiência</Text>
-                <Text style={styles.infoText}>R$ 500,00</Text>
+                <Text style={styles.infoText}>{props?.caregiver?.name}</Text>
+                <Text style={styles.infoText}>2 km de distância</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
+                <Text style={styles.infoText}>{props?.caregiver?.career_time} anos de experiência</Text>
+                <Text style={styles.infoText}>R$ {props?.caregiver?.hour_price}</Text>
             </View>
         </View>
     );
