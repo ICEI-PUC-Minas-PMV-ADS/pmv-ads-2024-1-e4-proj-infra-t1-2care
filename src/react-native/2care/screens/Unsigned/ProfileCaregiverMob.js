@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,49 @@ import {
   Pressable,
   StyleSheet,
   ScrollView,
+  ActivityIndicator
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
+import { getUserData } from "../../services/userServiceMob";
+import { getCaregiverData } from "../../services/caregiverServiceMob.js";
 
-export default function ProfileCaregiverMob({ userData }) {
+const GENDER_MAP = {
+  0: "",
+  1: "Masculino",
+  2: "Feminino",
+  3: "Outro",
+};
+
+export default function ProfileCaregiverMob() {
   const navigation = useNavigation();
+  const [userData, setUserData] = useState(null);
+  const [caregiverData, setCaregiverData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [yearsexperience, setYearsExperience] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await getUserData();
+        const caregiver = await getCaregiverData();
+        setUserData(user);
+        setCaregiverData(caregiver);
+        setYearsExperience(caregiver.yearsExperience); 
+
+        console.log("User Data:", user);
+        console.log("Caregiver Data:", caregiver);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleAgendaPress = () => {
     navigation.navigate("AgendaMob");
@@ -35,12 +70,21 @@ export default function ProfileCaregiverMob({ userData }) {
     await logout(navigateToLogin);
   };
 
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.innerContainer}>
-          {/*<Text style={styles.info}>{userData.name}</Text>*/}
-          <Text style={styles.name}>Carlos Alberto Mansur</Text>
+          <Text style={styles.name}>{userData.name}</Text>
+          {/*<Text style={styles.name}>Carlos Alberto Mansur</Text>*/}
           <Text style={styles.role}>Cuidador</Text>
 
           <View style={styles.imageContainer}>
@@ -57,7 +101,6 @@ export default function ProfileCaregiverMob({ userData }) {
           </View>
 
           <View style={styles.buttonsProfile}>
-            {/*<Pressable onPress={handleAvaliationMov} style={styles.button}> */}
             <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações</Text>
             </Pressable>
@@ -71,8 +114,8 @@ export default function ProfileCaregiverMob({ userData }) {
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
-            {/*<Text style={styles.info}>{userData.email}</Text>*/}
-            <Text style={styles.info}>carlos.alberto@gmail.com</Text>
+            <Text style={styles.info}>{userData.email}</Text>
+            {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -80,8 +123,8 @@ export default function ProfileCaregiverMob({ userData }) {
               <Icon name="phone" size={20} style={styles.icon} />
               <Text style={styles.label}>TELEFONE</Text>
             </View>
-            {/*<Text style={styles.info}>{userData.phone}</Text>*/}
-            <Text style={styles.info}>31 99999-9999</Text>
+            <Text style={styles.info}>{userData.phone}</Text>
+            {/*<Text style={styles.info}>31 99999-9999</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -93,27 +136,38 @@ export default function ProfileCaregiverMob({ userData }) {
               />
               <Text style={styles.label}>GÊNERO</Text>
             </View>
-            {/*<Text style={styles.info}>{userData.gender}</Text>*/}
-            <Text style={styles.info}>Masculino</Text>
+            <Text style={styles.info}>{GENDER_MAP[userData.gender]}</Text>
+            {/*<Text style={styles.info}>Masculino</Text>*/}
           </View>
 
           <View style={styles.section}>
             <Icon name="graduation-cap" size={20} style={styles.icon} />
             <Text style={styles.label}>QUALIFICAÇÕES</Text>
           </View>
+          
           <View style={styles.qualifications}>
-            {/*<Text>{userData.qualifications}</Text>*/}
-            <Text>Graduado em Phonoudiologia</Text>
-            <Text>Graduado em Enfermagem</Text>
+            {userData.qualifications && userData.qualifications.length > 0 ? (
+              userData.qualifications.map((qualification, index) => (
+                <Text style={styles.info} key={index}>• {qualification}</Text>
+              ))
+            ) : (
+              <Text style={styles.info}>Não informado.</Text>
+            )}
           </View>
 
           <View style={styles.section}>
             <Icon name="briefcase" size={20} style={styles.icon} />
             <Text style={styles.label}>ESPECIALIZAÇÕES</Text>
           </View>
+
           <View style={styles.qualifications}>
-            {/*<Text>{userData.specializations}</Text>*/}
-            <Text> . Cuidados com pessoas da terceira idade</Text>
+            {userData.specialization && userData.specialization.length > 0 ? (
+              userData.specialization.map((specialization, index) => (
+                <Text style={styles.info} key={index}>• {specialization}</Text>
+              ))
+            ) : (
+              <Text style={styles.info}>Não informado.</Text>
+            )}
           </View>
 
           <View style={styles.section}>
@@ -121,23 +175,28 @@ export default function ProfileCaregiverMob({ userData }) {
             <Text style={styles.label}>EXPERIÊNCIAS DE TRABALHO</Text>
           </View>
           <View style={styles.experiences}>
-            {/*{userData.experiences.map((experience, index) => (
+            {/*{userData.workexperience.map((workexperience, index) => (
             <View key={index} style={styles.experienceCard}>
-              <Text>{experience}</Text>
-            </View>
-          ))}*/}
-            <View style={styles.experienceCard}>
-              <Text>Trabalho como cuidador em Belo Horinte...</Text>
-            </View>
-            <View style={styles.experienceCard}>
-              <Text>Trabalho como cuidador em Rio de Janeiro...</Text>
-            </View>
+              <Text>{workExperience}</Text>
+            </View> 
+
+          ))}
+        */}
+            
+            {userData.workexperience && userData.workexperience.length > 0 ? (
+              userData.workexperience.map((workexperience, index) => (
+                <Text style={styles.info} key={index}>• {workexperience}</Text>
+              ))
+            ) : (
+              <Text style={styles.info}>Não informado.</Text>
+            )}
           </View>
+            
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {/*<Text style={styles.years}> {new Date().getFullYear() - new Date(userData.date_joined).getFullYear()} </Text>*/}
-              <Text style={styles.years}>5 </Text>
+              <Text style={styles.years}>{yearsexperience}</Text>
+              {/*<Text style={styles.yearsexeperience}>5 </Text>*/}
               <Text style={styles.label}>ANOS DE EXPERIÊNCIA</Text>
             </View>
           </View>
@@ -149,8 +208,8 @@ export default function ProfileCaregiverMob({ userData }) {
             </View>
           </View>
           <View style={styles.fixedDays}>
-            {/* <Text>{userData.fixedDaysUnavailable}</Text> */}
-            <Text>Segunda-feira, Quarta-feira</Text>
+            <Text>{userData.fixedDaysUnavailable}</Text> 
+            {/*<Text>Segunda-feira, Quarta-feira</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -160,8 +219,8 @@ export default function ProfileCaregiverMob({ userData }) {
             </View>
           </View>
           <View style={styles.fixedHours}>
-            {/* <Text>{userData.fixedHoursUnavailable}</Text> */}
-            <Text>09:00 - 12:00, 15:00 - 18:00</Text>
+            <Text>{userData.fixedHoursUnavailable}</Text> 
+            {/*<Text>09:00 - 12:00, 15:00 - 18:00</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -171,8 +230,8 @@ export default function ProfileCaregiverMob({ userData }) {
             </View>
           </View>
           <View style={styles.pricing}>
-            {/* <Text>{userData.pricePerDay}</Text> */}
-            <Text>R$ 300,00</Text>
+            <Text>{userData.dailyRate}</Text>
+            {/* <Text>R$ 300,00</Text> */}
           </View>
 
           <View style={styles.infoContainer}>
@@ -182,8 +241,8 @@ export default function ProfileCaregiverMob({ userData }) {
             </View>
           </View>
           <View style={styles.pricing}>
-            {/* <Text>{userData.pricePerHour}</Text> */}
-            <Text>R$ 50,00</Text>
+            <Text>{userData.hourlyRate}</Text> 
+            {/* <Text>R$ 50,00</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -193,8 +252,13 @@ export default function ProfileCaregiverMob({ userData }) {
             </View>
           </View>
           <View style={styles.additionalInfo}>
-            {/* <Text>{userData.additionalInfo}</Text> */}
-            <Text>Disponível para viagens curtas e emergências.</Text>
+            {userData.additionalInfo && userData.additionalInfo.length > 0 ? (
+              userData.additionalInfo.map((info, index) => (
+                <Text style={styles.info} key={index}>• {info}</Text>
+              ))
+            ) : (
+              <Text style={styles.info}>Não informado.</Text>
+            )}
           </View>
 
           <View style={styles.buttonsProfile}>

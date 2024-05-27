@@ -16,6 +16,7 @@ import Reviews from '../screens/Unsigned/Reviews';
 import AgendaMob from '../screens/Unsigned/AgendaMob';
 import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
 import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
+import Login from '../screens/Unsigned/Login';
 
 const Tab = createBottomTabNavigator();
 const Stack1 = createNativeStackNavigator();
@@ -83,6 +84,15 @@ const ProfileStack = () => {
         />
       )}
     
+    <Stack3.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+            header: () => null,
+          }}
+        />
+
       <Stack3.Screen
         name="Reviews"
         component={Reviews}

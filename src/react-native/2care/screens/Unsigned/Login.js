@@ -14,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 //import "../AppMobile.css";
 import { signIn } from "../../services/authServiceMob";
 //import { signIn } from "../../contexts/AuthContext";
-import { logout } from "../../contexts/AuthContext";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -84,18 +83,7 @@ export default function Login() {
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
-    }
-
-    try {
-      const success = await logout(formData);
-      if (success) {
-        console.log("Usuário deslogado com sucesso!!!");
-        window.location.reload()
-      }
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error.message);
-    }
-
+    }  
   };
 
 
