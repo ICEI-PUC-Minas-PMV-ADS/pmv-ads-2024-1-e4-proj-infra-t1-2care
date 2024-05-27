@@ -13,7 +13,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 //import "../AppMobile.css";
 import { signIn } from "../../services/authServiceMob";
-//import { signIn } from "../../contexts/AuthContext";
 
 export default function Login() {
   const navigation = useNavigation();

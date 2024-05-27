@@ -8,8 +8,6 @@ export default function App() {
   return (
     <AuthProvider>
       <NavigationContainer>
-        {/*<Main />*/}
-        {/*<UnsignedViews />*/}
         <Route />
       </NavigationContainer>
     </AuthProvider>

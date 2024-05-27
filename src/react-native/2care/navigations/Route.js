@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Route = () => {
   const { user } = useAuth();
-  console.log(user)
+
   return (
     <>
       {

@@ -20,9 +20,6 @@ export const AuthProvider = ({ children }) => {
           picture: await AsyncStorage.getItem('picture'),  
         };
         setUser(user);
-        console.log(user)
-      } else {
-        setUser(null);
       }
     };
 
@@ -44,14 +41,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-{/*}  const logout = async () => {
-    await authLogout(() => {});
-    setUser(null);
-  };*/}
-
   const logout = async () => {
     const navigateToLogin = () => {
-      console.log("Usuário deslogado HomeTest");
+      console.log("Usuário deslogado");
       navigation.navigate("Login");
     };
     await authLogout(navigateToLogin);

@@ -140,7 +140,7 @@ const ProfileStack = () => {
 
 const Main = () => {
   const { user } = useAuth();
-  console.log(user?.user_type )
+
   if (!user) {
     return <UnsignedViews />;
   }
