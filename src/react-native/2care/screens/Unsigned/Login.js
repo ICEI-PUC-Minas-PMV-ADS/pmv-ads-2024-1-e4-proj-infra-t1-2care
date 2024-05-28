@@ -174,67 +174,6 @@ export default function Login() {
             <Text style={styles.linkText}>Continuar como visitante</Text>
           </Pressable>
         </View>
-
-         {/* somente para desenvolvimento até que tenhamos mais telas */}
-        <View style={styles.bottomButtons}>
-          <Pressable
-            onPress={() => navigation.navigate("Requests")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Propostas gerais</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => navigation.navigate("SendRequest")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Enviar proposta</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => navigation.navigate("Reviews")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Avaliações gerais</Text>
-          </Pressable>            
-
-          {/*<Pressable
-            onPress={() => navigation.navigate("AgendaMob")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Agenda</Text> 
-          </Pressable>
-
-          <Pressable
-            onPress={() => navigation.navigate("ProfileCaregiverMob")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Perfil Cuidador</Text> 
-          </Pressable>
-
-          <Pressable
-            onPress={() => navigation.navigate("ProfileCarereceiverMob")}
-            style={({ pressed }) => [
-              styles.button,
-              pressed && { transform: [{ scale: 1.1 }] },
-            ]}
-          >
-            <Text style={styles.buttonText}>Perfil Cliente</Text>      
-          </Pressable>*/}
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
