@@ -163,10 +163,20 @@ const Main = () => {
         }}
       />
       <Tab.Screen
+        name="Requests"
+        component={RequestStack}
+        options={{
+          tabBarLabel: 'Propostas',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="mail-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Search"
         component={Search}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Procurar',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="search" color={color} size={size} />
           ),
@@ -176,26 +186,12 @@ const Main = () => {
         name="Profile"
         component={ProfileStack}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}
-      />
-      <Tab.Screen
-        name="ProfileCaregiverMob"
-        component={ProfileCaregiverMob}
-        options={{
-           header: () => null,
-            }}
-            />
-      <Tab.Screen
-         name="ProfileCarereceiverMob"
-         component={ProfileCarereceiverMob}
-         options={{
-           header: () => null,
-            }}
-            />       
+      />     
     </Tab.Navigator>
   );
 };
