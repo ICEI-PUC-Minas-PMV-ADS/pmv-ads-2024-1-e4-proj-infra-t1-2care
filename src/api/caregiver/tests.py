@@ -1107,3 +1107,16 @@ class CustomUnavailableDayModelTest(TestCase):
 #     def test_rating_string_representation(self):
 #         """Testa a representação em string do objeto Rating."""
 #         self.assertEqual(str(self.rating), "5 - Excellent service!")
+
+class CaregiverTests(APITestCase):
+    def test_create_caregiver(self):
+        url = reverse('caregiver-create')
+        data = {
+            "user": 1,  #id do user
+            "hour_price": "50.00",
+            "day_price": "400.00",
+            "career_time": 5,
+            "additional_info": "Informações adicionais"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

@@ -40,43 +40,35 @@ class QualificationSerializer(serializers.ModelSerializer):
 
         return value
 
-
 class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkExperienceModel
         fields = "__all__"
-
 
 class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SpecializationModel
         fields = "__all__"
 
-        def validate_name(self, value):
-            if value not in [choice[0] for choice in SpecializationModel.SPECIALIZATION]:
-                raise serializers.ValidationError(
-                    "Este não é um valor válido para o campo 'name'."
-                )
-
-            return value
+    def validate_name(self, value):
+        if value not in [choice[0] for choice in SpecializationModel.SPECIALIZATION]:
+            raise serializers.ValidationError("Este não é um valor válido para o campo 'name'.")
+        return value
 
 class FixedUnavailableDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = FixedUnavailableDayModel
         fields = "__all__"
 
-
 class FixedUnavailableHourSerializer(serializers.ModelSerializer):
     class Meta:
         model = FixedUnavailableHourModel
         fields = "__all__"
 
-
 class CustomUnavailableDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUnavailableDayModel
         fields = "__all__"
-
 
 class CaregiverSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=CustomUserModel.objects.all())
@@ -90,6 +82,63 @@ class CaregiverSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaregiverModel
         fields = "__all__"
+
+    def update(self, instance, validated_data):
+        qualifications_data = validated_data.pop('qualifications', None)
+        work_exp_data = validated_data.pop('work_exp', None)
+        specializations_data = validated_data.pop('specializations', None)
+        fixed_unavailable_days_data = validated_data.pop('fixed_unavailable_days', None)
+        fixed_unavailable_hours_data = validated_data.pop('fixed_unavailable_hours', None)
+        custom_unavailable_days_data = validated_data.pop('custom_unavailable_days', None)
+
+        # Update caregiver fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        # Update qualifications
+        if qualifications_data is not None:
+            instance.qualifications.clear()
+            for qualification_data in qualifications_data:
+                qualification, created = QualificationModel.objects.get_or_create(**qualification_data)
+                instance.qualifications.add(qualification)
+
+        # Update work experience
+        if work_exp_data is not None:
+            instance.work_exp.clear()
+            for work_exp in work_exp_data:
+                work_experience, created = WorkExperienceModel.objects.get_or_create(**work_exp)
+                instance.work_exp.add(work_experience)
+
+        # Update specializations
+        if specializations_data is not None:
+            instance.specializations.clear()
+            for specialization_data in specializations_data:
+                specialization, created = SpecializationModel.objects.get_or_create(**specialization_data)
+                instance.specializations.add(specialization)
+
+        # Update fixed unavailable days
+        if fixed_unavailable_days_data is not None:
+            instance.fixed_unavailable_days.clear()
+            for day_data in fixed_unavailable_days_data:
+                fixed_day, created = FixedUnavailableDayModel.objects.get_or_create(**day_data)
+                instance.fixed_unavailable_days.add(fixed_day)
+
+        # Update fixed unavailable hours
+        if fixed_unavailable_hours_data is not None:
+            instance.fixed_unavailable_hours.clear()
+            for hour_data in fixed_unavailable_hours_data:
+                fixed_hour, created = FixedUnavailableHourModel.objects.get_or_create(**hour_data)
+                instance.fixed_unavailable_hours.add(fixed_hour)
+
+        # Update custom unavailable days
+        if custom_unavailable_days_data is not None:
+            instance.custom_unavailable_days.clear()
+            for custom_day_data in custom_unavailable_days_data:
+                custom_day, created = CustomUnavailableDayModel.objects.get_or_create(**custom_day_data)
+                instance.custom_unavailable_days.add(custom_day)
+
+        instance.save()
+        return instance
 
 class UserCaregiverRequestsSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -125,10 +174,8 @@ class UserCareReceiverRequestsSerializer(serializers.ModelSerializer):
         return UserSerializer(instance.user).data
 
     def get_special_care(self, instance):
- 
         if instance.share_special_care:
             return [{"type": care.care_type.get_name_display(), "description": care.description } for care in SpecialCareUserModel.objects.filter(care_receiver=instance)]
-        
         else:
             return []
 
@@ -147,14 +194,12 @@ class CareRequestSerializer(serializers.ModelSerializer):
         caregiver_serializer = UserCareReceiverRequestsSerializer(instance.carereceiver, context={"status": instance.status})
         return caregiver_serializer.data
 
-
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatingModel
         fields = "__all__"
 
 class RatingListSerializer(serializers.ModelSerializer):
-
     care_receiver = serializers.SerializerMethodField()
     caregiver = serializers.SerializerMethodField()
     
@@ -176,7 +221,6 @@ class RatingListSerializer(serializers.ModelSerializer):
         model = RatingModel
         fields = ["id", "rating", "description", "care_receiver", "caregiver"]
 
-    
 class CalendarSerializer(serializers.ModelSerializer):
     fixed_unavailable_days = serializers.ListField(
         child=serializers.IntegerField(), write_only=True
@@ -202,7 +246,6 @@ class CalendarSerializer(serializers.ModelSerializer):
         day_list = [FixedUnavailableDayModel(day=d) for d in fixed_unavailable_days_data]
         fixed_days = FixedUnavailableDayModel.objects.bulk_create(day_list, ignore_conflicts=True)
         instance.fixed_unavailable_days.add(*fixed_days)
-
 
         instance.fixed_unavailable_hours.clear()
         hour_list = [FixedUnavailableHourModel(hour=h) for h in fixed_unavailable_hours_data]
