@@ -3,13 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './contexts/AuthContext';
 import Route from './navigations/Route';
 import UnsignedViews from './navigations/UnsignedViews';
+import CaregiversProvider from './contexts/CaregiversContext';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <Route />
-      </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer>
+      <CaregiversProvider>
+        <AuthProvider>
+          <Route />
+        </AuthProvider>
+      </CaregiversProvider>
+    </NavigationContainer>
   );
 }

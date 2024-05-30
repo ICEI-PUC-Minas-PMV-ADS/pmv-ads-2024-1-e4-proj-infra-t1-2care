@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,9 @@ import theme from '../../theme/theme.js';
 import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
-import { getCaregiverList, calcDistanceKm } from '../../services/filterCaregiver.js';
-import { getUserPosition } from '../../services/userServiceMob.js';
+import { getAverageRating } from '../../services/filterCaregiver.js';
 import { useNavigation } from "@react-navigation/native";
+import { CaregiversContext } from "../../contexts/CaregiversContext.js";
 
 
 const ScreenHeight = Dimensions.get('window').height;
@@ -22,59 +22,14 @@ export default function Home() {
 
   const navigation = useNavigation();
 
+  const { list, loadCaregiverList } = useContext(CaregiversContext);
   const [caregiverList, setCaregiverList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const fetchData = async () => {
-    setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setLoading(false);
-  };
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   useEffect(() => {
-    // const state = useAuth() ? true : false;
-    setIsLoggedIn(true);
-  });
-
-
-  useEffect(() => {
-    let user_pos;
-    const fetchPosition = async () => {
-      try {
-        user_pos = await getUserPosition();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchPosition();
-
-    if (isLoggedIn) {
-      getCaregiverList().then((CaregiverList) => {
-        if(CaregiverList) {
-          let remove_list = [];
-          CaregiverList.forEach((c) => {
-            const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
-            c["distance"] = dist
-            if (c.max_request_km < dist) {
-              remove_list.push(c._id);
-            }
-          });
-          const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
-          setCaregiverList(filteredList);
-        } else {
-          setCaregiverList([])
-        }
-      })
-    } else {
-      getCaregiverList().then((CaregiverList) => { console.log(CaregiverList); setCaregiverList(CaregiverList ? CaregiverList : []) })
-    }
-  }, []);
-
-  const getAverageRating = (a) => {
-    if (a.evaluations.length === 0) return 0;
-    const total = a.evaluations.reduce((sum, evaluation) => sum + evaluation.rating, 0);
-    return total / a.evaluations.length;
-  };
+    loadCaregiverList();
+    setCaregiverList(list);
+});
 
   return (
     <ScrollView>
@@ -113,7 +68,7 @@ export default function Home() {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => getAverageRating(b) - getAverageRating(a))}></CaregiverList>
+            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => getAverageRating(b.evaluations) - getAverageRating(a.evaluations))}></CaregiverList>
           </View>
         </ScrollView>
       </View>

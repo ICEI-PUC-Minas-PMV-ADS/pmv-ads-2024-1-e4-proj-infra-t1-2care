@@ -34,3 +34,9 @@ export const calcDistanceKm = (lat1, lon1, lat2, lon2) => {
     var d = R * c;
     return d.toFixed(1);
 }
+
+export const getAverageRating = (evaluations) => {
+    if (evaluations.length === 0) return 0;
+    const total = evaluations.reduce((sum, evaluation) => sum + evaluation.rating, 0);
+    return Math.floor(total / evaluations.length);
+  };
