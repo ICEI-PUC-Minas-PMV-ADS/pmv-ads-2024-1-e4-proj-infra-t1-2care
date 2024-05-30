@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Route = () => {
   const { user } = useAuth();
+  // const user = false;
 
   return (
     <>
