@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
-import { getUserData } from "../../services/userServiceMob";
+import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCaregiverData } from "../../services/caregiverServiceMob.js";
 
 const GENDER_MAP = {
@@ -28,18 +28,23 @@ export default function ProfileCaregiverMob() {
   const [caregiverData, setCaregiverData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [yearsexperience, setYearsExperience] = useState(null);
+  const [email, setEmail] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = await getUserData();
         const caregiver = await getCaregiverData();
+        const userEmail = await getUserEmail();
+
         setUserData(user);
         setCaregiverData(caregiver);
         setYearsExperience(caregiver.yearsExperience); 
+        setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Caregiver Data:", caregiver);
+        console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -90,10 +95,8 @@ export default function ProfileCaregiverMob() {
           <View style={styles.imageContainer}>
             <Image
               style={styles.profileImage}
-              //source={{ uri: userData.picture || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s" }}
-              source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
-              }}
+              source={{ uri: userData.picture || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s" }}
+              //source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",}}
             />
             <View style={styles.editIcon}>
               <Icon name="pencil" size={32} color="#fff" />
@@ -114,7 +117,7 @@ export default function ProfileCaregiverMob() {
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
-            <Text style={styles.info}>{userData.email}</Text>
+            <Text style={styles.info}>{email}</Text>
             {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
           </View>
 

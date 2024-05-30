@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
-import { getUserData } from "../../services/userServiceMob";
+import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCareReceiverData } from "../../services/careReceiverMob.js";
 
 const GENDER_MAP = {
@@ -28,17 +28,22 @@ export default function ProfileCarereceiverMob() {
   const [userData, setUserData] = useState(null);
   const [carereceiverData, setCarereceiverData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = await getUserData();
         const carereceiver = await getCareReceiverData();
+        const userEmail = await getUserEmail();
+
         setUserData(user);
         setCarereceiverData(carereceiver);
+        setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Carereceiver Data:", carereceiver);
+        console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -90,10 +95,9 @@ export default function ProfileCarereceiverMob() {
           <View style={styles.imageContainer}>
             <Image
               style={styles.profileImage}
-              //source={{ uri: userData.picture || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s" }}
-              source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s",
-              }}
+              source={{ uri: userData.picture || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s" }}
+              //source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s", }}
+            
             />
             <View style={styles.editIcon}>
               <Icon name="pencil" size={32} color="#fff" />
@@ -114,7 +118,7 @@ export default function ProfileCarereceiverMob() {
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
-            <Text style={styles.info}>{userData.email}</Text>
+            <Text style={styles.info}>{email}</Text>
             {/*<Text style={styles.info}>maria.brandao@@gmail.com</Text>*/}
           </View>
 
