@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APIClient
+from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -1112,7 +1113,7 @@ class CaregiverTests(APITestCase):
     def test_create_caregiver(self):
         url = reverse('caregiver-create')
         data = {
-            "user": 1,  #id do user
+            "user": 1,  # id do user
             "hour_price": "50.00",
             "day_price": "400.00",
             "career_time": 5,

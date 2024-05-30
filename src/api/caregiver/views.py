@@ -15,7 +15,7 @@ from .models import (
     RatingModel,
     SpecializationModel,
     QualificationModel,
-    WorkExperienceModel
+    WorkExperienceModel,
 )
 from user.models import CustomUserModel
 
@@ -117,6 +117,10 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
         }
 
         return Response(calendar)
+
+class CaregiverCreateView(generics.CreateAPIView):
+    queryset = CaregiverModel.objects.all()
+    serializer_class = CaregiverSerializer
 
 class CaregiverDetailView(generics.RetrieveAPIView):
     serializer_class = CaregiverSerializer

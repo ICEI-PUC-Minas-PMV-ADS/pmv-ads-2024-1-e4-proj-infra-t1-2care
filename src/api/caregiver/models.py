@@ -50,9 +50,9 @@ class CaregiverModel(models.Model):
         blank=True,
     )
 
-    hour_price = models.DecimalField("Valor da hora", max_digits=6, decimal_places=2)
+    hour_price = models.DecimalField("Valor da hora", max_digits=10, decimal_places=2)
     day_price = models.DecimalField(
-        "Valor da diária", max_digits=6, decimal_places=2, null=True, blank=True
+        "Valor da diária", max_digits=10, decimal_places=2, null=True, blank=True
     )
     max_request_km = models.PositiveSmallIntegerField(
         "Distância máxima de trabalho", null=True, blank=True

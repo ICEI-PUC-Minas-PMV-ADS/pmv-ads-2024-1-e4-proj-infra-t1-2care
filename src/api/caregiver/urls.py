@@ -23,7 +23,8 @@ from .views import (
     WorkExperienceListCreateView,
     WorkExperienceRetrieveUpdateDestroyView,
     CalendarUpdateAPIView,
-    CareRequestCancelView
+    CareRequestCancelView,
+    CaregiverCreateView
 )
 
 urlpatterns = [
@@ -65,6 +66,7 @@ urlpatterns = [
         SpecializationRetrieveUpdateDestroyView.as_view(),
         name="specialization-retrieve-update-delete",
     ),
+    path("create/", CaregiverCreateView.as_view(), name="caregiver-create"),
     # Services App -> Rotas relacionadas aos serviços e avaliações
     path("requests/", CareRequestListCreateView.as_view(), name="care-request-list-create"),
     path(
