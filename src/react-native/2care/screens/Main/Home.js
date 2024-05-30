@@ -11,7 +11,8 @@ import theme from '../../theme/theme.js';
 import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
-import { getCaregiverList } from '../../services/filterCaregiver.js';
+import { getCaregiverList, calcDistanceKm } from '../../services/filterCaregiver.js';
+import { getUserPosition } from '../../services/userServiceMob.js';
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -22,40 +23,58 @@ export default function Home() {
   const navigation = useNavigation();
 
   const [caregiverList, setCaregiverList] = useState([]);
-  const [highRatingcaregiverList, setHighRatingCaregiverList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const fetchData = async () => {
     setLoading(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
     setLoading(false);
   };
-  
-  useEffect(() =>  {
+
+  useEffect(() => {
+    // const state = useAuth() ? true : false;
+    setIsLoggedIn(true);
+  });
+
+
+  useEffect(() => {
+    let user_pos;
+    const fetchPosition = async () => {
+      try {
+        user_pos = await getUserPosition();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPosition();
+
     if (isLoggedIn) {
       getCaregiverList().then((CaregiverList) => {
-        if(CaregiverList){
-          const user_pos = getUserPosition();
+        if(CaregiverList) {
           let remove_list = [];
           CaregiverList.forEach((c) => {
             const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
             c["distance"] = dist
             if (c.max_request_km < dist) {
-                remove_list.push(c._id);
+              remove_list.push(c._id);
             }
-        });
-        const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
-        setCaregiverList(filteredList);
-
-        } else{
+          });
+          const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
+          setCaregiverList(filteredList);
+        } else {
           setCaregiverList([])
-        }       
-
+        }
       })
-    }else{
-      getCaregiverList().then((CaregiverList) => setCaregiverList(CaregiverList ? CaregiverList : []))
+    } else {
+      getCaregiverList().then((CaregiverList) => { console.log(CaregiverList); setCaregiverList(CaregiverList ? CaregiverList : []) })
     }
   }, []);
 
+  const getAverageRating = (a) => {
+    if (a.evaluations.length === 0) return 0;
+    const total = a.evaluations.reduce((sum, evaluation) => sum + evaluation.rating, 0);
+    return total / a.evaluations.length;
+  };
 
   return (
     <ScrollView>
@@ -66,31 +85,35 @@ export default function Home() {
         <Text style={styles.sectionTitle}>Especialidades para as suas necessidades</Text>
         <Specializations></Specializations>
       </View>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Mais próximos</Text>
-          <Pressable style={styles.button}>
-            <Text style={{color: '#FFFFFF', fontWeight: '200', fontSize: 12}}>Ver mais</Text>
-          </Pressable>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
-          <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={caregiverList}></CaregiverList>
-          {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_next_to_you`} caregiver={caregiver}></CaregiverCard>)} */}
+      {
+        isLoggedIn
+          ?
+          <View style={styles.container}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Mais próximos</Text>
+              <Pressable style={styles.button}>
+                <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
+              </Pressable>
+            </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
+              <View style={styles.itemContainer}>
+                <CaregiverList caregiverList={[...caregiverList].sort((a, b) => a.distance - b.distance)}></CaregiverList>
+              </View>
+            </ScrollView>
           </View>
-        </ScrollView>
-      </View>
+          :
+          <></>
+      }
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Bem avaliados</Text>
           <Pressable style={styles.button}>
-            <Text style={{color: '#FFFFFF', fontWeight: '200', fontSize: 12}}>Ver mais</Text>
+            <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
           </Pressable>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={caregiverList}></CaregiverList>
-            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_rating`} caregiver={caregiver}></CaregiverCard>)} 
+            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => getAverageRating(b) - getAverageRating(a))}></CaregiverList>
           </View>
         </ScrollView>
       </View>
@@ -98,12 +121,12 @@ export default function Home() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Mais experientes</Text>
           <Pressable style={styles.button}>
-            <Text style={{color: '#FFFFFF', fontWeight: '200', fontSize: 12}}>Ver mais</Text>
+            <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
           </Pressable>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => b.career_time - a.career_time)}></CaregiverList>
           </View>
         </ScrollView>
       </View>

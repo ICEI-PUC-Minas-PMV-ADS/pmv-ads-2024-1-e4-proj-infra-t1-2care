@@ -79,4 +79,14 @@ export const getUserType = async () => {
   }
 };
 
+export const getUserPosition = async () => {
+  try {
+    const lat = await AsyncStorage.getItem('latitude')
+    const long = await AsyncStorage.getItem('longitude')
+    return lat && long ? {"latitude": parseFloat(lat) , "longitude": parseFloat(long)} : null
+  } catch (error) {
+    console.error('Failed to fetch the data from storage', error);
+    return null;
+  }
+}
 

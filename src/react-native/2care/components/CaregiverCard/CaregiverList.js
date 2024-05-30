@@ -11,9 +11,9 @@ const CaregiverList = (props) => {
             {props.caregiverList.map(caregiver => (
                 <CaregiverCard
                     key={caregiver.email}
-                    image={caregiver.picture}
+                    picture={caregiver.picture}
                     name={caregiver.name}
-                    // especialization={caregiver.especialization}
+                    carrer_time={caregiver.carrer_time}
                     hour_value={caregiver.hour_price}
                     // rating={caregiver.rating}
                 />

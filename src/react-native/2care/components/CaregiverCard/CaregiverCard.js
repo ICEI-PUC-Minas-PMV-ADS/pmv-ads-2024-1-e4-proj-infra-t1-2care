@@ -2,11 +2,11 @@ import React from 'react';
 import './CaregiverCard.css';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
-const CaregiverCard = (propsprops) => {
+const CaregiverCard = (props) => {
     return (
         <View style={styles.card}>
             <View style={styles.imageview}>
-                <Image source={{ uri: props?.caregiver?.picture ? props.caregiver.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
+                <Image source={{ uri: props?.picture ? props.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
             </View>
             <View style={styles.info}>
                 <Text style={styles.infoText}>{props?.name}</Text>

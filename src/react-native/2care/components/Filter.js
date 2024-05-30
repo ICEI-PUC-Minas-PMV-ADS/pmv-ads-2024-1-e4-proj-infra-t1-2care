@@ -141,8 +141,7 @@ const FilterContainer = (props) => {
           ))}
       </View>
       <Text style={styles.header}>Especializações</Text>
-      {/* <View style={styles.checkboxGrid}> */}
-      <View style={styles.checkboxContainer}>
+      <View style={styles.checkboxGrid}>
         <View style={styles.column}>
           {renderCheckboxes().slice(0, 4)}
         </View>
@@ -179,11 +178,12 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     paddingHorizontal: 10,
+    alignItems: 'left',
   },
   checkboxGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-between',
   },
   checkboxContainer2: {
     width: '48%',
@@ -198,16 +198,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
+    alignItems: 'left',
+    // paddingHorizontal: 10,
     marginTop: 20,
   },
   column: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    margin: 5,
+    alignItems: 'left',
   },
 });
 
