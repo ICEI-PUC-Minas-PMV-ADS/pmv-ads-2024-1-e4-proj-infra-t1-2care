@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   View,
   Text,
@@ -8,25 +9,53 @@ import {
   Pressable
 } from 'react-native';
 import theme from '../../theme/theme.js';
-import CaregiverCard from '../../components/CaregiverCard/CaregiverCard.js';
 import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
-import { getCaregiverList } from '../../services/caregiverServiceMob.js';
+import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
+import { getCaregiverList } from '../../services/filterCaregiver.js';
+import { useNavigation } from "@react-navigation/native";
+
 
 const ScreenHeight = Dimensions.get('window').height;
 
-export default function Home({ navigation }) {
+export default function Home() {
+
+  const navigation = useNavigation();
+
   const [caregiverList, setCaregiverList] = useState([]);
+  const [highRatingcaregiverList, setHighRatingCaregiverList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const fetchData = async () => {
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setLoading(false);
+  };
+  
+  useEffect(() =>  {
+    if (isLoggedIn) {
+      getCaregiverList().then((CaregiverList) => {
+        if(CaregiverList){
+          const user_pos = getUserPosition();
+          let remove_list = [];
+          CaregiverList.forEach((c) => {
+            const dist = calcDistanceKm(user_pos.latitude, user_pos.longitude, c.latitude, c.longitude);
+            c["distance"] = dist
+            if (c.max_request_km < dist) {
+                remove_list.push(c._id);
+            }
+        });
+        const filteredList = CaregiverList.filter((c) => !remove_list.includes(c._id));
+        setCaregiverList(filteredList);
 
-  useEffect(() => {
-    // usar props quando vier pela lista.
-    getCaregiverList().then((result) => {
-      setCaregiverList(result ? result : {})
-      // As três seções estão consumindo dessa lista (proximos, avaliados e exp), tem que fazer a separação e mostrar
-    })
+        } else{
+          setCaregiverList([])
+        }       
 
-}, []);
-
+      })
+    }else{
+      getCaregiverList().then((CaregiverList) => setCaregiverList(CaregiverList ? CaregiverList : []))
+    }
+  }, []);
 
   return (
     <ScrollView>
@@ -46,20 +75,22 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_next_to_you`} caregiver={caregiver}></CaregiverCard>)}
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_next_to_you`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>
       <View style={styles.container}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Bem avaliados em sua cidade</Text>
+          <Text style={styles.sectionTitle}>Bem avaliados</Text>
           <Pressable style={styles.button}>
             <Text style={{color: '#FFFFFF', fontWeight: '200', fontSize: 12}}>Ver mais</Text>
           </Pressable>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_rating`} caregiver={caregiver}></CaregiverCard>)}
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_rating`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>
@@ -72,7 +103,8 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_exp`} caregiver={caregiver}></CaregiverCard>)}
+            <CaregiverList caregiverList={caregiverList}></CaregiverList>
+            {/* {caregiverList.map((caregiver) => <CaregiverCard key={`${caregiver._id}_high_exp`} caregiver={caregiver}></CaregiverCard>)} */}
           </View>
         </ScrollView>
       </View>

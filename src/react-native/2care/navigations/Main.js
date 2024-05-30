@@ -6,8 +6,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Home from '../screens/Main/Home';
 import Search from '../screens/Main/Search';
-import SendRequest from '../screens/Unsigned/SendRequest';
-import Requests from '../screens/Unsigned/Requests';
+import Profile from '../screens/Main/Profile';
+import SendRequest from '../screens/Main/SendRequest';
+import Requests from '../screens/Main/Requests';
+
 import { useAuth } from '../contexts/AuthContext';
 import UnsignedViews from './UnsignedViews';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
@@ -138,8 +140,9 @@ const ProfileStack = () => {
   );
 };
 
-const Main = () => {
+const MainNav = () => {
   const { user } = useAuth();
+  // const user = true;
 
   if (!user) {
     return <UnsignedViews />;
@@ -149,7 +152,7 @@ const Main = () => {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#ED8733',
       }}
     >
       <Tab.Screen
@@ -191,9 +194,8 @@ const Main = () => {
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}
-      />     
     </Tab.Navigator>
   );
 };
 
-export default Main;
+export default MainNav;
