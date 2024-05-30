@@ -12,7 +12,7 @@ const FilterContainer = (props) => {
   const [values, setValues] = useState({
     distance: '',
     experience: '',
-    rating: '',
+    rating: 0,
     day_price: '',
     hour_price: '',
     specializations: [],
@@ -136,7 +136,7 @@ const FilterContainer = (props) => {
               key={number}
               number={number}
               selected={values.rating == number}
-              onPress={() => handleInputChange('rating', number)}
+              onPress={() => {number == values.rating ? handleInputChange('rating', 0) : handleInputChange('rating', number)}}
             />
           ))}
       </View>
