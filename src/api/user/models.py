@@ -5,7 +5,7 @@ import uuid
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         if not email:
-            raise ValueError(_('The Email must be set'))
+            raise ValueError('The Email must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -20,7 +20,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
-
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
@@ -56,7 +55,7 @@ class CustomUserModel(AbstractUser):
     post_code = models.CharField(max_length=15)
     latitude = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
-    user_type = models.IntegerField(choices=USER_TYPE_CHOICES,)
+    user_type = models.IntegerField(choices=USER_TYPE_CHOICES)
     gender = models.IntegerField(choices=GENDER_CHOICES, default=0)
     preferred_contact = models.IntegerField(choices=PREFERRED_CONTACT_CHOICES, default=0)
     birth_date = models.DateField(null=True, blank=True)

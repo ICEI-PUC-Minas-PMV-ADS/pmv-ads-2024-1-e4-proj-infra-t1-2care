@@ -1,17 +1,10 @@
 from django.db import models
 import uuid
-
-class CustomUserModel(models.Model):
-    email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255)
- #add campos necessarios.....................................
-
-    def __str__(self):
-        return self.email
+from user.models import CustomUserModel
 
 class CaregiverModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey("user.CustomUserModel", on_delete=models.PROTECT)
+    user = models.ForeignKey(CustomUserModel, on_delete=models.PROTECT)
 
     qualifications = models.ManyToManyField(
         "caregiver.QualificationModel",

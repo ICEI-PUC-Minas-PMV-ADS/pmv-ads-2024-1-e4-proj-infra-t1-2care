@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from .views import (
     MongoCaregiverListView,
@@ -26,9 +25,15 @@ from .views import (
     CareRequestCancelView,
     CaregiverCreateView
 )
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     # Caregiver App -> Rotas relacionadas aos Cuidadores
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("", CaregiverDetailView.as_view(), name="caregiver-detail"),
     path("list", MongoCaregiverListView.as_view(), name="caregiver-list"),
     path("edit/", CaregiverEditView.as_view(), name="caregiver-edit"),
@@ -43,7 +48,6 @@ urlpatterns = [
         name="caregiver-calendar-view",
     ),
     path('calendar/update/', CalendarUpdateAPIView.as_view(), name='caregiver-calendar-update'),
-    # path('caregiver/<uuid:pk>/rating', CaregiverRatingView.as_view(), name='caregiver-view-rating'), sem model suficiente.
     path("qualification/", QualificationListCreateView.as_view(), name="qualification-list-create"),
     path(
         "qualification/<uuid:pk>/",
@@ -95,5 +99,6 @@ urlpatterns = [
   
     path("add/specialization/", AddSpecialization.as_view(), name="add-specialization"),
     path("remove/specialization/", RemoveSpecialization.as_view(), name="remove-specialization"),
-
+    
+    path("create/", CaregiverCreateView.as_view(), name="caregiver-create"),
 ]

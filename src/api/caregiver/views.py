@@ -121,6 +121,7 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
 class CaregiverCreateView(generics.CreateAPIView):
     queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
+    permission_classes = [IsAuthenticated]
 
 class CaregiverDetailView(generics.RetrieveAPIView):
     serializer_class = CaregiverSerializer
