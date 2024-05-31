@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d7039012-d75d-4c34-9fc0-d5c91cc4c52f"
+      }
+    },
+    "owner": "amandaventura"
   }
 }

@@ -33,14 +33,17 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-masked-text": "^1.13.0",
     "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-paper": "^5.12.3",
     "react-native-pulse": "^1.0.7",
     "react-native-sectioned-multi-select": "^0.10.0",
     "react-native-star-rating": "^1.0.8",
     "react-native-star-rating-widget": "^1.7.3",
+    "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.6",
     "react-router-native": "^6.23.1",
-    "react-simple-star-rating": "^5.1.7"
+    "react-simple-star-rating": "^5.1.7",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

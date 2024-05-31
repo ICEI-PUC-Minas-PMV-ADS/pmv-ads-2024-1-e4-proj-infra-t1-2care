@@ -90,7 +90,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             requestOptions.body = JSON.stringify(data);
         }
 
-        let response = await fetch(`${API_URL}${SERVICE_URL}`, requestOptions);
+        let response = await fetch(`${url}`, requestOptions);
 
         if (response.status === 401 || response.status === 403) {
             try {

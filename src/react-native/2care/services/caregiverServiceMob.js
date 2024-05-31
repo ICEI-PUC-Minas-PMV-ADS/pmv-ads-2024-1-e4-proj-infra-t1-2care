@@ -179,11 +179,11 @@ export const getCaregiverList = async () => {
 
 export const getRequestsList = async () => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`)
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`);
         return response;
     } catch (error) {
-        toast.error('Falha ao receber lista de propostas');
-        return false
+        console.log('Falha ao receber lista de propostas', error);
+        return false;
     }
 };
 

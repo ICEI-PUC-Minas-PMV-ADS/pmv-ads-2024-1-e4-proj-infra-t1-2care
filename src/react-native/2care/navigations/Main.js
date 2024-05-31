@@ -194,6 +194,7 @@ const MainNav = () => {
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}
+      />      
     </Tab.Navigator>
   );
 };
