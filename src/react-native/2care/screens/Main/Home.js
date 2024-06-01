@@ -30,6 +30,7 @@ export default function Home() {
   useEffect(() => {
     loadCaregiverList();
     setCaregiverList(list);
+    console.log(list)
 }, [list, user]);
 
   return (
@@ -47,9 +48,9 @@ export default function Home() {
           <View style={styles.container}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Mais próximos</Text>
-              <Pressable style={styles.button}>
+              {/* <Pressable style={styles.button}>
                 <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-              </Pressable>
+              </Pressable> */}
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
               <View style={styles.itemContainer}>
@@ -63,9 +64,9 @@ export default function Home() {
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Bem avaliados</Text>
-          <Pressable style={styles.button}>
+          {/* <Pressable style={styles.button}>
             <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
@@ -76,9 +77,9 @@ export default function Home() {
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Mais experientes</Text>
-          <Pressable style={styles.button}>
+          {/* <Pressable style={styles.button}>
             <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
@@ -92,8 +93,8 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    height: ScreenHeight * 0.28,
-    paddingVertical: 10,
+    // height: ScreenHeight * 0.28,
+    paddingVertical: 5,
   },
   scrollViewContent: {
     alignItems: 'center',

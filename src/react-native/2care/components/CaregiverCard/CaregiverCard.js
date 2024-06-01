@@ -1,6 +1,8 @@
 import React from 'react';
 import './CaregiverCard.css';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import RatingStars from './RatingStars';
+
 
 const CaregiverCard = (props) => {
     return (
@@ -10,9 +12,10 @@ const CaregiverCard = (props) => {
             </View>
             <View style={styles.info}>
                 <Text style={styles.infoText}>{props?.name}</Text>
-                <Text style={styles.infoText}>2 km de distância</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
+                <Text style={styles.infoText}>{props?.distance ? props.distance + " de distância" : "cadastre-se para descobrir" }</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
                 <Text style={styles.infoText}>{props?.career_time} anos de experiência</Text>
-                <Text style={styles.infoText}>R$ {props?.hour_price}</Text>
+                <Text style={styles.infoText}>R$ {props?.hour_price},00</Text>
+                <RatingStars style={styles.infoText} rating={props?.rating} />
             </View>
         </View>
     );
@@ -49,6 +52,7 @@ const styles = StyleSheet.create({
         display: 'block',
         marginBlockStart: '0',
         marginBlockEnd: '0',
+        fontSize: 12,
         // lineHeight: '1em',
     },
 });

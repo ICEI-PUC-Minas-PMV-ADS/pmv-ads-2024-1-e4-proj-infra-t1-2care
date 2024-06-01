@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'left',
     // paddingHorizontal: 10,
-    marginTop: 20,
+    // marginTop: 20,
   },
   column: {
     flex: 1,

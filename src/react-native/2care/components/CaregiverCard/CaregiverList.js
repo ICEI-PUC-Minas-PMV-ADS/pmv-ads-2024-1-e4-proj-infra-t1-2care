@@ -13,8 +13,10 @@ const CaregiverList = (props) => {
                     key={caregiver.email}
                     picture={caregiver.picture}
                     name={caregiver.name}
-                    carrer_time={caregiver.carrer_time}
-                    hour_value={caregiver.hour_price}
+                    career_time={caregiver.career_time}
+                    hour_price={caregiver.hour_price}
+                    distance={caregiver.distance}
+                    rating={caregiver.rating}
                     // rating={caregiver.rating}
                 />
             ))}

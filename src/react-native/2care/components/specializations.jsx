@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Dimensions, Image, Text, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
+
+const screenWidth = Dimensions.get('window').width;
 
 const Specializations = () => {
     const navigation = useNavigation();
@@ -47,24 +50,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 10,
-        marginTop: 20,
+        padding: 10,
+        marginVertical: 5,
+        // justifyContent: 'space-around',
     },
     column: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
-        margin: 5,
+        width: ScreenWidth * 0.5,
     },
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginVertical: 5,
         backgroundColor: 'rgba(210, 218, 195, 0.5)',
-        width: 180,
+        // width: 180,
+        width: ScreenWidth * 0.4,
         borderRadius: 4,
-        padding: 2,
         height: 35,
     },
     buttonImage: {
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 12,
-        maxWidth: 145,
+        maxWidth: ScreenWidth * 0.3,
     },
 });
 

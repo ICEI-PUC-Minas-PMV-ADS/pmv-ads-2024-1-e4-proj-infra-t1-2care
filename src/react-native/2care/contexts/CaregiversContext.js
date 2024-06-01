@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { getCaregiverList, calcDistanceKm } from '../services/filterCaregiver.js';
+import { getAverageRating } from '../services/filterCaregiver.js';
 import { getUserPosition } from '../services/userServiceMob.js';
 import { useAuth } from "../contexts/AuthContext.js";
 
@@ -20,6 +21,7 @@ function CaregiversProvider({ children }) {
                         if (c.max_request_km < dist) {
                             remove_list.push(c._id);
                         }
+                        c["rating"] = getAverageRating(c.evaluations)
                     });
                     const filteredList = caregiverList.filter((c) => !remove_list.includes(c._id));
                     setList(filteredList);
