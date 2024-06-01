@@ -73,9 +73,6 @@ const EditProfileScreenCareReceiver = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.searchBarContainer}>
-        <SearchBar></SearchBar>
-      </View>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.profileName}>Maria Augusta Oliveira</Text>
@@ -146,9 +143,8 @@ const EditProfileScreenCareReceiver = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 2,
-    paddingHorizontal: 30,
-    backgroundColor: "#ffffff"
+    padding: 20,
+    backgroundColor: "#f6f6f6"
   },
   searchBarContainer: {
     width: '100%', 
@@ -263,9 +259,6 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS ? 40 : 20
   }
 });
 

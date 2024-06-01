@@ -86,7 +86,7 @@ const EditProfileScreenCareGiver = () => {
         setEmail(userEmail || 'Email não disponível');
         setFormData({
           ...formData,
-          email: user?.email || '',
+          email: userEmail || '',
           name: user?.name || '',
           birth_date: user?.birth_date || '',
           post_code: user?.post_code || '',
@@ -180,7 +180,6 @@ const EditProfileScreenCareGiver = () => {
   
         const response = await updateCaregiver(user, caregiver);
         console.log("Atualização bem-sucedida", response);
-        navigation.goBack();
       } catch (error) {
         console.error("Erro na atualização", error);
         alert('Erro ao atualizar dados. Por favor, tente novamente.');
@@ -233,7 +232,7 @@ const EditProfileScreenCareGiver = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView style={styles.scrollContainer} contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView style={styles.scrollContainer}>
         <View style={styles.header}>
           <Text style={styles.profileName}>{userName}</Text>
           <Text style={styles.profileRole}>Cuidador</Text>
@@ -338,10 +337,10 @@ const EditProfileScreenCareGiver = () => {
             />
           </View>
           <View style={styles.buttonContainer}>
-            <Pressable style={[styles.button, styles.cancelButton]} onPress={handleCancel}>
+            <Pressable style={[styles.button, styles.cancelButton]} onPress={() => {handleCancel()}}>
               <Text style={styles.buttonText}>Cancelar</Text>
             </Pressable>
-            <Pressable style={[styles.button, styles.saveButton]} onPress={handleSubmit}>
+            <Pressable style={[styles.button, styles.saveButton]} onPress={() => {handleSubmit()}}>
               <Text style={styles.buttonText}>Salvar</Text>
             </Pressable>
           </View>
@@ -368,7 +367,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f6f6f6",
   },
   searchBarContainer: {
     width: '100%', 
