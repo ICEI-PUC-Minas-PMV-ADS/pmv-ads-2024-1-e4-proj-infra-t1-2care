@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+import { toast } from 'react-toastify';
+import { sendProposalToCaregiver } from '../../services/caregiverServiceMob'; // Importe seu serviço backend
+import { useNavigation } from '@react-navigation/native'; // Para navegação
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const CarereceiverFormProposal = () => {
   const [formData, setFormData] = useState({
@@ -7,9 +11,65 @@ const CarereceiverFormProposal = () => {
     start_time: "",
     end_time: "",
   });
+  const [totalHours, setTotalHours] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [error, setError] = useState('');
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
+
+
+  const navigation = useNavigation();
+  const caregiverProps = { caregiverData: { hour_price: 200.00, id: 1 } }; // Exemplo de dados do cuidador
+
+  useEffect(() => {
+    calculateTotalHours();
+  }, [formData.start_time, formData.end_time]);
+
+  useEffect(() => {
+    setTotalPayment(parseFloat((totalHours * caregiverProps.caregiverData.hour_price).toFixed(2)) || 0);
+  }, [totalHours]);
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
+  };
+
+  const calculateTotalHours = () => {
+    const start = new Date(`2000-01-01T${formData.start_time}`);
+    const end = new Date(`2000-01-01T${formData.end_time}`);
+    const hours = (end - start) / (1000 * 60 * 60);
+    setTotalHours(parseFloat(hours.toFixed(2)) || 0);
+  };
+
+  const handleSubmit = async () => {
+    setError('');
+
+    if (!formData.date || !formData.start_time || !formData.end_time) {
+      setError('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    const proposalData = {
+      date: formData.date,
+      startTime: formData.start_time,
+      endTime: formData.end_time,
+      caregiver: caregiverProps.caregiverData.id
+    };
+
+    try {
+      const result = await sendProposalToCaregiver(proposalData);
+      if (result) {
+        toast.success('Proposta enviada com sucesso!', {
+          onClose: () => { navigation.navigate("Requests"); },
+          autoClose: 1000
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao enviar proposta:", error);
+      
+      setError('Erro ao enviar proposta. Por favor, tente novamente mais tarde.');
+    }
   };
 
   const CustomLabel = ({ text }) => {
@@ -61,20 +121,23 @@ const CarereceiverFormProposal = () => {
         
         <View style={styles.infoContainer}>
           <Text style={styles.labelText}>Total de horas:</Text>
-          <Text style={styles.infoText}>0 horas</Text>
+          <Text style={styles.infoText}>{totalHours} horas</Text>
         </View>
 
         <View style={styles.infoContainer}>
           <Text style={styles.labelText}>Valor total a pagar:</Text>
-          <Text style={styles.infoText}>R$00,00</Text>
+          <Text style={styles.infoText}>R${totalPayment.toFixed(2)}</Text>
         </View>
       </View>
 
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
       <View style={styles.buttonContainer}>
-        <Pressable onPress={() => console.log("Enviar proposta")}>
+        <Pressable onPress={handleSubmit}>
           <Text style={styles.buttonText}>Enviar proposta</Text>
         </Pressable>
       </View>
+      {/* <ToastContainer /> */}
     </View>
   );
 };
@@ -180,6 +243,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 2,
     fontWeight: 400,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    marginBottom: 10,
   },
 });
 

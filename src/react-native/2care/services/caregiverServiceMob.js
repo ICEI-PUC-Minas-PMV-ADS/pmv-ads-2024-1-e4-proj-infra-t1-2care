@@ -179,11 +179,11 @@ export const getCaregiverList = async () => {
 
 export const getRequestsList = async () => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`)
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests`);
         return response;
     } catch (error) {
-        toast.error('Falha ao receber lista de propostas');
-        return false
+        console.log('Falha ao receber lista de propostas', error);
+        return false;
     }
 };
 
@@ -192,7 +192,7 @@ export const acceptRequest = async (requestId) => {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/accept`)
         return response;
     } catch (error) {
-        toast.error('Falha ao aceitar proposta');
+        console.log('Falha ao aceitar proposta');
         return false
     }
 };
@@ -202,7 +202,7 @@ export const declineRequest = async (requestId) => {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/decline`)
         return response;
     } catch (error) {
-        toast.error('Falha ao recusar proposta');
+        console.log('Falha ao recusar proposta');
         return false
     }
 };
@@ -212,7 +212,7 @@ export const cancelRequest = async (requestId) => {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/${requestId}/cancel`)
         return response;
     } catch (error) {
-        toast.error('Falha ao cancelar proposta');
+        console.log('Falha ao cancelar proposta');
         return false
     }
 };

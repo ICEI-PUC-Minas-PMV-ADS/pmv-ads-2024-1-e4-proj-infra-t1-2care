@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Pressable, StyleSheet, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TopNav from "../../components/TopNav/TopNav";
-import CarereceiverFormProposal from "../../components/Forms/CarereceiverFormProposal";
+import CarereceiverFormProposal from "../../components/Modal/CarereceiverFormProposal";
 
 export default function SendRequest() {
   const navigation = useNavigation();
