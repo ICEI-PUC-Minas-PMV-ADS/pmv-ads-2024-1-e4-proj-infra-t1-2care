@@ -17,7 +17,6 @@ const CaregiverList = (props) => {
                     hour_price={caregiver.hour_price}
                     distance={caregiver.distance}
                     rating={caregiver.rating}
-                    // rating={caregiver.rating}
                 />
             ))}
         </ScrollView>

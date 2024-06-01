@@ -31,6 +31,9 @@ function CaregiversProvider({ children }) {
             });
         } else {
             getCaregiverList().then((caregiverList) => {
+                caregiverList.forEach((c) => {
+                    c["rating"] = getAverageRating(c.evaluations)
+                });
                 setList(caregiverList ? caregiverList : []);
             });
         }

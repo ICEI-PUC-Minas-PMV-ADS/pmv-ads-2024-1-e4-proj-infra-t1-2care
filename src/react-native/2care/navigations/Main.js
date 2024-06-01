@@ -237,7 +237,7 @@ const MainNav = () => {
             tabBarStyle: {display: 'none'}
           }}
         >
-            {(props) => <UnsignedViews {...props} setVisitorMode={(value) => setIsVisitor(value)} />}
+            {(props) => <UnsignedViews {...props} setVisitorMode={() => setIsVisitor(true)} />}
         </Tab.Screen>
       }
 

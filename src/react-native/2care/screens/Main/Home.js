@@ -10,6 +10,7 @@ import {
 import theme from '../../theme/theme.js';
 import Specializations from '../../components/specializations.jsx';
 import SearchBar from '../../components/SearchBar.jsx';
+import CaregiverCard from '../../components/CaregiverCard/CaregiverCard.js';
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
 import { getAverageRating } from '../../services/filterCaregiver.js';
 import { useNavigation } from "@react-navigation/native";
@@ -30,7 +31,6 @@ export default function Home() {
   useEffect(() => {
     loadCaregiverList();
     setCaregiverList(list);
-    console.log(list)
 }, [list, user]);
 
   return (
@@ -54,7 +54,7 @@ export default function Home() {
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
               <View style={styles.itemContainer}>
-                <CaregiverList caregiverList={[...caregiverList].sort((a, b) => a.distance - b.distance)}></CaregiverList>
+              {([...caregiverList].sort((a, b) => a.distance - b.distance)).map((caregiver) => <CaregiverCard key={`${caregiver._id}`} caregiver={caregiver}></CaregiverCard>)}
               </View>
             </ScrollView>
           </View>
@@ -70,7 +70,7 @@ export default function Home() {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => getAverageRating(b.evaluations) - getAverageRating(a.evaluations))}></CaregiverList>
+            {([...caregiverList].sort((a, b) => getAverageRating(b.evaluations) - getAverageRating(a.evaluations))).map((caregiver) => <CaregiverCard key={`${caregiver._id}`} caregiver={caregiver}></CaregiverCard>)}
           </View>
         </ScrollView>
       </View>
@@ -83,7 +83,7 @@ export default function Home() {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={[...caregiverList].sort((a, b) => b.career_time - a.career_time)}></CaregiverList>
+          {([...caregiverList].sort((a, b) => b.career_time - a.career_time)).map((caregiver) => <CaregiverCard key={`${caregiver._id}`} caregiver={caregiver}></CaregiverCard>)}
           </View>
         </ScrollView>
       </View>
