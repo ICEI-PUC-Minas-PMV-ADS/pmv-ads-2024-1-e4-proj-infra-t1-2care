@@ -3,14 +3,16 @@ import { View, TextInput, Text, StyleSheet, ScrollView, Dimensions } from 'react
 import { CheckBox } from 'react-native-elements';
 import Specializations from './specializations';
 import StarFilterOption from './Evaluation/StarFilterOption';
+import { useAuth } from '../contexts/AuthContext';
 
 
 const ScreenWidth = Dimensions.get('window').width;
 
 const FilterContainer = (props) => {
   const [filter, setFilter] = useState(props.filter || null);
+  const { user } = useAuth();
   const [values, setValues] = useState({
-    distance: '',
+    distance: 0,
     experience: '',
     rating: 0,
     day_price: '',
@@ -89,6 +91,9 @@ const FilterContainer = (props) => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Filtrar por</Text>
+      {
+        user
+          ?
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Distância de você</Text>
         <TextInput
@@ -99,6 +104,9 @@ const FilterContainer = (props) => {
           onChangeText={(value) => handleInputChange('distance', value)}
         />
       </View>
+      :
+      <></>
+      }
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Anos de experiência</Text>
         <TextInput

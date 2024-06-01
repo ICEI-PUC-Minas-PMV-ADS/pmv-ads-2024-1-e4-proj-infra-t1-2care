@@ -1,23 +1,31 @@
 import React from 'react';
 import './CaregiverCard.css';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, Pressable } from 'react-native';
 import RatingStars from './RatingStars';
-
+import { useNavigation } from '@react-navigation/native';
 
 const CaregiverCard = (props) => {
+    const navigation = useNavigation()
+
+    const onPressCaregiver = (caregiver) => {
+        navigation.navigate('ViewCaregiverInfo', { caregiver })
+      };
+
     return (
-        <View style={styles.card}>
-            <View style={styles.imageview}>
-                <Image source={{ uri: props.caregiver?.picture ? props.caregiver.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
+        <Pressable onPress={() => onPressCaregiver(props.caregiver)} underlayColor="white">
+            <View style={styles.card}>
+                <View style={styles.imageview}>
+                    <Image source={{ uri: props.caregiver?.picture ? props.caregiver.picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwfJ-sfBI_mfosIiy1R3wpv6vVQp25hGPIPsjYP93Og&s', }} style={styles.image} resizeMode="cover" accessibilityLabel="Foto de perfil" />
+                </View>
+                <View style={styles.info}>
+                    <Text style={styles.infoText}>{props.caregiver?.name}</Text>
+                    <Text style={styles.infoText}>{props.caregiver?.distance ? props.caregiver.distance + " de distância" : "cadastre-se para descobrir"}</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
+                    <Text style={styles.infoText}>{props.caregiver?.career_time} anos de experiência</Text>
+                    <Text style={styles.infoText}>R$ {props.caregiver?.hour_price},00</Text>
+                    <RatingStars style={styles.infoText} rating={props.caregiver?.rating} />
+                </View>
             </View>
-            <View style={styles.info}>
-                <Text style={styles.infoText}>{props.caregiver?.name}</Text>
-                <Text style={styles.infoText}>{props.caregiver?.distance ? props.caregiver.distance + " de distância" : "cadastre-se para descobrir" }</Text>{/*  tem que fazer o calc da distancia, tem no outro app */}
-                <Text style={styles.infoText}>{props.caregiver?.career_time} anos de experiência</Text>
-                <Text style={styles.infoText}>R$ {props.caregiver?.hour_price},00</Text>
-                <RatingStars style={styles.infoText} rating={props.caregiver?.rating} />
-            </View>
-        </View>
+        </Pressable >
     );
 };
 
