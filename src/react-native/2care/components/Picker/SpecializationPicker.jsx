@@ -1,7 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 const items = [
   { id: '1', name: "Cuidados Básicos de Saúde" },
@@ -17,35 +16,63 @@ const items = [
 ];
 
 const SpecializationPicker = ({ selectedItems, onSelectedItemsChange }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSelectItem = (item) => {
+    if (selectedItems.includes(item.id)) {
+      onSelectedItemsChange(selectedItems.filter(id => id !== item.id));
+    } else {
+      onSelectedItemsChange([...selectedItems, item.id]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Especialização</Text>
-      <SectionedMultiSelect
-        items={items}
-        IconRenderer={Icon}
-        uniqueKey="id"
-        subKey="children"
-        selectText="Selecione alguma Especialização"
-        showDropDowns={true}
-        readOnlyHeadings={true}
-        onSelectedItemsChange={onSelectedItemsChange}
-        selectedItems={selectedItems}
-        confirmText="Confirmar"
-        styles={{
-          selectToggle: styles.selectToggle,
-          chipText: styles.chipText,
-          chipContainer: styles.chipContainer,
-          selectedItemText: styles.selectedItemText,
-          itemText: styles.itemText,
-        }}
-        searchPlaceholderText="Buscar..."
-        colors={{
-          primary: '#486142',
-          text: '#486142',
-          subText: '#486142',
-          selectToggleTextColor: '#486142',
-        }}
-      />
+      <TouchableOpacity 
+        style={styles.selectButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.selectButtonText}>
+          {selectedItems.length > 0 ? `Selecionado: ${selectedItems.length}` : 'Selecione alguma Especialização'}
+        </Text>
+        <Icon name="arrow-drop-down" color="#486142" />
+      </TouchableOpacity>
+      
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Selecione Especializações</Text>
+            <FlatList
+              data={items}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity 
+                  style={[
+                    styles.item, 
+                    selectedItems.includes(item.id) ? styles.selectedItem : null
+                  ]}
+                  onPress={() => handleSelectItem(item)}
+                >
+                  <Text style={styles.itemText}>{item.name}</Text>
+                  {selectedItems.includes(item.id) && <Icon name="check" color="#486142" />}
+                </TouchableOpacity>
+              )}
+            />
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.confirmButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -66,26 +93,63 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     zIndex: 1,
   },
-  selectToggle: {
+  selectButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: "#799275",
     borderRadius: 5,
     padding: 10,
-    fontSize: 16,
-    color: '#486142',
     backgroundColor: '#ffffff',
   },
-  chipText: {
-    color: "#486142",
+  selectButtonText: {
+    fontSize: 16,
+    color: '#486142',
   },
-  chipContainer: {
-    borderColor: "#799275",
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  selectedItemText: {
-    color: "#486142",
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#486142',
+  },
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
   },
   itemText: {
-    color: "#486142",
+    fontSize: 16,
+    color: '#486142',
+  },
+  selectedItem: {
+    backgroundColor: '#e0e0e0',
+  },
+  confirmButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#ED8733',
+    borderRadius: 5,
+  },
+  confirmButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 

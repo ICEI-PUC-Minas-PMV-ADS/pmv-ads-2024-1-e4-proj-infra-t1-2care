@@ -95,3 +95,19 @@ export const getUserEmail = async () => {
       return null;
   }
 };
+
+export const getCaregiverData = async () => {
+  const token = await AsyncStorage.getItem('token');
+  return fetch('http://127.0.0.1:8000/api/caregiver/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Error:', error);
+      throw error;
+    });
+};

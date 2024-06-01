@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView, TouchableOpacity, Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, SafeAreaView, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import SearchBar from '../../components/SearchBar.jsx';
-import { updateCaregiver } from "../../services/caregiverServiceMob.js";
+import { getUserData, getUserEmail } from "../../services/userServiceMob";
+import { getCaregiverData, updateCaregiver } from "../../services/caregiverServiceMob";
 import QualificationsModal from "../../components/Modal/QualificationsModal.jsx";
 import WorkExperienceModal from "../../components/Modal/WorkExperienceModal.jsx";
 import SpecializationPicker from "../../components/Picker/SpecializationPicker.jsx";
@@ -18,6 +17,8 @@ const EditProfileScreenCareGiver = () => {
   const [qualifications, setQualifications] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [selectedGender, setSelectedGender] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   
   const [formData, setFormData] = useState({
     email: "",
@@ -74,6 +75,44 @@ const EditProfileScreenCareGiver = () => {
     additionalInfo: "Informações Adicionais"
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await getUserData();
+        const caregiver = await getCaregiverData();
+        const userEmail = await getUserEmail();
+
+        setUserName(user?.name || 'Nome não disponível');
+        setEmail(userEmail || 'Email não disponível');
+        setFormData({
+          ...formData,
+          email: user?.email || '',
+          name: user?.name || '',
+          birth_date: user?.birth_date || '',
+          post_code: user?.post_code || '',
+          phone: user?.phone || '',
+          gender: caregiver?.gender || "",
+          specialization: (caregiver?.specializations || []).map(spec => spec.id),
+          qualifications: caregiver?.qualifications || "",
+          workexperience: caregiver?.workexperience || "",
+          yearsexperience: caregiver?.yearsexperience || "",
+          unavailableDays: caregiver?.unavailableDays || "",
+          dailyRate: caregiver?.dailyRate || "",
+          hourlyRate: caregiver?.hourlyRate || "",
+          additionalInfo: caregiver?.additionalInfo || ""
+        });
+        setQualifications((caregiver?.qualifications || "").split(', '));
+        setExperiences((caregiver?.workexperience || "").split(', '));
+        setSelectedGender([caregiver?.gender || ""]);
+        setSelectedItems((caregiver?.specializations || []).map(spec => ({ id: spec.id, name: spec.name })));
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleChange = (name, value) => {
     if (['dailyRate', 'hourlyRate'].includes(name)) {
       const formattedValue = formatCurrency(value);
@@ -123,19 +162,20 @@ const EditProfileScreenCareGiver = () => {
         const user = {
           email: formData.email,
           name: formData.name,
-          // add outros campos
+          birth_date: formData.birth_date,
+          post_code: formData.post_code,
+          phone: formData.phone,
         };
         const caregiver = {
           gender: formData.gender,
           qualifications: qualifications.join(', '),
-          specialization: selectedItems,
-          workexperience: experiences.map(exp => `${exp.experience} (${exp.link})`).join(', '),
+          specialization: selectedItems.map(item => item.id),
+          workexperience: experiences.join(', '),
           yearsexperience: formData.yearsexperience,
           unavailableDays: formData.unavailableDays,
           dailyRate: formData.dailyRate,
           hourlyRate: formData.hourlyRate,
           additionalInfo: formData.additionalInfo,
-          // add outros campos de caregiver
         };
   
         const response = await updateCaregiver(user, caregiver);
@@ -193,11 +233,9 @@ const EditProfileScreenCareGiver = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.searchBarContainer}>
-      </View>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.scrollContainer} contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.profileName}>João Silva</Text>
+          <Text style={styles.profileName}>{userName}</Text>
           <Text style={styles.profileRole}>Cuidador</Text>
           <Image
             source={{ uri: 'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
@@ -217,15 +255,15 @@ const EditProfileScreenCareGiver = () => {
             key !== 'additionalInfo'
           ).map((key) => (
             <View key={key} style={styles.inputContainer}>
-                <Text style={styles.label}>{fieldLabels[key]}</Text>
-                <TextInput
-                    style={styles.input}
-                    value={formData[key]}
-                    onChangeText={(text) => handleChange(key, text)}
-                    onBlur={() => handleChange(key, formData[key])}
-                    secureTextEntry={key.includes("password")}
-                />
-                {errors[key] && <Text style={styles.errorText}>{errors[key]}</Text>}
+              <Text style={styles.label}>{fieldLabels[key]}</Text>
+              <TextInput
+                style={styles.input}
+                value={formData[key]}
+                onChangeText={(text) => handleChange(key, text)}
+                onBlur={() => handleChange(key, formData[key])}
+                secureTextEntry={key.includes("password")}
+              />
+              {errors[key] && <Text style={styles.errorText}>{errors[key]}</Text>}
             </View>
           ))}
           <View style={styles.inputContainer}>
@@ -324,11 +362,13 @@ const EditProfileScreenCareGiver = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    padding: 2,
-    paddingHorizontal: 30,
-    backgroundColor: "#ffffff"
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: 20,
+    backgroundColor: "#ffffff",
   },
   searchBarContainer: {
     width: '100%', 
@@ -354,7 +394,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   form: {
-    marginTop: 20
+    marginTop: 20,
+    flex: 1,
   },
   inputContainer: {
     marginBottom: 20,
@@ -427,12 +468,6 @@ const styles = StyleSheet.create({
   pickerItem: {
     color: '#486142',
   },
-  safeArea: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'android' ? 40 : 20
-  },
   openModalButton: {
     backgroundColor: "#ED8733",
     padding: 10,
@@ -444,6 +479,11 @@ const styles = StyleSheet.create({
   openModalButtonText: {
     color: "white",
     fontSize: 16
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 

@@ -1,13 +1,11 @@
-from django.contrib.auth import authenticate
-from django.db import transaction
-from api_2care.mongo_connection import MongoConnection
-from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from datetime import datetime, timedelta
+from datetime import datetime
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
 
 from .models import (
     CareRequestModel,
@@ -18,8 +16,6 @@ from .models import (
     WorkExperienceModel,
 )
 from user.models import CustomUserModel
-
-from careReceiver.models import CareReceiverModel
 
 from .serializers import (
     CareRequestSerializer,
@@ -32,11 +28,16 @@ from .serializers import (
     CalendarSerializer
 )
 
+from api_2care.mongo_connection import MongoConnection
 
 class MongoCaregiverListView(APIView):
     permission_classes = (AllowAny,) 
     def get(self, request):
         return Response(MongoConnection().get_data_on_mongo(), 200)
+
+class CaregiverListView(generics.ListAPIView):
+    queryset = CaregiverModel.objects.all()
+    serializer_class = CaregiverSerializer
 
 class CaregiverEditView(APIView):
     queryset = CaregiverModel.objects.all()
@@ -122,16 +123,20 @@ class CaregiverCreateView(generics.CreateAPIView):
     queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
     permission_classes = [IsAuthenticated]
+    
 
 class CaregiverDetailView(generics.RetrieveAPIView):
+    queryset = CaregiverModel.objects.all()
     serializer_class = CaregiverSerializer
     authentication_classes = [JWTAuthentication]
-
-    def get_queryset(self):
-        return None
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        return get_object_or_404(CaregiverModel, user=self.request.user)
+        try:
+            return self.queryset.get(user=self.request.user)
+        except CaregiverModel.DoesNotExist:
+            raise NotFound(detail="CaregiverModel not found for this user", code=404)
+
 
 class CaregiverCalendarView(generics.RetrieveAPIView):
     queryset = CaregiverModel.objects.all()
@@ -156,7 +161,6 @@ class CaregiverCalendarView(generics.RetrieveAPIView):
 
 
 # Qualification (Odair)
-
 
 class QualificationListCreateView(generics.ListCreateAPIView):
     queryset = QualificationModel.objects.all()

@@ -1,84 +1,55 @@
 import React from 'react';
+import { Picker } from '@react-native-picker/picker';
 import { View, Text, StyleSheet } from 'react-native';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-const items = [
-  { id: 'Masculino', name: 'Masculino' },
-  { id: 'Feminino', name: 'Feminino' },
-  { id: 'Outro', name: 'Outro' },
-];
 
 const GenderPicker = ({ selectedItems, onSelectedItemsChange }) => {
+  const GENDER_MAP = {
+    1: "Masculino",
+    2: "Feminino",
+    3: "Outro",
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={styles.pickerContainer}>
       <Text style={styles.label}>Gênero</Text>
-      <SectionedMultiSelect
-        items={items}
-        IconRenderer={Icon}
-        uniqueKey="id"
-        single={true}
-        selectText="Selecione o gênero"
-        showDropDowns={true}
-        readOnlyHeadings={true}
-        onSelectedItemsChange={onSelectedItemsChange}
-        selectedItems={selectedItems}
-        confirmText="Confirmar"
-        styles={{
-          selectToggle: styles.selectToggle,
-          chipText: styles.chipText,
-          chipContainer: styles.chipContainer,
-          selectedItemText: styles.selectedItemText,
-          itemText: styles.itemText,
-        }}
-        searchPlaceholderText="Buscar..."
-        colors={{
-          primary: '#486142',
-          text: '#486142',
-          subText: '#486142',
-          selectToggleTextColor: '#486142',
-        }}
-      />
+      <Picker
+        selectedValue={selectedItems[0]}
+        onValueChange={(itemValue) => onSelectedItemsChange([itemValue])}
+        style={styles.picker}
+      >
+        {Object.entries(GENDER_MAP).map(([key, label]) => (
+          <Picker.Item key={key} label={label} value={key} />
+        ))}
+      </Picker>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pickerContainer: {
     marginBottom: 20,
-    position: "relative",
+    position: 'relative',
   },
   label: {
-    position: "absolute",
-    backgroundColor: "#D2DAC3",
+    position: 'absolute',
+    backgroundColor: '#D2DAC3',
     left: 10,
     top: -10,
     paddingHorizontal: 5,
     fontSize: 12,
-    color: "#486142",
+    color: '#486142',
     borderRadius: 10,
     zIndex: 1,
   },
-  selectToggle: {
+  picker: {
     borderWidth: 1,
-    borderColor: "#799275",
+    width: "100%",
+    borderColor: "#486142",
     borderRadius: 5,
     padding: 10,
     fontSize: 16,
     color: '#486142',
-    backgroundColor: '#ffffff',
-  },
-  chipText: {
-    color: "#486142",
-  },
-  chipContainer: {
-    borderColor: "#799275",
-  },
-  selectedItemText: {
-    color: "#486142",
-  },
-  itemText: {
-    color: "#486142",
+    backgroundColor: '#f6f6f6',
   },
 });
 
