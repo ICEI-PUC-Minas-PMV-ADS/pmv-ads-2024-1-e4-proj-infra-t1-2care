@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
 import { getRequestsList } from "../../services/caregiverServiceMob"; 
+import { FontAwesome } from '@expo/vector-icons';
 
 import TopNavOptions from "../../components/TopNav/TopNavOptions";
 
@@ -26,6 +27,20 @@ export default function Requests({ userType }) {
     setShowScrollTop(y > 0);
   };
 
+  const getStatusText = (status) => {
+    switch (status) {
+      case 0:
+        return "Pendentes";
+      case 1:
+        return "Aceitas";
+      case 2:
+      case 3:
+        return "Recusadas";
+      default:
+        return "Desconhecido";
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TopNavOptions />
@@ -35,7 +50,7 @@ export default function Requests({ userType }) {
         scrollEventThrottle={16}
       >
         {requestsList.map((request, index) => (
-          <View key={index} style={styles.requestContainer}>
+          <View key={index} style={[styles.requestContainer, index === 0 ? { marginTop: 10 } : null]}>
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
@@ -46,12 +61,25 @@ export default function Requests({ userType }) {
               <Text style={styles.caregiverName}>
                 {request.caregiver.user.name || 'N/A'}
               </Text>
-              <Text>Data: {request.date}</Text>
-              <Text>Hora inicial: {request.start_time}</Text>
-              <Text>Hora final: {request.end_time}</Text>
-              <Text>Total de horas: {request.total_hours}</Text>
-              <Text>Valor a pagar: {request.final_price}</Text>
-              <Text>Status: {request.status}</Text>
+              <View style={styles.iconTextContainer}>
+                <FontAwesome name="calendar" size={18} color="#486142" />
+                <Text style={styles.iconText}>{request.date}</Text>
+              </View>
+              <View style={styles.timeContainer}>
+                <View style={styles.timeTextContainer}>
+                  <FontAwesome name="clock-o" size={18} color="#486142" />
+                  <Text style={styles.iconText}>{request.start_time}</Text>
+                </View>
+                <View style={styles.timeTextContainer}>
+                  <FontAwesome name="clock-o" size={18} color="#486142" />
+                  <Text style={styles.iconText}>{request.end_time}</Text>
+                </View>
+              </View>
+              <View style={styles.iconTextContainer}>
+                <FontAwesome name="money" size={18} color="#486142" />
+                <Text style={styles.iconText}>{request.final_price}</Text>
+              </View>
+              <Text>Status: {getStatusText(request.status)}</Text>
             </View>
           </View>
         ))}
@@ -95,6 +123,24 @@ const styles = StyleSheet.create({
     color: '#486142',
     fontWeight: '600'
   },
+  iconTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  timeTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconText: {
+    marginLeft: 5,
+  },
   scrollTopButton: {
     position: 'absolute',
     bottom: 20,
@@ -105,9 +151,9 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  scrollTopText: {
+    },
+    scrollTopText: {
     color: '#fff',
     fontSize: 20,
-  },
-});
+    },
+    });
