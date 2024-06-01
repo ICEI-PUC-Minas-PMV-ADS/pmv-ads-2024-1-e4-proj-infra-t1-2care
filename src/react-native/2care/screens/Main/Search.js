@@ -19,12 +19,11 @@ export default function Search({route}) {
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [textToSearch, setTextToSearch] = useState('');
 
-  const { list, loadCaregiverList } = useContext(CaregiversContext);
+  const { list } = useContext(CaregiversContext);
   const [caregiverList, setCaregiverList] = useState([]);
   const [filteredCaregiverList, setFilteredCaregiverList] = useState([]);
   
   useEffect(() => {
-    loadCaregiverList();
     setCaregiverList(list);
 });
 

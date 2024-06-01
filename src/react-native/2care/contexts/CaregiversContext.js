@@ -1,26 +1,15 @@
 import React, { createContext, useState } from "react";
 import { getCaregiverList, calcDistanceKm } from '../services/filterCaregiver.js';
 import { getUserPosition } from '../services/userServiceMob.js';
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../contexts/AuthContext.js";
 
 export const CaregiversContext = createContext({});
 
 function CaregiversProvider({ children }) {
     const [list, setList] = useState([]);
-    // const { user } = useAuth();
+    const { user } = useAuth();
+
     function loadCaregiverList() {
-
-        let user;
-        const fetchPosition = async () => {
-            try {
-                user = await getUserPosition();
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchPosition();
-
         if (user) {
             getCaregiverList().then((caregiverList) => {
                 if (caregiverList) {

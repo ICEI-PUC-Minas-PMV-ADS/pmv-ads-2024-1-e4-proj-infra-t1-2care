@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 20,
         borderWidth: 0,
-        shadowColor: 'transparent',
+        shadow: 'transparent',
         elevation: 0,
     },
     button: {

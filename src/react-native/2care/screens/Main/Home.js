@@ -14,6 +14,7 @@ import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
 import { getAverageRating } from '../../services/filterCaregiver.js';
 import { useNavigation } from "@react-navigation/native";
 import { CaregiversContext } from "../../contexts/CaregiversContext.js";
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const ScreenHeight = Dimensions.get('window').height;
@@ -24,12 +25,12 @@ export default function Home() {
 
   const { list, loadCaregiverList } = useContext(CaregiversContext);
   const [caregiverList, setCaregiverList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user } = useAuth();
   
   useEffect(() => {
     loadCaregiverList();
     setCaregiverList(list);
-});
+}, [list, user]);
 
   return (
     <ScrollView>
@@ -41,7 +42,7 @@ export default function Home() {
         <Specializations></Specializations>
       </View>
       {
-        isLoggedIn
+        user
           ?
           <View style={styles.container}>
             <View style={styles.section}>
