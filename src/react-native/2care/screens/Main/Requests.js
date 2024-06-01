@@ -5,9 +5,10 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import TopNavOptions from "../../components/TopNav/TopNavOptions";
 
-export default function Requests({ userType }) {
+function Requests({ userType }) {
   const [requestsList, setRequestsList] = useState([]);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('Pendentes');
 
   useEffect(() => {
     getRequestsList().then((requestList) => {
@@ -17,6 +18,26 @@ export default function Requests({ userType }) {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (requestsList.length > 0) {
+      const status = requestsList[0].status;
+      switch (status) {
+        case 0:
+          setSelectedOption('Pendentes');
+          break;
+        case 1:
+          setSelectedOption('Aceitas');
+          break;
+        case 2:
+        case 3:
+          setSelectedOption('Recusadas');
+          break;
+        default:
+          setSelectedOption('Pendentes');
+      }
+    }
+  }, [requestsList]);
 
   const scrollToTop = () => {
     scrollViewRef.scrollTo({ y: 0, animated: true });
@@ -43,14 +64,14 @@ export default function Requests({ userType }) {
 
   return (
     <View style={styles.container}>
-      <TopNavOptions />
+      <TopNavOptions onSelect={setSelectedOption} selectedOption={selectedOption} />
       <ScrollView
         ref={(ref) => (scrollViewRef = ref)}
         onScroll={handleScroll}
         scrollEventThrottle={16}
       >
         {requestsList.map((request, index) => (
-          <View key={index} style={[styles.requestContainer, index === 0 ? { marginTop: 10 } : null]}>
+          <View key={index} style={[styles.requestContainer, getStatusText(request.status) === selectedOption ? null : { display: 'none' }]}>
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
@@ -151,9 +172,11 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    },
-    scrollTopText: {
+  },
+  scrollTopText: {
     color: '#fff',
     fontSize: 20,
-    },
-    });
+  },
+});
+
+export default Requests;
