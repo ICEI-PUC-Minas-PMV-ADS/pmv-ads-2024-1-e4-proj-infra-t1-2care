@@ -6,9 +6,9 @@ import {
   ScrollView,
 } from 'react-native';
 import theme from '../../theme/theme.js'; 
-import FilterContainer from '../../components/Filter.js';
+import FilterContainer from '../../components/FilterContainer.js';
 import { CaregiversContext } from "../../contexts/CaregiversContext.js";
-import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
+import CaregiverCard from '../../components/CaregiverCard/CaregiverCard.js';
 import { getAverageRating } from '../../services/filterCaregiver.js';
 import SearchBar from '../../components/SearchBar.jsx';
 
@@ -30,7 +30,7 @@ export default function Search({route}) {
   useEffect(() => {
     const filterCaregivers = () => {
       return caregiverList.filter(caregiver => {
-        // const filterDistance = appliedFilters.distance ? caregiver.max_request_km <= appliedFilters.distance : true;
+        const filterDistance = appliedFilters?.distance && caregiver.distance ? parseFloat(caregiver.distance) <= parseFloat(appliedFilters.distance) : true;
         const filterTextToSearch = textToSearch ? caregiver.name.includes(textToSearch) : true;
         const filterExperience = appliedFilters?.experience ? caregiver.career_time >= appliedFilters.experience : true;
         const filterRating = appliedFilters?.rating ? (getAverageRating(caregiver.evaluations) >= appliedFilters.rating ? true : false) : true;
@@ -38,7 +38,7 @@ export default function Search({route}) {
         const filterHourPrice = appliedFilters?.hour_price ? caregiver.hour_price <= appliedFilters.hour_price : true; 
         const filterSpecializations = appliedFilters?.specializations?.length > 0 ? appliedFilters.specializations.every(spec => caregiver.specializations.includes(spec)) : true;
         
-        return filterTextToSearch && filterExperience && filterRating && filterDayPrice && filterHourPrice && filterSpecializations ;
+        return filterDistance && filterTextToSearch && filterExperience && filterRating && filterDayPrice && filterHourPrice && filterSpecializations ;
       });
     };
 
@@ -62,7 +62,9 @@ export default function Search({route}) {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
-            <CaregiverList caregiverList={filteredCaregiverList}></CaregiverList>
+          {filteredCaregiverList.map((caregiver) => (
+          <CaregiverCard key={caregiver._id} caregiver={caregiver} />
+        ))}
           </View> 
         </ScrollView>
     </View>

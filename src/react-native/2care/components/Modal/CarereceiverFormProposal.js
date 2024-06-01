@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { sendProposalToCaregiver } from '../../services/caregiverServiceMob'; // Importe seu serviço backend
 import { useNavigation } from '@react-navigation/native'; // Para navegação
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -60,7 +60,7 @@ const CarereceiverFormProposal = () => {
     try {
       const result = await sendProposalToCaregiver(proposalData);
       if (result) {
-        toast.success('Proposta enviada com sucesso!', {
+        console.log('Proposta enviada com sucesso!', {
           onClose: () => { navigation.navigate("Requests"); },
           autoClose: 1000
         });
