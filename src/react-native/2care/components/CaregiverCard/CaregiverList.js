@@ -11,11 +11,12 @@ const CaregiverList = (props) => {
             {props.caregiverList.map(caregiver => (
                 <CaregiverCard
                     key={caregiver.email}
-                    image={caregiver.picture}
+                    picture={caregiver.picture}
                     name={caregiver.name}
-                    // especialization={caregiver.especialization}
-                    hour_value={caregiver.hour_price}
-                    // rating={caregiver.rating}
+                    career_time={caregiver.career_time}
+                    hour_price={caregiver.hour_price}
+                    distance={caregiver.distance}
+                    rating={caregiver.rating}
                 />
             ))}
         </ScrollView>

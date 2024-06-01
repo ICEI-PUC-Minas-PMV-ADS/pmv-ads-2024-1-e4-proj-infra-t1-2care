@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { 
   View,
   Dimensions,
@@ -7,55 +7,56 @@ import {
 } from 'react-native';
 import theme from '../../theme/theme.js'; 
 import FilterContainer from '../../components/Filter.js';
-import { getCaregiverList } from '../../services/filterCaregiver.js';
+import { CaregiversContext } from "../../contexts/CaregiversContext.js";
 import CaregiverList from '../../components/CaregiverCard/CaregiverList.js';
+import { getAverageRating } from '../../services/filterCaregiver.js';
+import SearchBar from '../../components/SearchBar.jsx';
 
 const ScreenHeight = Dimensions.get('window').height;
 
 export default function Search({route}) {
   const filter = route.params?.filter ?? null;
   const [appliedFilters, setAppliedFilters] = useState([]);
-  
-  const [filteredCaregiverList, setFilteredCaregiverList] = useState([]);
+  const [textToSearch, setTextToSearch] = useState('');
+
+  const { list } = useContext(CaregiversContext);
   const [caregiverList, setCaregiverList] = useState([]);
-
-  const fetchData = async () => {
-    setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setLoading(false);
-  };
+  const [filteredCaregiverList, setFilteredCaregiverList] = useState([]);
   
-  useEffect(() =>  {
-      getCaregiverList().then((CaregiverList) => setCaregiverList(CaregiverList ? CaregiverList : []))
-  }, []);
-
+  useEffect(() => {
+    setCaregiverList(list);
+});
 
   useEffect(() => {
     const filterCaregivers = () => {
       return caregiverList.filter(caregiver => {
         // const filterDistance = appliedFilters.distance ? caregiver.max_request_km <= appliedFilters.distance : true;
+        const filterTextToSearch = textToSearch ? caregiver.name.includes(textToSearch) : true;
         const filterExperience = appliedFilters?.experience ? caregiver.career_time >= appliedFilters.experience : true;
-        const filterRating = appliedFilters?.rating ? caregiver.evaluations.length > 0 && Math.round(caregiver.evaluations.reduce((sum, item) => sum + item.rating, 0) / caregiver.evaluations.length) >= appliedFilters.rating : true;
+        const filterRating = appliedFilters?.rating ? (getAverageRating(caregiver.evaluations) >= appliedFilters.rating ? true : false) : true;
         const filterDayPrice = appliedFilters?.day_price ? caregiver.day_price <= appliedFilters.day_price : true;
         const filterHourPrice = appliedFilters?.hour_price ? caregiver.hour_price <= appliedFilters.hour_price : true; 
         const filterSpecializations = appliedFilters?.specializations?.length > 0 ? appliedFilters.specializations.every(spec => caregiver.specializations.includes(spec)) : true;
         
-        return filterExperience && filterRating && filterDayPrice && filterHourPrice && filterSpecializations ;
+        return filterTextToSearch && filterExperience && filterRating && filterDayPrice && filterHourPrice && filterSpecializations ;
       });
     };
 
     setFilteredCaregiverList(filterCaregivers());
-  }, [caregiverList, appliedFilters]);
+  }, [caregiverList, appliedFilters, textToSearch]);
 
   const handleApplyFilter = (appliedFilters) => {
-    console.log(appliedFilters)
-    console.log(appliedFilters.distance)
     setAppliedFilters(appliedFilters)
   };
 
+  const handleApplySearch = (textToSearch) => {
+    setTextToSearch(textToSearch)
+    handleApplyFilter(appliedFilters)
+  };
 
   return (
     <View> 
+      <SearchBar onAppliedSearch={handleApplySearch}></SearchBar>
       <View style={styles.filter}>
         <FilterContainer filter={filter} onAppliedFilters={handleApplyFilter}></FilterContainer>
       </View>

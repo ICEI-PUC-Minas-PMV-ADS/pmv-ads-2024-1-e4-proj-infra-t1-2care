@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 //import "../AppMobile.css";
 import { signIn } from "../../services/authServiceMob";
 
-export default function Login() {
+export default function Login({ setVisitorMode }) {
   const navigation = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -79,6 +79,7 @@ export default function Login() {
       if (success) {
         console.log("Usuário logado com sucesso");
         window.location.reload()
+        // navigation.navigate('HomeStack', { screen: 'Home' }); 
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error.message);
@@ -163,8 +164,9 @@ export default function Login() {
           <Pressable
             onPress={() => {
               console.log("Você será redirecionado para a nova Tela.");
-              window.location.reload()
-              //navigation.navigate("Home");
+              setVisitorMode(true);
+              // window.location.reload()
+              navigation.navigate('HomeStack', { screen: 'Home'});
             }}
             style={({ pressed }) => [
               styles.linkContainer,
