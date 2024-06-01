@@ -240,7 +240,6 @@ const MainNav = () => {
             {(props) => <UnsignedViews {...props} setVisitorMode={() => setIsVisitor(true)} />}
         </Tab.Screen>
       }
-
     </Tab.Navigator>
   );
 };

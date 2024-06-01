@@ -28,6 +28,8 @@ export const registerUser = async (userForm) => {
     if (!response.ok) {
       throw new Error(JSON.stringify(result));
     }
+    await AsyncStorage.setItem("email", result.email);
+    console.log('Email stored in AsyncStorage:', result.email);
     return result;
   } catch (error) {
     alert("Dados inválidos, gentileza verifique o preenchimento!");
@@ -51,7 +53,11 @@ export const updateUser = async (userForm) => {
 export const getUserData = async () => {
   try {
     const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}`);
+    if (response.email) {
+      await AsyncStorage.setItem("email", response.email);
+    }
     return response;
+
   } catch (error) {
     console.error("Erro ao obter os dados do usuário:", error);
     return false;
@@ -90,3 +96,13 @@ export const getUserPosition = async () => {
   }
 }
 
+export const getUserEmail = async () => {
+  try {
+      const email = await AsyncStorage.getItem("email");
+      console.log('Retrieved email from AsyncStorage:', email);
+      return email ? email : null;
+  } catch (error) {
+      console.error("Erro ao obter o email do usuário:", error);
+      return null;
+  }
+};

@@ -117,7 +117,7 @@ const EditProfileScreenCareGiver = () => {
         hasError = true;
       }
     });
-
+  
     if (!hasError) {
       try {
         const user = {
@@ -127,17 +127,17 @@ const EditProfileScreenCareGiver = () => {
         };
         const caregiver = {
           gender: formData.gender,
-          qualifications: qualifications.join(', '), // Certifique-se de que qualificações estejam aqui
+          qualifications: qualifications.join(', '),
           specialization: selectedItems,
-          workexperience: experiences.map(exp => `${exp.experience} (${exp.link})`).join(', '), // Formate a experiência de trabalho
-          yearsexperience: formData.yearsexperience, // Envie apenas o número inteiro para o backend
+          workexperience: experiences.map(exp => `${exp.experience} (${exp.link})`).join(', '),
+          yearsexperience: formData.yearsexperience,
           unavailableDays: formData.unavailableDays,
           dailyRate: formData.dailyRate,
           hourlyRate: formData.hourlyRate,
           additionalInfo: formData.additionalInfo,
           // add outros campos de caregiver
         };
-
+  
         const response = await updateCaregiver(user, caregiver);
         console.log("Atualização bem-sucedida", response);
         navigation.goBack();
@@ -194,7 +194,6 @@ const EditProfileScreenCareGiver = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.searchBarContainer}>
-        <SearchBar></SearchBar>
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.header}>

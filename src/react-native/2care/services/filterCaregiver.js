@@ -1,6 +1,7 @@
 import { API_URL } from './apiServiceMob';
 
 const SERVICE_URL = "/caregiver";
+
 //const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
 
 export const getCaregiverList = async () => {

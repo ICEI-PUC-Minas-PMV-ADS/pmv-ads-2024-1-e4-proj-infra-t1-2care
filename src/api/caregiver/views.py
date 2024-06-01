@@ -15,7 +15,7 @@ from .models import (
     RatingModel,
     SpecializationModel,
     QualificationModel,
-    WorkExperienceModel
+    WorkExperienceModel,
 )
 from user.models import CustomUserModel
 
@@ -40,16 +40,16 @@ class MongoCaregiverListView(APIView):
 
 class CaregiverEditView(APIView):
     queryset = CaregiverModel.objects.all()
-
     serializer_class = CaregiverSerializer
     authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         caregiver = CaregiverModel.objects.filter(user=request.user).first()
         request.data["user"] = request.user.id
         update = False
 
-        if not request.user.get_user_type_display() == "Caregiver":
+        if request.user.get_user_type_display() != "Caregiver":
             return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
         
         if caregiver:
@@ -68,7 +68,7 @@ class CaregiverEditView(APIView):
     def put(self, request, format=None):
         caregiver = CaregiverModel.objects.filter(user=request.user).first()
 
-        if not request.user.get_user_type_display() == "Caregiver":
+        if request.user.get_user_type_display() != "Caregiver":
             return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
         
         if caregiver:
@@ -83,7 +83,7 @@ class CaregiverEditView(APIView):
     def patch(self, request, format=None):
         caregiver = CaregiverModel.objects.filter(user=request.user).first()
 
-        if not request.user.get_user_type_display() == "Caregiver":
+        if request.user.get_user_type_display() != "Caregiver":
             return Response("This user is not a Caregiver", status=status.HTTP_400_BAD_REQUEST)
         
         if caregiver:
@@ -117,6 +117,11 @@ class CaregiverSelfCalendarView(generics.RetrieveAPIView):
         }
 
         return Response(calendar)
+
+class CaregiverCreateView(generics.CreateAPIView):
+    queryset = CaregiverModel.objects.all()
+    serializer_class = CaregiverSerializer
+    permission_classes = [IsAuthenticated]
 
 class CaregiverDetailView(generics.RetrieveAPIView):
     serializer_class = CaregiverSerializer

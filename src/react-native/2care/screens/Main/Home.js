@@ -17,7 +17,6 @@ import { useNavigation } from "@react-navigation/native";
 import { CaregiversContext } from "../../contexts/CaregiversContext.js";
 import { useAuth } from '../../contexts/AuthContext';
 
-
 const ScreenHeight = Dimensions.get('window').height;
 
 export default function Home() {
@@ -32,6 +31,7 @@ export default function Home() {
     loadCaregiverList();
     setCaregiverList(list);
 }, [list, user]);
+
 
   return (
     <ScrollView>
