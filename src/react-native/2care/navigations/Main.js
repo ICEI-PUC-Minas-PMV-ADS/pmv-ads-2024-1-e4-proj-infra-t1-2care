@@ -17,6 +17,7 @@ import AgendaMob from '../screens/Unsigned/AgendaMob';
 import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
 import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
 import Login from '../screens/Unsigned/Login';
+import ViewCaregiverInfo from '../screens/Main/ViewCaregiverInfo';
 
 import Register from '../screens/Unsigned/Register';
 import RegisterUsers from '../screens/Unsigned/RegisterUsers';
@@ -61,6 +62,14 @@ const HomeStack = () => {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="ViewCaregiverInfo"
+        component={ViewCaregiverInfo}
         options={{
           headerShown: false,
           header: () => null,

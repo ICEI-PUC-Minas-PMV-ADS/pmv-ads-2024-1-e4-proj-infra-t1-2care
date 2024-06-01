@@ -63,7 +63,7 @@ export default function Search({route}) {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
           {filteredCaregiverList.map((caregiver) => (
-          <CaregiverCard key={caregiver._id} caregiver={caregiver} />
+          <CaregiverCard key={`${caregiver._id}`} caregiver={caregiver} />
         ))}
           </View> 
         </ScrollView>
