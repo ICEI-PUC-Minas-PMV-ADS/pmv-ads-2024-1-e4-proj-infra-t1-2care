@@ -75,6 +75,14 @@ const HomeStack = () => {
           header: () => null,
         }}
       />
+      <Stack.Screen
+        name="AgendaMob"
+        component={AgendaMob}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
     </Stack.Navigator>
   );
 };

@@ -55,7 +55,7 @@ LocaleConfig.locales["pt-br"] = {
 };
 LocaleConfig.defaultLocale = "pt-br";
 
-export default function AgendaMob() {
+export default function AgendaMob(props) {
   const navigation = useNavigation();
   const [selectedDay, setSelectedDay] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -67,12 +67,24 @@ export default function AgendaMob() {
   const [unavailable, setUnavailable] = useState();
 
   useEffect(() => {
-      // usar props quando vier pela lista.
-      getSelfCalendar().then((result) => {
-        setUnavailable(result ? result : {})
+    const caregiverProps = props?.route?.params?.caregiver
+
+    if (caregiverProps) {
+
+      setUnavailable({
+        "custom_unavailable_days": caregiverProps.custom_unavailable_days,
+        "fixed_unavailable_days": caregiverProps.fixed_unavailable_days,
+        "fixed_unavailable_hours": caregiverProps.fixed_unavailable_hours,
       })
 
-  }, []);
+    } else {
+
+      getSelfCalendar().then((result) => {
+         setUnavailable(result ? result : {})
+       }) 
+    }
+
+  }, [props.route]);
 
   const handleDayPress = (day) => {
     setSelectedDay(day.dateString);

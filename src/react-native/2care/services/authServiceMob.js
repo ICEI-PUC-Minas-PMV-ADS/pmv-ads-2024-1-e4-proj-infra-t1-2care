@@ -23,12 +23,12 @@ export const signIn = async ({ email, password }) => {
 
         const result = await response.json();
         
-        await AsyncStorage.setItem('access', result.access);
-        await AsyncStorage.setItem('refresh', result.refresh);
-        await AsyncStorage.setItem('latitude', result.user.latitude);
-        await AsyncStorage.setItem('longitude', result.user.longitude);
-        await AsyncStorage.setItem('picture', result.user.picture);
-        await AsyncStorage.setItem('user_type', result.user.user_type);
+        await AsyncStorage.setItem('access', result["access"].toString());
+        await AsyncStorage.setItem('refresh', result["refresh"].toString());
+        await AsyncStorage.setItem('latitude', result["user"]["latitude"].toString());
+        await AsyncStorage.setItem('longitude', result["user"]["longitude"].toString());
+        await AsyncStorage.setItem('picture', result["user"]["picture"] ? result["user"]["picture"].toString() : "" );
+        await AsyncStorage.setItem('user_type', result["user"]["user_type"].toString());
         
         return true;
     } catch (error) {
@@ -176,6 +176,10 @@ export const logout = async (navigateToLogin) => {
     try {
         await AsyncStorage.removeItem('access');
         await AsyncStorage.removeItem('refresh');
+        await AsyncStorage.removeItem('picture');
+        await AsyncStorage.removeItem('longitude');
+        await AsyncStorage.removeItem('latitude');
+        await AsyncStorage.removeItem('user_type');
 
         const accessItem = await AsyncStorage.getItem('access');
         const refreshItem = await AsyncStorage.getItem('refresh');
