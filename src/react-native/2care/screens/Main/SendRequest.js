@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Modal, Button } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, Modal } from "react-native";
 import { sendProposalToCaregiver } from "../../services/caregiverServiceMob";
+
+const CustomLabel = ({ text }) => {
+  return (
+    <View style={styles.labelContainer}>
+      <Text style={styles.labelText}>{text}</Text>
+    </View>
+  );
+};
 
 export default function SendRequest({ visible, onClose, caregiver }) {
   const [date, setDate] = useState('');
@@ -70,7 +78,7 @@ export default function SendRequest({ visible, onClose, caregiver }) {
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Monte sua proposta para: {caregiver.name}</Text>
           <View style={styles.formContent}>
-            <Text>Data:</Text>
+            <CustomLabel text="Data" />
             <TextInput
               style={styles.input}
               value={date}
@@ -81,7 +89,7 @@ export default function SendRequest({ visible, onClose, caregiver }) {
             />
             <View style={styles.timeInputs}>
               <View style={styles.timeInput}>
-                <Text>Hora inicial:</Text>
+                <CustomLabel text="Hora inicial" />
                 <TextInput
                   style={styles.input}
                   value={startTime}
@@ -92,7 +100,7 @@ export default function SendRequest({ visible, onClose, caregiver }) {
                 />
               </View>
               <View style={styles.timeInput}>
-                <Text>Hora final:</Text>
+                <CustomLabel text="Hora final" />
                 <TextInput
                   style={styles.input}
                   value={endTime}
@@ -103,9 +111,11 @@ export default function SendRequest({ visible, onClose, caregiver }) {
                 />
               </View>
             </View>
-            <Text>Total de horas: {totalHours}</Text>
-            <Text>Total a pagar: {finalPrice}</Text>
-            <Button title="Enviar proposta" onPress={handleSendProposal} />  
+            <Text style={styles.labelText}>Total de horas: {totalHours}</Text>
+            <Text style={styles.labelText}>Total a pagar: {finalPrice}</Text>
+            <Pressable style={styles.button} onPress={handleSendProposal}>
+              <Text style={styles.buttonText}>Enviar proposta</Text>
+            </Pressable>
           </View>
           <Pressable style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>X</Text>
@@ -131,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 20,
   },
@@ -163,4 +173,47 @@ const styles = StyleSheet.create({
   timeInput: {
     width: '48%',
   },
+  labelContainer: {
+    position: "absolute",
+    backgroundColor: "#D2DAC3",
+    paddingLeft: 2,
+    paddingRight: 8,
+    paddingTop: 2,
+    paddingBottom: 8,
+    top: -10,
+    left: 10,
+    opacity: 0.7,
+    height: "auto",
+    textAlign: "center",
+    width: "auto",
+    borderRadius: 5,
+  },
+  labelText: {
+    color: "#000000",
+    fontSize: 13,
+    lineHeight: 2,
+    fontWeight: 400,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 6,
+    paddingBottom: 3,
+  },
+  button: {
+    backgroundColor: "#ED8733",
+    padding: 10,
+    borderRadius: 25,
+    alignItems: "center",
+    width: 130,
+    marginBottom: 20,
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 20,
+  },
+  
+buttonText: {
+    color: "white",
+}, 
 });
+
