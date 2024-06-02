@@ -44,6 +44,8 @@ export default function SendRequest({ visible, onClose, caregiver }) {
       status: status,
     };
   
+    console.log('Dados da proposta:', proposalData);
+  
     try {
       await sendProposalToCaregiver(proposalData);
     } catch (error) {
@@ -114,8 +116,9 @@ export default function SendRequest({ visible, onClose, caregiver }) {
                 />
               </View>
             </View>
-            <Text style={styles.labelText}>Total de horas: {totalHours}</Text>
-            <Text style={styles.labelText}>Total a pagar: {finalPrice}</Text>
+            <Text style={[styles.labelText, styles.spaceVertical]}>Valor por hora do cuidador: R${caregiver.hour_price}</Text>
+            <Text style={[styles.labelText, styles.spaceVertical]}>Total de horas: {totalHours}</Text>
+            <Text style={[styles.labelText, styles.spaceVertical]}>Total a pagar: R${finalPrice}</Text>
             <Pressable style={styles.button} onPress={handleSendProposal}>
               <Text style={styles.buttonText}>Enviar proposta</Text>
             </Pressable>
@@ -162,11 +165,12 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#486142',
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 10,
     width: '100%',
+    borderRadius: 10,
   },
   timeInputs: {
     flexDirection: 'row',
@@ -218,4 +222,18 @@ const styles = StyleSheet.create({
 buttonText: {
     color: "white",
 }, 
+labelText: {
+  color: "#000000",
+  fontSize: 13,
+  lineHeight: 2,
+  fontWeight: 400,
+  paddingLeft: 10,
+  paddingRight: 10,
+  paddingTop: 6,
+  paddingBottom: 3,
+},
+
+spaceVertical: {
+  marginVertical: 10,
+},
 });
