@@ -22,12 +22,13 @@ export const signIn = async ({ email, password }) => {
         }
 
         const result = await response.json();
-        await AsyncStorage.setItem('access', result["access"]);
-        await AsyncStorage.setItem('refresh', result["refresh"]);
-        await AsyncStorage.setItem('latitude', result["user"]["latitude"]);
-        await AsyncStorage.setItem('longitude', result["user"]["longitude"]);
-        await AsyncStorage.setItem('picture', result["user"]["picture"]);
-        await AsyncStorage.setItem('user_type', result["user"]["user_type"]);
+        
+        await AsyncStorage.setItem('access', result.access);
+        await AsyncStorage.setItem('refresh', result.refresh);
+        await AsyncStorage.setItem('latitude', result.user.latitude);
+        await AsyncStorage.setItem('longitude', result.user.longitude);
+        await AsyncStorage.setItem('picture', result.user.picture);
+        await AsyncStorage.setItem('user_type', result.user.user_type);
         
         return true;
     } catch (error) {
@@ -96,7 +97,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             try {
                 let newAccessToken = await tokenRefresh();
                 requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                response = await fetch(`${API_URL}${SERVICE_URL}`, requestOptions);
+                response = await fetch(`${url}`, requestOptions);
                 if (!response.ok) {
                     throw new Error('Erro ao tentar usar o token atualizado.');
                 }

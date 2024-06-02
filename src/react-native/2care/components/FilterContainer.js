@@ -3,16 +3,18 @@ import { View, TextInput, Text, StyleSheet, ScrollView, Dimensions } from 'react
 import { CheckBox } from 'react-native-elements';
 import Specializations from './specializations';
 import StarFilterOption from './Evaluation/StarFilterOption';
+import { useAuth } from '../contexts/AuthContext';
 
 
 const ScreenWidth = Dimensions.get('window').width;
 
 const FilterContainer = (props) => {
   const [filter, setFilter] = useState(props.filter || null);
+  const { user } = useAuth();
   const [values, setValues] = useState({
-    distance: '',
+    distance: 0,
     experience: '',
-    rating: '',
+    rating: 0,
     day_price: '',
     hour_price: '',
     specializations: [],
@@ -89,6 +91,9 @@ const FilterContainer = (props) => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Filtrar por</Text>
+      {
+        user
+          ?
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Distância de você</Text>
         <TextInput
@@ -99,6 +104,9 @@ const FilterContainer = (props) => {
           onChangeText={(value) => handleInputChange('distance', value)}
         />
       </View>
+      :
+      <></>
+      }
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Anos de experiência</Text>
         <TextInput
@@ -136,13 +144,12 @@ const FilterContainer = (props) => {
               key={number}
               number={number}
               selected={values.rating == number}
-              onPress={() => handleInputChange('rating', number)}
+              onPress={() => {number == values.rating ? handleInputChange('rating', 0) : handleInputChange('rating', number)}}
             />
           ))}
       </View>
       <Text style={styles.header}>Especializações</Text>
-      {/* <View style={styles.checkboxGrid}> */}
-      <View style={styles.checkboxContainer}>
+      <View style={styles.checkboxGrid}>
         <View style={styles.column}>
           {renderCheckboxes().slice(0, 4)}
         </View>
@@ -163,7 +170,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -179,11 +186,12 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     paddingHorizontal: 10,
+    alignItems: 'left',
   },
   checkboxGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-between',
   },
   checkboxContainer2: {
     width: '48%',
@@ -198,16 +206,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    marginTop: 20,
+    alignItems: 'left',
+    // paddingHorizontal: 10,
+    // marginTop: 20,
   },
   column: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    margin: 5,
+    alignItems: 'left',
   },
 });
 

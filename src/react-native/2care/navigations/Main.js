@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,12 +6,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Home from '../screens/Main/Home';
 import Search from '../screens/Main/Search';
-import Profile from '../screens/Main/Profile';
 import SendRequest from '../screens/Main/SendRequest';
 import Requests from '../screens/Main/Requests';
-
 import { useAuth } from '../contexts/AuthContext';
-import UnsignedViews from './UnsignedViews';
+// import UnsignedViews from './UnsignedViews';
 import ProfileCarereceiverMob from '../screens/Unsigned/ProfileCarereceiverMob';
 import ProfileCaregiverMob from '../screens/Unsigned/ProfileCaregiverMob';
 import Reviews from '../screens/Unsigned/Reviews';
@@ -19,31 +17,72 @@ import AgendaMob from '../screens/Unsigned/AgendaMob';
 import EditProfileScreenCareGiver from '../screens/Unsigned/EditProfileCareGiver';
 import EditProfileScreenCareReceiver from '../screens/Unsigned/EditProfileCareReceiver';
 import Login from '../screens/Unsigned/Login';
+import ViewCaregiverInfo from '../screens/Main/ViewCaregiverInfo';
+
+import Register from '../screens/Unsigned/Register';
+import RegisterUsers from '../screens/Unsigned/RegisterUsers';
+
 
 const Tab = createBottomTabNavigator();
-const Stack1 = createNativeStackNavigator();
-const Stack2 = createNativeStackNavigator();
-const Stack3 = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const UnsignedViews = ({ setVisitorMode }) => {
   return (
-    <Stack1.Navigator initialRouteName="Home">
-      <Stack1.Screen
-        name="Home"
-        component={Home}
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        // component={Login}
         options={{
-          headerShown: true,
+          header: () => null,
+        }}
+      >
+        {(props) => <Login {...props} setVisitorMode={setVisitorMode} />}
+      </Stack.Screen>
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
           header: () => null,
         }}
       />
-    </Stack1.Navigator>
+      <Stack.Screen
+        name="RegisterUsers"
+        component={RegisterUsers}
+        options={{
+          header: () => null,
+        }}
+      />
+    </Stack.Navigator>
+  )
+};
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="ViewCaregiverInfo"
+        component={ViewCaregiverInfo}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
 const RequestStack = () => {
   return (
-    <Stack2.Navigator initialRouteName="Requests">
-      <Stack2.Screen
+    <Stack.Navigator initialRouteName="Requests">
+      <Stack.Screen
         name="Requests"
         component={Requests}
         options={{
@@ -51,23 +90,23 @@ const RequestStack = () => {
           header: () => null,
         }}
       />
-      <Stack2.Screen
+      <Stack.Screen
         name="SendRequest"
         component={SendRequest}
         options={{
           header: () => null,
         }}
       />
-    </Stack2.Navigator>
+    </Stack.Navigator>
   );
 };
 
 const ProfileStack = () => {
   const { user } = useAuth();
   return (
-    <Stack3.Navigator initialRouteName="Profile">
+    <Stack.Navigator initialRouteName="Profile">
       {user?.user_type === 'CareReceiver' ? (
-        <Stack3.Screen
+        <Stack.Screen
           name="Profile"
           component={ProfileCarereceiverMob}
           options={{
@@ -76,7 +115,7 @@ const ProfileStack = () => {
           }}
         />
       ) : (
-        <Stack3.Screen
+        <Stack.Screen
           name="Profile"
           component={ProfileCaregiverMob}
           options={{
@@ -85,17 +124,17 @@ const ProfileStack = () => {
           }}
         />
       )}
-    
-    <Stack3.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-            header: () => null,
-          }}
-        />
 
-      <Stack3.Screen
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+
+      <Stack.Screen
         name="Reviews"
         component={Reviews}
         options={{
@@ -103,7 +142,7 @@ const ProfileStack = () => {
           header: () => null,
         }}
       />
-      <Stack3.Screen
+      <Stack.Screen
         name="AgendaMob"
         component={AgendaMob}
         options={{
@@ -111,7 +150,7 @@ const ProfileStack = () => {
           header: () => null,
         }}
       />
-      <Stack3.Screen
+      <Stack.Screen
         name="EditProfileScreenCareGiver"
         component={EditProfileScreenCareGiver}
         options={{
@@ -119,7 +158,7 @@ const ProfileStack = () => {
           header: () => null,
         }}
       />
-      <Stack3.Screen
+      <Stack.Screen
         name="SendRequest"
         component={SendRequest}
         options={{
@@ -127,7 +166,7 @@ const ProfileStack = () => {
           header: () => null,
         }}
       />
-      <Stack3.Screen
+      <Stack.Screen
         name="EditProfileScreenCareReceiver"
         component={EditProfileScreenCareReceiver}
         options={{
@@ -136,27 +175,24 @@ const ProfileStack = () => {
         }}
       />
 
-    </Stack3.Navigator>
+    </Stack.Navigator>
   );
 };
 
 const MainNav = () => {
-  const { user } = useAuth();
-  // const user = true;
-
-  if (!user) {
-    return <UnsignedViews />;
-  }
+  const { user } = useAuth();  
+  const [isVisitor, setIsVisitor] = useState(false);
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName={user || isVisitor ? "Home" : "UnsignedViews"}
       screenOptions={{
         tabBarActiveTintColor: '#ED8733',
+        headerShown: false,
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeStack"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
@@ -185,17 +221,34 @@ const MainNav = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileStack}
-        options={{
-          tabBarLabel: 'Perfil',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }}
-      />
-
+      {
+      user
+        ?
+        <Tab.Screen
+          name="Profile"
+          component={ProfileStack}
+          options={{
+            tabBarLabel: 'Perfil',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+          }}
+        />
+        :
+        <Tab.Screen
+          name="UnsignedViews"
+          // component={UnsignedViews}
+          options={{
+            tabBarLabel: 'Perfil',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+            tabBarStyle: {display: 'none'}
+          }}
+        >
+            {(props) => <UnsignedViews {...props} setVisitorMode={() => setIsVisitor(true)} />}
+        </Tab.Screen>
+      }
     </Tab.Navigator>
   );
 };
