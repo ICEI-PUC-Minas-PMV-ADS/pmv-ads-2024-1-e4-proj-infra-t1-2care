@@ -6,18 +6,15 @@ const CARE_RECEIVER_SERVICE_URL = "/careReceiver";
 const CAREGIVER_REQUESTS_SERVICE_URL = "/caregiver/requests"; 
 export const updateCareReceiver = async (user, careReceiver) => { 
     try {
-        const responseUserUpdate = await updateUser(user)
-        const responseCareReceiverUpdate = await sendAuthenticatedRequest(`${API_URL}${CARE_RECEIVER_SERVICE_URL}/edit/`, "POST", careReceiver)
-        //retornar fail ou sucess de acordo.
-        alert("updated")
-
-        return {'user':responseUserUpdate, 'careReceiver':responseCareReceiverUpdate};
+        const responseUserUpdate = await updateUser(user);
+        const responseCareReceiverUpdate = await sendAuthenticatedRequest(`${API_URL}${CARE_RECEIVER_SERVICE_URL}/edit/`, "POST", careReceiver);
+        alert("Dados atualizados com sucesso!");
+        return { 'user': responseUserUpdate, 'careReceiver': responseCareReceiverUpdate };
     } catch (error) {
-        alert('Erro ao atualizar dados de Cliente');
-        return false
+        alert('Erro ao atualizar dados');
+        return false;
     } 
 };
-
 export const getCareReceiverData = async () => {
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${CARE_RECEIVER_SERVICE_URL}`)
