@@ -16,6 +16,7 @@ export default function SendRequest({ visible, onClose, caregiver }) {
   const [endTime, setEndTime] = useState('');
   const [totalHours, setTotalHours] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
+  const [status, setStatus] = useState(0);
 
   const formatDate = (inputDate) => {
     const cleaned = ('' + inputDate).replace(/\D/g, '');
@@ -35,12 +36,14 @@ export default function SendRequest({ visible, onClose, caregiver }) {
 
   const handleSendProposal = async () => {
     const proposalData = {
-      date: date,
-      startTime: startTime,
-      endTime: endTime,
-      caregiver: caregiver.id 
+      date: date, 
+      start_time: startTime,
+      end_time: endTime,
+      total_hours: totalHours, 
+      final_price: finalPrice.toString(),
+      status: status,
     };
-
+  
     try {
       await sendProposalToCaregiver(proposalData);
     } catch (error) {
@@ -216,4 +219,3 @@ buttonText: {
     color: "white",
 }, 
 });
-
