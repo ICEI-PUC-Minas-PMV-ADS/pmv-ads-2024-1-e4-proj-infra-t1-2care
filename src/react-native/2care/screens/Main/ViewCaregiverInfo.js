@@ -54,7 +54,7 @@ export default function ViewCaregiverInfo({ route }) {
     }, []);
 
     const handleAgendaPress = () => {
-        navigation.navigate("AgendaMob");
+        navigation.navigate("AgendaMob", {caregiver: route.params?.caregiver ?? null});
     };
 
     const handleReviews = () => {
@@ -179,30 +179,6 @@ export default function ViewCaregiverInfo({ route }) {
                             <Text style={styles.years}>{caregiverData.career_time}</Text>
                             <Text style={styles.label}>  ANOS DE EXPERIÊNCIA</Text>
                         </View>
-                    </View>
-
-                    <View style={styles.infoContainer}>
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Icon name="calendar" size={20} style={styles.icon} />
-                            <Text style={styles.label}>DIAS FIXOS INDISPONÍVEIS</Text>
-                        </View>
-                    </View>
-                    <View style={styles.fixedDays}>
-                        {caregiverData.fixed_unavailable_days.map((day, index) => (
-                            <Text key={index}>  {DAY_MAP[day.day]}</Text>
-                        ))}
-                    </View>
-
-                    <View style={styles.infoContainer}>
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Icon name="clock-o" size={20} style={styles.icon} />
-                            <Text style={styles.label}>HORÁRIOS FIXOS INDISPONÍVEIS</Text>
-                        </View>
-                    </View>
-                    <View style={styles.fixedHours}>
-                        {caregiverData.fixed_unavailable_hours.map((hour, index) => (
-                            <Text key={index} style={styles.years}> {hour.hour}</Text>
-                        ))}
                     </View>
 
                     <View style={styles.infoContainer}>
