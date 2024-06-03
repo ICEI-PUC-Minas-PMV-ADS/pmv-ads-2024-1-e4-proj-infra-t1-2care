@@ -11,6 +11,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
+import { useAuth } from '../../contexts/AuthContext';
 
 import SendRequest from "../../screens/Main/SendRequest"
 
@@ -37,6 +38,7 @@ export default function ViewCaregiverInfo({ route }) {
     const [caregiverData, setCaregiverData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
+    const { user } = useAuth();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -222,16 +224,17 @@ export default function ViewCaregiverInfo({ route }) {
                 </View>
             </ScrollView>
 
-            <View style={styles.sendRequestButtonContainer}>
-                <Pressable onPress={handleSendRequest} style={styles.sendRequestButton}>
-                    <Text style={styles.buttonText}>Enviar proposta</Text>
-                </Pressable>
-            </View>
-
+            { user &&
+                <View style={styles.sendRequestButtonContainer}>
+                    <Pressable onPress={handleSendRequest} style={styles.sendRequestButton}>
+                        <Text style={styles.buttonText}>Enviar proposta</Text>
+                    </Pressable>
+                </View>
+            }
             <SendRequest
-                visible={modalVisible}
-                onClose={() => setModalVisible(false)}
-                caregiver={caregiverData}
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            caregiver={caregiverData}
             />
         </View>
     );
