@@ -222,7 +222,7 @@ export const sendProposalToCaregiver = async (proposalData) => {
         const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/requests/`, "POST", proposalData);
         return response;
     } catch (error) {
-        toast.error('Erro ao enviar proposta para o cuidador:', error);
-        toast.error('Por favor, complete seu cadastro e tente novamente:', error);
+        console.log('Erro ao enviar proposta para o cuidador:', error);
+        console.log('Por favor, complete seu cadastro e tente novamente:', error);
     } 
 };

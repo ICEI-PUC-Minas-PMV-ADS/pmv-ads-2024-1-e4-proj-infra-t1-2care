@@ -56,7 +56,7 @@ export default function ProfileCarereceiverMob() {
 
 
   const handleSendRequest = () => {
-    navigation.navigate("SendRequest");
+    navigation.navigate("Requests");
   };
 
   const handleReviews = () => {
