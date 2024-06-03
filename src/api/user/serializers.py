@@ -79,3 +79,31 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'user_type': self.user.get_user_type_display()
         }
         return data
+    
+
+class UserPendingRequestsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUserModel
+        fields = (
+            "id",
+            "name",
+            "picture",
+            "gender",
+            "birth_date",
+        )
+
+class UserAcceptedRequestsSerializer(serializers.ModelSerializer):
+    preferred_contact = serializers.CharField(source='get_preferred_contact_display', read_only=True)
+    gender = serializers.CharField(source='get_gender_display', read_only=True)
+    class Meta:
+        model = CustomUserModel
+        fields = (
+            "id",
+            "name",
+            "email",
+            "picture",
+            "gender",
+            "preferred_contact",
+            "phone",
+            "birth_date",
+        )

@@ -4,8 +4,11 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APIClient
+from rest_framework.test import APITestCase
+from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from user.models import CustomUserModel
 
 from .models import (
     QualificationModel,
@@ -970,11 +973,12 @@ class FixedUnavailableDayModelTest(TestCase):
         with self.assertRaises(FixedUnavailableDayModel.DoesNotExist):
             FixedUnavailableDayModel.objects.get(pk=unavailable_day_id)
 
+
 class FixedUnavailableHourModelTest(TestCase):
 
     def setUp(self):
         self.valid_data = {
-            "hour": 0 
+            "hour": 0  
         }
 
     def test_create_valid_unavailable_hour(self):
@@ -993,11 +997,10 @@ class FixedUnavailableHourModelTest(TestCase):
 
     def test_update_unavailable_hour(self):
         unavailable_hour = FixedUnavailableHourModel.objects.create(**self.valid_data)
-        new_hour = 1
+        new_hour = 1  
 
         unavailable_hour.hour = new_hour
         unavailable_hour.save()
-
         updated_unavailable_hour = FixedUnavailableHourModel.objects.get(pk=unavailable_hour.pk)
 
         self.assertEqual(updated_unavailable_hour.hour, new_hour)
@@ -1016,11 +1019,12 @@ class FixedUnavailableHourModelTest(TestCase):
         with self.assertRaises(FixedUnavailableHourModel.DoesNotExist):
             FixedUnavailableHourModel.objects.get(pk=unavailable_hour_id)
 
+
 class CustomUnavailableDayModelTest(TestCase):
 
     def setUp(self):
         self.valid_data = {
-            "day": date(2024, 4, 8)
+            "day": date(2023, 1, 1)  
         }
 
     def test_create_valid_unavailable_day(self):
@@ -1031,7 +1035,7 @@ class CustomUnavailableDayModelTest(TestCase):
 
     def test_create_invalid_unavailable_day(self):
         invalid_data = {
-            "day": None
+            "day": None  
         }
 
         with self.assertRaises(IntegrityError):
@@ -1039,11 +1043,10 @@ class CustomUnavailableDayModelTest(TestCase):
 
     def test_update_unavailable_day(self):
         unavailable_day = CustomUnavailableDayModel.objects.create(**self.valid_data)
-        new_day = date(2024, 4, 9)  
+        new_day = date(2023, 1, 2)  
 
         unavailable_day.day = new_day
         unavailable_day.save()
-
         updated_unavailable_day = CustomUnavailableDayModel.objects.get(pk=unavailable_day.pk)
 
         self.assertEqual(updated_unavailable_day.day, new_day)
@@ -1062,48 +1065,35 @@ class CustomUnavailableDayModelTest(TestCase):
         with self.assertRaises(CustomUnavailableDayModel.DoesNotExist):
             CustomUnavailableDayModel.objects.get(pk=unavailable_day_id)
 
-# class RatingModelTests(TestCase):
-#     def setUp(self):
-#         # Preparando um usuário e uma solicitação de cuidado para o teste
-#         self.user = CustomUserModel.objects.create_user(
-#             username="testeUser",
-#             email="teste@teste.com",
-#             name="Teste User",
-#             phone="+5511900000000",
-#             address="Teste Address, 123",
-#             post_code="12345678",
-#             latitude="23.000000",
-#             longitude="-43.000000",
-#             user_type=2,
-#             gender=1,
-#             preferred_contact=1,
-#             birth_date="1990-01-01",
-#             password="testepassword123"
-#         )
-#         self.care_request = CareRequestModel.objects.create(user=self.user)
+class CaregiverTests(APITestCase):
+    def setUp(self):
+        self.user = CustomUserModel.objects.create_user(
+            email='testuser@example.com',
+            password='testpassword'
+        )
+        refresh = RefreshToken.for_user(self.user)
+        self.token = str(refresh.access_token)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
         
-#         self.rating = RatingModel.objects.create(
-#             care_request=self.care_request,
-#             rating=5,
-#             description="Excellent service!"
-#         )
+    def test_create_caregiver(self):
+        url = reverse('caregiver-create')
+        data = {
+            "user": self.user.id,
+            "hour_price": "50.00",
+            "day_price": "400.00",
+            "max_request_km": 20,
+            "career_time": 5,
+            "additional_info": "Informações adicionais"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(CaregiverModel.objects.count(), 1)
+        caregiver = CaregiverModel.objects.get()
+        self.assertEqual(caregiver.user, self.user)
+        self.assertEqual(caregiver.hour_price, Decimal("50.00"))
+        self.assertEqual(caregiver.day_price, Decimal("400.00"))
+        self.assertEqual(caregiver.max_request_km, 20)
+        self.assertEqual(caregiver.career_time, 5)
+        self.assertEqual(caregiver.additional_info, "Informações adicionais")
 
-#     def test_rating_creation(self):
-#         """Testa a criação de uma avaliação."""
-#         self.assertEqual(self.rating.rating, 5)
-#         self.assertEqual(self.rating.description, "Excellent service!")
-#         self.assertEqual(self.rating.care_request, self.care_request)
-
-#     def test_rating_update(self):
-#         """Testa a atualização de uma avaliação."""
-#         self.rating.rating = 4
-#         self.rating.description = "Good service"
-#         self.rating.save()
-        
-#         updated_rating = RatingModel.objects.get(id=self.rating.id)
-#         self.assertEqual(updated_rating.rating, 4)
-#         self.assertEqual(updated_rating.description, "Good service")
-
-#     def test_rating_string_representation(self):
-#         """Testa a representação em string do objeto Rating."""
-#         self.assertEqual(str(self.rating), "5 - Excellent service!")
+# Aqui, você deve garantir que as URLs e a View para 'caregiver-create' estão configuradas corretamente no seu arquivo urls.py e views.py   

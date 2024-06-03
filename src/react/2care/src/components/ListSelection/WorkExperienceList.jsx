@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { addWorkExperience, getWorkExperienceList, removeWorkExperience } from '../../services/caregiverService';
 
 
-function WorkExperienceList() {
+function WorkExperienceList(props) {
   const [workExperience, setWorkExperience] = useState([]);
   const [currentPlace, setCurrentPlace] = useState('');
   const [currentDescription, setCurrentDescription] = useState('');
@@ -11,12 +11,14 @@ function WorkExperienceList() {
   const [currentEndDate, setCurrentEndDate] = useState('');
 
   useEffect(() => {
-    //alterar com props aqui ringu
-    getWorkExperienceList().then((result) => {
-      console.log(result)
-      const workExperience = result ? result["work_experience"] : []
-      setWorkExperience(workExperience)
-    })
+    if(props?.caregiverData?.work_exp){
+      setWorkExperience(props.caregiverData.work_exp || [])
+    }else{
+      getWorkExperienceList().then((result) => {
+        const workExperience = result ? result["work_experience"] : []
+        setWorkExperience(workExperience)
+      })
+    }
   }, []);
 
   const handleAddClick = () => {
@@ -47,60 +49,62 @@ function WorkExperienceList() {
     <div>
       <h1>Lista de Experiência de trabalho</h1>
       <div className="select-add-container">
-        <div className="select-container">
-          <Grid container justifyContent="center">
-            <Grid item xs={6}>
-            <label htmlFor="place">Local</label>
-              <input
-                type="text"
-                value={currentPlace}
-                id="place"
-                name="place"
-                onChange={e => setCurrentPlace(e.target.value)}
-                placeholder="Digite uma qualificação"
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <div className="field">
-                <label htmlFor="start_date ">Data de inicio:</label>
+        {props.isSelf &&
+          <div className="select-container">
+            <Grid container justifyContent="center">
+              <Grid item xs={6}>
+              <label htmlFor="place">Local</label>
                 <input
-                  value={currentStartDate}
-                  onChange={e => setCurrentStartDate(e.target.value)}
-                  type="date"
-                  id="start_date "
-                  name="start_date "
-                ></input>
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="field">
-                <label htmlFor="end_date ">Data de termino:</label>
-                <input
-                  value={currentEndDate}
-                  onChange={e => setCurrentEndDate(e.target.value)}
-                  type="date"
-                  id="end_date "
-                  name="end_date "
-                ></input>
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className="field" style={{"marginTop": "1em"}}>
-                <label htmlFor="description">Descrição do trabalho:</label>
-                <textarea
-                  value={currentDescription}
-                  onChange={e => setCurrentDescription(e.target.value)}
-                  type="text" 
-                  id="additional_info"
-                  name="description"
+                  type="text"
+                  value={currentPlace}
+                  id="place"
+                  name="place"
+                  onChange={e => setCurrentPlace(e.target.value)}
+                  placeholder="Digite uma qualificação"
                 />
-              </div>
+              </Grid>
+              <Grid item xs={3}>
+                <div className="field">
+                  <label htmlFor="start_date ">Data de inicio:</label>
+                  <input
+                    value={currentStartDate}
+                    onChange={e => setCurrentStartDate(e.target.value)}
+                    type="date"
+                    id="start_date "
+                    name="start_date "
+                  ></input>
+                </div>
+              </Grid>
+              <Grid item xs={3}>
+                <div className="field">
+                  <label htmlFor="end_date ">Data de termino:</label>
+                  <input
+                    value={currentEndDate}
+                    onChange={e => setCurrentEndDate(e.target.value)}
+                    type="date"
+                    id="end_date "
+                    name="end_date "
+                  ></input>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div className="field" style={{"marginTop": "1em"}}>
+                  <label htmlFor="description">Descrição do trabalho:</label>
+                  <textarea
+                    value={currentDescription}
+                    onChange={e => setCurrentDescription(e.target.value)}
+                    type="text" 
+                    id="additional_info"
+                    name="description"
+                  />
+                </div>
+              </Grid>
+            <button onClick={handleAddClick} className="add-button">
+              Adicionar
+            </button>
             </Grid>
-          <button onClick={handleAddClick} className="add-button">
-            Adicionar
-          </button>
-          </Grid>
-        </div>
+          </div>
+        }
       </div>
       <ul className="qualification-list">
         {workExperience.map((work, index) => (
@@ -140,9 +144,11 @@ function WorkExperienceList() {
                 </Typography>
               </Grid>
             </Grid>
-            <button onClick={() => handleDeleteClick(work.id)} className="delete-button">
-              Excluir
-            </button>
+            {props.isSelf &&
+              <button onClick={() => handleDeleteClick(work.id)} className="delete-button">
+                Excluir
+              </button>
+            }
           </li>
         ))}
       </ul>

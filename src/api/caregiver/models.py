@@ -1,9 +1,10 @@
 from django.db import models
 import uuid
+from user.models import CustomUserModel
 
 class CaregiverModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey("user.CustomUserModel", on_delete=models.PROTECT)
+    user = models.ForeignKey(CustomUserModel, on_delete=models.PROTECT)
 
     qualifications = models.ManyToManyField(
         "caregiver.QualificationModel",
@@ -13,7 +14,7 @@ class CaregiverModel(models.Model):
     )
     work_exp = models.ManyToManyField(
         "caregiver.WorkExperienceModel",
-        verbose_name="Experiencia de trabalho",
+        verbose_name="Experiência de trabalho",
         related_name="workexperience",
         blank=True,
     )
@@ -25,41 +26,38 @@ class CaregiverModel(models.Model):
     )
     fixed_unavailable_days = models.ManyToManyField(
         "caregiver.FixedUnavailableDayModel",
-        verbose_name="Dias da semana indisponivel",
+        verbose_name="Dias da semana indisponíveis",
         related_name="fixedunavailableday",
         blank=True,
     )
     fixed_unavailable_hours = models.ManyToManyField(
         "caregiver.FixedUnavailableHourModel",
-        verbose_name="Horarios indisponiveis",
+        verbose_name="Horários indisponíveis",
         related_name="fixedunavailablehour",
         blank=True,
     )
     custom_unavailable_days = models.ManyToManyField(
         "caregiver.CustomUnavailableDayModel",
-        verbose_name="Dias indisponiveis",
+        verbose_name="Dias indisponíveis",
         related_name="customunavailableday",
         blank=True,
     )
 
-    hour_price = models.DecimalField("Valor da hora", max_digits=6, decimal_places=2)
+    hour_price = models.DecimalField("Valor da hora", max_digits=10, decimal_places=2)
     day_price = models.DecimalField(
-        "Valor da diaria", max_digits=6, decimal_places=2, null=True, blank=True
+        "Valor da diária", max_digits=10, decimal_places=2, null=True, blank=True
     )
     max_request_km = models.PositiveSmallIntegerField(
-        "Distancia maxima de trabalho", null=True, blank=True
+        "Distância máxima de trabalho", null=True, blank=True
     )
-    career_time = models.PositiveSmallIntegerField("Anos de experiencia", default=0)
+    career_time = models.PositiveSmallIntegerField("Anos de experiência", default=0)
     additional_info = models.TextField("Informações adicionais", null=True, blank=True)
 
     def __str__(self):
         return f"Caregiver - {self.user}"
 
     class Meta:
-        # ordering = ['user']
         verbose_name_plural = "Caregivers"
-
-
 
 class QualificationModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
@@ -74,13 +72,12 @@ class QualificationModel(models.Model):
         ordering = ["conclusion_date"]
         verbose_name_plural = "Qualifications"
 
-
 class WorkExperienceModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     place = models.CharField("Local", max_length=128)
     description = models.TextField("Descrição")
-    start_date = models.DateField("Data de inicio")
-    end_date = models.DateField("Data de saida")
+    start_date = models.DateField("Data de início")
+    end_date = models.DateField("Data de saída")
 
     def __str__(self):
         return f"{self.place} | {self.start_date.strftime('%d/%m/%Y')} - {self.end_date.strftime('%d/%m/%Y')}"
@@ -88,7 +85,6 @@ class WorkExperienceModel(models.Model):
     class Meta:
         ordering = ["end_date"]
         verbose_name_plural = "Work Experiences"
-
 
 class SpecializationModel(models.Model):
     SPECIALIZATION = (
@@ -110,7 +106,6 @@ class SpecializationModel(models.Model):
     def __str__(self):
         return self.get_name_display()
 
-
 class FixedUnavailableDayModel(models.Model):
     DAYS = (
         (0, "Domingo"),
@@ -123,7 +118,7 @@ class FixedUnavailableDayModel(models.Model):
     )
 
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    day = models.SmallIntegerField("Dia da semana indisponivel", choices=DAYS)
+    day = models.SmallIntegerField("Dia da semana indisponível", choices=DAYS)
 
     def __str__(self):
         return self.get_day_display()
@@ -131,7 +126,6 @@ class FixedUnavailableDayModel(models.Model):
     class Meta:
         ordering = ["day"]
         verbose_name_plural = "Unavailable week days"
-
 
 class FixedUnavailableHourModel(models.Model):
     HOURS = (
@@ -147,6 +141,7 @@ class FixedUnavailableHourModel(models.Model):
         (9, "9 horas"),
         (10, "10 horas"),
         (11, "11 horas"),
+        (12, "12 horas"),
         (13, "13 horas"),
         (14, "14 horas"),
         (15, "15 horas"),
@@ -161,19 +156,18 @@ class FixedUnavailableHourModel(models.Model):
     )
 
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    hour = models.SmallIntegerField("Horario indisponivel", choices=HOURS)
+    hour = models.SmallIntegerField("Horário indisponível", choices=HOURS)
 
     def __str__(self):
-        return self.get_hour_display()
+        return f"{self.get_hour_display()}"
 
     class Meta:
         ordering = ["hour"]
         verbose_name_plural = "Unavailable hours"
 
-
 class CustomUnavailableDayModel(models.Model):
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
-    day = models.DateField("Dia indisponivel")
+    day = models.DateField("Dia indisponível")
 
     def __str__(self):
         return self.day.strftime("%d/%m/%Y")
@@ -181,8 +175,6 @@ class CustomUnavailableDayModel(models.Model):
     class Meta:
         ordering = ["day"]
         verbose_name_plural = "Unavailable days"
-
-
 
 class RatingModel(models.Model):
     RATING_CHOICES = [
@@ -199,13 +191,13 @@ class RatingModel(models.Model):
 
     def __str__(self):
         return f"{self.rating} - {self.description}"
-    
 
 class CareRequestModel(models.Model):
     STATUS_CHOICES = [
         (0, "Pendente"),
         (1, "Recusado"),
         (2, "Autorizado"),
+        (3, "Cancelado"),
     ]
     id = models.UUIDField("id", primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField()
@@ -214,7 +206,7 @@ class CareRequestModel(models.Model):
     total_hours = models.SmallIntegerField()
     final_price = models.DecimalField(max_digits=6, decimal_places=2)
     status = models.IntegerField(choices=STATUS_CHOICES)
-    response_date = models.DateTimeField()
+    response_date = models.DateTimeField(null=True, blank=True)
 
     caregiver = models.ForeignKey("caregiver.CaregiverModel", on_delete=models.CASCADE)
     carereceiver = models.ForeignKey("careReceiver.CareReceiverModel", on_delete=models.CASCADE)

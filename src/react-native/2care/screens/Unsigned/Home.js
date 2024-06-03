@@ -7,7 +7,6 @@ import {
 import theme from '../../theme/theme.js'; 
 import ResponsiveAppBar from '../../components/layout/ResponsiveAppBar.js';
 
-
 export default function Home({ navigation }) {
   return (
     <View> 

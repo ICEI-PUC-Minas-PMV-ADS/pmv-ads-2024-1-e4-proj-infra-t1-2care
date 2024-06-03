@@ -14,7 +14,7 @@
     padding: 10px;
 }
 
-.navBar :hover {
+.navBarLink:hover {
     border-bottom: 3px solid #ED8733;
     padding-bottom: 1px;
 }

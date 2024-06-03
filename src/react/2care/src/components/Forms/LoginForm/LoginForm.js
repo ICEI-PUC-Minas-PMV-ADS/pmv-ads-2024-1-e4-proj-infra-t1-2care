@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { signIn } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 const LoginForm = ({ setIsLogged }) => {
   const navigate = useNavigate();
@@ -47,14 +49,8 @@ const LoginForm = ({ setIsLogged }) => {
       return;
     }
 
-    try {
-      await signIn(formData);
-      console.log("Usuário autenticado com sucesso!");
-      navigate("/home");      
-      setIsLogged(true);
-    } catch (error) {
-      console.error("Erro ao autenticar o usuário:", error.message);
-    }
+    await signIn(formData).then((i) => i ?  toast.success('Login efetuado com sucesso',{onClose: () => {navigate("/home");}, autoClose:1000}) : "")
+    
   };
 
   return (
