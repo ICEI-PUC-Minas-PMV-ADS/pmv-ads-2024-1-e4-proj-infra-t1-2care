@@ -36,6 +36,7 @@ const EditProfileScreenCareGiver = () => {
     address: "", 
     picture: "",
     //preferred_contact: "",
+    max_request_km: "",
   });
 
   const [selectedItems, setSelectedItems] = useState([]);
@@ -58,6 +59,7 @@ const EditProfileScreenCareGiver = () => {
     additionalInfo: "Informações Adicionais",
     address: "Endereço", 
     picture: "Link da imagem",
+    max_request_km: "Raio de Atendimento(Km)",
     //preferred_contact: "",
   };
 
@@ -166,6 +168,7 @@ const EditProfileScreenCareGiver = () => {
           day_price: parseFloat(formData.dailyRate.replace("R$","").replace(",",".").trim()),
           hour_price: parseFloat(formData.hourlyRate.replace("R$","").replace(",",".").trim()),
           additional_info: formData.additionalInfo,
+          max_request_km: formData.max_request_km
         };
         const response = await updateCaregiver(user, caregiver);
         console.log("Atualização bem-sucedida", response);
@@ -240,7 +243,8 @@ const EditProfileScreenCareGiver = () => {
             key !== 'unavailableDays' &&
             key !== 'dailyRate' &&
             key !== 'hourlyRate' &&
-            key !== 'additionalInfo'
+            key !== 'additionalInfo' &&
+            key !== 'maxRequestKm'
           ).map((key) => (
             <View key={key} style={styles.inputContainer}>
               <Text style={styles.label}>{fieldLabels[key]}</Text>
@@ -312,6 +316,15 @@ const EditProfileScreenCareGiver = () => {
               style={styles.input}
               value={formData.hourlyRate}
               onChangeText={(text) => handleChange('hourlyRate', text)}
+              keyboardType="numeric"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>{fieldLabels['max_request_km']}</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.max_request_km}
+              onChangeText={(text) => handleChange('max_request_km', text)}
               keyboardType="numeric"
             />
           </View>
