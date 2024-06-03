@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import TopNav from '../../components/TopNav/TopNav';
@@ -13,6 +13,11 @@ const Reviews = () => {
   const caregiver = route.params?.caregiver ?? {};
 
   const [selectedStars, setSelectedStars] = useState([]);
+
+  useEffect(() => {
+    console.log("Caregiver data received:", caregiver);
+    console.log("Evaluations:", caregiver.evaluations);
+  }, [caregiver]);
 
   const handleStarPress = (star) => {
     if (selectedStars.includes(star)) {
