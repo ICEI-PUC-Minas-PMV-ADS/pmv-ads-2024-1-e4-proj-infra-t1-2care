@@ -58,8 +58,11 @@ export default function ViewCaregiverInfo({ route }) {
     };
 
     const handleReviews = () => {
-        navigation.navigate('Reviews');
-    };
+        console.log(caregiverData)
+        navigation.navigate('Reviews', { caregiver: caregiverData });
+      };
+      
+      
 
     const handleSendRequest = () => { 
         setModalVisible(true);

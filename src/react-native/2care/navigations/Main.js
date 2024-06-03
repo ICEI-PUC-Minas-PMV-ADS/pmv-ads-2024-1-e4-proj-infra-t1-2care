@@ -52,6 +52,14 @@ const UnsignedViews = ({ setVisitorMode }) => {
           header: () => null,
         }}
       />
+      <Stack.Screen
+        name="Reviews"
+        component={Reviews}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
     </Stack.Navigator>
   )
 };
