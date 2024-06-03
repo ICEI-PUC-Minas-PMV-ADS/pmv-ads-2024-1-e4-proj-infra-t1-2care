@@ -12,6 +12,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 
+import SendRequest from "../../screens/Main/SendRequest"
+
 const GENDER_MAP = {
     0: "",
     1: "Masculino",
@@ -34,12 +36,13 @@ export default function ViewCaregiverInfo({ route }) {
     const caregiver = route.params?.caregiver ?? null;
     const [caregiverData, setCaregiverData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                setCaregiverData(caregiver)
+                setCaregiverData(caregiver);
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
             } finally {
@@ -59,7 +62,7 @@ export default function ViewCaregiverInfo({ route }) {
     };
 
     const handleSendRequest = () => { 
-        navigation.navigate("Requests");
+        setModalVisible(true);
     };
 
     if (loading) {
@@ -69,7 +72,6 @@ export default function ViewCaregiverInfo({ route }) {
             </View>
         );
     }
-
 
     return (
         <View style={styles.container}>
@@ -100,7 +102,6 @@ export default function ViewCaregiverInfo({ route }) {
                             <Text style={styles.label}>E-MAIL</Text>
                         </View>
                         <Text style={styles.info}>{caregiverData.email}</Text>
-                        {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
                     </View>
 
                     <View style={styles.infoContainer}>
@@ -109,7 +110,6 @@ export default function ViewCaregiverInfo({ route }) {
                             <Text style={styles.label}>TELEFONE</Text>
                         </View>
                         <Text style={styles.info}>{caregiverData.phone}</Text>
-                        {/*<Text style={styles.info}>31 99999-9999</Text>*/}
                     </View>
 
                     <View style={styles.infoContainer}>
@@ -122,7 +122,6 @@ export default function ViewCaregiverInfo({ route }) {
                             <Text style={styles.label}>GÊNERO</Text>
                         </View>
                         <Text style={styles.info}>{GENDER_MAP[caregiverData.gender]}</Text>
-                        {/*<Text style={styles.info}>Masculino</Text>*/}
                     </View>
 
                     <View style={styles.section}>
@@ -174,7 +173,6 @@ export default function ViewCaregiverInfo({ route }) {
                     ) : (
                         <Text style={styles.info}>Não informado.</Text>
                     )}
-
 
                     <View style={styles.infoContainer}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -246,10 +244,16 @@ export default function ViewCaregiverInfo({ route }) {
             </ScrollView>
 
             <View style={styles.sendRequestButtonContainer}>
-            <Pressable onPress={handleSendRequest} style={styles.sendRequestButton}>
-              <Text style={styles.buttonText}>Enviar proposta</Text>
-            </Pressable>
-          </View>
+                <Pressable onPress={handleSendRequest} style={styles.sendRequestButton}>
+                    <Text style={styles.buttonText}>Enviar proposta</Text>
+                </Pressable>
+            </View>
+
+            <SendRequest
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                caregiver={caregiverData}
+            />
         </View>
     );
 }
