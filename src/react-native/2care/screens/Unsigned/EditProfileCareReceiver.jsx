@@ -1,19 +1,32 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, Platform, SafeAreaView, Switch } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Image, SafeAreaView, Switch } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Picker } from '@react-native-picker/picker';
-import SearchBar from '../../components/SearchBar.jsx';
+import { getUserData, getUserEmail } from "../../services/userServiceMob";
+import { getCareReceiverData, updateCareReceiver } from "../../services/careReceiverMob";
+import GenderPicker from "../../components/Picker/GenderPicker.jsx";
+
+const formatDateToDisplay = (dateString) => {
+  if (!dateString) return '';
+  const [year, month, day] = dateString.split('-');
+  return `${day}/${month}/${year}`;
+};
+
+const formatDateToSave = (dateString) => {
+  if (!dateString) return '';
+  const [day, month, year] = dateString.split('/');
+  return `${year}-${month}-${day}`;
+};
 
 const EditProfileScreenCareReceiver = () => {
   const navigation = useNavigation();
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirm_password: "",
     name: "",
     birth_date: "",
     phone: "",
-    gender: "",
+    gender: 0,
     specialCare: "",              
     emergencyContact: "",         
     post_code: "",
@@ -21,49 +34,99 @@ const EditProfileScreenCareReceiver = () => {
     shareSpecialCare: false,
   });
 
+  const [selectedGender, setSelectedGender] = useState([]);
   const [errors, setErrors] = useState({});
 
   const fieldLabels = {
-    email: "E-mail",
-    password: "Senha",
-    confirm_password: "Confirmar senha",
     name: "Nome completo",
     birth_date: "Data de nascimento",
     phone: "Telefone",
     gender: "Gênero",
     specialCare: "Cuidados Especiais",
-    shareSpecialCare: "Compartilhar Cuidados Especiais", // Movido para renderizar após Cuidados Especiais
     emergencyContact: "Contato de Emergência",
     post_code: "CEP",
     personalInfo: "Informações Pessoais",
+    shareSpecialCare: "Compartilhar Cuidados Especiais"
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await getUserData();
+        const careReceiver = await getCareReceiverData();
+        const userEmail = await getUserEmail();
+
+        setUserName(user?.name || 'Nome não disponível');
+        setEmail(userEmail || 'Email não disponível');
+        setFormData({
+          ...formData,
+          name: user?.name || '',
+          birth_date: user?.birth_date ? user.birth_date.split('-').reverse().join('/') : '',
+          post_code: user?.post_code || '',
+          phone: user?.phone || '',
+          gender: careReceiver?.gender || 0,
+          specialCare: careReceiver?.specialCare || "",
+          emergencyContact: careReceiver?.emergency_contact || "",
+          personalInfo: careReceiver?.additional_info || "",
+          shareSpecialCare: careReceiver?.share_special_care || false,
+        });
+
+        setSelectedGender([careReceiver?.gender || ""]);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (name, value) => {
-    if (['birth_date', 'post_code', 'phone', 'emergencyContact'].includes(name)) {
-      value = value.replace(/[^0-9]/g, '');
-      if (name === 'birth_date') {
-        value = value.slice(0, 8).replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-      } else if (name === 'post_code') {
-        value = value.slice(0, 8).replace(/(\d{5})(\d{3})/, '$1-$2');
-      } else if (['phone', 'emergencyContact'].includes(name)) {
-        value = value.slice(0, 11).replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
-      }
-    }
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+    /* setErrors({ ...errors, [name]: "" }); */
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let hasError = false;
     Object.entries(formData).forEach(([key, value]) => {
-      if (!value) {
+      if (!value && value != 0 && key !== 'password' && key !== 'confirm_password') {
         setErrors(prev => ({ ...prev, [key]: "Campo obrigatório" }));
         hasError = true;
       }
     });
+
     if (!hasError) {
-      console.log("Formulário submetido com sucesso", formData);
-      navigation.goBack();
+      try {
+        const user = {
+          name: formData.name,
+          birth_date: formData.birth_date.split("/").reverse().join("-"),
+          post_code: formData.post_code,
+          phone: formData.phone,
+          gender: parseInt(formData.gender),
+          address: formData.address,
+          picture: formData.picture,
+        };
+        const careReceiver = {
+          // specialCare: formData.specialCare, fix me
+          emergency_contact: formData.emergencyContact,
+          additional_info: formData.personalInfo,
+          share_special_care: formData.shareSpecialCare,
+        };
+  
+        const response = await updateCareReceiver(user, careReceiver);
+        console.log("Atualização bem-sucedida", response);
+        
+        // Atualizar os dados no front-end
+        setFormData({
+          ...formData,
+          ...response.user,
+          ...response.careReceiver,
+        });
+        
+        navigation.goBack();
+      } catch (error) {
+        console.error("Erro na atualização", error);
+        alert('Erro ao atualizar dados. Por favor, tente novamente.');
+      }
     }
   };
 
@@ -71,64 +134,82 @@ const EditProfileScreenCareReceiver = () => {
     navigation.goBack();
   };
 
+  const handleGenderChange = (selectedItems) => {
+    if (selectedItems.length > 0) {
+      handleChange('gender', selectedItems[0]);
+    } else {
+      handleChange('gender', '');
+    }
+    setSelectedGender(selectedItems);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.searchBarContainer}>
-        <SearchBar></SearchBar>
-      </View>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.profileName}>Maria Augusta Oliveira</Text>
-          <Text style={styles.profileRole}>Recebedor de Cuidados</Text>
+          <Text style={styles.profileName}>{userName}</Text>
+          <Text style={styles.profileRole}>Cliente</Text>
           <Image
             source={{ uri: 'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
             style={styles.profileImage}
           />
         </View>
         <View style={styles.form}>
-          {Object.entries(fieldLabels).map(([key, label]) => (
+          {Object.keys(formData).filter(key => 
+            key !== 'gender' && 
+            key !== 'specialCare' &&
+            key !== 'personalInfo' &&
+            key !== 'shareSpecialCare'
+          ).map((key) => (
             <View key={key} style={styles.inputContainer}>
-              <Text style={key === 'shareSpecialCare' ? styles.specialLabel : styles.label}>
-                {label}
-              </Text>
-              {key === 'gender' ? (
-              <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={formData[key]}
-                  style={styles.picker}
-                  itemStyle={styles.pickerItem}
-                  onValueChange={(itemValue) => handleChange(key, itemValue)}
-                >
-                  <Picker.Item label="Selecione o gênero" value="" />
-                  <Picker.Item label="Masculino" value="Masculino" />
-                  <Picker.Item label="Feminino" value="Feminino" />
-                  <Picker.Item label="Outro" value="Outro" />
-                </Picker>
-              </View>
-              ) : key === 'shareSpecialCare' ? (
-                <Switch
-                  trackColor={{ false: "#767577", true: "#a9b7a6" }}
-                  thumbColor={formData.shareSpecialCare ? "#f4bc8c" : "#d06d39"}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={() => setFormData({ ...formData, shareSpecialCare: !formData.shareSpecialCare })}
-                  value={formData.shareSpecialCare}
-                  style={styles.switch}
-                />
-              ) : (
-                <TextInput
-                  style={styles.input}
-                  value={formData[key]}
-                  onChangeText={(text) => handleChange(key, text)}
-                  secureTextEntry={key.includes("password")}
-                  placeholder={`${fieldLabels[key].toLowerCase()}`}
-                  keyboardType={['birth_date', 'post_code', 'phone', 'emergencyContact'].includes(key) ? 'numeric' : 'default'}
-                  multiline={['specialCare', 'personalInfo'].includes(key)}
-                  numberOfLines={['specialCare', 'personalInfo'].includes(key) ? 3 : 1}
-                />
-              )}
+              <Text style={styles.label}>{fieldLabels[key]}</Text>
+              <TextInput
+                style={styles.input}
+                value={formData[key]}
+                onChangeText={(text) => handleChange(key, text)}
+                onBlur={() => handleChange(key, formData[key])}
+                secureTextEntry={key.includes("password")}
+              />
               {errors[key] && <Text style={styles.errorText}>{errors[key]}</Text>}
             </View>
           ))}
+          <View style={styles.inputContainer}>
+            <GenderPicker
+              selectedItems={selectedGender}
+              onSelectedItemsChange={handleGenderChange}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Cuidados Especiais</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.specialCare}
+              onChangeText={(text) => handleChange('specialCare', text)}
+              multiline={true}
+              numberOfLines={3}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>{fieldLabels['shareSpecialCare']}</Text>
+            <Switch
+              trackColor={{ false: "#767577", true: "#a9b7a6" }}
+              thumbColor={formData.shareSpecialCare ? "#f4bc8c" : "#d06d39"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={() => setFormData({ ...formData, shareSpecialCare: !formData.shareSpecialCare })}
+              value={formData.shareSpecialCare}
+              style={styles.switch}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Informações Pessoais</Text>
+            <TextInput
+              style={styles.input}
+              value={formData.personalInfo}
+              onChangeText={(text) => handleChange('personalInfo', text)}
+              multiline={true}
+              numberOfLines={3}
+            />
+          </View>
           <View style={styles.buttonContainer}>
             <Pressable style={[styles.button, styles.cancelButton]} onPress={handleCancel}>
               <Text style={styles.buttonText}>Cancelar</Text>
@@ -146,13 +227,8 @@ const EditProfileScreenCareReceiver = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 2,
-    paddingHorizontal: 30,
-    backgroundColor: "#ffffff"
-  },
-  searchBarContainer: {
-    width: '100%', 
-    backgroundColor: "#fff",
+    padding: 20,
+    backgroundColor: "#f6f6f6"
   },
   header: {
     alignItems: 'center',
@@ -178,39 +254,26 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   label: {
     position: "absolute",
-    backgroundColor: "#a9b7a6",
+    backgroundColor: "#D2DAC3",
     left: 10,
     top: -10,
     paddingHorizontal: 5,
     fontSize: 12,
-    color: "#64785d",
+    color: "#486142",
     borderRadius: 10,
     zIndex: 1,
   },
-  specialLabel: {
-    flex: 1,
-    fontSize: 12,
-    color: "#64785d",
-    backgroundColor: "#a9b7a6",
-    paddingHorizontal: 10,
-    left: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#799275",
     borderRadius: 5,
     padding: 10,
     fontSize: 16,
     width: '100%',
-    color: '#64785d',
+    color: '#486142',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -242,30 +305,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "red"
   },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10, 
-    marginBottom: 20,
-    width: '100%', 
-  },
-  picker: {
-    color: '#64785d',
-    backgroundColor: '#ffffff', 
-    width: '100%',
-  },
-  pickerItem: {
-    color: '#64785d',
-  },
   switch: {
     marginLeft: 70,
   },
   safeArea: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS ? 40 : 20
   }
 });
 

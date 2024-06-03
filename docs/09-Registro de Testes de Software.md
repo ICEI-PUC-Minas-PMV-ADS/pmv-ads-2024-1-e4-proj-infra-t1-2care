@@ -498,7 +498,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem editar suas informações pessoais na aplicação.|<ol><li>Acessar a tela de Perfil do usuário</li><li>Clicar no botão "Editar perfil"</li><li>Modificar as informações pessoais desejadas</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as informações do usuário e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![editar caregiver mobile 1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/865c906a-d991-4371-9ae6-cf8390daeca9) | Data do Teste: 01/06/2024 - Resultado: "Passou" - A aplicação permitiu aos usuários editar suas informações pessoais |
 
 
 <br> 
@@ -582,7 +582,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os profissionais podem inserir seus valores de atendimento na aplicação.|<ol><li>Acessar a tela de Perfil de usuário</li><li>Localizar a opção de inserir valores de atendimento</li><li>Inserir os valores desejados</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve registrar os valores de atendimento do profissional e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![editar caregiver mobile 2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/21993438/4342fed5-c8dd-49be-aa0f-15717e0fdd2e) | Data do Teste: 01/06/2024 - Resultado: "Passou" - A aplicação permite aos profissionais inserir seus valores referentes ao atendimento. |
 
 
 <br> 
