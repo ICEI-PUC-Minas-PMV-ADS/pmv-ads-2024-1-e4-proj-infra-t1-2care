@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
+import { useNavigation, useRoute } from "@react-navigation/native";
 import TopNav from '../../components/TopNav/TopNav';
 import CardCaregiver from '../../components/Evaluation/CardCaregiver';
 import ReviewStars from '../../components/Evaluation/ReviewStars';
 import StarFilterOption from '../../components/Evaluation/StarFilterOption';
+import CardEvaluation from '../../components/Evaluation/CardEvaluation';
 
-const Reviews = ({ imageUri, title }) => {
+const Reviews = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const caregiver = route.params?.caregiver ?? {};
+
   const [selectedStars, setSelectedStars] = useState([]);
+
+  useEffect(() => {
+    console.log("Caregiver data received:", caregiver);
+    console.log("Evaluations:", caregiver.evaluations);
+  }, [caregiver]);
 
   const handleStarPress = (star) => {
     if (selectedStars.includes(star)) {
@@ -19,13 +28,13 @@ const Reviews = ({ imageUri, title }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <TopNav navigation={navigation} />
-      <CardCaregiver />
+      <CardCaregiver caregiver={caregiver} />
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' }}
+          source={{ uri: caregiver.picture || 'https://img.freepik.com/fotos-gratis/enfermeira-negra-em-seu-espaco-de-trabalho_52683-100571.jpg' }}
         />
         <ReviewStars />
         <View style={styles.filterContainer}>
@@ -39,8 +48,17 @@ const Reviews = ({ imageUri, title }) => {
             />
           ))}
         </View>
+        <View style={styles.evaluationsContainer}>
+          {caregiver.evaluations && caregiver.evaluations.length > 0 ? (
+            caregiver.evaluations.map((evaluation, index) => (
+              <CardEvaluation key={index} evaluation={evaluation} />
+            ))
+          ) : (
+            <Text style={styles.noEvaluationsText}>Nenhuma avaliação disponível.</Text>
+          )}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -65,6 +83,15 @@ const styles = StyleSheet.create({
   },
   filterText: {
     marginRight: 10,
+  },
+  evaluationsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  noEvaluationsText: {
+    textAlign: 'center',
+    color: '#666',
+    marginTop: 20,
   },
 });
 

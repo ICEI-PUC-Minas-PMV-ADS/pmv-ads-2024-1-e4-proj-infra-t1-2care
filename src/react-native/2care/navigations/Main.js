@@ -52,6 +52,14 @@ const UnsignedViews = ({ setVisitorMode }) => {
           header: () => null,
         }}
       />
+      <Stack.Screen
+        name="Reviews"
+        component={Reviews}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
     </Stack.Navigator>
   )
 };
@@ -70,6 +78,22 @@ const HomeStack = () => {
       <Stack.Screen
         name="ViewCaregiverInfo"
         component={ViewCaregiverInfo}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="AgendaMob"
+        component={AgendaMob}
+        options={{
+          headerShown: false,
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="Reviews"
+        component={Reviews}
         options={{
           headerShown: false,
           header: () => null,
