@@ -59,7 +59,7 @@ const EditProfileScreenCareGiver = () => {
     additionalInfo: "Informações Adicionais",
     address: "Endereço", 
     picture: "Link da imagem",
-    max_request_km: "Raio de Atendimento",
+    max_request_km: "Raio de Atendimento(Km)",
     //preferred_contact: "",
   };
 
