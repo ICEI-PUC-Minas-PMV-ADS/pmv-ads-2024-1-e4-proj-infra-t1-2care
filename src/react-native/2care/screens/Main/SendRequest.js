@@ -36,9 +36,10 @@ export default function SendRequest({ visible, onClose, caregiver }) {
 
   const handleSendProposal = async () => {
     const proposalData = {
-      date: date, 
-      start_time: startTime,
-      end_time: endTime,
+      caregiver: caregiver._id,
+      date: date.split('/').reverse().join('-'), 
+      startTime: startTime,
+      endTime: endTime,
       total_hours: totalHours, 
       final_price: finalPrice.toString(),
       status: status,
