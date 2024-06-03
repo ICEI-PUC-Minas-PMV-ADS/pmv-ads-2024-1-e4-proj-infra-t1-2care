@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const CardEvaluation = ({ evaluation }) => {
+  console.log("Rendering evaluation:", evaluation);
+
   return (
     <View style={styles.container}>
       <View style={styles.leftContent}>
