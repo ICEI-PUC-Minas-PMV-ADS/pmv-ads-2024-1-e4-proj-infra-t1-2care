@@ -21,58 +21,44 @@ const EditProfileScreenCareGiver = () => {
   const [email, setEmail] = useState('');
   
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirm_password: "",
     name: "",
     birth_date: "",
     post_code: "",
     phone: "",
     gender: "",
     specialization: "",
-    qualifications: "",
-    workexperience: "",
+    //qualifications: "",
+    //workexperience: "",
     yearsexperience: "",
-    unavailableDays: "",
     dailyRate: "",
     hourlyRate: "",
-    additionalInfo: ""
+    additionalInfo: "",
+    address: "", 
+    picture: "",
+    //preferred_contact: "",
   });
 
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const items = [
-    { id: '1', name: "Cuidados Básicos de Saúde"},
-    { id: '2', name: "Apoio à Mobilidade"},
-    { id: '3', name: "Higiene e Cuidados Pessoais"},
-    { id: '4', name: "Nutrição e Preparo de Refeições"},
-    { id: '5', name: "Estimulação Cognitiva e Emocional"},
-    { id: '6', name: "Acompanhamento e Transporte"},
-    { id: '7', name: "Gestão de Rotinas e Medicamentos"},
-    { id: '8', name: "Cuidados com o Ambiente Doméstico"},
-    { id: '9', name: "Suporte em Cuidados Paliativos"},
-    { id: '10', name: "Formação em Demência e Alzheimer"},
-  ];
-
   const [errors, setErrors] = useState({});
 
   const fieldLabels = {
-    email: "E-mail",
-    password: "Senha",
-    confirm_password: "Confirmar senha",
     name: "Nome completo",
     birth_date: "Data de nascimento",
     post_code: "CEP",
     phone: "Telefone",
-    gender: "Gênero",
+    gender: "Gênero", 
     specialization: "Especialização",
     qualifications: "Qualificações",
     workexperience: "Experiência de trabalho",
     yearsexperience: "Anos de experiência",
-    unavailableDays: "Dias Fixos Indisponíveis",
+    //unavailableDays: "Dias Fixos Indisponíveis",
     dailyRate: "Preço por Dia",
     hourlyRate: "Preço por Hora",
-    additionalInfo: "Informações Adicionais"
+    additionalInfo: "Informações Adicionais",
+    address: "Endereço", 
+    picture: "Link da imagem",
+    //preferred_contact: "",
   };
 
   useEffect(() => {
@@ -80,31 +66,31 @@ const EditProfileScreenCareGiver = () => {
       try {
         const user = await getUserData();
         const caregiver = await getCaregiverData();
-        const userEmail = await getUserEmail();
 
         setUserName(user?.name || 'Nome não disponível');
-        setEmail(userEmail || 'Email não disponível');
         setFormData({
           ...formData,
-          email: userEmail || '',
           name: user?.name || '',
-          birth_date: user?.birth_date || '',
+          birth_date: user?. birth_date ? user.birth_date.split('-').reverse().join('/') : '',
           post_code: user?.post_code || '',
           phone: user?.phone || '',
-          gender: caregiver?.gender || "",
+          gender: user?.gender || 0,
+          address: user?.address || "",
+          picture: user?.picture || "",
+
           specialization: (caregiver?.specializations || []).map(spec => spec.id),
-          qualifications: caregiver?.qualifications || "",
-          workexperience: caregiver?.workexperience || "",
-          yearsexperience: caregiver?.yearsexperience || "",
-          unavailableDays: caregiver?.unavailableDays || "",
-          dailyRate: caregiver?.dailyRate || "",
-          hourlyRate: caregiver?.hourlyRate || "",
-          additionalInfo: caregiver?.additionalInfo || ""
+          //qualifications: caregiver?.qualifications || "",
+          //workexperience: caregiver?.workexperience || "",
+          yearsexperience: caregiver?.career_time || "",
+          //unavailableDays: caregiver?.unavailableDays || "",
+          dailyRate: caregiver?.day_price || "",
+          hourlyRate: caregiver?.hour_price || "",
+          additionalInfo: caregiver?.additional_info || ""
         });
-        setQualifications((caregiver?.qualifications || "").split(', '));
-        setExperiences((caregiver?.workexperience || "").split(', '));
-        setSelectedGender([caregiver?.gender || ""]);
-        setSelectedItems((caregiver?.specializations || []).map(spec => ({ id: spec.id, name: spec.name })));
+        setQualifications((caregiver?.qualifications || []));
+        setExperiences((caregiver?.work_exp || []));
+        setSelectedGender([caregiver?.gender || 0]);
+        setSelectedItems((caregiver?.specializations || []).map(spec => (spec.name.toString())));
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
@@ -133,7 +119,7 @@ const EditProfileScreenCareGiver = () => {
     } else {
       setFormData({ ...formData, [name]: value });
     }
-    setErrors({ ...errors, [name]: "" });
+    //setErrors({ ...errors, [name]: "" });
   };
 
   const formatCurrency = (value) => {
@@ -151,7 +137,7 @@ const EditProfileScreenCareGiver = () => {
   const handleSubmit = async () => {
     let hasError = false;
     Object.entries(formData).forEach(([key, value]) => {
-      if (!value) {
+      if (!value && value != 0) {
         setErrors(prev => ({ ...prev, [key]: "Campo obrigatório" }));
         hasError = true;
       }
@@ -160,24 +146,27 @@ const EditProfileScreenCareGiver = () => {
     if (!hasError) {
       try {
         const user = {
-          email: formData.email,
           name: formData.name,
-          birth_date: formData.birth_date,
+          birth_date: formData.birth_date.split("/").reverse().join("-"),
           post_code: formData.post_code,
           phone: formData.phone,
+          gender: parseInt(formData.gender),
+          address: formData.address,
+          picture: formData.picture,
+          //preferred_contact: formData.preferred_contact,
         };
+
         const caregiver = {
-          gender: formData.gender,
-          qualifications: qualifications.join(', '),
-          specialization: selectedItems.map(item => item.id),
-          workexperience: experiences.join(', '),
-          yearsexperience: formData.yearsexperience,
-          unavailableDays: formData.unavailableDays,
-          dailyRate: formData.dailyRate,
-          hourlyRate: formData.hourlyRate,
-          additionalInfo: formData.additionalInfo,
+          gender: parseInt(formData.gender),
+          //qualifications: qualifications.join(', '),
+          //specialization: selectedItems.map(item => item.id),
+          //workexperience: experiences.join(', '),
+          career_time: formData.yearsexperience,
+          //unavailableDays: formData.unavailableDays,
+          day_price: parseFloat(formData.dailyRate.replace("R$","").replace(",",".").trim()),
+          hour_price: parseFloat(formData.hourlyRate.replace("R$","").replace(",",".").trim()),
+          additional_info: formData.additionalInfo,
         };
-  
         const response = await updateCaregiver(user, caregiver);
         console.log("Atualização bem-sucedida", response);
       } catch (error) {
@@ -237,7 +226,7 @@ const EditProfileScreenCareGiver = () => {
           <Text style={styles.profileName}>{userName}</Text>
           <Text style={styles.profileRole}>Cuidador</Text>
           <Image
-            source={{ uri: 'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
+            source={{ uri: formData?.picture ? formData.picture :'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
             style={styles.profileImage}
           />
         </View>
@@ -298,7 +287,7 @@ const EditProfileScreenCareGiver = () => {
               keyboardType="numeric"
             />
           </View>
-          <View style={styles.inputContainer}>
+          {/* <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['unavailableDays']}</Text>
             <TextInput
               style={styles.input}
@@ -307,7 +296,7 @@ const EditProfileScreenCareGiver = () => {
               multiline={true}
               numberOfLines={1}
             />
-          </View>
+          </View> */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['dailyRate']}</Text>
             <TextInput
@@ -349,10 +338,12 @@ const EditProfileScreenCareGiver = () => {
       <QualificationsModal
         visible={modalVisible}
         onClose={handleCloseModal}
+        qualifications={qualifications}
         addQualification={handleAddQualification}
       />
       <WorkExperienceModal
         visible={experienceModalVisible}
+        experiences={experiences}
         onClose={handleCloseExperienceModal}
         addExperience={handleAddExperience}
       />

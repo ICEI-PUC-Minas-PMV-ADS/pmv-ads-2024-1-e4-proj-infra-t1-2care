@@ -3,22 +3,23 @@ import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react
 import { Icon } from 'react-native-elements';
 
 const items = [
-  { id: '1', name: "Cuidados Básicos de Saúde" },
-  { id: '2', name: "Apoio à Mobilidade" },
-  { id: '3', name: "Higiene e Cuidados Pessoais" },
-  { id: '4', name: "Nutrição e Preparo de Refeições" },
-  { id: '5', name: "Estimulação Cognitiva e Emocional" },
-  { id: '6', name: "Acompanhamento e Transporte" },
-  { id: '7', name: "Gestão de Rotinas e Medicamentos" },
-  { id: '8', name: "Cuidados com o Ambiente Doméstico" },
-  { id: '9', name: "Suporte em Cuidados Paliativos" },
-  { id: '10', name: "Formação em Demência e Alzheimer" },
+  { id: '0', name: "Cuidados Básicos de Saúde" },
+  { id: '1', name: "Apoio à Mobilidade" },
+  { id: '2', name: "Higiene e Cuidados Pessoais" },
+  { id: '3', name: "Nutrição e Preparo de Refeições" },
+  { id: '4', name: "Estimulação Cognitiva e Emocional" },
+  { id: '5', name: "Acompanhamento e Transporte" },
+  { id: '6', name: "Gestão de Rotinas e Medicamentos" },
+  { id: '7', name: "Cuidados com o Ambiente Doméstico" },
+  { id: '8', name: "Suporte em Cuidados Paliativos" },
+  { id: '9', name: "Formação em Demência e Alzheimer" },
 ];
 
 const SpecializationPicker = ({ selectedItems, onSelectedItemsChange }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSelectItem = (item) => {
+
     if (selectedItems.includes(item.id)) {
       onSelectedItemsChange(selectedItems.filter(id => id !== item.id));
     } else {

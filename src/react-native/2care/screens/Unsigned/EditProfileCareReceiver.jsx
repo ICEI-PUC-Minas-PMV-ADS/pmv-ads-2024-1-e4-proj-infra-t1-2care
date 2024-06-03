@@ -23,13 +23,10 @@ const EditProfileScreenCareReceiver = () => {
   const [email, setEmail] = useState('');
   
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirm_password: "",
     name: "",
     birth_date: "",
     phone: "",
-    gender: "",
+    gender: 0,
     specialCare: "",              
     emergencyContact: "",         
     post_code: "",
@@ -41,9 +38,6 @@ const EditProfileScreenCareReceiver = () => {
   const [errors, setErrors] = useState({});
 
   const fieldLabels = {
-    email: "E-mail",
-    password: "Senha",
-    confirm_password: "Confirmar senha",
     name: "Nome completo",
     birth_date: "Data de nascimento",
     phone: "Telefone",
@@ -66,17 +60,17 @@ const EditProfileScreenCareReceiver = () => {
         setEmail(userEmail || 'Email não disponível');
         setFormData({
           ...formData,
-          email: userEmail || '',
           name: user?.name || '',
-          birth_date: formatDateToDisplay(user?.birth_date || ''),
+          birth_date: user?.birth_date ? user.birth_date.split('-').reverse().join('/') : '',
           post_code: user?.post_code || '',
           phone: user?.phone || '',
-          gender: careReceiver?.gender || "",
+          gender: careReceiver?.gender || 0,
           specialCare: careReceiver?.specialCare || "",
-          emergencyContact: careReceiver?.emergencyContact || "",
-          personalInfo: careReceiver?.personalInfo || "",
-          shareSpecialCare: careReceiver?.shareSpecialCare || false,
+          emergencyContact: careReceiver?.emergency_contact || "",
+          personalInfo: careReceiver?.additional_info || "",
+          shareSpecialCare: careReceiver?.share_special_care || false,
         });
+
         setSelectedGender([careReceiver?.gender || ""]);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -87,20 +81,14 @@ const EditProfileScreenCareReceiver = () => {
   }, []);
 
   const handleChange = (name, value) => {
-    if (name === 'birth_date') {
-      value = value.replace(/[^0-9/]/g, '');
-      if (value.length === 2 || value.length === 5) {
-        value += '/';
-      }
-    }
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+    /* setErrors({ ...errors, [name]: "" }); */
   };
 
   const handleSubmit = async () => {
     let hasError = false;
     Object.entries(formData).forEach(([key, value]) => {
-      if (!value && key !== 'password' && key !== 'confirm_password') {
+      if (!value && value != 0 && key !== 'password' && key !== 'confirm_password') {
         setErrors(prev => ({ ...prev, [key]: "Campo obrigatório" }));
         hasError = true;
       }
@@ -109,18 +97,19 @@ const EditProfileScreenCareReceiver = () => {
     if (!hasError) {
       try {
         const user = {
-          email: formData.email,
           name: formData.name,
-          birth_date: formatDateToSave(formData.birth_date),
+          birth_date: formData.birth_date.split("/").reverse().join("-"),
           post_code: formData.post_code,
           phone: formData.phone,
+          gender: parseInt(formData.gender),
+          address: formData.address,
+          picture: formData.picture,
         };
         const careReceiver = {
-          gender: formData.gender,
-          specialCare: formData.specialCare,
-          emergencyContact: formData.emergencyContact,
-          personalInfo: formData.personalInfo,
-          shareSpecialCare: formData.shareSpecialCare,
+          // specialCare: formData.specialCare, fix me
+          emergency_contact: formData.emergencyContact,
+          additional_info: formData.personalInfo,
+          share_special_care: formData.shareSpecialCare,
         };
   
         const response = await updateCareReceiver(user, careReceiver);
@@ -130,7 +119,6 @@ const EditProfileScreenCareReceiver = () => {
         setFormData({
           ...formData,
           ...response.user,
-          birth_date: formatDateToDisplay(response.user.birth_date),
           ...response.careReceiver,
         });
         

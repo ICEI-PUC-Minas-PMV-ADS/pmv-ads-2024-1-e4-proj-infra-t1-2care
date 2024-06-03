@@ -15,6 +15,7 @@ from .models import (
     QualificationModel,
     WorkExperienceModel,
 )
+from careReceiver.models import CareReceiverModel
 from user.models import CustomUserModel
 
 from .serializers import (
@@ -63,7 +64,7 @@ class CaregiverEditView(APIView):
             caregiver_instance = serializer.save()
             MongoConnection().set_caregiver_data_on_mongo(caregiver_instance, update)
             return Response(serializer.data, status=status.HTTP_201_CREATED if not caregiver else status.HTTP_200_OK)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, format=None):

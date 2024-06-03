@@ -3,24 +3,35 @@ import { Modal, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, D
 
 const screenWidth = Dimensions.get('window').width;
 
-const WorkExperienceModal = ({ visible, onClose, addExperience }) => {
-  const [experience, setExperience] = useState('');
-  const [link, setLink] = useState('');
-  const [experiences, setExperiences] = useState([]);
+const WorkExperienceModal = ({ visible, onClose, experiences, addExperience }) => {
+  const [place, setPlace] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleAddExperience = () => {
-    if (experience.trim() && link.trim()) {
-      const newExperience = { experience: experience.trim(), link: link.trim() };
-      setExperiences([...experiences, newExperience]);
+    if (place.trim() && startDate && endDate && description) {
+      const newExperience = { place: place.trim(), start_date: startDate, end_date: endDate, description: description.trim()};
+
       addExperience(newExperience);
-      setExperience('');
-      setLink('');
+      setPlace('');
+      setStartDate('');
+      setEndDate('');
+      setDescription('');
     }
   };
 
   const handleDeleteExperience = (index) => {
     const updatedExperiences = experiences.filter((_, i) => i !== index);
-    setExperiences(updatedExperiences);
+    addExperience(updatedExperiences);
+  };
+
+  const formatDate = (dateString) => {
+    dateString = dateString.replace(/\//g, "").substring(0, 8)
+    const day = dateString.substring(0, 2);
+    const month = dateString.substring(2, 4);
+    const year = dateString.substring(4, 8);
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -34,15 +45,27 @@ const WorkExperienceModal = ({ visible, onClose, addExperience }) => {
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Adicionar Experiência de Trabalho</Text>
           <TextInput
-            placeholder="Descreva a experiência"
-            value={experience}
-            onChangeText={setExperience}
+            placeholder="Local de trabalho"
+            value={place}
+            onChangeText={setPlace}
             style={styles.input}
           />
           <TextInput
-            placeholder="Link de documento ou foto"
-            value={link}
-            onChangeText={setLink}
+            placeholder="Data de início"
+            value={startDate}
+            onChangeText={t => setStartDate(formatDate(t))}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Data de saída"
+            value={endDate}
+            onChangeText={t => setEndDate(formatDate(t))}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Descrição do trabalho"
+            value={description}
+            onChangeText={setDescription}
             style={styles.input}
           />
           <TouchableOpacity style={styles.button} onPress={handleAddExperience}>
@@ -53,8 +76,10 @@ const WorkExperienceModal = ({ visible, onClose, addExperience }) => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View style={styles.experienceItem}>
-                <Text style={styles.experienceText}>{item.experience}</Text>
-                <Text style={styles.linkText}>{item.link}</Text>
+                <Text style={styles.experienceText}>{item.place}</Text>
+                <Text style={styles.experienceText}>{item.start_date}</Text>
+                <Text style={styles.experienceText}>{item.end_date}</Text>
+                <Text style={styles.experienceText}>{item.description}</Text>
                 <TouchableOpacity onPress={() => handleDeleteExperience(index)}>
                   <Text style={styles.deleteText}>X</Text>
                 </TouchableOpacity>

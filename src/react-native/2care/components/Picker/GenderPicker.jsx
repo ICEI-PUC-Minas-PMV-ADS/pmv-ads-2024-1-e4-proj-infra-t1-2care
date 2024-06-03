@@ -6,7 +6,7 @@ const GenderPicker = ({ selectedItems, onSelectedItemsChange }) => {
   const GENDER_MAP = {
     1: "Masculino",
     2: "Feminino",
-    3: "Outro",
+    0: "Outro",
   };
 
   return (

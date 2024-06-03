@@ -20,7 +20,6 @@ export const getCareReceiverData = async () => {
         const response = await sendAuthenticatedRequest(`${API_URL}${CARE_RECEIVER_SERVICE_URL}`)
         return response;
     } catch (error) {
-        alert('Não foi possivel receber os dados!');
         return false
     }
 };
