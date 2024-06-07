@@ -157,7 +157,6 @@ function Requests({ userType }) {
                 container: {
                 flex: 1,
                 backgroundColor: '#fff',
-                paddingHorizontal: 10,
                 },
                 requestContainer: {
                 flexDirection: 'row',
