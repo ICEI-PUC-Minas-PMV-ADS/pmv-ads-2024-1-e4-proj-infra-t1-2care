@@ -24,10 +24,32 @@ export default function SendRequest({ visible, onClose, caregiver }) {
   const [endTimeFilled, setEndTimeFilled] = useState(false);
 
   const formatDate = (inputDate) => {
-    const cleaned = ('' + inputDate).replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{0,2})(\d{0,2})(\d{0,4})$/);
-    if (match) {
-      setDate(!match[2] ? match[1] : match[1] + '/' + match[2] + (match[3] ? '/' + match[3] : ''));
+    const cleaned = inputDate.replace(/\D/g, '');
+    const day = cleaned.slice(0, 2);
+    const month = cleaned.slice(2, 4);
+    const year = cleaned.slice(4, 8);
+  
+    let formattedDate = '';
+    if (day) {
+      formattedDate += day;
+      if (month) {
+        formattedDate += '/' + month;
+        if (year) {
+          formattedDate += '/' + year;
+        }
+      }
+    }
+    setDate(formattedDate);
+  
+    if (formattedDate.length === 10) {
+      const proposedDate = new Date(year, month - 1, day);
+      if (!(proposedDate.getDate() === parseInt(day) && proposedDate.getMonth() + 1 === parseInt(month) && proposedDate.getFullYear() === parseInt(year))) {
+        setErrorMessage('Data inválida');
+      } else {
+        setErrorMessage('');
+      }
+    } else {
+      setErrorMessage('');
     }
   };
 
