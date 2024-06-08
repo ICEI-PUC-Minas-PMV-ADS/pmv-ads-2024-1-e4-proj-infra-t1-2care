@@ -54,10 +54,28 @@ export default function SendRequest({ visible, onClose, caregiver }) {
   };
 
   const formatTime = (inputTime, setTime) => {
-    const cleaned = ('' + inputTime).replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{0,2})(\d{0,2})$/);
-    if (match) {
-      setTime(!match[2] ? match[1] : match[1] + ':' + match[2]);
+    const cleaned = inputTime.replace(/\D/g, '');
+    const hour = cleaned.slice(0, 2);
+    const minute = cleaned.slice(2, 4);
+  
+    let formattedTime = '';
+    if (hour) {
+      formattedTime += hour;
+      if (minute) {
+        formattedTime += ':' + minute;
+      }
+    }
+    setTime(formattedTime);
+  
+    if (formattedTime.length === 5) {
+      const [hours, minutes] = formattedTime.split(':').map(Number);
+      if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60) {
+        setErrorMessage('');
+      } else {
+        setErrorMessage('Hora inválida');
+      }
+    } else {
+      setErrorMessage('');
     }
   };
 
