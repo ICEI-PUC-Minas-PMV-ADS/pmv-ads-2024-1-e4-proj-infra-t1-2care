@@ -17,6 +17,11 @@ export default function SendRequest({ visible, onClose, caregiver }) {
   const [totalHours, setTotalHours] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
   const [status, setStatus] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [dateFilled, setDateFilled] = useState(false);
+  const [startTimeFilled, setStartTimeFilled] = useState(false);
+  const [endTimeFilled, setEndTimeFilled] = useState(false);
 
   const formatDate = (inputDate) => {
     const cleaned = ('' + inputDate).replace(/\D/g, '');
@@ -49,8 +54,17 @@ export default function SendRequest({ visible, onClose, caregiver }) {
   
     try {
       await sendProposalToCaregiver(proposalData);
+      setSuccessMessage('Proposta enviada com sucesso!');
+      setTimeout(() => {
+        setSuccessMessage('');
+        onClose();
+      }, 2000);
     } catch (error) {
-      console.log('Erro ao enviar proposta para o cuidador:', error);
+      if (error.message === "Por favor, complete seu cadastro e tente novamente:") {
+        setErrorMessage(error.message);
+      } else {
+        console.log('Erro ao enviar proposta para o cuidador:', error);
+      }
     }
   };
 
@@ -83,12 +97,17 @@ export default function SendRequest({ visible, onClose, caregiver }) {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Monte sua proposta para: {caregiver.name}</Text>
+          {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+          {successMessage ? <Text style={styles.successMessage}>{successMessage}</Text> : null}
           <View style={styles.formContent}>
             <CustomLabel text="Data" />
             <TextInput
-              style={styles.input}
+              style={[styles.input, !dateFilled && { borderColor: 'red' }]}
               value={date}
-              onChangeText={formatDate}
+              onChangeText={(text) => {
+                formatDate(text);
+                setDateFilled(!!text);
+              }}
               placeholder="DD/MM/AAAA"
               maxLength={10}
               keyboardType="numeric"
@@ -153,7 +172,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   formContent: {
-    marginBottom: 20,
+    marginBottom: 
+    20,
   },
   closeButton: {
     position: "absolute",
@@ -219,22 +239,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: 20,
   },
-  
-buttonText: {
+  buttonText: {
     color: "white",
-}, 
-labelText: {
-  color: "#000000",
-  fontSize: 13,
-  lineHeight: 2,
-  fontWeight: 400,
-  paddingLeft: 10,
-  paddingRight: 10,
-  paddingTop: 6,
-  paddingBottom: 3,
-},
-
-spaceVertical: {
-  marginVertical: 10,
-},
+  },
+  errorMessage: {
+    color: "red",
+    marginBottom: 10,
+  },
+  successMessage: {
+    color: "green",
+    marginBottom: 10,
+  },
+  spaceVertical: {
+    marginVertical: 10,
+  },
 });
