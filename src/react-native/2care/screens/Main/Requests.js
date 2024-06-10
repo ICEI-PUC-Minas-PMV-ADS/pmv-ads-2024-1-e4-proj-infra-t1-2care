@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } fr
 import { getRequestsList, acceptRequest, declineRequest, cancelRequest } from "../../services/caregiverServiceMob";
 import { getUserType } from "../../services/userServiceMob";
 import { FontAwesome } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 
 import TopNavOptions from "../../components/TopNav/TopNavOptions";
 
@@ -14,7 +15,6 @@ function Requests() {
 
   useEffect(() => {
     getRequestsList().then((requestList) => {
-      console.log(requestList);
       if (requestList) {
         setRequestsList(requestList);
       }
@@ -63,6 +63,8 @@ function Requests() {
       case 2:
       case 3:
         return "Recusadas";
+      case 4:
+        return "Cancelada";
       default:
         return "Desconhecido";
     }
@@ -73,11 +75,7 @@ function Requests() {
       const response = await acceptRequest(requestId);
       if (response) {
         Alert.alert("Sucesso", "Solicitação aceita com sucesso");
-        getRequestsList().then((requestList) => {
-          if (requestList) {
-            setRequestsList(requestList);
-          }
-        });
+        updateRequestsList();
       } else {
         Alert.alert("Erro", "Falha ao aceitar solicitação");
       }
@@ -89,11 +87,7 @@ function Requests() {
       const response = await declineRequest(requestId);
       if (response) {
         Alert.alert("Sucesso", "Solicitação recusada com sucesso");
-        getRequestsList().then((requestList) => {
-          if (requestList) {
-            setRequestsList(requestList);
-          }
-        });
+        updateRequestsList();
       } else {
         Alert.alert("Erro", "Falha ao recusar solicitação");
       }
@@ -101,19 +95,31 @@ function Requests() {
   };
 
   const handleCancelRequest = async (requestId) => {
-    if (userType === 'Carereceiver') {
+    if (userType === 'CareReceiver') {
       const response = await cancelRequest(requestId);
       if (response) {
-        Alert.alert("Sucesso", "Solicitação cancelada com sucesso");
-        getRequestsList().then((requestList) => {
-          if (requestList) {
-            setRequestsList(requestList);
-          }
+        Toast.show({
+          type: 'success',
+          text1: 'Sucesso',
+          text2: 'Proposta cancelada com sucesso!'
         });
+        updateRequestsList();
       } else {
-        Alert.alert("Erro", "Falha ao cancelar solicitação");
+        Toast.show({
+          type: 'error',
+          text1: 'Erro',
+          text2: 'Erro ao cancelar proposta'
+        });
       }
     }
+  };
+
+  const updateRequestsList = () => {
+    getRequestsList().then((requestList) => {
+      if (requestList) {
+        setRequestsList(requestList);
+      }
+    });
   };
 
   return (
@@ -167,7 +173,7 @@ function Requests() {
                       </TouchableOpacity>
                     </>
                   )}
-                  {userType === 'Carereceiver' && (
+                  {userType === 'CareReceiver' && (
                     <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleCancelRequest(request.id)}>
                       <Text style={styles.buttonText}>Cancelar</Text>
                     </TouchableOpacity>
@@ -180,91 +186,91 @@ function Requests() {
       </ScrollView>
       {showScrollTop && (
         <TouchableOpacity style={styles.scrollTopButton} onPress={scrollToTop}>
-          <Text style={styles.scrollTopText}>↑</Text>
+        <Text style={styles.scrollTopText}>↑</Text>
         </TouchableOpacity>
-      )}
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  requestContainer: {
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#486142',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  },
-  imageContainer: {
-    marginRight: 10,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  textContainer: {
-    flex: 1,
-  },
-  caregiverName: {
-    fontSize: 18,
-    color: '#486142',
-    fontWeight: '600'
-  },
-  iconTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  timeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-  },
-  timeTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconText: {
-    marginLeft: 5,
-  },
-  scrollTopButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 30,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  scrollTopText: {
-    color: '#fff',
-    fontSize: 20,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
-  },
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-    marginHorizontal: 5
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
-
-export default Requests;
+        )}
+        </View>
+        );
+        }
+        
+        const styles = StyleSheet.create({
+        container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        },
+        requestContainer: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#486142',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+        },
+        imageContainer: {
+        marginRight: 10,
+        },
+        image: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        },
+        textContainer: {
+        flex: 1,
+        },
+        caregiverName: {
+        fontSize: 18,
+        color: '#486142',
+        fontWeight: '600'
+        },
+        iconTextContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+        },
+        timeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+        },
+        timeTextContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        },
+        iconText: {
+        marginLeft: 5,
+        },
+        scrollTopButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        borderRadius: 30,
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        },
+        scrollTopText: {
+        color: '#fff',
+        fontSize: 20,
+        },
+        buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+        },
+        button: {
+        paddingVertical: 8,
+        paddingHorizontal: 20,
+        borderRadius: 50,
+        marginHorizontal: 5
+        },
+        buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        },
+        });
+        
+        export default Requests;
