@@ -79,7 +79,29 @@ export default function SendRequest({ visible, onClose, caregiver }) {
     }
   };
 
+  const validateFields = () => {
+    if (!date || date.length !== 10 || errorMessage.includes('Data inválida')) {
+      setErrorMessage('Por favor, preencha a data corretamente.');
+      return false;
+    }
+    if (!startTime || startTime.length !== 5 || errorMessage.includes('Hora inicial inválida')) {
+      setErrorMessage('Por favor, preencha a hora inicial corretamente.');
+      return false;
+    }
+    if (!endTime || endTime.length !== 5 || errorMessage.includes('Hora final inválida')) {
+      setErrorMessage('Por favor, preencha a hora final corretamente.');
+      return false;
+    }
+    if (totalHours <= 0) {
+      setErrorMessage('A hora final deve ser maior que a hora inicial.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSendProposal = async () => {
+    if (!validateFields()) return;
+
     const proposalData = {
       caregiver: caregiver._id,
       date: date.split('/').reverse().join('-'), 
@@ -212,8 +234,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   formContent: {
-    marginBottom: 
-    20,
+    marginBottom: 20,
   },
   closeButton: {
     position: "absolute",
