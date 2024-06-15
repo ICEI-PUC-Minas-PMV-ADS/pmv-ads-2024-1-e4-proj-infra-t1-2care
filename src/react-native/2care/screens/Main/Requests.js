@@ -175,7 +175,7 @@ function Requests() {
                       </>
                     )}
                     {userType === 'CareReceiver' && (
-                      <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleCancelRequest(request.id)}>
+                      <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={() => handleCancelRequest(request.id)}>
                         <Text style={styles.buttonText}>Cancelar</Text>
                       </TouchableOpacity>
                     )}
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 10,
+    flex: 1,
   },
   button: {
     paddingVertical: 8,
@@ -276,6 +277,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#B65138',
+    marginLeft: 'auto',
   },
   loginPrompt: {
     flex: 1,
