@@ -33,3 +33,13 @@ export const sendProposalToCaregiver = async (proposalData) => {
         throw error;
     } 
 };
+
+export const createEvaluation = async (evaluation) => {
+        try {
+            const response = await sendAuthenticatedRequest(`${API_URL}/caregiver/ratings/create`, "POST", evaluation);
+            return response;
+        } catch (error) {
+            console.error('Erro ao enviar avaliação:', error.response ? error.response.data : error.message);
+            throw new Error('Erro ao enviar avaliação: ' + (error.response ? error.response.data : error.message));
+        }
+    };

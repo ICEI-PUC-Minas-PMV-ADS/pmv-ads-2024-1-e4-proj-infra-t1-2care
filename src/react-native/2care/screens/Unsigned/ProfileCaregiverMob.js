@@ -104,14 +104,15 @@ export default function ProfileCaregiverMob() {
           </View>
 
           {caregiverData ? 
-            <View style={styles.buttonsProfile}>
-              <Pressable onPress={handleReviews} style={styles.button}>
-                <Text style={styles.buttonText}>Avaliações</Text>
-              </Pressable>
-              <Pressable onPress={handleAgendaPress} style={styles.button}>
-                <Text style={styles.buttonText}>Agenda</Text>
-              </Pressable>
-            </View>
+            // <View style={styles.buttonsProfile}>
+            //   <Pressable onPress={handleReviews} style={styles.button}>
+            //     <Text style={styles.buttonText}>Avaliações</Text>
+            //   </Pressable>
+            //   <Pressable onPress={handleAgendaPress} style={styles.button}>
+            //     <Text style={styles.buttonText}>Agenda</Text>
+            //   </Pressable>
+            // </View> 
+            <View/>
           :
             <View style={styles.buttonsProfile}>
               <Pressable onPress={ () => alert("Complete seu perfil primeiro")} style={[styles.button, { backgroundColor: '#a3b0a0' }]}>

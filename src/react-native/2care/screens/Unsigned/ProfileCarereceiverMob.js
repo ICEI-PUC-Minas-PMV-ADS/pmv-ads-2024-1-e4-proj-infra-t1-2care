@@ -108,9 +108,9 @@ export default function ProfileCarereceiverMob() {
             <Pressable onPress={handleSendRequest} style={styles.button}>
               <Text style={styles.buttonText}>Propostas enviadas</Text>
             </Pressable>
-            <Pressable onPress={handleReviews} style={styles.button}>
+            {/* <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações feitas</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
 
           <View style={styles.infoContainer}>
