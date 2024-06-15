@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22
+    marginTop: 30,
+    marginBottom: 30
   },
   modalView: {
     margin: 20,
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: screenWidth - 40
+    width: '90%',
+    maxWidth: 400,
   },
   modalText: {
     marginBottom: 15,

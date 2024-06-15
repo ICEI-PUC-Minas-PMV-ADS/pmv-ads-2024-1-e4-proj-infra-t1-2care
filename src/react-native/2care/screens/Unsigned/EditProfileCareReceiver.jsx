@@ -56,7 +56,7 @@ const EditProfileScreenCareReceiver = () => {
           phone: user?.phone || '',
           picture: user?.picture || "",
           gender: careReceiver?.gender || 0,
-          specialCare: careReceiver?.specialCare || "", // Mantido como string
+          specialCare: careReceiver?.specialCare || "",
           emergencyContact: careReceiver?.emergency_contact || "",
           personalInfo: careReceiver?.additional_info || "",
           share_special_care: careReceiver?.share_special_care || false,
