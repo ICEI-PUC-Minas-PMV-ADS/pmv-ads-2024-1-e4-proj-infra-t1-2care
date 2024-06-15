@@ -35,16 +35,16 @@ export default function ProfileCaregiverMob() {
       try {
         const user = await getUserData();
         const caregiver = await getCaregiverData();
-        const userEmail = await getUserEmail();
+        // const userEmail = await getUserEmail();
 
         setUserData(user);
         setCaregiverData(caregiver);
         setYearsExperience(caregiver.yearsExperience); 
-        setEmail(userEmail || userEmail);
+        // setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Caregiver Data:", caregiver);
-        console.log("User Email:", userEmail);
+        // console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -124,14 +124,14 @@ export default function ProfileCaregiverMob() {
             </View>
           }
 
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-            {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
-          </View>
+            Text style={styles.info}>carlos.alberto@gmail.com</Text>
+          </View>  */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

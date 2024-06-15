@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
-import { getUserData, getUserEmail } from "../../services/userServiceMob";
+import { getUserData } from "../../services/userServiceMob";
 import { getCareReceiverData } from "../../services/careReceiverMob.js";
 
 const GENDER_MAP = {
@@ -35,15 +35,15 @@ export default function ProfileCarereceiverMob() {
       try {
         const user = await getUserData();
         const carereceiver = await getCareReceiverData();
-        const userEmail = await getUserEmail();
+        // const userEmail = await getUserEmail();
 
         setUserData(user);
         setCarereceiverData(carereceiver);
-        setEmail(userEmail || userEmail);
+        // setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Carereceiver Data:", carereceiver);
-        console.log("User Email:", userEmail);
+        // console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -113,14 +113,14 @@ export default function ProfileCarereceiverMob() {
             </Pressable> */}
           </View>
 
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-            {/*<Text style={styles.info}>maria.brandao@@gmail.com</Text>*/}
-          </View>
+        
+          </View> */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

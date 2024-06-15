@@ -103,13 +103,13 @@ export default function ViewCaregiverInfo({ route }) {
                         </Pressable>
                     </View>
 
-                    <View style={styles.infoContainer}>
+                    {/* <View style={styles.infoContainer}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Icon name="at" size={20} style={styles.icon} />
                             <Text style={styles.label}>E-MAIL</Text>
                         </View>
                         <Text style={styles.info}>{caregiverData.email}</Text>
-                    </View>
+                    </View> */}
 
                     <View style={styles.infoContainer}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
