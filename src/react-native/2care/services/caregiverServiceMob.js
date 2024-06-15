@@ -46,7 +46,7 @@ export const getAllowedToEvaluate = async (caregiverId) => {
 
 export const createEvaluation = async (evaluation) => {
     try {
-        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings/create`, "POST", evaluation);
+        const response = await sendAuthenticatedRequest(`${API_URL}${SERVICE_URL}/ratings/create/`, "POST", evaluation);
         return response;
     } catch (error) {
         console.error('Erro ao enviar avaliação:', error.response ? error.response.data : error.message);

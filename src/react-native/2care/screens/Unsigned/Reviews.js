@@ -44,6 +44,10 @@ const Reviews = () => {
         description: newReview,
         caregiverId: caregiver._id
       };
+      console.log(newEvaluation)
+     await createEvaluation(newEvaluation).then((result) => 
+        result ? toast.success('Avaliação criada com sucesso!',{onClose: () => {navigate("/home");}, autoClose:1000}) : ""
+      )
       console.log(newEvaluation);
       await createEvaluation(newEvaluation);
       alert('Avaliação enviada com sucesso!');
