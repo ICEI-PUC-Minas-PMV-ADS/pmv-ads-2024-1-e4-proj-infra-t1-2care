@@ -4,28 +4,27 @@ import { useNavigation } from "@react-navigation/native";
 import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCareReceiverData, updateCareReceiver } from "../../services/careReceiverMob";
 import GenderPicker from "../../components/Picker/GenderPicker.jsx";
-
+import SpecialCareModal from "../../components/Modal/SpecialCareModal.jsx";
 
 const EditProfileScreenCareReceiver = () => {
   const navigation = useNavigation();
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  
   const [formData, setFormData] = useState({
     name: "",
     birth_date: "",
     phone: "",
     gender: 0,
-    specialCare: "",              
-    emergencyContact: "",         
+    specialCare: "",
+    emergencyContact: "",
     post_code: "",
-    personalInfo: "",              
+    personalInfo: "",
     share_special_care: false,
     picture: "",
   });
-
   const [selectedGender, setSelectedGender] = useState([]);
   const [errors, setErrors] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const fieldLabels = {
     name: "Nome completo",
@@ -57,7 +56,7 @@ const EditProfileScreenCareReceiver = () => {
           phone: user?.phone || '',
           picture: user?.picture || "",
           gender: careReceiver?.gender || 0,
-          specialCare: careReceiver?.specialCare || "",
+          specialCare: careReceiver?.specialCare || "", // Mantido como string
           emergencyContact: careReceiver?.emergency_contact || "",
           personalInfo: careReceiver?.additional_info || "",
           share_special_care: careReceiver?.share_special_care || false,
@@ -88,7 +87,6 @@ const EditProfileScreenCareReceiver = () => {
     } else {
       setFormData({ ...formData, [name]: value });
     }
-    // setErrors({ ...errors, [name]: "" });
   };
 
   const handleSubmit = async () => {
@@ -112,22 +110,26 @@ const EditProfileScreenCareReceiver = () => {
           picture: formData.picture,
         };
         const careReceiver = {
-          // specialCare: formData.specialCare, fix me
+          specialCare: formData.specialCare, 
           emergency_contact: formData.emergencyContact,
           additional_info: formData.personalInfo,
           share_special_care: formData.share_special_care,
         };
-  
+
+        if (formData.share_special_care) {
+          careReceiver.specialCare = formData.specialCare.split(', ').map(item => item.trim());
+        }
+
         const response = await updateCareReceiver(user, careReceiver);
         console.log("Atualização bem-sucedida", response);
-        
+
         // Atualizar os dados no front-end
         setFormData({
           ...formData,
           ...response.user,
           ...response.careReceiver,
         });
-        
+
         navigation.goBack();
       } catch (error) {
         console.error("Erro na atualização", error);
@@ -149,6 +151,10 @@ const EditProfileScreenCareReceiver = () => {
     setSelectedGender(selectedItems);
   };
 
+  const handleSpecialCareChange = (selectedCareTypes) => {
+    setFormData({ ...formData, specialCare: selectedCareTypes.join(', ') });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container}>
@@ -161,8 +167,8 @@ const EditProfileScreenCareReceiver = () => {
           />
         </View>
         <View style={styles.form}>
-          {Object.keys(formData).filter(key => 
-            key !== 'gender' && 
+          {Object.keys(formData).filter(key =>
+            key !== 'gender' &&
             key !== 'specialCare' &&
             key !== 'personalInfo' &&
             key !== 'share_special_care'
@@ -186,14 +192,10 @@ const EditProfileScreenCareReceiver = () => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Cuidados Especiais</Text>
-            <TextInput
-              style={styles.input}
-              value={formData.specialCare}
-              onChangeText={(text) => handleChange('specialCare', text)}
-              multiline={true}
-              numberOfLines={3}
-            />
+            <Text style={styles.label}>{fieldLabels['specialCare']}</Text>
+            <Pressable style={styles.input} onPress={() => setModalVisible(true)}>
+              <Text>{formData.specialCare || 'Selecione os cuidados especiais'}</Text>
+            </Pressable>
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>{fieldLabels['share_special_care']}</Text>
@@ -226,6 +228,12 @@ const EditProfileScreenCareReceiver = () => {
           </View>
         </View>
       </ScrollView>
+      <SpecialCareModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        selectedCareTypes={formData.specialCare.split(', ').map(item => item.trim())}
+        setSelectedCareTypes={handleSpecialCareChange}
+      />
     </SafeAreaView>
   );
 };
