@@ -16,10 +16,9 @@ import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCaregiverData } from "../../services/caregiverServiceMob.js";
 
 const GENDER_MAP = {
-  0: "",
+  0: "Não especificado",
   1: "Masculino",
   2: "Feminino",
-  3: "Outro",
 };
 
 const specializations = [
@@ -136,13 +135,12 @@ export default function ProfileCaregiverMob() {
             </View>
           }
 
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-            {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -151,8 +149,7 @@ export default function ProfileCaregiverMob() {
               <Text style={styles.label}>TELEFONE</Text>
             </View>
             <Text style={styles.info}>{userData.phone}</Text>
-            {/*<Text style={styles.info}>31 99999-9999</Text>*/}
-          </View>
+          </View> */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
