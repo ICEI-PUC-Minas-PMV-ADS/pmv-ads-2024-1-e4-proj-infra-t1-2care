@@ -244,7 +244,7 @@ const EditProfileScreenCareGiver = () => {
             key !== 'dailyRate' &&
             key !== 'hourlyRate' &&
             key !== 'additionalInfo' &&
-            key !== 'maxRequestKm'
+            key !== 'max_request_km'
           ).map((key) => (
             <View key={key} style={styles.inputContainer}>
               <Text style={styles.label}>{fieldLabels[key]}</Text>
