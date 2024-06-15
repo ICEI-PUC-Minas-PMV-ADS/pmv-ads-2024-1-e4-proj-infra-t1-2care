@@ -128,7 +128,7 @@ export default function ProfileCarereceiverMob() {
               <Text style={styles.label}>TELEFONE</Text>
             </View>
             <Text style={styles.info}>{userData.phone}</Text>
-          </View> */}
+          </View>
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

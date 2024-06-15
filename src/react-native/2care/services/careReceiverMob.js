@@ -41,7 +41,7 @@ export const sendProposalToCaregiver = async (proposalData) => {
     } catch (error) {
         console.error('Erro ao enviar proposta para o cuidador:', error);
         throw error;
-    } 
+    } }
 
 export const createEvaluation = async (evaluation) => {
         try {
@@ -51,5 +51,5 @@ export const createEvaluation = async (evaluation) => {
             console.error('Erro ao enviar avaliação:', error.response ? error.response.data : error.message);
             throw new Error('Erro ao enviar avaliação: ' + (error.response ? error.response.data : error.message));
         }
-    };
+    }
 
