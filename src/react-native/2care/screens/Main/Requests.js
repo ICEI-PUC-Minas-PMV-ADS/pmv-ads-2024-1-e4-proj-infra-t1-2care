@@ -125,152 +125,168 @@ function Requests() {
   return (
     <View style={styles.container}>
       <TopNavOptions onSelect={setSelectedOption} selectedOption={selectedOption} />
-      <ScrollView
-        ref={(ref) => (scrollViewRef = ref)}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-      >
-        {requestsList.map((request, index) => (
-          <View key={index} style={[styles.requestContainer, getStatusText(request.status) === selectedOption ? null : { display: 'none' }]}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{ uri: request.caregiver.user.picture }}
-              />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.caregiverName}>
-                {request.caregiver.user.name || 'N/A'}
-              </Text>
-              <View style={styles.iconTextContainer}>
-                <FontAwesome name="calendar" size={18} color="#486142" />
-                <Text style={styles.iconText}>{request.date}</Text>
+      {userType ? (
+        <ScrollView
+          ref={(ref) => (scrollViewRef = ref)}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+        >
+          {requestsList.map((request, index) => (
+            <View key={index} style={[styles.requestContainer, getStatusText(request.status) === selectedOption ? null : { display: 'none' }]}>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: request.caregiver.user.picture }}
+                />
               </View>
-              <View style={styles.timeContainer}>
-                <View style={styles.timeTextContainer}>
-                  <FontAwesome name="clock-o" size={18} color="#486142" />
-                  <Text style={styles.iconText}>{request.start_time}</Text>
+              <View style={styles.textContainer}>
+                <Text style={styles.caregiverName}>
+                  {request.caregiver.user.name || 'N/A'}
+                </Text>
+                <View style={styles.iconTextContainer}>
+                  <FontAwesome name="calendar" size={18} color="#486142" />
+                  <Text style={styles.iconText}>{request.date}</Text>
                 </View>
-                <View style={styles.timeTextContainer}>
-                  <FontAwesome name="clock-o" size={18} color="#486142" />
-                  <Text style={styles.iconText}>{request.end_time}</Text>
+                <View style={styles.timeContainer}>
+                  <View style={styles.timeTextContainer}>
+                    <FontAwesome name="clock-o" size={18} color="#486142" />
+                    <Text style={styles.iconText}>{request.start_time}</Text>
+                  </View>
+                  <View style={styles.timeTextContainer}>
+                    <FontAwesome name="clock-o" size={18} color="#486142" />
+                    <Text style={styles.iconText}>{request.end_time}</Text>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.iconTextContainer}>
-                <FontAwesome name="money" size={18} color="#486142" />
-                <Text style={styles.iconText}>{request.final_price}</Text>
-              </View>
-              <Text>Status: {getStatusText(request.status)}</Text>
-              {request.status === 0 && (
-                <View style={styles.buttonContainer}>
-                  {userType === 'Caregiver' && (
-                    <>
-                      <TouchableOpacity style={[styles.button, { backgroundColor: '#ED8733' }]} onPress={() => handleDeclineRequest(request.id)}>
-                        <Text style={styles.buttonText}>Aceitar</Text>
+                <View style={styles.iconTextContainer}>
+                  <FontAwesome name="money" size={18} color="#486142" />
+                  <Text style={styles.iconText}>{request.final_price}</Text>
+                </View>
+                <Text>Status: {getStatusText(request.status)}</Text>
+                {request.status === 0 && (
+                  <View style={styles.buttonContainer}>
+                    {userType === 'Caregiver' && (
+                      <>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: '#ED8733' }]} onPress={() => handleDeclineRequest(request.id)}>
+                          <Text style={styles.buttonText}>Aceitar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleAcceptRequest(request.id)}>
+                          <Text style={styles.buttonText}>Recusar</Text>
+                        </TouchableOpacity>
+                      </>
+                    )}
+                    {userType === 'CareReceiver' && (
+                      <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleCancelRequest(request.id)}>
+                        <Text style={styles.buttonText}>Cancelar</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleAcceptRequest(request.id)}>
-                        <Text style={styles.buttonText}>Recusar</Text>
-                      </TouchableOpacity>
-                    </>
-                  )}
-                  {userType === 'CareReceiver' && (
-                    <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleCancelRequest(request.id)}>
-                      <Text style={styles.buttonText}>Cancelar</Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              )}
+                    )}
+                  </View>
+                )}
+              </View>
             </View>
-          </View>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      ) : (
+        <View style={styles.loginPrompt}>
+          <Text style={styles.loginText}>Faça login e envie/receba propostas!</Text>
+        </View>
+      )}
       {showScrollTop && (
         <TouchableOpacity style={styles.scrollTopButton} onPress={scrollToTop}>
-        <Text style={styles.scrollTopText}>↑</Text>
+          <Text style={styles.scrollTopText}>↑</Text>
         </TouchableOpacity>
-        )}
-        </View>
-        );
-        }
-        
-        const styles = StyleSheet.create({
-        container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        },
-        requestContainer: {
-        flexDirection: 'row',
-        borderWidth: 1,
-        borderColor: '#486142',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 10,
-        },
-        imageContainer: {
-        marginRight: 10,
-        },
-        image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        },
-        textContainer: {
-        flex: 1,
-        },
-        caregiverName: {
-        fontSize: 18,
-        color: '#486142',
-        fontWeight: '600'
-        },
-        iconTextContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-        },
-        timeContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 5,
-        },
-        timeTextContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        },
-        iconText: {
-        marginLeft: 5,
-        },
-        scrollTopButton: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        borderRadius: 30,
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        },
-        scrollTopText: {
-        color: '#fff',
-        fontSize: 20,
-        },
-        buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 10,
-        },
-        button: {
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 50,
-        marginHorizontal: 5
-        },
-        buttonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        },
-        });
-        
-        export default Requests;
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  requestContainer: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#486142',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  imageContainer: {
+    marginRight: 10,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  caregiverName: {
+    fontSize: 18,
+    color: '#486142',
+    fontWeight: '600'
+  },
+  iconTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  timeTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconText: {
+    marginLeft: 5,
+  },
+  scrollTopButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 30,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollTopText: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    marginHorizontal: 5
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  loginPrompt: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginText: {
+    fontSize: 18,
+    color: '#486142',
+    fontWeight: '600',
+  },
+});
+
+export default Requests;
