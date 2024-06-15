@@ -47,16 +47,16 @@ export default function ProfileCaregiverMob() {
       try {
         const user = await getUserData();
         const caregiver = await getCaregiverData();
-        const userEmail = await getUserEmail();
+        // const userEmail = await getUserEmail();
 
         setUserData(user);
         setCaregiverData(caregiver);
         setYearsExperience(caregiver.yearsExperience); 
-        setEmail(userEmail || userEmail);
+        // setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Caregiver Data:", caregiver);
-        console.log("User Email:", userEmail);
+        // console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -116,14 +116,15 @@ export default function ProfileCaregiverMob() {
           </View>
 
           {caregiverData ? 
-            <View style={styles.buttonsProfile}>
-              <Pressable onPress={handleReviews} style={styles.button}>
-                <Text style={styles.buttonText}>Avaliações</Text>
-              </Pressable>
-              <Pressable onPress={handleAgendaPress} style={styles.button}>
-                <Text style={styles.buttonText}>Agenda</Text>
-              </Pressable>
-            </View>
+            // <View style={styles.buttonsProfile}>
+            //   <Pressable onPress={handleReviews} style={styles.button}>
+            //     <Text style={styles.buttonText}>Avaliações</Text>
+            //   </Pressable>
+            //   <Pressable onPress={handleAgendaPress} style={styles.button}>
+            //     <Text style={styles.buttonText}>Agenda</Text>
+            //   </Pressable>
+            // </View> 
+            <View/>
           :
             <View style={styles.buttonsProfile}>
               <Pressable onPress={ () => alert("Complete seu perfil primeiro")} style={[styles.button, { backgroundColor: '#a3b0a0' }]}>

@@ -9,6 +9,7 @@ import {
     ActivityIndicator
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import TopNav from '../../components/TopNav/TopNav';
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { useAuth } from '../../contexts/AuthContext';
@@ -39,7 +40,7 @@ export default function ViewCaregiverInfo({ route }) {
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
     const { user } = useAuth();
-
+    
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -80,6 +81,7 @@ export default function ViewCaregiverInfo({ route }) {
 
     return (
         <View style={styles.container}>
+            <TopNav navigation={navigation} />
             <ScrollView>
                 <View style={styles.innerContainer}>
                     <Text style={styles.name}>{caregiverData.name}</Text>
@@ -101,13 +103,13 @@ export default function ViewCaregiverInfo({ route }) {
                         </Pressable>
                     </View>
 
-                    <View style={styles.infoContainer}>
+                    {/* <View style={styles.infoContainer}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Icon name="at" size={20} style={styles.icon} />
                             <Text style={styles.label}>E-MAIL</Text>
                         </View>
                         <Text style={styles.info}>{caregiverData.email}</Text>
-                    </View>
+                    </View> */}
 
                     <View style={styles.infoContainer}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>

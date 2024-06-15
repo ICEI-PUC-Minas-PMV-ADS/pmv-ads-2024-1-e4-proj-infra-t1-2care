@@ -12,8 +12,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
-import { getUserData, getUserEmail } from "../../services/userServiceMob";
+import { getUserData } from "../../services/userServiceMob";
 import { getCareReceiverData, getCareReceiverSpecialCare } from "../../services/careReceiverMob.js";
+
 
 const GENDER_MAP = {
   0: "Não especificado",
@@ -34,17 +35,15 @@ export default function ProfileCarereceiverMob() {
       try {
         const user = await getUserData();
         const carereceiver = await getCareReceiverData();
-        const userEmail = await getUserEmail();
-        const specialCare = await getCareReceiverSpecialCare();
+        // const userEmail = await getUserEmail();
 
         setUserData(user);
         setCarereceiverData(carereceiver);
-        setSpecialCareList(specialCare)
-        setEmail(userEmail || userEmail);
+        // setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Carereceiver Data:", carereceiver);
-        console.log("User Email:", userEmail);
+        // console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -109,10 +108,11 @@ export default function ProfileCarereceiverMob() {
             <Pressable onPress={handleSendRequest} style={styles.button}>
               <Text style={styles.buttonText}>Propostas enviadas</Text>
             </Pressable>
-            <Pressable onPress={handleReviews} style={styles.button}>
+            {/* <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações feitas</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
+
 
         {/*   <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -120,7 +120,7 @@ export default function ProfileCarereceiverMob() {
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-          </View>
+          </View> */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
