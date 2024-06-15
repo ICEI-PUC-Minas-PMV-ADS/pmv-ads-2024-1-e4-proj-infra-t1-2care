@@ -16,11 +16,23 @@ import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCaregiverData } from "../../services/caregiverServiceMob.js";
 
 const GENDER_MAP = {
-  0: "",
+  0: "Não especificado",
   1: "Masculino",
   2: "Feminino",
-  3: "Outro",
 };
+
+const specializations = [
+  "Cuidados Básicos de Saúde",
+  "Apoio à Mobilidade",
+  "Higiene e Cuidados Pessoais",
+  "Nutrição e Preparo de Refeições",
+  "Estimulação Cognitiva e Emocional",
+  "Acompanhamento e Transporte",
+  "Gestão de Rotinas e Medicamentos",
+  "Cuidados com o Ambiente Doméstico",
+  "Suporte em Cuidados Paliativos",
+  "Formação em Demência e Alzheimer",
+];
 
 export default function ProfileCaregiverMob() {
   const navigation = useNavigation();
@@ -123,13 +135,12 @@ export default function ProfileCaregiverMob() {
             </View>
           }
 
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-            {/*<Text style={styles.info}>carlos.alberto@gmail.com</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -138,8 +149,7 @@ export default function ProfileCaregiverMob() {
               <Text style={styles.label}>TELEFONE</Text>
             </View>
             <Text style={styles.info}>{userData.phone}</Text>
-            {/*<Text style={styles.info}>31 99999-9999</Text>*/}
-          </View>
+          </View> */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -159,10 +169,15 @@ export default function ProfileCaregiverMob() {
             <Text style={styles.label}>QUALIFICAÇÕES</Text>
           </View>
           
-          <View style={styles.qualifications}>
-            {userData.qualifications && userData.qualifications.length > 0 ? (
-              userData.qualifications.map((qualification, index) => (
-                <Text style={styles.info} key={index}>• {qualification}</Text>
+          <View>
+            {caregiverData.qualifications && caregiverData.qualifications.length > 0 ? (
+              caregiverData.qualifications.map((qualification, index) => (
+                <View style={styles.qualifications} key={index} >
+                  <View style={styles.info}>
+                    <Text>{qualification.name}</Text>
+                    <Text>{qualification.conclusion_date}</Text>
+                  </View>
+                </View>
               ))
             ) : (
               <Text style={styles.info}>Não informado.</Text>
@@ -174,10 +189,10 @@ export default function ProfileCaregiverMob() {
             <Text style={styles.label}>ESPECIALIZAÇÕES</Text>
           </View>
 
-          <View style={styles.qualifications}>
-            {userData.specialization && userData.specialization.length > 0 ? (
-              userData.specialization.map((specialization, index) => (
-                <Text style={styles.info} key={index}>• {specialization}</Text>
+          <View>
+            {caregiverData.specializations && caregiverData.specializations.length > 0 ? (
+              caregiverData.specializations.map((specialization, index) => (
+                <Text style={styles.info} key={index}>• {specializations[specialization.name]}</Text>
               ))
             ) : (
               <Text style={styles.info}>Não informado.</Text>
@@ -188,18 +203,16 @@ export default function ProfileCaregiverMob() {
             <Icon name="book" size={20} style={styles.icon} />
             <Text style={styles.label}>EXPERIÊNCIAS DE TRABALHO</Text>
           </View>
-          <View style={styles.experiences}>
-            {/*{userData.workexperience.map((workexperience, index) => (
-            <View key={index} style={styles.experienceCard}>
-              <Text>{workExperience}</Text>
-            </View> 
-
-          ))}
-        */}
-            
-            {userData.workexperience && userData.workexperience.length > 0 ? (
-              userData.workexperience.map((workexperience, index) => (
-                <Text style={styles.info} key={index}>• {workexperience}</Text>
+          <View>
+            {caregiverData.work_exp && caregiverData.work_exp.length > 0 ? (
+              caregiverData.work_exp.map((exp, index) => (
+                <View key={index} style={styles.experiences}>
+                  <View style={styles.info}>
+                    <Text>{exp.place}</Text>
+                    <Text>{exp.start_date} - {exp.end_date}</Text>
+                    <Text>{exp.description}</Text>
+                  </View>
+                </View>
               ))
             ) : (
               <Text style={styles.info}>Não informado.</Text>
@@ -210,31 +223,9 @@ export default function ProfileCaregiverMob() {
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text style={styles.years}>{yearsexperience}</Text>
-              {/*<Text style={styles.yearsexeperience}>5 </Text>*/}
+              <Text style={styles.label}> {caregiverData.career_time} </Text>
               <Text style={styles.label}>ANOS DE EXPERIÊNCIA</Text>
             </View>
-          </View>
-
-          <View style={styles.infoContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="calendar" size={20} style={styles.icon} />
-              <Text style={styles.label}>DIAS FIXOS INDISPONÍVEIS</Text>
-            </View>
-          </View>
-          <View style={styles.fixedDays}>
-            <Text>{userData.fixedDaysUnavailable}</Text> 
-            {/*<Text>Segunda-feira, Quarta-feira</Text>*/}
-          </View>
-
-          <View style={styles.infoContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name="clock-o" size={20} style={styles.icon} />
-              <Text style={styles.label}>HORÁRIOS FIXOS INDISPONÍVEIS</Text>
-            </View>
-          </View>
-          <View style={styles.fixedHours}>
-            <Text>{userData.fixedHoursUnavailable}</Text> 
-            {/*<Text>09:00 - 12:00, 15:00 - 18:00</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -244,8 +235,7 @@ export default function ProfileCaregiverMob() {
             </View>
           </View>
           <View style={styles.pricing}>
-            <Text>{userData.dailyRate}</Text>
-            {/* <Text>R$ 300,00</Text> */}
+            <Text>{caregiverData.day_price}</Text>
           </View>
 
           <View style={styles.infoContainer}>
@@ -255,8 +245,7 @@ export default function ProfileCaregiverMob() {
             </View>
           </View>
           <View style={styles.pricing}>
-            <Text>{userData.hourlyRate}</Text> 
-            {/* <Text>R$ 50,00</Text>*/}
+            <Text>{caregiverData.hour_price}</Text> 
           </View>
 
           <View style={styles.infoContainer}>
@@ -265,14 +254,9 @@ export default function ProfileCaregiverMob() {
               <Text style={styles.label}>INFORMAÇÕES ADICIONAIS</Text>
             </View>
           </View>
+          
           <View style={styles.additionalInfo}>
-            {userData.additionalInfo && userData.additionalInfo.length > 0 ? (
-              userData.additionalInfo.map((info, index) => (
-                <Text style={styles.info} key={index}>• {info}</Text>
-              ))
-            ) : (
-              <Text style={styles.info}>Não informado.</Text>
-            )}
+            {caregiverData.additional_info ? <Text> {caregiverData.additional_info}</Text> : <Text>Não informado.</Text>}
           </View>
 
           <View style={styles.buttonsProfile}>

@@ -213,13 +213,7 @@ export default function ViewCaregiverInfo({ route }) {
                         </View>
                     </View>
                     <View style={styles.additionalInfo}>
-                        {caregiverData.additionalInfo && caregiverData.additionalInfo.length > 0 ? (
-                            caregiverData.additionalInfo.map((info, index) => (
-                                <Text style={styles.info} key={index}>• {info}</Text>
-                            ))
-                        ) : (
-                            <Text style={styles.info}>Não informado.</Text>
-                        )}
+                        {caregiverData.additional_info ? <Text> {caregiverData.additional_info}</Text> : <Text>Não informado.</Text>}
                     </View>
                 </View>
             </ScrollView>

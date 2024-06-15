@@ -24,6 +24,16 @@ export const getCareReceiverData = async () => {
     }
 };
 
+export const getCareReceiverSpecialCare = async () => {
+    try {
+        const response = await sendAuthenticatedRequest(`${API_URL}${CARE_RECEIVER_SERVICE_URL}/special-care-user`)
+        return response;
+    } catch (error) {
+        return false
+    }
+};
+
+
 export const sendProposalToCaregiver = async (proposalData) => { 
     try {
         const response = await sendAuthenticatedRequest(`${API_URL}${CAREGIVER_REQUESTS_SERVICE_URL}`, "POST", proposalData);
