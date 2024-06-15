@@ -59,11 +59,10 @@ function Requests() {
       case 0:
         return "Pendentes";
       case 1:
-        return "Aceitas";
-      case 2:
-      case 3:
         return "Recusadas";
-      case 4:
+      case 2:
+        return "Aceitas";
+      case 3:
         return "Cancelada";
       default:
         return "Desconhecido";
@@ -166,11 +165,11 @@ function Requests() {
                   <View style={styles.buttonContainer}>
                     {userType === 'Caregiver' && (
                       <>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: '#ED8733' }]} onPress={() => handleDeclineRequest(request.id)}>
-                          <Text style={styles.buttonText}>Aceitar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleAcceptRequest(request.id)}>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: '#B65138' }]} onPress={() => handleDeclineRequest(request.id)}>
                           <Text style={styles.buttonText}>Recusar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: '#ED8733' }]} onPress={() => handleAcceptRequest(request.id)}>
+                          <Text style={styles.buttonText}>Aceitar</Text>
                         </TouchableOpacity>
                       </>
                     )}
