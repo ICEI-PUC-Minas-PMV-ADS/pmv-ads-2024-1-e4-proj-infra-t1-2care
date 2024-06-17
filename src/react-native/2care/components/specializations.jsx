@@ -19,7 +19,7 @@ const Specializations = () => {
     ];
 
     const handleSelectSpecialization = (index) => {
-        navigation.navigate('Search', {filter: index})
+        navigation.navigate('Search', {filter: {'specializations': index}})
       };
     
 

@@ -32,6 +32,9 @@ export default function Home() {
     setCaregiverList(list);
 }, [list, user]);
 
+  const handleFilter = (applyFilter) => {
+    navigation.navigate('Search', {filter: applyFilter})
+  };
 
   return (
     <ScrollView>
@@ -48,9 +51,9 @@ export default function Home() {
           <View style={styles.container}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Mais próximos</Text>
-              {/* <Pressable style={styles.button}>
+              <Pressable style={styles.button} onPress={() => handleFilter({'distance': 10})}>
                 <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-              </Pressable> */}
+              </Pressable>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
               <View style={styles.itemContainer}>
@@ -64,9 +67,9 @@ export default function Home() {
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Bem avaliados</Text>
-          {/* <Pressable style={styles.button}>
+          <Pressable style={styles.button}  onPress={() => handleFilter({'rating': 5})}>
             <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-          </Pressable> */}
+          </Pressable>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>
@@ -77,9 +80,9 @@ export default function Home() {
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Mais experientes</Text>
-          {/* <Pressable style={styles.button}>
+          <Pressable style={styles.button}  onPress={() => handleFilter({'experience': 10})}>
             <Text style={{ color: '#FFFFFF', fontWeight: '200', fontSize: 12 }}>Ver mais</Text>
-          </Pressable> */}
+          </Pressable>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.itemContainer}>

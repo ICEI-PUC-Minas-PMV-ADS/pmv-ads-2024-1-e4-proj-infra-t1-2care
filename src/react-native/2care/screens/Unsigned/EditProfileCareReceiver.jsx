@@ -4,38 +4,27 @@ import { useNavigation } from "@react-navigation/native";
 import { getUserData, getUserEmail } from "../../services/userServiceMob";
 import { getCareReceiverData, updateCareReceiver } from "../../services/careReceiverMob";
 import GenderPicker from "../../components/Picker/GenderPicker.jsx";
-
-const formatDateToDisplay = (dateString) => {
-  if (!dateString) return '';
-  const [year, month, day] = dateString.split('-');
-  return `${day}/${month}/${year}`;
-};
-
-const formatDateToSave = (dateString) => {
-  if (!dateString) return '';
-  const [day, month, year] = dateString.split('/');
-  return `${year}-${month}-${day}`;
-};
+import SpecialCareModal from "../../components/Modal/SpecialCareModal.jsx";
 
 const EditProfileScreenCareReceiver = () => {
   const navigation = useNavigation();
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  
   const [formData, setFormData] = useState({
     name: "",
     birth_date: "",
     phone: "",
     gender: 0,
-    specialCare: "",              
-    emergencyContact: "",         
+    specialCare: "",
+    emergencyContact: "",
     post_code: "",
-    personalInfo: "",              
-    shareSpecialCare: false,
+    personalInfo: "",
+    share_special_care: false,
+    picture: "",
   });
-
   const [selectedGender, setSelectedGender] = useState([]);
   const [errors, setErrors] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const fieldLabels = {
     name: "Nome completo",
@@ -46,7 +35,8 @@ const EditProfileScreenCareReceiver = () => {
     emergencyContact: "Contato de Emergência",
     post_code: "CEP",
     personalInfo: "Informações Pessoais",
-    shareSpecialCare: "Compartilhar Cuidados Especiais"
+    share_special_care: "Compartilhar Cuidados Especiais",
+    picture: "Link da imagem",
   };
 
   useEffect(() => {
@@ -64,11 +54,12 @@ const EditProfileScreenCareReceiver = () => {
           birth_date: user?.birth_date ? user.birth_date.split('-').reverse().join('/') : '',
           post_code: user?.post_code || '',
           phone: user?.phone || '',
+          picture: user?.picture || "",
           gender: careReceiver?.gender || 0,
           specialCare: careReceiver?.specialCare || "",
           emergencyContact: careReceiver?.emergency_contact || "",
           personalInfo: careReceiver?.additional_info || "",
-          shareSpecialCare: careReceiver?.share_special_care || false,
+          share_special_care: careReceiver?.share_special_care || false,
         });
 
         setSelectedGender([careReceiver?.gender || ""]);
@@ -81,8 +72,21 @@ const EditProfileScreenCareReceiver = () => {
   }, []);
 
   const handleChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
-    /* setErrors({ ...errors, [name]: "" }); */
+    if (['post_code', 'phone', 'emergencyContact'].includes(name)) {
+      value = value.replace(/[^0-9]/g, '');
+      if (name === 'post_code') {
+        value = value.slice(0, 8).replace(/(\d{5})(\d{3})/, '$1-$2');
+      } else if (name === 'phone' || name === 'emergencyContact') {
+        value = value.slice(0, 11).replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
+      }
+      setFormData({ ...formData, [name]: value });
+    } else if (name === 'birth_date') {
+      value = value.replace(/[^0-9]/g, '');
+      value = value.slice(0, 8).replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+      setFormData({ ...formData, [name]: value });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async () => {
@@ -106,22 +110,26 @@ const EditProfileScreenCareReceiver = () => {
           picture: formData.picture,
         };
         const careReceiver = {
-          // specialCare: formData.specialCare, fix me
+          specialCare: formData.specialCare, 
           emergency_contact: formData.emergencyContact,
           additional_info: formData.personalInfo,
-          share_special_care: formData.shareSpecialCare,
+          share_special_care: formData.share_special_care,
         };
-  
+
+        if (formData.share_special_care) {
+          careReceiver.specialCare = formData.specialCare.split(', ').map(item => item.trim());
+        }
+
         const response = await updateCareReceiver(user, careReceiver);
         console.log("Atualização bem-sucedida", response);
-        
+
         // Atualizar os dados no front-end
         setFormData({
           ...formData,
           ...response.user,
           ...response.careReceiver,
         });
-        
+
         navigation.goBack();
       } catch (error) {
         console.error("Erro na atualização", error);
@@ -143,6 +151,10 @@ const EditProfileScreenCareReceiver = () => {
     setSelectedGender(selectedItems);
   };
 
+  const handleSpecialCareChange = (selectedCareTypes) => {
+    setFormData({ ...formData, specialCare: selectedCareTypes.join(', ') });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container}>
@@ -150,16 +162,16 @@ const EditProfileScreenCareReceiver = () => {
           <Text style={styles.profileName}>{userName}</Text>
           <Text style={styles.profileRole}>Cliente</Text>
           <Image
-            source={{ uri: 'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
+            source={{ uri: formData?.picture ? formData.picture : 'https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg' }}
             style={styles.profileImage}
           />
         </View>
         <View style={styles.form}>
-          {Object.keys(formData).filter(key => 
-            key !== 'gender' && 
+          {Object.keys(formData).filter(key =>
+            key !== 'gender' &&
             key !== 'specialCare' &&
             key !== 'personalInfo' &&
-            key !== 'shareSpecialCare'
+            key !== 'share_special_care'
           ).map((key) => (
             <View key={key} style={styles.inputContainer}>
               <Text style={styles.label}>{fieldLabels[key]}</Text>
@@ -180,23 +192,19 @@ const EditProfileScreenCareReceiver = () => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Cuidados Especiais</Text>
-            <TextInput
-              style={styles.input}
-              value={formData.specialCare}
-              onChangeText={(text) => handleChange('specialCare', text)}
-              multiline={true}
-              numberOfLines={3}
-            />
+            <Text style={styles.label}>{fieldLabels['specialCare']}</Text>
+            <Pressable style={styles.input} onPress={() => setModalVisible(true)}>
+              <Text>{formData.specialCare || 'Selecione os cuidados especiais'}</Text>
+            </Pressable>
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>{fieldLabels['shareSpecialCare']}</Text>
+            <Text style={styles.label}>{fieldLabels['share_special_care']}</Text>
             <Switch
               trackColor={{ false: "#767577", true: "#a9b7a6" }}
-              thumbColor={formData.shareSpecialCare ? "#f4bc8c" : "#d06d39"}
+              thumbColor={formData.share_special_care ? "#f4bc8c" : "#d06d39"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={() => setFormData({ ...formData, shareSpecialCare: !formData.shareSpecialCare })}
-              value={formData.shareSpecialCare}
+              onValueChange={() => setFormData({ ...formData, share_special_care: !formData.share_special_care })}
+              value={formData.share_special_care}
               style={styles.switch}
             />
           </View>
@@ -220,6 +228,12 @@ const EditProfileScreenCareReceiver = () => {
           </View>
         </View>
       </ScrollView>
+      <SpecialCareModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        selectedCareTypes={formData.specialCare.split(', ').map(item => item.trim())}
+        setSelectedCareTypes={handleSpecialCareChange}
+      />
     </SafeAreaView>
   );
 };

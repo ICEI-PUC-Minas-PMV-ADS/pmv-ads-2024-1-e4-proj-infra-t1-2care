@@ -12,21 +12,21 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import "../AppMobile.css";
 import { logout } from "../../services/authServiceMob.js";
-import { getUserData, getUserEmail } from "../../services/userServiceMob";
-import { getCareReceiverData } from "../../services/careReceiverMob.js";
+import { getUserData } from "../../services/userServiceMob";
+import { getCareReceiverData, getCareReceiverSpecialCare } from "../../services/careReceiverMob.js";
+
 
 const GENDER_MAP = {
-  0: "",
+  0: "Não especificado",
   1: "Masculino",
   2: "Feminino",
-  3: "Outro",
 };
-
 
 export default function ProfileCarereceiverMob() {
   const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
   const [carereceiverData, setCarereceiverData] = useState(null);
+  const [specialCareList, setSpecialCareList] = useState(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState(null);
 
@@ -35,15 +35,15 @@ export default function ProfileCarereceiverMob() {
       try {
         const user = await getUserData();
         const carereceiver = await getCareReceiverData();
-        const userEmail = await getUserEmail();
+        // const userEmail = await getUserEmail();
 
         setUserData(user);
         setCarereceiverData(carereceiver);
-        setEmail(userEmail || userEmail);
+        // setEmail(userEmail || userEmail);
 
         console.log("User Data:", user);
         console.log("Carereceiver Data:", carereceiver);
-        console.log("User Email:", userEmail);
+        // console.log("User Email:", userEmail);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       } finally {
@@ -108,19 +108,19 @@ export default function ProfileCarereceiverMob() {
             <Pressable onPress={handleSendRequest} style={styles.button}>
               <Text style={styles.buttonText}>Propostas enviadas</Text>
             </Pressable>
-            <Pressable onPress={handleReviews} style={styles.button}>
+            {/* <Pressable onPress={handleReviews} style={styles.button}>
               <Text style={styles.buttonText}>Avaliações feitas</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
 
-          <View style={styles.infoContainer}>
+
+        {/*   <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="at" size={20} style={styles.icon} />
               <Text style={styles.label}>E-MAIL</Text>
             </View>
             <Text style={styles.info}>{email}</Text>
-            {/*<Text style={styles.info}>maria.brandao@@gmail.com</Text>*/}
-          </View>
+          </View> */}
 
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -128,7 +128,6 @@ export default function ProfileCarereceiverMob() {
               <Text style={styles.label}>TELEFONE</Text>
             </View>
             <Text style={styles.info}>{userData.phone}</Text>
-            {/*<Text style={styles.info}>31 93333-4444</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -149,12 +148,14 @@ export default function ProfileCarereceiverMob() {
             <Text style={styles.label}>CUIDADOS ESPECIAIS</Text>
           </View>
           <View style={styles.cuidadosEspeciais}>
-            {/*<Text>{userData.specialCare}</Text>
-            <Text> . Alimentação balanceada</Text>
-            <Text> . Prática de atividades físicas</Text>*/}
-            {carereceiverData.specialCare && carereceiverData.specialCare.length > 0 ? (
-              carereceiverData.specialCare.map((care, index) => (
-                <Text key={index}>• {care}</Text>
+            {specialCareList?.specialCare && specialCareList.specialCare.length > 0 ? (
+              specialCareList.specialCare.map((care, index) => (
+                <View key={index} style={styles.specialCare}>
+                  <View style={styles.info}>
+                    <Text><strong>• {care.care_type_display.name_display}</strong></Text>
+                    <Text>{care.description}</Text>
+                  </View>
+                </View>
               ))
             ) : (
               <Text>Nenhum cuidado especial listado.</Text>
@@ -164,18 +165,9 @@ export default function ProfileCarereceiverMob() {
           <View style={styles.infoContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon name="phone" size={20} style={styles.icon} />
-              <Text style={styles.label}>CONTATOS DE EMERGÊNCIA</Text>
+              <Text style={styles.label}>CONTATOS DE EMERGÊNCIA</Text>  
             </View>
-             {/*<Text style={styles.info}>{userData.emergenceContact}</Text>
-           <Text style={styles.info}> . 31 99999-9999</Text>
-            <Text style={styles.info}> . 31 88888-8888</Text>*/}
-            {carereceiverData.emergencyContacts && carereceiverData.emergencyContacts.length > 0 ? (
-              carereceiverData.emergencyContacts.map((contact, index) => (
-                <Text style={styles.info} key={index}>• {contact}</Text>
-              ))
-            ) : (
-              <Text style={styles.info}>Não informado.</Text>
-            )}
+             {carereceiverData?.emergency_contact ? <Text style={styles.info}>{carereceiverData.emergency_contact}</Text> :  <Text style={styles.info}>Não informado.</Text>}
           </View>
 
           <View style={styles.infoContainer}>
@@ -186,7 +178,6 @@ export default function ProfileCarereceiverMob() {
           </View>
           <View style={styles.cep}>
             <Text>{userData.post_code}</Text>
-            {/*<Text>55555-888</Text>*/}
           </View>
 
           <View style={styles.infoContainer}>
@@ -195,14 +186,8 @@ export default function ProfileCarereceiverMob() {
               <Text style={styles.label}>INFORMAÇÕES ADICIONAIS</Text>
             </View>
           </View>
-          <View style={styles.additionalInfo}>
-            {userData.additionalInfo && userData.additionalInfo.length > 0 ? (
-              userData.additionalInfo.map((info, index) => (
-                <Text style={styles.info} key={index}>• {info}</Text>
-              ))
-            ) : (
-              <Text style={styles.info}>Não informado.</Text>
-            )}
+          <View>
+            {carereceiverData?.additional_info ? <Text style={styles.info}>{carereceiverData.additional_info}</Text> :  <Text style={styles.info}>Não informado.</Text>}
           </View>  
           <View style={styles.buttonsProfile}>
             <Pressable
@@ -332,5 +317,11 @@ const styles = StyleSheet.create({
     width: 130,
     marginBottom: 20,
     justifyContent: "center",
+  },
+  specialCare: {
+    borderWidth: 1,
+    borderColor: "#486142",
+    padding: 10,
+    borderRadius: 5,
   },
 });
