@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const TopNavOptions = ({ onSelect, selectedOption }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Icon name={Platform.OS === 'ios' ? 'chevron-back' : 'arrow-back'} size={24} color="#333" />
+      </TouchableOpacity>
       <TouchableOpacity style={styles.option} onPress={() => onSelect('Pendentes')}>
         <Text style={[styles.optionText, selectedOption === 'Pendentes' && styles.selectedText]}>Pendentes</Text>
         {selectedOption === 'Pendentes' && <View style={styles.selectedIndicator} />}
@@ -25,12 +32,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#799275',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#000',
-    marginLeft: 'inherit',
+  },
+  backButton: {
+    marginRight: 10,
   },
   option: {
     marginLeft: 20,
