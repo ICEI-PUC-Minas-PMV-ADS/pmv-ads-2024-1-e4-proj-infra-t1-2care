@@ -1,0 +1,27 @@
+message: Please cite this software using these metadata.
+title: 2Care
+authors:
+  - family-names: de Lima Ventura
+    given-names:  Amanda
+  - family-names: Caroline Trindade Gonçalves Cândido
+    given-names: Ellen
+  - family-names: Lomeu Junior
+    given-names: Elpidio
+  - family-names: Correia de Sá e Silva
+    given-names: Leonardo
+  - family-names: Cordeiro Marra
+    given-names: Odair
+  - family-names: Matsumoto Fernandes
+    given-names: Shinji
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Augusto Lara Soares
+    given-names: Felipe 
+keywords:
+  - Eldercare
+  - Healthcare
+  - Assist
+
+repository-code: https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care
+version: 1.0.0
+date-released: 2024-06-23
