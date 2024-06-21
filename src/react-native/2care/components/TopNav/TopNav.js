@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const TopNav = ({ navigation, title }) => {
   const handleGoBack = () => {
@@ -8,8 +9,8 @@ const TopNav = ({ navigation, title }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleGoBack}>
-        <Text style={styles.backButton}>Voltar</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Icon name={Platform.OS === 'ios' ? 'chevron-back' : 'arrow-back'} size={24} color="#333" />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </View>
@@ -28,8 +29,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000',
   },
   backButton: {
-    color: '#fff',
-    fontSize: 16,
     marginRight: 10,
   },
   title: {
