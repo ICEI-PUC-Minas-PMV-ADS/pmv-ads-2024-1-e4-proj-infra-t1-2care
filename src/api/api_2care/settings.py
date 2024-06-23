@@ -169,3 +169,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "user.CustomUserModel"
+
+CSRF_TRUSTED_ORIGINS =['https://api.2care.site', ['http://localhost:8000']]
