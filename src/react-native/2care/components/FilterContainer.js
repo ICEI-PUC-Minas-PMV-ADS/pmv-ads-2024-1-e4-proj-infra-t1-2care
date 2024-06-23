@@ -11,14 +11,16 @@ const ScreenWidth = Dimensions.get('window').width;
 const FilterContainer = (props) => {
   const [filter, setFilter] = useState(props.filter || null);
   const { user } = useAuth();
-  const [values, setValues] = useState({
+
+  const clearValues = {
     distance: 0,
     experience: '',
     rating: 0,
     day_price: '',
     hour_price: '',
     specializations: [],
-  });
+  }
+  const [values, setValues] = useState(clearValues);
 
   const clearCheckbox = {
     1: false, 2: false, 3: false,
@@ -41,7 +43,18 @@ const FilterContainer = (props) => {
   useEffect(() => {
     setFilter(props.filter || null);
     if (props.filter) {
-      handleCheckTrue(props.filter);
+      if (props.filter.specializations) {
+        handleCheckTrue(props.filter.specializations);
+      }
+      if (props.filter.distance) {
+        handleInputChange('distance', props.filter.distance);
+      }
+      if (props.filter.rating) {
+        handleInputChange('rating', props.filter.rating);
+      }
+      if (props.filter.experience) {
+        handleInputChange('experience', props.filter.experience);
+      }
     }
   }, [props.filter]);
 

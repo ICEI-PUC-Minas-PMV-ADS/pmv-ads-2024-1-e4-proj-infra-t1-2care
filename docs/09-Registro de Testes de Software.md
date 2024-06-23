@@ -242,7 +242,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a página de Cuidadores ir até o filtro de Buscas</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![web-ct-6](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/bc994bf4-275b-4ce5-9087-e52599f98d22) | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação permite ao usuário logado buscar pelos profissionais que atendem em determinada região e delimitar sua distância. |
 
 
 <br> 
@@ -266,7 +266,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a página de cuidadores ir até o filtro de Buscas</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![web-ct-8](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/9917cc83-02d5-40a4-bd60-c47e1dff87f2) | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação permite ao cliente aplicar diversos tipos de filtro de acordo com seus critérios |
 
 
 <br> 
@@ -302,7 +302,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem visualizar as avaliações dos cuidadores.|<ol><li>Acessar a página de Perfil do cuidador</li><li>Localizar a seção de avaliações</li><li>Visualizar as avaliações atribuídas pelos clientes anteriores</li></ol> | A aplicação deve exibir as avaliações dos cuidadores de forma clara e organizada.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![web-ct-11](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/aa3a7816-b381-4cfe-8313-2dea92dcf9d2) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação permite ao usuário visualizar avaliações feitas ao cuidador |
 
 
 <br> 
@@ -326,7 +326,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem visualizar os valores dos serviços durante a busca.|<ol><li>Acessar a página de Busca</li><li>Realizar uma busca por profissionais</li><li>Observar os valores dos serviços exibidos junto aos perfis dos profissionais</li></ol> | A aplicação deve apresentar de forma clara e precisa os valores dos serviços ao cliente.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![web-ct-13](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/efb05374-9f3b-457c-935c-3e6b3e857be7) | Data do Teste: 23/06/2024 - Resultado: Passou - O cliente consegue visualizar os preços dos serviços do cuidador durante a busca, seja o valor por hora, ou diária.  |
 
 
 <br> 
@@ -350,7 +350,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação responde de forma rápida às solicitações dos usuários, não superior a 30 segundos.|<ol><li>Acessar a aplicação</li><li>Realizar diversas ações, como navegar entre páginas e acessar funcionalidades</li><li>Observar o tempo de resposta para cada ação</li></ol> | A aplicação deve responder de maneira ágil, sem atrasos perceptíveis durante o uso normal.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![web-ct-8](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/26cb157d-2aec-40ce-8410-bd3e05791797) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação responde maneira rápida e fluida. |
 
 
 <br>  
@@ -374,7 +374,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação está disponível e acessível durante um período prolongado.|<ol><li>Monitorar a aplicação continuamente por um período representativo</li><li>Registrar qualquer tempo de inatividade ou interrupção</li></ol> | A aplicação deve estar disponível por pelo menos 95% do tempo monitorado, conforme especificado.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Captura de tela 2024-06-23 172208](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/448bfca8-6c69-4b6f-9952-b4f8c705c3fd) | Data do Teste: 23/06/2024 - Resultado: Passou - O servidor na qual a aplicação está hospedada esteve no ar mais de 99% do tempo nos últimos 90 dias. |
 
 
 <br> 
@@ -510,7 +510,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a tela de Cuidadores, ir até o filtro de Buscas</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-06](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/5f6cb56b-ec58-4332-bf4e-06e5061d38eb) | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação exibe os cuidadores disponíveis na região delimitada pela região selecionada pelo cliente. |
 
 
 <br> 
@@ -522,7 +522,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os cuidadores conseguem delimitar sua região de atendimento na aplicação.|<ol><li>Acessar a tela de Perfil</li><li>Localizar a opção de delimitar a região de atendimento</li><li>Definir a área desejada</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as configurações da conta do cuidador e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-07](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/0aca4140-193d-4228-a7d2-eb0d3ab1997b) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação permite ao cuidador delimitar num raio medido em km do seu endereço o raio no qual deseja oferecer seu atendimento. |
 
 
 <br> 
@@ -534,7 +534,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a tela de cuidadores ir até o filtro de Buscas</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-08](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/72606021-63be-48cf-aa9c-6d402518f0ad) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação permite ao cliente aplicar diversos filtros segundo seus critérios específicos. |
 
 
 <br> 
@@ -558,7 +558,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem avaliar os cuidadores após o atendimento.|<ol><li>Acessar a tela de Avaliação</li><li>Selecionar o cuidador a ser avaliado</li><li>Atribuir uma pontuação como base no conceito de estrelas e/ou deixar um comentário</li><li>Clicar em "Enviar Avaliação"</li></ol> | A aplicação deve registrar a avaliação do cliente e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-10](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/177f8d44-ddee-4f23-bbb8-bd937a379476) | Data do Teste: 23/06/2024 - Resultado: Passou - Após a prestação do serviço é possível realizar uma avaliação qualitativa e quantitativa do serviço prestado pelo cuidador. |
 
 
 <br> 
@@ -570,7 +570,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem visualizar as avaliações dos cuidadores.|<ol><li>Acessar a tela de Perfil do cuidador</li><li>Localizar a seção de avaliações</li><li>Visualizar as avaliações atribuídas pelos clientes anteriores</li></ol> | A aplicação deve exibir as avaliações dos cuidadores de forma clara e organizada.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-11](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/c6d11f02-2922-4a9a-b76b-7777aaa72085) | Data do Teste: 23/06/2024 - Resultado: Passou - É possível visualizar no perfil do cuidador as avaliações atribuídas por clientes anteriores. |
 
 
 <br> 
@@ -594,7 +594,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem visualizar os valores dos serviços durante a busca.|<ol><li>Acessar o campo de Busca</li><li>Realizar uma busca por profissionais</li><li>Observar os valores dos serviços exibidos junto aos perfis dos profissionais</li></ol> | A aplicação deve apresentar de forma clara e precisa os valores dos serviços ao cliente.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-13](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/e2bfe556-e52c-4ed4-93e2-2388bda58674) | Data do Teste: 23/06/2024 - Resultado: Passou - É exibido os valores da hora cobrado pelo cuidador na busca geral, e ao selecionar um cuidador específico é listado o valor da hora e da diária cobrada. |
 
 
 <br> 
@@ -606,7 +606,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface da aplicação é intuitiva para usuários de todas as idades.|<ol><li>Acessar a aplicação</li><li>Explorar as diferentes seções e funcionalidades da interface</li><li>Observar a facilidade de navegação e compreensão das funcionalidades</li></ol> | A aplicação deve ser fácil de usar e entender, mesmo para usuários com pouca experiência em tecnologia.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-06](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/daba8d40-5505-4e21-b3d6-f076b838ee8b) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação é intuitiva e fácil de usar. |
 
 
 <br> 
@@ -618,7 +618,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação responde de forma rápida às solicitações dos usuários, não superior a 30 segundos.|<ol><li>Acessar a aplicação</li><li>Realizar diversas ações, como navegar entre páginas e acessar funcionalidades</li><li>Observar o tempo de resposta para cada ação</li></ol> | A aplicação deve responder de maneira ágil, sem atrasos perceptíveis durante o uso normal.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: |   | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação atende as métricas de tempo de resposta inferior a 30s. |
 
 
 <br>  
@@ -630,7 +630,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se todas as partes da aplicação estão disponíveis em língua portuguesa.|<ol><li>Acessar a aplicação</li><li>Verificar se todos os textos e elementos da interface estão em português</li><li>Explorar diferentes seções e funcionalidades para garantir que todas as partes estejam traduzidas</li></ol> | Todos os elementos da aplicação devem estar corretamente traduzidos para o português e serem compreensíveis para os usuários.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: |  | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação está toda na língua portuguesa. |
 
 
 <br> 
@@ -642,7 +642,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação está disponível e acessível durante um período prolongado.|<ol><li>Monitorar a aplicação continuamente por um período representativo</li><li>Registrar qualquer tempo de inatividade ou interrupção</li></ol> | A aplicação deve estar disponível por pelo menos 95% do tempo monitorado, conforme especificado.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Captura de tela 2024-06-23 172208](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/448bfca8-6c69-4b6f-9952-b4f8c705c3fd) | Data do Teste: 23/06/2024 - Resultado: Passou - O servidor na qual a aplicação está hospedada esteve no ar mais de 99% do tempo nos últimos 90 dias. |
 
 
 <br> 
@@ -654,7 +654,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se todos os elementos da tela têm contraste adequado para uma boa legibilidade.|<ol><li>Acessar a aplicação</li><li>Verificar o contraste entre diferentes elementos, como texto e fundo</li><li>Usar uma ferramenta de análise de contraste para avaliar a conformidade</li></ol> | Todos os elementos da tela devem atender aos padrões de contraste recomendados para garantir uma boa legibilidade.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![Screen Shot 2024-05-05 at 13 30 30](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/cef97f6a-230e-4591-a9f9-39634f16a7e0), ![Screen Shot 2024-05-05 at 13 29 35](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/f4f7ff27-ef48-4f42-8957-79c2a876037b), ![Screen Shot 2024-05-05 at 13 29 57](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/0ef8f46b-9680-4831-9a97-bfc0ba044ebb), ![Screen Shot 2024-05-05 at 13 28 09](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/08afbd27-53d9-46e3-97ec-4af40493df0a), ![Screen Shot 2024-05-05 at 13 26 20](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/8a1108e6-1774-4cf3-baa7-5f609c11677b), ![Screen Shot 2024-05-05 at 13 25 40](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/114453508/35ec5aba-9236-45ad-b2e1-7ba50a681e0e) | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação apresentou contraste satisfatório segundo os critérios apontados pela WCAG. |
 
 
 <br> 
@@ -666,7 +666,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a aplicação é compatível com diferentes navegadores e sistemas operacionais.|<ol><li>Acessar a aplicação em diferentes dispositivos móveis, incluindo Android e iOS</li><li>Explorar diferentes funcionalidades para garantir o funcionamento adequado</li></ol> | A aplicação deve funcionar corretamente sem comprometer a experiência do usuário.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/f31e68ec-4f48-4462-9172-443771c7dee3) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/ceb49a61-942b-4ca4-bdf8-14d3832ee55f) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/a06944c1-6afb-4d2c-8caf-37d8ca9b1efb) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação é compatível com diversos navegadores em dispositivos móveis como Safari, Firefox e Google Chrome. |
 
 
 <br> 

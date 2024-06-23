@@ -152,7 +152,7 @@ const CarereceiverForm = () => {
               {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
             </div>
           <div className="field">
-            <label htmlFor="password">password:</label>
+            <label htmlFor="password">Senha:</label>
             <input
               type="password"
               id="password"

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const CardCaregiver = () => {
+const CardCaregiver = ({ caregiver }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Carlos Silva</Text>
+      <Text style={styles.title}>{caregiver.name}</Text>
       <Text style={styles.subtitle}>Cuidador</Text>
     </View>
   );

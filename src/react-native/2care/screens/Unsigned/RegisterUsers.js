@@ -23,34 +23,36 @@ export default function RegisterUsers({ route }) {
   };
 
   return (
-    <View style={styles.containerRegister}>
-      <View style={styles.header}>
-        <Pressable style={styles.goBackButton} onPress={handleGoBack}>
-          <Icon name="arrow-back" size={24} color="#486142" />
-        </Pressable>
-        <Text style={styles.title}>
-          {type === "carereceiver" ? "Olá, cliente!" : "Olá, cuidador!"}
-        </Text>
-      </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.containerLogin}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <Pressable style={styles.goBackButton} onPress={handleGoBack}>
+            <Icon name="arrow-back" size={24} color="#486142" />
+          </Pressable>
+          <Text style={styles.title}>
+            {type === "carereceiver" ? "Olá, cliente!" : "Olá, cuidador!"}
+          </Text>
+        </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.containerLogin}
-      >
-        <ScrollView>
-          <View style={styles.containerAllForm}>
-            {type === "carereceiver" && <CarereceiverFormMob />}
-            {type === "caregiver" && <CaregiverFormMob />}
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </View>
+        <View style={styles.containerAllForm}>
+          {type === "carereceiver" && <CarereceiverFormMob />}
+          {type === "caregiver" && <CaregiverFormMob />}
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  containerRegister: {
+  
+  containerLogin: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   goBackButton: {
     position: "absolute",

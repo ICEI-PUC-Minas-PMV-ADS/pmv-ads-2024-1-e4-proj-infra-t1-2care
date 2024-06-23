@@ -1,17 +1,17 @@
-# # Utilizar a imagem oficial do Python como base
-# FROM python:3.10-slim
+FROM python:3.12.3-slim
 
-# # Define o diretório de trabalho no container
-# WORKDIR /app
+# Set working directory
+WORKDIR /app
 
-# # Copia os arquivos de requisitos e instala as dependências
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy project files
+COPY . /app/
 
-# COPY requirements.txt requirements-dev.txt /app/
-# RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
+# Expose the port the app runs on
+EXPOSE 8000
 
-# # Copia o resto do seu código da aplicação
-# COPY . /app
-
-# # Executa a aplicação
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Command to run the application
+CMD ["python", "manage.py", "runserver"]

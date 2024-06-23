@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - PRODUCTION=True
+      # - DATABASE_URL=postgres://user:password@db:5432/2care_database
+    volumes:
+      - ./api:/app
+    ports:
+      - "8137:8137"
+    depends_on:
+      # - postgres
+      - mongo
+
+  web:
+    build:
+      context: ./react/2care
+      dockerfile: Dockerfile
+    volumes:
+      - ./react/2care:/app
+    ports:
+      - "3000:3000"
+
+  mobile:
+    build:
+      context: ./react-native/2care
+      dockerfile: Dockerfile
+    volumes:
+      - ./react-native/2care:/app
+    ports:
+      - "8081:8081"
+
+  # postgres:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: 2care_database
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  # postgres_data:
+  mongo_data:
