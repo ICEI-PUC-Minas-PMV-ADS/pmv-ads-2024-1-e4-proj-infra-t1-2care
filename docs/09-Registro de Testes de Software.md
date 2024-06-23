@@ -510,7 +510,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem encontrar profissionais disponíveis em uma determinada região.|<ol><li>Acessar a tela de Cuidadores, ir até o filtro de Buscas</li><li>Selecionar a opção de busca por região</li><li>Definir a região desejada</li><li>Clicar em "Aplicar"</li></ol> | A aplicação deve exibir uma lista de profissionais disponíveis na região especificada.|
-| Registro da tela: |  | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação exibe os cuidadores disponíveis em sua região ao realizar um busca. |
+| Registro da tela: | ![m-ct-06](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/5f6cb56b-ec58-4332-bf4e-06e5061d38eb) | Data do Teste: 23/06/2024 - Resultado: "Passou" - A aplicação exibe os cuidadores disponíveis na região delimitada pela região selecionada pelo cliente. |
 
 
 <br> 
@@ -522,7 +522,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os cuidadores conseguem delimitar sua região de atendimento na aplicação.|<ol><li>Acessar a tela de Perfil</li><li>Localizar a opção de delimitar a região de atendimento</li><li>Definir a área desejada</li><li>Clicar em "Salvar"</li></ol> | A aplicação deve atualizar as configurações da conta do cuidador e exibir uma mensagem de confirmação.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-07](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/0aca4140-193d-4228-a7d2-eb0d3ab1997b) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação permite ao cuidador delimitar num raio medido em km do seu endereço o raio no qual deseja oferecer seu atendimento. |
 
 
 <br> 
@@ -534,7 +534,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os clientes podem filtrar os profissionais de acordo com critérios específicos.|<ol><li>Acessar a tela de cuidadores ir até o filtro de Buscas</li><li>Utilizar os filtros disponíveis para selecionar critérios desejados</li><li>Clicar em "Aplicar Filtros"</li></ol> | A aplicação deve exibir uma lista de profissionais que correspondem aos critérios selecionados.|
-| Registro da tela: |  | Data do Teste: 00/00/2024 - Resultado: " " - "Descrição..." |
+| Registro da tela: | ![m-ct-08](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e4-proj-infra-t1-2care/assets/107289791/72606021-63be-48cf-aa9c-6d402518f0ad) | Data do Teste: 23/06/2024 - Resultado: Passou - A aplicação permite ao cliente aplicar diversos filtros segundo seus critérios específicos. |
 
 
 <br> 
